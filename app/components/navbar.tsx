@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link"; // Import Next.js Link component
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,37 +23,37 @@ export default function Navbar() {
               <div className="flex h-16 justify-between items-center">
                 {/* Left side - Logo, IvyHacks text, and Apply button */}
                 <div className="flex items-center">
-                  <a href="#" className="inline-flex items-center mr-5">
+                  <Link href="#" className="inline-flex items-center mr-5">
                     <img
                       className="h-8 w-auto"
                       src="/ivylogo.jpg"
                       alt="IvyHacks"
                     />
                     <h3 className="pl-2">IvyHacks</h3>
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Center - Navigation Links */}
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {navigationOptions.map((option) => (
-                    <a
+                    <Link
                       key={option.name}
                       href={option.href}
                       className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-gray-700"
                     >
                       {option.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
 
                 {/* Center - Navigation Links */}
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  <a
+                  <Link
                     href="#"
                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                   >
                     Apply
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Mobile menu button */}
@@ -73,22 +74,20 @@ export default function Navbar() {
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 pb-3 pt-2">
                 {navigationOptions.map((option) => (
-                  <Disclosure.Button
+                  <Link
                     key={option.name}
-                    as="a"
                     href={option.href}
                     className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50"
                   >
                     {option.name}
-                  </Disclosure.Button>
+                  </Link>
                 ))}
-                <Disclosure.Button
-                  as="a"
+                <Link
                   href="#"
                   className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50"
                 >
                   Apply
-                </Disclosure.Button>
+                </Link>
               </div>
             </Disclosure.Panel>
           </>
