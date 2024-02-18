@@ -91,13 +91,13 @@ const schedule = [
 
 export default function Schedule() {
   return (
-    <div id="schedule" className="bg-orange-50">
+    <div id="schedule" className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
         <div className="mx-auto max-w-7xl divide-y divide-orange-900/10">
-          <h2 className="mt-2 text-3xl font-cal text-orange-900 sm:text-5xl">
+          <h2 className="mt-2 text-3xl font-cal text-indigo-600 sm:text-5xl">
             Schedule
           </h2>
-          <dl className="mt-10 space-y-6 divide-y divide-orange-900/10">
+          <dl className="mt-10 space-y-6 divide-y divide-indigo-600/10">
             {schedule.map((day, dayId) => (
               <Disclosure
                 as="div"

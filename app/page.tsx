@@ -9,7 +9,7 @@ import Schedule from "./components/Schedule";
 import Dates from "./components/Dates";
 import SignupCTA from "./components/SignupCTA";
 import Team from "./components/Team";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

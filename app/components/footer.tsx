@@ -1,6 +1,6 @@
 export default function Footer({ padding = false }) {
   return (
-    <footer className="">
+    <footer>
       <div
         className={`mx-auto max-w-7xl ${
           padding ? "px-6 lg:px-8" : ""
@@ -8,8 +8,11 @@ export default function Footer({ padding = false }) {
       >
         <div className="mt-8 md:order-1 md:mt-0">
           <p className="text-center text-xs leading-5 text-white">
-            &copy; 2024. From NYC with &hearts; by
-            {" Andrew, Jan, Iris and Sudhanshu"}
+            &copy; 2024. Brought to you from NYC with{" "}
+            <span style={{ color: "red" }}>&#x2764;</span>
+            <span style={{ color: "red" }}>&#x2764;</span>
+            <span style={{ color: "red" }}>&#x2764;</span> from <b>Columbia</b>{" "}
+            x <b>Cornell</b> x <b>NYU</b>.
           </p>
         </div>
       </div>

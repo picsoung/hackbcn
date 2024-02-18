@@ -3,6 +3,7 @@ import { useState } from "react";
 import GradientHero from "./GradientHero";
 import Link from "next/link";
 import Card from "./Card"; // Make sure to import the Card component
+import ApplyButton from "./ApplyButton";
 
 const navigationOptions = [
   { name: "Sponsors", href: "#" },
@@ -37,7 +38,7 @@ export default function Hero() {
               <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                 <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                   <h1 className="text-4xl font-cal text-white sm:text-6xl">
-                    IvyHacks: NYC
+                    IvyHacks: <span className="text-indigo-600">NYC</span>
                   </h1>
                   <p className="relative mt-6 text-lg leading-8 text-gray-300 sm:max-w-md lg:max-w-none">
                     Join us for for the first edition of IvyHacks, at an amazing
@@ -49,12 +50,7 @@ export default function Hero() {
                     AI skills.
                   </p>
                   <div className="mt-10 flex items-center gap-x-6">
-                    <Link
-                      href="/signup"
-                      className="rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-sm text-gray-200 bg-indigo-600 hover:bg-indigo-700 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white-600 z-30"
-                    >
-                      Apply
-                    </Link>
+                    <ApplyButton />
                     <Link
                       href="mailto:andrew.siah@columbia.edu"
                       className="text-sm font-semibold leading-6 text-gray-300 hover:text-white z-30"

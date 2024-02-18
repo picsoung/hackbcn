@@ -2,6 +2,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import ApplyButton from "./ApplyButton";
 
 import Link from "next/link";
 
@@ -51,15 +52,8 @@ const Navbar: React.FC<NavbarProps> = ({
                   ))}
                 </div>
 
-                {/* Center - Navigation Links */}
-                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  <Link
-                    href="#"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-gray-200 bg-indigo-600 hover:bg-indigo-700 hover:text-white"
-                  >
-                    Apply
-                  </Link>
-                </div>
+                {/* Left - Navigation Links */}
+                <ApplyButton />
 
                 {/* Mobile menu button */}
                 <div className="-mr-2 flex items-center sm:hidden">
