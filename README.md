@@ -1,6 +1,10 @@
 ## TODO
 
 - Make logos pretty (one for CT, Columbia and NYU)
+- Get Navbar to point to the right sections
+- Add sponsor logos in the Sponsor section
+- Minimal style edits
+- Anything else!
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
