@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import GradientHero from "./GradientHero";
+
 import Link from "next/link"; // Import Next.js Link component
 
 export default function Navbar() {
@@ -14,7 +16,7 @@ export default function Navbar() {
   ];
 
   return (
-    <Disclosure as="nav" className="bg-white shadow">
+    <Disclosure as="nav">
       {({ open }) => {
         if (open !== mobileMenuOpen) setMobileMenuOpen(open);
         return (
@@ -29,7 +31,9 @@ export default function Navbar() {
                       src="/ivylogo.jpg"
                       alt="IvyHacks"
                     />
-                    <h3 className="pl-2">IvyHacks</h3>
+                    <h3 className="pl-2 text-white">
+                      IVY<span className="text-gray-400">Hacks</span>
+                    </h3>
                   </Link>
                 </div>
 
@@ -39,9 +43,9 @@ export default function Navbar() {
                     <Link
                       key={option.name}
                       href={option.href}
-                      className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 hover:text-gray-700"
+                      className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-200 hover:text-white"
                     >
-                      {option.name}
+                      <p>{option.name}</p>
                     </Link>
                   ))}
                 </div>
@@ -50,7 +54,7 @@ export default function Navbar() {
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   <Link
                     href="#"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-gray-200 bg-indigo-600 hover:bg-indigo-700 hover:text-white"
                   >
                     Apply
                   </Link>
@@ -77,14 +81,14 @@ export default function Navbar() {
                   <Link
                     key={option.name}
                     href={option.href}
-                    className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50"
+                    className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-white"
                   >
                     {option.name}
                   </Link>
                 ))}
                 <Link
                   href="#"
-                  className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50"
+                  className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-white"
                 >
                   Apply
                 </Link>
