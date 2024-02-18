@@ -1,28 +1,9 @@
 import { Disclosure } from "@headlessui/react";
-import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
+import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 const schedule = [
   {
-    title: "Friday - December 1",
-    content: (
-      <>
-        <small className="font-bold uppercase text-orange-700">
-          Kickoff Party
-        </small>
-        <br />
-        7:00pm | Partying, Networking & Teaming w/ Redbull and DJ Solo Lechuga
-        <br />
-        <a
-          href="https://lu.ma/8ns1rzxo"
-          className="text-blue-600 hover:text-blue-800 visited:text-purple-600"
-        >
-          Launch party registration
-        </a>
-      </>
-    ),
-  },
-  {
-    title: "Saturday - December 2",
+    title: "Saturday - March 23rd",
     content: (
       <>
         <small className="font-bold uppercase text-orange-700">Morning</small>
@@ -31,7 +12,7 @@ const schedule = [
           8:00 AM | Networking + Breakfast
         </time>
         <time className="block font-medium text-gray-500">
-          10:00 AM | Opening Speeches
+          9:00 AM | Opening Speeches
         </time>
         <time className="block font-medium text-gray-500">
           9:45 AM | Hacking solo or in teams, supported by mentors
@@ -65,7 +46,7 @@ const schedule = [
     ),
   },
   {
-    title: "Sunday - December 3",
+    title: "Sunday - March 24th",
     content: (
       <>
         <small className="font-bold uppercase text-orange-700">Morning</small>
@@ -91,7 +72,7 @@ const schedule = [
         <small className="font-bold uppercase text-orange-700">Afternoon</small>
         <br />
         <time className="block font-medium text-gray-500">
-          04:00 PM | Hackfair - Teams do their final pitches
+          03:45 PM | Hackfair - Teams do their final pitches
         </time>
         <time className="block font-medium text-gray-500">
           05:30 PM | Final Demos
@@ -133,15 +114,9 @@ export default function Schedule() {
                         </span>
                         <span className="ml-6 flex h-7 items-center">
                           {open ? (
-                            <MinusSmallIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
+                            <MinusIcon className="h-6 w-6" aria-hidden="true" />
                           ) : (
-                            <PlusSmallIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
+                            <PlusIcon className="h-6 w-6" aria-hidden="true" />
                           )}
                         </span>
                       </Disclosure.Button>

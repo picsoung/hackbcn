@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import GradientHero from "./GradientHero";
 import Link from "next/link";
 import Card from "./Card"; // Make sure to import the Card component
 
 const navigationOptions = [
   { name: "Sponsors", href: "#" },
-  { name: "Why should I Join?", href: "#" },
+  { name: "Why Join?", href: "#" },
   { name: "Schedule", href: "#" },
   { name: "Organizing Team", href: "#" },
 ];
@@ -42,15 +40,13 @@ export default function Hero() {
                     IvyHacks: NYC
                   </h1>
                   <p className="relative mt-6 text-lg leading-8 text-gray-300 sm:max-w-md lg:max-w-none">
-                    Join us for the OSShack on December 2-3rd, in person at
-                    Cornell Tech or remotely, and be part of a thrilling OSS
-                    hackathon with $100k in prizes!
+                    Join us for for the first edition of IvyHacks, at an amazing
+                    venue in NYC, and be part of a thrilling hackathon with
+                    plenty of prizes, swag and fun.
                     <br />
                     <br />
-                    OSShack is your opportunity to showcase your skills and
-                    delve deeper into the open-source community. Get ready for
-                    an unforgettable experience where coding prowess meets big
-                    rewards!
+                    Get ready for an unforgettable experience to showcase your
+                    AI skills.
                   </p>
                   <div className="mt-10 flex items-center gap-x-6">
                     <Link
@@ -69,20 +65,20 @@ export default function Hero() {
                 </div>
                 <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                   <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36">
+                    <Card name="Warp" imageSrc="/cards/warp.png" />
                     <Card
                       name="YourCompany"
                       imageSrc="/cards/yourcompany.png"
                     />
-                    <Card name="Jacobs" imageSrc="/cards/jacobs.png" />
                   </div>
                   <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                     <Card name="Modal" imageSrc="./cards/modal.png" />
-                    <Card name="Ivys" imageSrc="/cards/ivys.png" />
+                    <Card name="Jacobs" imageSrc="/cards/jacobs.png" />
                   </div>
                   <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                    <Card name="Ivys" imageSrc="/cards/ivys.png" />
-                    <Card name="Warp" imageSrc="/cards/warp.png" />
-                    <Card name="Ivys" imageSrc="/cards/ivys.png" />
+                    <Card name="Columbia" imageSrc="/cards/columbia.png" />
+                    <Card name="Cornell" imageSrc="/cards/cornelltech.png" />
+                    <Card name="NYU" imageSrc="/cards/nyu.png" />
                   </div>
                 </div>
               </div>

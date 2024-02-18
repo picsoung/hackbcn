@@ -1,20 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import GradientHero from "./GradientHero";
 
-import Link from "next/link"; // Import Next.js Link component
+import Link from "next/link";
 
-export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigationOptions = [
-    { name: "Sponsors", href: "#" },
-    { name: "Why should I Join?", href: "#" },
-    { name: "Schedule", href: "#" },
-    { name: "Organizing Team", href: "#" },
-  ];
+interface NavbarProps {
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: Dispatch<SetStateAction<boolean>>;
+  navigationOptions: { name: string; href: string }[];
+}
 
+const Navbar: React.FC<NavbarProps> = ({
+  mobileMenuOpen,
+  setMobileMenuOpen,
+  navigationOptions,
+}) => {
   return (
     <Disclosure as="nav">
       {({ open }) => {
@@ -99,4 +100,5 @@ export default function Navbar() {
       }}
     </Disclosure>
   );
-}
+};
+export default Navbar;

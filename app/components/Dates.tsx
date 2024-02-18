@@ -1,4 +1,4 @@
-export default function Date() {
+export default function Dates() {
   return (
     <div className="py-12">
       <div className="max-w-7xl mx-auto px-8">
