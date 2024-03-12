@@ -27,7 +27,7 @@ const features = [
 
 export default function WhyJoin() {
   return (
-    <div id="why" className="bg-orange-50 py-24 sm:py-32">
+    <div id="why" className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="mt-2 text-3xl font-cal text-orange-900 sm:text-5xl">
