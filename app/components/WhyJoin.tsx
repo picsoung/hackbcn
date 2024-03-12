@@ -6,21 +6,21 @@ import {
 
 const features = [
   {
-    name: "$100k in prizes",
+    name: "Cool Prizes",
     description:
-      "Compete for a chance to win from a substantial prize pool of $100,000. Showcase your skills, innovate, and stand a chance to be rewarded handsomely for your contributions.",
+      "Join the hackathon for an opportunity to win amazing prizes and exclusive swag! Display your talents, innovate, and seize the opportunity to be generously rewarded for your contributions.",
     icon: TrophyIcon,
   },
   {
     name: "Job opportunities",
     description:
-      "Participating in OSShack could open doors to numerous job opportunities. Impress the right people with your skills and you might land your dream job.",
+      "Participating in IvyHacks could open doors to numerous job opportunities. Impress the right people with your skills and you might land your dream job.",
     icon: BriefcaseIcon,
   },
   {
-    name: "Work with OSS experts",
+    name: "Work with AI experts",
     description:
-      "Get the unique opportunity to collaborate with open-source software (OSS) experts. Learn from their experience, gain insights into best practices, and enhance your coding skills.",
+      "Get the unique opportunity to collaborate with AI experts. Learn from their experience, gain insights into best practices, industry best practices, and enhance your coding skills.",
     icon: CodeBracketIcon,
   },
 ];
