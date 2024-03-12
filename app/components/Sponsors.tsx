@@ -7,62 +7,54 @@ export default function Sponsors() {
         </h2>
         <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
           <img
-            className="col-span-2 max-h-7 w-full object-contain lg:col-span-1 -mt-2"
-            src="/logos/cal.svg"
-            alt="Cal.com"
-          />
-          <img
             className="col-span-2 col-start-2 max-h-10 w-full object-contain sm:col-start-auto lg:col-span-1"
-            src="/logos/google.png"
-            alt="Google"
+            src="/logos/free_agency.jpeg"
+            alt="Free Agency"
           />
           <img
-            className="col-span-2 col-start-2 max-h-32 w-full object-contain sm:col-start-auto lg:col-span-1"
-            src="/logos/redbull.png"
-            alt="Red Bull"
-          />
-          <img
-            className="col-span-2 max-h-8 w-full object-contain lg:col-span-1"
-            src="/logos/cornell.png"
-            alt="Cornell Tech"
+            className="col-span-2 col-start-2 max-h-32 w-full object-contain sm:col-start-auto lg:col-span-1 bg-black"
+            src="/logos/praxis.png"
+            alt="Praxis"
           />
           <img
             className="col-span-2 max-h-8 w-full object-contain lg:col-span-1"
-            src="/logos/andrew.png"
-            alt="Andrew Yeung"
+            src="/logos/modal.jpg"
+            alt="Modal"
+          />
+          <img
+            className="col-span-2 max-h-8 w-full object-contain lg:col-span-1"
+            src="/logos/meta.webp"
+            alt="Meta"
           />
           <img
             className="col-span-2 max-h-16 w-full object-contain lg:col-span-1"
-            src="/logos/numi.png"
-            alt="Numi"
+            src="/logos/warp.png"
+            alt="Warp"
           />
           <img
             className="col-span-2 max-h-6 w-full object-contain lg:col-span-1"
-            src="/logos/onesafe.png"
-            alt="Onesafe"
+            src="/logos/cornell.jpg"
+            alt="Cornell"
           />
           <img
             className="col-span-2 max-h-6 w-full object-contain lg:col-span-1"
-            src="/logos/remotebase.png"
-            alt="Remotebase"
+            src="/logos/columbia.jpg"
+            alt="Columbia"
           />
           <img
             className="col-span-2 max-h-6 w-full object-contain lg:col-span-1"
-            src="/logos/documenso.png"
-            alt="Documenso"
-          />
-          <img
-            className="col-span-2 max-h-9 w-full object-contain sm:col-start-2 lg:col-span-1"
-            src="/logos/formbricks.png"
-            alt="Formbricks"
-          />
-          <img
-            className="col-span-2 col-start-2 max-h-10 w-full object-contain sm:col-start-auto lg:col-span-1"
-            src="/logos/jacobs.png"
-            alt="Jacobs"
+            src="/logos/nyu.png"
+            alt="NYU"
           />
         </div>
       </div>
     </div>
   );
 }
+// •⁠  ⁠Praxis (praxisnation.com) 
+// •⁠  ⁠Meta (meta.com) 
+// •⁠  ⁠Modal (modal.com) 
+// •⁠  ⁠Warp (warp.dev) 
+// •⁠  ⁠Cornell 
+// •⁠  ⁠NYU 
+// •⁠  ⁠Columbia
