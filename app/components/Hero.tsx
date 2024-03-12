@@ -63,8 +63,8 @@ export default function Hero() {
                   <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36">
                     <Card name="Warp" imageSrc="/cards/warp.png" />
                     <Card
-                      name="YourCompany"
-                      imageSrc="/cards/yourcompany.png"
+                      name="Meta"
+                      imageSrc="/cards/meta.png"
                     />
                   </div>
                   <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
