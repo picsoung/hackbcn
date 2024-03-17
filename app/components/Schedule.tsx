@@ -100,7 +100,7 @@ export default function Schedule() {
                 as="div"
                 key={day.title}
                 className="pt-6"
-                defaultOpen={dayId === 0}
+                defaultOpen={false}
               >
                 {({ open }) => (
                   <>
