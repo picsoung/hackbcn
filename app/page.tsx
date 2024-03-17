@@ -14,10 +14,10 @@ import Footer from "./components/Footer";
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigationOptions = [
-    { name: "Sponsors", href: "#" },
-    { name: "Why should I Join?", href: "#" },
-    { name: "Schedule", href: "#" },
-    { name: "Organizing Team", href: "#" },
+    { name: "Sponsors", href: "#sponsors" },
+    { name: "Why should I Join?", href: "#why" },
+    { name: "Schedule", href: "#schedule" },
+    { name: "Organizing Team", href: "#about" },
   ];
 
   return (

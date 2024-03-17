@@ -33,19 +33,19 @@ const Navbar: React.FC<NavbarProps> = ({
                       src="/ivylogo.jpg"
                       alt="IvyHacks"
                     />
-                    <h3 className="pl-2 text-white">
-                      IVY<span className="text-gray-400">Hacks</span>
+                    <h3 className="pl-2 text-white text-lg font-medium">
+                      IvyHacks
                     </h3>
                   </Link>
                 </div>
 
                 {/* Center - Navigation Links */}
-                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <div className="hidden sm:ml-6 sm:flex sm:space-x-5">
                   {navigationOptions.map((option) => (
                     <Link
                       key={option.name}
                       href={option.href}
-                      className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-200 hover:text-white"
+                      className="inline-flex items-center px-1 pt-1 text-lg font-medium text-black-200 hover:text-indigo-700"
                     >
                       <p>{option.name}</p>
                     </Link>
@@ -76,17 +76,11 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Link
                     key={option.name}
                     href={option.href}
-                    className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-white"
+                    className="block py-1.5 pl-10 pr-4 text-lg font-medium text-black-200 hover:text-indigo-700"
                   >
                     {option.name}
                   </Link>
                 ))}
-                <Link
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-white"
-                >
-                  Apply
-                </Link>
               </div>
             </Disclosure.Panel>
           </>
