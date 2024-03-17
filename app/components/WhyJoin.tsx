@@ -38,14 +38,14 @@ export default function WhyJoin() {
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {features.map((feature) => (
               <div key={feature.name} className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                <dt className="flex items-center gap-x-3 text-lg font-bold leading-7 text-gray-900">
                   <feature.icon
-                    className="h-5 w-5 flex-none text-orange-800"
+                    className="h-5 w-5 flex-none text-indigo-600"
                     aria-hidden="true"
                   />
                   {feature.name}
                 </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <dd className="mt-4 flex flex-auto flex-col text-lg leading-7 text-gray-800">
                   <p className="flex-auto">{feature.description}</p>
                 </dd>
               </div>
