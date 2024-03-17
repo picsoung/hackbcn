@@ -27,10 +27,10 @@ const features = [
 
 export default function WhyJoin() {
   return (
-    <div id="why" className="bg-white py-24 sm:py-32">
+    <div id="why" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
-          <h2 className="mt-2 text-3xl font-cal text-orange-900 sm:text-5xl">
+          <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
             Ready to hack?
           </h2>
         </div>

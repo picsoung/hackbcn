@@ -1,6 +1,6 @@
 export default function Sponsors() {
   return (
-    <div id="sponsors" className="bg-white py-10 sm:py-8">
+    <div id="sponsors" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
           Sponsors
