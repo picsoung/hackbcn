@@ -1,5 +1,7 @@
 ## TODO
 
+- Fix the tab title
+- Find the write font, text, and color.
 - Make logos pretty (one for CT, Columbia and NYU)
 - Get Navbar to point to the right sections
 - Add sponsor logos in the Sponsor section
