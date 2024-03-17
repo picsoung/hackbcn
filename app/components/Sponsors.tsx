@@ -1,6 +1,6 @@
 export default function Sponsors() {
   return (
-    <div id="sponsors" className="bg-white py-24 sm:py-32">
+    <div id="sponsors" className="bg-white py-10 sm:py-8">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2 className="mt-2 text-3xl font-cal text-indigo-600 sm:text-5xl">
           Sponsors
@@ -31,7 +31,7 @@ export default function Sponsors() {
             src="/logos/warp2.jpg"
             alt="Warp"
           />
-          <img/>
+          <img />
           <img
             className="col-span-2 max-h-32 w-full object-contain lg:col-span-1"
             src="/logos/cornell.jpg"
@@ -52,10 +52,10 @@ export default function Sponsors() {
     </div>
   );
 }
-// •⁠  ⁠Praxis (praxisnation.com) 
-// •⁠  ⁠Meta (meta.com) 
-// •⁠  ⁠Modal (modal.com) 
-// •⁠  ⁠Warp (warp.dev) 
-// •⁠  ⁠Cornell 
-// •⁠  ⁠NYU 
+// •⁠  ⁠Praxis (praxisnation.com)
+// •⁠  ⁠Meta (meta.com)
+// •⁠  ⁠Modal (modal.com)
+// •⁠  ⁠Warp (warp.dev)
+// •⁠  ⁠Cornell
+// •⁠  ⁠NYU
 // •⁠  ⁠Columbia
