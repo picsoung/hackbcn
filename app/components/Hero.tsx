@@ -1,20 +1,11 @@
 "use client";
-import { useState } from "react";
+
 import GradientHero from "./GradientHero";
 import Link from "next/link";
 import Card from "./Card"; // Make sure to import the Card component
 import ApplyButton from "./ApplyButton";
 
-const navigationOptions = [
-  { name: "Sponsors", href: "#" },
-  { name: "Why Join?", href: "#" },
-  { name: "Schedule", href: "#" },
-  { name: "Organizing Team", href: "#" },
-];
-
 export default function Hero() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <div>
       <main>
@@ -32,47 +23,45 @@ export default function Hero() {
               }}
             />
           </div>
-          <div className="overflow-hidden">
-            <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
-              <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
-                <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                  <h1 className="text-4xl font-cal text-white sm:text-6xl">
-                    IvyHacks <span className="text-indigo-600">NYC</span>
-                  </h1>
-                  <p className="relative mt-6 text-xl leading-8 text-gray-200 sm:max-w-md lg:max-w-none">
-                    <br />
-                    Join us for for the first edition of IvyHacks, at an amazing
-                    venue in NYC, and be part of a thrilling hackathon with
-                    plenty of prizes, swag and fun.
-                    <br />
-                    <br />
-                    Get ready for an unforgettable experience to showcase your
-                    AI skills.
-                  </p>
-                  <div className="mt-10 flex items-center gap-x-6">
-                    <ApplyButton />
-                    <Link
-                      href="mailto:andrew.siah@columbia.edu"
-                      className="text-lg font-semibold leading-6 text-gray-200 hover:text-white z-30"
-                    >
-                      Sponsor Us
-                    </Link>
-                  </div>
+          <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+            <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
+              <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+                <h1 className="text-4xl font-cal text-white sm:text-6xl">
+                  IvyHacks <span className="text-indigo-600">NYC</span>
+                </h1>
+                <p className="relative mt-6 text-lg leading-8 text-gray-200 sm:max-w-md lg:max-w-none">
+                  <br />
+                  Join us for for the first edition of IvyHacks, at an amazing
+                  venue in NYC, and be part of a thrilling hackathon with plenty
+                  of prizes, swag and fun.
+                  <br />
+                  <br />
+                  Get ready for an unforgettable experience to showcase your AI
+                  skills.
+                </p>
+                <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
+                  <ApplyButton />
+                  <Link
+                    href="mailto:andrew.siah@columbia.edu"
+                    className="text-lg font-semibold leading-6 text-gray-200 hover:text-white z-30 mt-4 sm:mt-0"
+                  >
+                    Sponsor Us
+                  </Link>
                 </div>
-                <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
-                  <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36">
-                    <Card name="Warp" imageSrc="/cards/warp.png" />
-                    <Card name="Meta" imageSrc="/cards/meta.png" />
-                  </div>
-                  <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                    <Card name="Modal" imageSrc="./cards/modal.png" />
-                    <Card name="Jacobs" imageSrc="/cards/jacobs.png" />
-                  </div>
-                  <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                    <Card name="Columbia" imageSrc="/cards/columbia.png" />
-                    <Card name="Cornell" imageSrc="/cards/cornelltech.png" />
-                    <Card name="NYU" imageSrc="/cards/nyu.png" />
-                  </div>
+              </div>
+              <div className="mt-14 flex flex-col justify-end gap-8 sm:-mt-44 sm:flex-row sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+                <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36">
+                  <Card name="Warp" imageSrc="/cards/warp.png" />
+                  <Card name="NYU" imageSrc="/cards/nyu.png" />
+                </div>
+                <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
+                  <Card name="Modal" imageSrc="./cards/modal.png" />
+                  <Card name="Cornell" imageSrc="/cards/cornelltech.png" />
+                </div>
+                <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+                  <Card name="Columbia" imageSrc="/cards/columbia.png" />
+                  <Card name="Jacobs" imageSrc="/cards/praxis2.png" />
+                  <Card name="Meta" imageSrc="/cards/meta.png" />
                 </div>
               </div>
             </div>
