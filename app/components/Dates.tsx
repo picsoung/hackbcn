@@ -2,7 +2,7 @@ export default function Dates() {
   return (
     <div className="py-10">
       <div className="max-w-7xl mx-auto px-8">
-        <h3 className="text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
+        <h3 className="text-3xl sm:text-5xl font-cal font-semibold text-white">
           March 23-24, 2024
         </h3>
         <p className="mt-4 text-xl text-gray-200">
