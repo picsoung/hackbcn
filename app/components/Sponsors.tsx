@@ -38,17 +38,17 @@ export default function Sponsors() {
             <img
               className="h-auto max-h-32 object-contain"
               src="/logos/lastmileai2.jpeg"
-              alt="Warp"
+              alt="LastMileAI"
             />
             <img
               className="h-auto max-h-32 object-contain"
               src="/logos/nomic2.jpg"
-              alt="Warp"
+              alt="Nomic"
             />
             <img
               className="h-auto max-h-32 object-contain"
               src="/logos/prompt2.png"
-              alt="Warp"
+              alt="PromptLayer"
             />
           </div>
           
