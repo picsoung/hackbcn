@@ -95,11 +95,11 @@ export default function Sponsors() {
                   alt="Passes"
                 />
               </a>
-              <a href="https://www.samsungnext.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.freeagency.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/samsung.jpg"
-                  alt="Samsung Next"
+                  src="/logos/free_agency2.jpeg"
+                  alt="Free Agency"
                 />
               </a>
             </div>
@@ -133,13 +133,14 @@ export default function Sponsors() {
                   alt="Tola Capital"
                 />
               </a>
-              <a href="https://www.freeagency.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.samsungnext.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/free_agency2.jpeg"
-                  alt="Free Agency"
+                  src="/logos/samsung.jpg"
+                  alt="Samsung Next"
                 />
               </a>
+
             </div>
             
             <div className="flex flex-wrap gap-4 justify-center">
@@ -171,5 +172,3 @@ export default function Sponsors() {
   );
 }
 
-// Hugging Face
-// Anthropic
