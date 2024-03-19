@@ -31,13 +31,13 @@ export default function Sponsors() {
             </div>
 
             <div className="flex flex-wrap gap-4 justify-center mt-10">
-              <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">
+              {/* <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
                   src="/logos/Anthropic.png"
                   alt="Anthropic"
                 />
-              </a>
+              </a> */}
               <a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
@@ -66,9 +66,6 @@ export default function Sponsors() {
                   alt="Nomic"
                 />
               </a>
-            </div>
-
-            <div className="flex flex-wrap gap-4 justify-center">
               <a href="https://lastmileai.dev/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
@@ -76,8 +73,18 @@ export default function Sponsors() {
                   alt="LastMileAI"
                 />
               </a>
+            </div>
+
+            <div className="flex flex-wrap gap-4 justify-center">
+            <a href="https://www.passes.com/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                  src="/logos/passes.png"
+                  alt="Passes"
+                />
+              </a>
               <img
-                className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                className="h-auto max-h-32 object-contain"
                 src="/logos/nyAILab.png"
                 alt="New York AI Labs"
               />
@@ -88,11 +95,18 @@ export default function Sponsors() {
                   alt="PromptLayer"
                 />
               </a>
-              <a href="https://www.passes.com/" target="_blank" rel="noopener noreferrer">
+              {/* <a href="https://lastmileai.dev/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/passes.png"
-                  alt="Passes"
+                  src="/logos/lastmileai2.jpeg"
+                  alt="LastMileAI"
+                />
+              </a> */}
+              <a href="https://blueprint.bryanjohnson.com/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                  src="/logos/blueprint.png"
+                  alt="Blueprint Bryan Johnson"
                 />
               </a>
               <a href="https://www.freeagency.com/" target="_blank" rel="noopener noreferrer">
