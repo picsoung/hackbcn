@@ -27,6 +27,15 @@ export default function Sponsors() {
           <div className="flex flex-wrap gap-4 justify-center">
             <img
               className="h-auto max-h-32 object-contain"
+              src="/logos/Anthropic.png"
+              alt="Anthropic"
+            />
+            <img
+              className="h-auto max-h-32 object-contain"
+              src="/logos/hugging-face.jpeg"
+              alt="Hugging Face"/>
+            <img
+              className="h-auto max-h-32 object-contain"
               src="/logos/meta2.jpg"
               alt="Meta"
             />
@@ -37,18 +46,59 @@ export default function Sponsors() {
             />
             <img
               className="h-auto max-h-32 object-contain"
+              src="/logos/nomic2.jpg"
+              alt="Nomic"
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-4 justify-center">
+            <img
+              className="h-auto max-h-32 object-contain"
               src="/logos/lastmileai2.jpeg"
               alt="LastMileAI"
             />
             <img
               className="h-auto max-h-32 object-contain"
-              src="/logos/nomic2.jpg"
-              alt="Nomic"
+              src="/logos/nyAILab.png"
+              alt="New York AI Labs"
             />
             <img
               className="h-auto max-h-32 object-contain"
               src="/logos/prompt2.png"
               alt="PromptLayer"
+            />
+            <img
+              className="h-auto max-h-32 object-contain"
+              src="/logos/passes.png"
+              alt="Passes"
+            />
+            <img
+              className="h-auto max-h-32 object-contain"
+              src="/logos/samsung.jpg"
+              alt="Samsung Next"
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-4 justify-center">
+            <img
+              className="h-auto max-h-32 object-contain"
+              src="/logos/645 Ventures.png"
+              alt="645 Ventures"
+            />
+            <img
+              className="h-auto max-h-32 object-contain"
+              src="/logos/everywhereVC.jpg"
+              alt="EverywhereVC"
+            />
+            <img
+              className="h-auto max-h-32 object-contain"
+              src="/logos/tolacapital.png"
+              alt="Tola Capital"
+            />
+            <img
+              className="h-auto max-h-32 object-contain"
+              src="/logos/free_agency2.jpeg"
+              alt="Free Agency"
             />
           </div>
           
@@ -74,3 +124,6 @@ export default function Sponsors() {
     </div>
   );
 }
+
+// Hugging Face
+// Anthropic
