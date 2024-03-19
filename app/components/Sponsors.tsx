@@ -8,23 +8,23 @@ export default function Sponsors() {
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="flex flex-wrap gap-4 justify-center">
             <img
-              className="h-auto max-h-32 object-contain bg-black"
+              className="h-auto max-h-40 object-contain bg-black"
               src="/logos/praxis2.jpg"
               alt="Praxis"
             />
             <img
-              className="h-auto max-h-32 object-contain"
+              className="h-auto max-h-40 object-contain"
               src="/logos/modal2.jpg"
               alt="Modal"
             />
             <img
-              className="h-auto max-h-32 object-contain"
+              className="h-auto max-h-40 object-contain"
               src="/logos/ctech2.png"
               alt="Cornell Tech"
             />
           </div>
 
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center mt-10">
             <img
               className="h-auto max-h-32 object-contain"
               src="/logos/Anthropic.png"
@@ -79,7 +79,7 @@ export default function Sponsors() {
             />
           </div>
 
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-4 justify-center mt-10">
             <img
               className="h-auto max-h-32 object-contain"
               src="/logos/645 Ventures.png"
