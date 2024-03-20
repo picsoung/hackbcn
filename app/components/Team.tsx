@@ -41,9 +41,6 @@ export default function Team() {
             Feel free to reach out if you have any questions:
             <br />
             andrew.siah@columbia.edu
-            <br />
-            +1 917-498-9356
-            <br />
           </div>
         </div>
       </div>
