@@ -21,6 +21,13 @@ export default function Sponsors() {
                   alt="Modal"
                 />
               </a>
+              <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                  src="/logos/Anthropic.png"
+                  alt="Anthropic"
+                />
+              </a>
               <a href="https://tech.cornell.edu/jacobs-technion-cornell-institute/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-40 object-contain hover:cursor-pointer"
@@ -31,13 +38,13 @@ export default function Sponsors() {
             </div>
 
             <div className="flex flex-wrap gap-4 justify-center mt-10">
-              {/* <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.passes.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/Anthropic.png"
-                  alt="Anthropic"
+                  src="/logos/passes.png"
+                  alt="Passes"
                 />
-              </a> */}
+              </a>
               <a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
@@ -66,23 +73,9 @@ export default function Sponsors() {
                   alt="Nomic"
                 />
               </a>
-              <a href="https://lastmileai.dev/" target="_blank" rel="noopener noreferrer">
-                <img
-                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/lastmileai2.jpeg"
-                  alt="LastMileAI"
-                />
-              </a>
             </div>
 
             <div className="flex flex-wrap gap-4 justify-center">
-            <a href="https://www.passes.com/" target="_blank" rel="noopener noreferrer">
-                <img
-                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/passes.png"
-                  alt="Passes"
-                />
-              </a>
               <img
                 className="h-auto max-h-32 object-contain"
                 src="/logos/nyAILab.png"
@@ -95,18 +88,18 @@ export default function Sponsors() {
                   alt="PromptLayer"
                 />
               </a>
-              {/* <a href="https://lastmileai.dev/" target="_blank" rel="noopener noreferrer">
+              <a href="https://lastmileai.dev/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
                   src="/logos/lastmileai2.jpeg"
                   alt="LastMileAI"
                 />
-              </a> */}
-              <a href="https://blueprint.bryanjohnson.com/" target="_blank" rel="noopener noreferrer">
+              </a>
+              <a href="https://supermaven.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/blueprint.png"
-                  alt="Blueprint Bryan Johnson"
+                  src="/logos/supermaven.jpeg"
+                  alt="Supermaven"
                 />
               </a>
               <a href="https://www.freeagency.com/" target="_blank" rel="noopener noreferrer">
@@ -114,6 +107,23 @@ export default function Sponsors() {
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
                   src="/logos/free_agency2.jpeg"
                   alt="Free Agency"
+                />
+              </a>
+            </div>
+
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a href="https://blueprint.bryanjohnson.com/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                  src="/logos/blueprint.png"
+                  alt="Blueprint Bryan Johnson"
+                />
+              </a>
+              <a href="https://cometeer.com/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                  src="/logos/Comeeter.png"
+                  alt="Cometeer"
                 />
               </a>
             </div>
