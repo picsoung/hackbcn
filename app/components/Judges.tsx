@@ -47,12 +47,12 @@ export default function Judges() {
             {members.map((member) => (
               <div key={member.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-xl sm:text-2xl font-bold leading-7 text-gray-900">
-                  <span className="h-5 w-20 flex-none text-indigo-600" aria-hidden="true" />
+                  <span className="h-5 w-12 flex-none text-indigo-600" aria-hidden="true" />
                   {member.name}
                 </dt>
                 <dd className="mt-2">
                   <div>
-                    <img src={member.image.src} alt={member.name} width="300" height="300" style={{border: '2px solid black'}} />
+                    <img src={member.image.src} alt={member.name} width="230" height="230" style={{border: '2px solid black'}} />
                   </div>
                   <div className="mt-4 flex flex-auto flex-col text-lg leading-7 text-gray-800">
                     <p className="flex-auto">{member.description}</p>
