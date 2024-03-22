@@ -9,13 +9,13 @@ const schedule = [
         <small className="font-bold uppercase text-indigo-600">Morning</small>
         <br />
         <time className="block font-medium text-gray-900">
-          8:00 AM | Networking + Breakfast
+          8:30 AM | Networking + Breakfast
         </time>
         <time className="block font-medium text-gray-900">
-          9:00 AM | Opening Speeches
+          10:00 AM | Opening Speeches
         </time>
         <time className="block font-medium text-gray-900">
-          9:45 AM | Hacking solo or in teams, supported by mentors
+          10:30 AM | Hacking solo or in teams, supported by mentors
         </time>
         <br />
         <small className="font-bold uppercase text-indigo-600">Hack Time</small>
