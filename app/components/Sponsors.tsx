@@ -102,16 +102,24 @@ export default function Sponsors() {
                   alt="Supermaven"
                 />
               </a>
-              <a href="https://www.freeagency.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.antimetal.com/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                  src="/logos/antimetal.png"
+                  alt="Antimetal"
+                />
+              </a>
+
+            </div>
+
+            <div className="flex flex-wrap gap-4 justify-center">
+            <a href="https://www.freeagency.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
                   src="/logos/free_agency2.jpeg"
                   alt="Free Agency"
                 />
               </a>
-            </div>
-
-            <div className="flex flex-wrap gap-4 justify-center">
               <a href="https://blueprint.bryanjohnson.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
