@@ -1,13 +1,3 @@
-## TODO
-
-- Fix the tab title Done!
-- Find the write font, text, and color. Done!
-- Make logos pretty (one for CT, Columbia and NYU) Done!
-- Get Navbar to point to the right sections Done!
-- Add sponsor logos in the Sponsor section
-- Minimal style edits Done!
-- Anything else! 
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

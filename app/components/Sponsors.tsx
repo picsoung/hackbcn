@@ -45,6 +45,13 @@ export default function Sponsors() {
                   alt="Passes"
                 />
               </a>
+              <a href="https://www.sciphi.ai/" target="_blank" rel="noopener noreferrer">
+                <img
+                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                  src="/logos/sciphi.png"
+                  alt="SciPhi"
+                />
+              </a>
               <a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
@@ -66,13 +73,7 @@ export default function Sponsors() {
                   alt="Warp"
                 />
               </a>
-              <a href="https://www.nomic.ai/" target="_blank" rel="noopener noreferrer">
-                <img
-                  className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/nomic2.jpg"
-                  alt="Nomic"
-                />
-              </a>
+
             </div>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -95,11 +96,11 @@ export default function Sponsors() {
                   alt="LastMileAI"
                 />
               </a>
-              <a href="https://supermaven.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.nomic.ai/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
-                  src="/logos/supermaven.jpeg"
-                  alt="Supermaven"
+                  src="/logos/nomic2.jpg"
+                  alt="Nomic"
                 />
               </a>
               <a href="https://www.antimetal.com/" target="_blank" rel="noopener noreferrer">
@@ -113,6 +114,13 @@ export default function Sponsors() {
             </div>
 
             <div className="flex flex-wrap gap-4 justify-center">
+            <a href="https://supermaven.com/" target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="h-auto max-h-32 object-contain hover:cursor-pointer"
+                    src="/logos/supermaven.jpeg"
+                    alt="Supermaven"
+                  />
+                </a>
             <a href="https://www.freeagency.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
