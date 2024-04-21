@@ -25,16 +25,16 @@ const Navbar: React.FC<NavbarProps> = ({
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="flex h-16 justify-between items-center">
-                {/* Left side - Logo, IvyHacks text, and Apply button */}
+                {/* Left side - Logo, HackBCN text, and Apply button */}
                 <div className="flex items-center">
                   <Link href="#" className="inline-flex items-center mr-5">
                     <img
                       className="h-8 w-auto"
-                      src="/ivylogo.jpg"
-                      alt="IvyHacks"
+                      src="/hackbcnlogo.png"
+                      alt="HackBCN logo"
                     />
                     <h3 className="pl-2 text-white text-lg font-medium">
-                      IvyHacks
+                      HackBCN
                     </h3>
                   </Link>
                 </div>

@@ -17,10 +17,11 @@ export default function GradientHero() {
             #gradient-canvas {
             width:100%;
             height:100%;
-            --gradient-color-1: #1E5631; /* Rich Emerald */
-            --gradient-color-2: #76B041; /* Vibrant Leaf Green */
-            --gradient-color-3: #50C878; /* Glowing Emerald Green */
-            --gradient-color-4: #122B26; /* Hunter Green */
+            --gradient-color-1: #411032; /* Deep Purple */
+            --gradient-color-2: #C2533C; /* Rich Reddish-Pink */
+            --gradient-color-3: #010001; /* Almost Black */
+            --gradient-color-4: #72226E; /* Darker Purple */
+            --gradient-color-5: #CD65C1; /* Vibrant Pinkish-Purple */
             
             }
          `}

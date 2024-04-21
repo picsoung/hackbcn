@@ -3,7 +3,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 const schedule = [
   {
-    title: "Saturday - March 23rd",
+    title: "Saturday - June 29th",
     content: (
       <>
         <small className="font-bold uppercase text-indigo-600">Morning</small>
@@ -46,7 +46,7 @@ const schedule = [
     ),
   },
   {
-    title: "Sunday - March 24th",
+    title: "Sunday - June 30th",
     content: (
       <>
         <small className="font-bold uppercase text-indigo-600">Morning</small>
@@ -64,14 +64,14 @@ const schedule = [
           12:00 PM | Lunch
         </time>
         <time className="block font-medium text-gray-900">
-          03:14 PM | Submit repos and prepare for final presentations
+          04:00 PM | Submit repos and prepare for final presentations
         </time>
         <br />
         <small className="font-bold uppercase text-indigo-600">Afternoon</small>
-        <br />
+        {/* <br />
         <time className="block font-medium text-gray-900">
           03:45 PM | Hackfair - Teams do their final pitches
-        </time>
+        </time> */}
         <time className="block font-medium text-gray-900">
           05:30 PM | Final Demos
         </time>

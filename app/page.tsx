@@ -11,6 +11,7 @@ import Dates from "./components/Dates";
 import SignupCTA from "./components/SignupCTA";
 import Team from "./components/Team";
 import Footer from "./components/Footer";
+import CommunitySponsors from "./components/CommunitSponsors";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function Home() {
     { name: "Why should I Join?", href: "#why" },
     { name: "Schedule", href: "#schedule" },
     { name: "Organizing Team", href: "#about" },
-    { name: "Judges", href: "#judges" },
+    // { name: "Judges", href: "#judges" },
   ];
 
   return (
@@ -32,6 +33,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col">
         <Hero />
         <Sponsors />
+        {/* <CommunitySponsors /> */}
         {/* <Judges /> */}
         <WhyJoin />
         <Dates />

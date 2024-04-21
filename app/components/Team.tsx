@@ -9,15 +9,15 @@ export default function Team() {
         </div>
         <div className="flex flex-col sm:flex-row mt-6 text-gray-800 text-lg">
           <div className="w-full sm:w-1/2 mr-8">
-            <div>IvyHacks is brought to you by:</div>
+            <div>HackBCN is brought to you by:</div>
             <br />
             <div>
               <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
                 {[
-                  { firstName: "Andrew", lastName: "Siah" },
-                  { firstName: "Jan", lastName: "Carbonell" },
-                  { firstName: "Iris", lastName: "Meng" },
-                  { firstName: "Sudhanshu", lastName: "Pandey" },
+                  { firstName: "Nicolas", lastName: "Grenié", link: 'https://www.linkedin.com/in/nicolasgrenie/' },
+                  // { firstName: "Jan", lastName: "Carbonell" },
+                  // { firstName: "Iris", lastName: "Meng" },
+                  // { firstName: "Sudhanshu", lastName: "Pandey" },
                 ].map((name, index) => (
                   <li
                     key={index}
@@ -28,19 +28,19 @@ export default function Team() {
                       marginLeft: "5rem",
                     }}
                   >
-                    {name.firstName} {name.lastName}
+                    <a href={name.link}>{name.firstName} {name.lastName}</a>
                   </li>
                 ))}
               </ul>
             </div>
             <br />
             This hackathon wouldn&apos;t be possible without the incredible
-            support of our universities, our sponsors, volunteers and YOU!
+            support of our sponsors, volunteers and YOU!
           </div>
           <div className="w-full sm:w-1/2 mt-6 sm:mt-0">
             Feel free to reach out if you have any questions:
             <br />
-            andrew.siah@columbia.edu
+            team@hackbcn.com
           </div>
         </div>
       </div>

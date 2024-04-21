@@ -14,7 +14,7 @@ const features = [
   {
     name: "Job opportunities",
     description:
-      "Participating in IvyHacks could open doors to numerous job opportunities. Impress the right people with your skills and you might land your dream job.",
+      "Participating in HackBCN could open doors to numerous job opportunities. Impress the right people with your skills and you might land your dream job.",
     icon: BriefcaseIcon,
   },
   {

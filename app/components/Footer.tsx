@@ -8,9 +8,8 @@ export default function Footer({ padding = false }) {
       >
         <div className="mt-8 md:order-1 md:mt-0">
           <p className="text-center text-lg leading-5 text-white">
-            &copy; 2024. Brought to you from NYC with{" "}
-            <span style={{ color: "red" }}>&#x2764;</span> from <b>Columbia</b>{" "}
-            x <b>Cornell</b> x <b>NYU</b>.
+            &copy; 2024. Brought to you from BCN with{" "}
+            <span style={{ color: "red" }}>&#x2764;</span>.
           </p>
         </div>
       </div>

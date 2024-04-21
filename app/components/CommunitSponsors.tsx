@@ -1,18 +1,18 @@
-export default function Sponsors() {
+export default function CommunitySponsors() {
   return (
-    <div id="sponsors" className="bg-white py-10 sm:py-10">
+    <div id="community-sponsors" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-          Sponsors
+          Community Sponsors
         </h2>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="flex flex-wrap gap-4 justify-center">
               {/* <a href="https://www.praxisnation.com/" target="_blank" rel="noopener noreferrer"> */}
-                <img
+                {/* <img
                   className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
                   src="/cards/yourcompany.png"
                   alt="Your Company"
-                />
+                /> */}
               {/* </a> */}
               {/* <a href="https://modal.com/" target="_blank" rel="noopener noreferrer">
                 <img
