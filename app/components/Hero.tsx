@@ -43,7 +43,8 @@ export default function Hero() {
                 <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
                   <ApplyButton />
                   <Link
-                    href="mailto:andrew.siah@columbia.edu"
+                    href="https://cal.com/@picsoung/hackbcn"
+                    target="_blank"
                     className="text-lg font-semibold leading-6 text-gray-200 hover:text-white z-30 mt-4 sm:mt-0"
                   >
                     Sponsor Us
