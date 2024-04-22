@@ -7,14 +7,19 @@ export default function Sponsors() {
         </h2>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="flex flex-wrap gap-4 justify-center">
-              {/* <a href="https://www.praxisnation.com/" target="_blank" rel="noopener noreferrer"> */}
-                <img
-                  className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
-                  src="/cards/yourcompany.png"
-                  alt="Your Company"
-                />
-              {/* </a> */}
-              {/* <a href="https://modal.com/" target="_blank" rel="noopener noreferrer">
+            <a href="https://replexica.com/" target="_blank" rel="">
+              <img
+                className="h-auto max-h-32 object-contain"
+                src="/logos/replexica.png"
+                alt="Replexica"
+              />
+            </a>
+            <img
+              className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
+              src="/cards/yourcompany.png"
+              alt="Your Company"
+            />
+            {/* <a href="https://modal.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-40 object-contain hover:cursor-pointer"
                   src="/logos/modal2.jpg"
@@ -35,8 +40,8 @@ export default function Sponsors() {
                   alt="Cornell Tech"
                 />
               </a> */}
-            </div>
-{/* 
+          </div>
+          {/* 
             <div className="flex flex-wrap gap-4 justify-center mt-10">
             <a href="https://www.passes.com/" target="_blank" rel="noopener noreferrer">
                 <img
@@ -182,8 +187,8 @@ export default function Sponsors() {
               </a>
 
             </div> */}
-            
-            {/* <div className="flex flex-wrap gap-4 justify-center">
+
+          {/* <div className="flex flex-wrap gap-4 justify-center">
               <a href="https://www.cornell.edu/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-32 object-contain hover:cursor-pointer"
@@ -211,4 +216,3 @@ export default function Sponsors() {
     </div>
   );
 }
-
