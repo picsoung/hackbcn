@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { ReplexicaIntlProvider } from "@replexica/react/client";
+import { loadLocaleFromCookie } from "@replexica/react/next";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,14 +29,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await loadLocaleFromCookie();
+  // Note the .client.json suffix of the i18n file below.
+  // It means that only the values *actually used* get passed to the client, not the entire i18n dictionary.
+  const localeData = await import(
+    `@replexica/translations/${locale}.client.json`
+  ).then((m) => m.default);
+
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ReplexicaIntlProvider data={localeData}>
+      <html lang={locale}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </ReplexicaIntlProvider>
   );
 }

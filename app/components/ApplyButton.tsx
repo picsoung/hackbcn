@@ -1,7 +1,7 @@
+"use client";
 import Link from "next/link";
 
 export default function ApplyButton() {
-
   function handleClick(): void {
     const formless = document.querySelector('.formless-trigger') as HTMLElement | null;
     if (formless) {
