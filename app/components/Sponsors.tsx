@@ -14,11 +14,13 @@ export default function Sponsors() {
                 alt="Replexica"
               />
             </a>
-            <img
-              className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
-              src="/cards/yourcompany.png"
-              alt="Your Company"
-            />
+            <a target="_blank" href="https://hackbcn.com/sponsorship.pdf">
+              <img
+                className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
+                src="/cards/yourcompany.png"
+                alt="Your Company"
+              />
+            </a>
             {/* <a href="https://modal.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-40 object-contain hover:cursor-pointer"

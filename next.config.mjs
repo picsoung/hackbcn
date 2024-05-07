@@ -1,8 +1,8 @@
-// next.config.mjs
+// // next.config.mjs
 
-import replexica from '@replexica/compiler';
+// import replexica from '@replexica/compiler';
 
-/** @type {import('next').NextConfig} */
+// /** @type {import('next').NextConfig} */
 const nextConfig = {};
 
-export default replexica.next()(nextConfig);
+export default nextConfig;

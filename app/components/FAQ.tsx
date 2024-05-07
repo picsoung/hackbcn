@@ -37,6 +37,12 @@ const QUESTIONS = [
       "No team? No problem! We'll have team formation and networking activities at the start of the hackathon. It's a great opportunity to meet new people and form a team with participants who share your interests.",
     category: "Participation",
   },
+  {
+    title: "I don't know anything about AI",
+    answer:
+      "Don't worry we are all here to learn and start somewhere. In most cases playing with AI it's just an API call away. We will have mentors to help you out shape your idea and discuss technical solutions",
+    category: "Participation",
+  },
 ];
 
 export default function FAQ({ padding = false }) {

@@ -28,22 +28,22 @@ export default function Hero() {
             <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
               <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                 <h1 className="text-4xl font-cal text-white sm:text-6xl">
-                  Hack<span className="text-amber-600">BCN</span>
+                  Hack<span className="text-amber-600">BCN</span> - AI edition
                 </h1>
                 <p className="relative mt-6 text-lg leading-8 text-gray-200 sm:max-w-md lg:max-w-none">
+                  Curious to explore things like <code>GPT</code>, <code>Llama</code>, <code>RAG</code> but never got the chance to test it out?
+                  This is your opportunity to experiment. 🎉
+                  <br />
                   <br />
                   Join us for the inaugural HackBCN in the vibrant city of
                   Barcelona, immerse yourself in a thrilling hackathon filled
                   with exciting challenges, amazing prizes, and exclusive swag.
                   <br />
-                  <br />
-                  Gear up for an unforgettable adventure where you can
-                  demonstrate creativity.
                 </p>
                 <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
                   <ApplyButton />
                   <Link
-                    href="https://cal.com/@picsoung/hackbcn"
+                    href="https://hackbcn.com/sponsorship.pdf"
                     target="_blank"
                     className="text-lg font-semibold leading-6 text-gray-200 hover:text-white z-30 mt-4 sm:mt-0"
                   >
@@ -53,8 +53,8 @@ export default function Hero() {
               </div>
               <div className="mt-14 flex flex-col justify-end gap-8 sm:-mt-44 sm:flex-row sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                 <Image
-                  src="/summerhack.png"
-                  alt={"Summer hack illustration"}
+                  src="/aihack.png"
+                  alt={"AI Hack illustration"}
                   className="w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                   width={0}
                   height={0}
