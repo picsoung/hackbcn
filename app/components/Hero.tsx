@@ -2,7 +2,6 @@
 
 import GradientHero from "./GradientHero";
 import Link from "next/link";
-import Card from "./Card"; // Make sure to import the Card component
 import ApplyButton from "./ApplyButton";
 import Image from "next/image"; // Add this import
 

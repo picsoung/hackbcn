@@ -1,3 +1,5 @@
+import Image from "next/image";
+import React from "react"; // Import React if you haven't already
 export default function Sponsors() {
   return (
     <div id="sponsors" className="bg-white py-10 sm:py-10">
@@ -6,18 +8,50 @@ export default function Sponsors() {
           Sponsors
         </h2>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="relative flex flex-wrap gap-4 justify-center">
             <a href="https://replexica.com/" target="_blank" rel="">
-              <img
+              <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/replexica.png"
+                width={300}
+                height={32}
+                // fill={true}
                 alt="Replexica"
               />
             </a>
+            <a href="https://mistral.ai/" target="_blank" rel="">
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/mistral.svg"
+                width={300}
+                height={32}
+                alt="mistralai"
+              />
+            </a>
+            <a href="https://algolia.com/" target="_blank" rel="">
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/algolia.png"
+                width={300}
+                height={32}
+                alt="Algolia"
+              />
+            </a>
+            <a href="https://www.lewagon.com/barcelona" target="_blank" rel="">
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/lewagon.png"
+                width={300}
+                height={32}
+                alt="LeWagon"
+              />
+            </a>
             <a target="_blank" href="https://hackbcn.com/sponsorship.pdf">
-              <img
+              <Image
                 className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
                 src="/cards/yourcompany.png"
+                width={100}
+                height={32}
                 alt="Your Company"
               />
             </a>
@@ -212,7 +246,7 @@ export default function Sponsors() {
                   alt="NYU"
                 />
               </a>
-          </div>jfjfjf */}
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,27 +1,24 @@
-import {
-  BriefcaseIcon,
-  CodeBracketIcon,
-  TrophyIcon,
-} from "@heroicons/react/20/solid";
+// import {
+//   BriefcaseIcon,
+//   CodeBracketIcon,
+//   TrophyIcon,
+// } from "@heroicons/react/20/solid";
 
 const features = [
   {
     name: "Cool Prizes",
-    description:
-      "Join the hackathon for an opportunity to win amazing prizes and exclusive swag! Display your talents, innovate, and seize the opportunity to be generously rewarded for your contributions.",
-    icon: TrophyIcon,
+    description: "Join the hackathon for an opportunity to win amazing prizes and exclusive swag! Display your talents, innovate, and seize the opportunity to be generously rewarded for your contributions.",
+    // icon: TrophyIcon,
   },
   {
     name: "Job opportunities",
-    description:
-      "Participating in HackBCN could open doors to numerous job opportunities. Impress the right people with your skills and you might land your dream job.",
-    icon: BriefcaseIcon,
+    description:"Participating in HackBCN could open doors to numerous job opportunities. Impress the right people with your skills and you might land your dream job.",
+    // icon: BriefcaseIcon,
   },
   {
     name: "Work with AI experts",
-    description:
-      "Get the unique opportunity to collaborate with AI experts. Learn from their experience, gain insights into best practices, industry best practices, and enhance your coding skills.",
-    icon: CodeBracketIcon,
+    description: "Get the unique opportunity to collaborate with AI experts. Learn from their experience, gain insights into best practices, industry best practices, and enhance your coding skills.",
+    // icon: CodeBracketIcon,
   },
 ];
 
@@ -39,10 +36,10 @@ export default function WhyJoin() {
             {features.map((feature) => (
               <div key={feature.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-lg font-bold leading-7 text-gray-900">
-                  <feature.icon
+                  {/* <feature.icon
                     className="h-5 w-5 flex-none text-indigo-600"
                     aria-hidden="true"
-                  />
+                  /> */}
                   {feature.name}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-lg leading-7 text-gray-800">
