@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "https://hackbcn.com",
     title: "HackBCN AI Hackathon",
     description:
-      "Celebrating AI innovation in the heart of Barcelona with 100+ hackers.",
+      "Together, let's put BCN on the map of AI innovation. Join 50+ hackers to play with GPT, LLama and RAG to create ground breaking projects.",
     siteName: "HackBCN",
     images: "https://hackbcn.com/og_image.png",
   },
@@ -34,19 +34,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = 'en' //await loadLocaleFromCookie();
+  const locale = "en"; //await loadLocaleFromCookie();
   // Note the .client.json suffix of the i18n file below.
   // It means that only the values *actually used* get passed to the client, not the entire i18n dictionary.
-  
+
   // const localeData = await import(
   //   `@replexica/translations/${locale}.client.json`
   // ).then((m) => m.default);
 
   return (
     // <ReplexicaIntlProvider data={localeData}>
-      <html>
-        <body className={inter.className}>{children}</body>
-      </html>
+    <html>
+      <body className={inter.className}>{children}</body>
+    </html>
     // </ReplexicaIntlProvider>
   );
 }
