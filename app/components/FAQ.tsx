@@ -43,6 +43,12 @@ const QUESTIONS = [
       "Don't worry we are all here to learn and start somewhere. In most cases playing with AI it's just an API call away. We will have mentors to help you out shape your idea and discuss technical solutions",
     category: "Participation",
   },
+  {
+    title: "Can I participate remotely?",
+    answer:
+      "We aim for HackBCN to be the kickoff of a local community of AI practicioners, here in Barcelona. We will give priority to participants that can attend in-person.",
+    category: "Participation",
+  },
 ];
 
 export default function FAQ({ padding = false }) {
