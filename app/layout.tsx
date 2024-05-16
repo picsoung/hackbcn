@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 // import { ReplexicaIntlProvider } from "@replexica/react/client";
 // import { loadLocaleFromCookie } from "@replexica/react/next";
@@ -45,7 +46,10 @@ export default async function RootLayout({
   return (
     // <ReplexicaIntlProvider data={localeData}>
     <html>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <Analytics />
+      </body>
     </html>
     // </ReplexicaIntlProvider>
   );
