@@ -91,7 +91,13 @@
   "whyJoin.feature.0.name": "Prix Cool",
   "whyJoin.feature.0.description": "Participez au hackathon pour une chance de gagner des prix incroyables et des goodies exclusifs ! Montrez vos talents, innovez et saisissez l'opportunité d'être généreusement récompensé pour vos contributions.",
   "whyJoin.feature.1.name": "Opportunités d'emploi",
-  "whyJoin.feature.1.description": "Participer à HackBCN pourrait ouvrir les portes de nombreuses opportunités d'emploi. Impressionnez les bonnes personnes avec vos compétences et vous pourriez décrocher le travail de vos rêves.",
+  "whyJoin.feature.1.description": "Participer à HackBCN pourrait ouvrir la porte à de nombreuses opportunités d'emploi. Impressionnez les bonnes personnes avec vos compétences et vous pourriez décrocher le travail de vos rêves.",
   "whyJoin.feature.2.name": "Travaillez avec des experts en IA",
-  "whyJoin.feature.2.description": "Saisissez l'opportunité unique de collaborer avec des experts en IA. Apprenez de leur expérience, obtenez des insights sur les meilleures pratiques, les standards de l'industrie, et améliorez vos compétences en codage."
+  "whyJoin.feature.2.description": "Saisissez l'opportunité unique de collaborer avec des experts en IA. Apprenez de leur expérience, obtenez des insights sur les meilleures pratiques, les standards de l'industrie, et améliorez vos compétences en codage.",
+  "navbar.sponsors": "Sponsors",
+  "navbar.why-should-i-join": "Pourquoi participer ?",
+  "navbar.schedule": "Programme",
+  "navbar.faq": "FAQ",
+  "navbar.team": "Équipe",
+  "navbar.judges": "Juges"
 }

@@ -81,7 +81,7 @@
   "schedule.item.1.wrapUp": "Conclusión",
   "schedule.item.1.time.5": "18:30 | Deliberación y Premios",
   "signupCTA.title": "Únete a HackBCN",
-  "signupCTA.description": "¡Regístrate en minutos y prepárate para hackear!",
+  "signupCTA.description": "¡Inscríbete en minutos y prepárate para hackear!",
   "sponsors.title": "Patrocinadores",
   "team.title": "Equipo Organizador",
   "team.intro": "HackBCN es presentado por:",
@@ -93,5 +93,11 @@
   "whyJoin.feature.1.name": "Oportunidades laborales",
   "whyJoin.feature.1.description": "Participar en HackBCN podría abrirte las puertas a numerosas oportunidades laborales. Impresiona a las personas adecuadas con tus habilidades y podrías conseguir el trabajo de tus sueños.",
   "whyJoin.feature.2.name": "Trabaja con expertos en IA",
-  "whyJoin.feature.2.description": "Obtén la oportunidad única de colaborar con expertos en IA. Aprende de su experiencia, obtén conocimientos sobre las mejores prácticas de la industria y mejora tus habilidades de programación."
+  "whyJoin.feature.2.description": "Obtén la oportunidad única de colaborar con expertos en IA. Aprende de su experiencia, obtén conocimientos sobre las mejores prácticas de la industria y mejora tus habilidades de programación.",
+  "navbar.sponsors": "Patrocinadores",
+  "navbar.why-should-i-join": "¿Por qué unirse?",
+  "navbar.schedule": "Horario",
+  "navbar.faq": "Preguntas frecuentes",
+  "navbar.team": "Equipo",
+  "navbar.judges": "Jueces"
 }

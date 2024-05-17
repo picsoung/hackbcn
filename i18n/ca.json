@@ -88,10 +88,16 @@
   "team.thanks": "Aquest hackathon no seria possible sense el suport increïble dels nostres patrocinadors, voluntaris i TU!",
   "team.contact": "No dubtis a contactar-nos si tens qualsevol pregunta:",
   "whyJoin.title": "Preparat per hackejar?",
-  "whyJoin.feature.0.name": "Premis Genials",
+  "whyJoin.feature.0.name": "Premis Fantàstics",
   "whyJoin.feature.0.description": "Uneix-te al hackathon per tenir l'oportunitat de guanyar premis increïbles i merchandising exclusiu! Mostra els teus talents, innova i aprofita l'oportunitat de ser generosament recompensat per les teves aportacions.",
   "whyJoin.feature.1.name": "Oportunitats de feina",
-  "whyJoin.feature.1.description": "Participar en HackBCN podria obrir-te portes a nombroses oportunitats laborals. Impressiona a les persones adequades amb les teves habilitats i podràs aconseguir la feina dels teus somnis.",
+  "whyJoin.feature.1.description": "Participar a HackBCN podria obrir-te portes a nombroses oportunitats laborals. Impressiona les persones adequades amb les teves habilitats i podràs aconseguir la feina dels teus somnis.",
   "whyJoin.feature.2.name": "Treballa amb experts en IA",
-  "whyJoin.feature.2.description": "Obtén l'oportunitat única de col·laborar amb experts en IA. Aprèn de la seva experiència, obté coneixements sobre les millors pràctiques de la indústria i millora les teves habilitats de programació."
+  "whyJoin.feature.2.description": "Aconsegueix una oportunitat única de col·laborar amb experts en IA. Aprèn de la seva experiència, obté coneixements sobre les millors pràctiques de la indústria i millora les teves habilitats de programació.",
+  "navbar.sponsors": "Patrocinadors",
+  "navbar.why-should-i-join": "Per què unir-se?",
+  "navbar.schedule": "Horari",
+  "navbar.faq": "Preguntes Freqüents",
+  "navbar.team": "Equip",
+  "navbar.judges": "Jutges"
 }

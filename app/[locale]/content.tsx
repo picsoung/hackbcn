@@ -19,12 +19,12 @@ export default function HomeContent() {
   const intl = useIntl();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigationOptions = [
-    { name: "Sponsors", href: "#sponsors" },
-    { name: "Why should I Join?", href: "#why" },
-    { name: "Schedule", href: "#schedule" },
-    { name: "FAQ", href: "#faq" },
-    { name: "Team", href: "#about" },
-    { name: "Judges", href: "#judges" },
+    { name: intl.t('navbar.sponsors'), href: "#sponsors" },
+    { name: intl.t('navbar.why-should-i-join'), href: "#why" },
+    { name: intl.t('navbar.schedule'), href: "#schedule" },
+    { name: intl.t('navbar.faq'), href: "#faq" },
+    { name: intl.t('navbar.team'), href: "#about" },
+    { name: intl.t('navbar.judges'), href: "#judges" },
   ];
 
   return (

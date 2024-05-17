@@ -93,5 +93,12 @@
   "whyJoin.feature.1.name": "Job opportunities",
   "whyJoin.feature.1.description": "Participating in HackBCN could open doors to numerous job opportunities. Impress the right people with your skills and you might land your dream job.",
   "whyJoin.feature.2.name": "Work with AI experts",
-  "whyJoin.feature.2.description": "Get the unique opportunity to collaborate with AI experts. Learn from their experience, gain insights into best practices, industry best practices, and enhance your coding skills."
+  "whyJoin.feature.2.description": "Get the unique opportunity to collaborate with AI experts. Learn from their experience, gain insights into best practices, industry best practices, and enhance your coding skills.",
+
+  "navbar.sponsors": "Sponsors",
+  "navbar.why-should-i-join": "Why join?",
+  "navbar.schedule": "Schedule",
+  "navbar.faq": "FAQ",
+  "navbar.team": "Team",
+  "navbar.judges": "Judges"
 }
