@@ -1,15 +1,18 @@
+import { useIntl } from "./Intl";
+
 export default function Team() {
+  const intl = useIntl();
   return (
     <div id="about" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-2xl">
           <h2 className="mt-1 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-            Organizing Team
+            {intl.t("team.title")}
           </h2>
         </div>
         <div className="flex flex-col sm:flex-row mt-6 text-gray-800 text-lg">
           <div className="w-full sm:w-1/2 mr-8">
-            <div>HackBCN is brought to you by:</div>
+            <div>{intl.t("team.intro")}</div>
             <br />
             <div>
               <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
@@ -34,11 +37,10 @@ export default function Team() {
               </ul>
             </div>
             <br />
-            This hackathon wouldn&apos;t be possible without the incredible
-            support of our sponsors, volunteers and YOU!
+            {intl.t("team.thanks")}
           </div>
           <div className="w-full sm:w-1/2 mt-6 sm:mt-0">
-            Feel free to reach out if you have any questions:
+            {intl.t("team.contact")}
             <br />
             team@hackbcn.com
           </div>

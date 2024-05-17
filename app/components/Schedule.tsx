@@ -1,85 +1,96 @@
 import { Disclosure } from "@headlessui/react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { useIntl } from "./Intl";
 
-const schedule = [
+const schedule = (intl: ReturnType<typeof useIntl>) => [
   {
-    title: "Saturday - June 29th",
+    title: intl.t("schedule.item.0.title"),
     content: (
       <>
-        <small className="font-bold uppercase text-indigo-600">Morning</small>
+        <small className="font-bold uppercase text-indigo-600">
+          {intl.t("schedule.item.0.morning")}
+        </small>
         <br />
         <time className="block font-medium text-gray-900">
-          8:30 AM | Networking + Breakfast
+          {intl.t("schedule.item.0.time.0")}
         </time>
         <time className="block font-medium text-gray-900">
-          10:00 AM | Opening Speeches
+          {intl.t("schedule.item.0.time.1")}
         </time>
         <time className="block font-medium text-gray-900">
-          10:30 AM | Hacking solo or in teams, supported by mentors
-        </time>
-        <br />
-        <small className="font-bold uppercase text-indigo-600">Hack Time</small>
-        <br />
-        <time className="block font-medium text-gray-900">
-          12:00 PM | Lunch
-        </time>
-        <time className="block font-medium text-gray-900">
-          01:00 PM | More hacking
-        </time>
-        <time className="block font-medium text-gray-900">
-          06:00 PM | Dinner
-        </time>
-        <time className="block font-medium text-gray-900">
-          07:00 PM | Even more hacking
+          {intl.t("schedule.item.0.time.2")}
         </time>
         <br />
         <small className="font-bold uppercase text-indigo-600">
-          Periodically
+          {intl.t("schedule.item.0.hackTime")}
+        </small>
+        <br />
+        <time className="block font-medium text-gray-900">
+          {intl.t("schedule.item.0.time.3")}
+        </time>
+        <time className="block font-medium text-gray-900">
+          {intl.t("schedule.item.0.time.4")}
+        </time>
+        <time className="block font-medium text-gray-900">
+          {intl.t("schedule.item.0.time.5")}
+        </time>
+        <time className="block font-medium text-gray-900">
+          {intl.t("schedule.item.0.time.6")}
+        </time>
+        <br />
+        <small className="font-bold uppercase text-indigo-600">
+          {intl.t("schedule.item.0.periodically")}
         </small>
         <br />
         <span className="font-medium text-gray-900">
-          Guest lectures by mentors and sponsors
+          {intl.t("schedule.item.0.guestLectures")}
         </span>
         <br />
-        <span className="font-medium text-gray-900">Snacks and surprises</span>
+        <span className="font-medium text-gray-900">
+          {intl.t("schedule.item.0.snacks")}
+        </span>
       </>
     ),
   },
   {
-    title: "Sunday - June 30th",
+    title: intl.t("schedule.item.1.title"),
     content: (
       <>
-        <small className="font-bold uppercase text-indigo-600">Morning</small>
+        <small className="font-bold uppercase text-indigo-600">
+          {intl.t("schedule.item.1.morning")}
+        </small>
         <br />
         <time className="block font-medium text-gray-900">
-          09:00 AM | Breakfast
+          {intl.t("schedule.item.1.time.0")}
         </time>
         <time className="block font-medium text-gray-900">
-          10:00 AM | Keep pushing
+          {intl.t("schedule.item.1.time.1")}
         </time>
         <br />
-        <small className="font-bold uppercase text-indigo-600">Midday</small>
+        <small className="font-bold uppercase text-indigo-600">
+          {intl.t("schedule.item.1.midday")}
+        </small>
         <br />
         <time className="block font-medium text-gray-900">
-          12:00 PM | Lunch
+          {intl.t("schedule.item.1.time.2")}
         </time>
         <time className="block font-medium text-gray-900">
-          04:00 PM | Submit repos and prepare for final presentations
+          {intl.t("schedule.item.1.time.3")}
         </time>
         <br />
-        <small className="font-bold uppercase text-indigo-600">Afternoon</small>
-        {/* <br />
+        <small className="font-bold uppercase text-indigo-600">
+          {intl.t("schedule.item.1.afternoon")}
+        </small>
         <time className="block font-medium text-gray-900">
-          03:45 PM | Hackfair - Teams do their final pitches
-        </time> */}
-        <time className="block font-medium text-gray-900">
-          05:30 PM | Final Demos
+          {intl.t("schedule.item.1.time.4")}
         </time>
         <br />
-        <small className="font-bold uppercase text-indigo-600">Wrap-up</small>
+        <small className="font-bold uppercase text-indigo-600">
+          {intl.t("schedule.item.1.wrapUp")}
+        </small>
         <br />
         <time className="block font-medium text-gray-900">
-          06:30 PM | Deliberation &amp; Awards
+          {intl.t("schedule.item.1.time.5")}
         </time>
       </>
     ),
@@ -87,15 +98,16 @@ const schedule = [
 ];
 
 export default function Schedule() {
+  const intl = useIntl();
   return (
     <div id="schedule" className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-10 sm:py-10 lg:px-8 lg:py-10">
         <div className="mx-auto max-w-7xl divide-y divide-orange-900/10">
           <h2 className="text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-            Schedule
+            {intl.t("schedule.title")}
           </h2>
           <dl className="mt-10 space-y-6 divide-y divide-indigo-600/10">
-            {schedule.map((day, dayId) => (
+            {schedule(intl).map((day, dayId) => (
               <Disclosure
                 as="div"
                 key={day.title}

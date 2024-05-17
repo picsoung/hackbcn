@@ -4,8 +4,10 @@ import GradientHero from "./GradientHero";
 import Link from "next/link";
 import ApplyButton from "./ApplyButton";
 import Image from "next/image"; // Add this import
+import { useIntl } from "./Intl";
 
 export default function Hero() {
+  const intl = useIntl();
   return (
     <div>
       <main>
@@ -27,16 +29,13 @@ export default function Hero() {
             <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
               <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                 <h1 className="text-4xl font-cal text-white sm:text-6xl">
-                  Hack<span className="text-amber-600">BCN</span> - AI edition
+                  {intl.t('hero.title.left-part')}<span className="text-amber-600">{intl.t('hero.title.right-part')}</span> - {intl.t('hero.title-edition')}
                 </h1>
                 <p className="relative mt-6 text-lg leading-8 text-gray-200 sm:max-w-md lg:max-w-none">
-                  Curious to explore things like <code>GPT</code>, <code>Llama</code>, <code>RAG</code> but never got the chance to test it out?
-                  This is your opportunity to experiment. 🎉
+                  {intl.t('hero.description.0')}
                   <br />
                   <br />
-                  Join us for the inaugural HackBCN in the vibrant city of
-                  Barcelona, immerse yourself in a thrilling hackathon filled
-                  with exciting challenges, amazing prizes, and exclusive swag.
+                  {intl.t('hero.description.1')}
                   <br />
                 </p>
                 <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
@@ -46,7 +45,7 @@ export default function Hero() {
                     target="_blank"
                     className="text-lg font-semibold leading-6 text-gray-200 hover:text-white z-30 mt-4 sm:mt-0"
                   >
-                    Sponsor Us
+                    {intl.t('hero.cta.sponsor-us')}
                   </Link>
                 </div>
               </div>

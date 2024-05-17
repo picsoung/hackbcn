@@ -1,4 +1,7 @@
+import { useIntl } from "./Intl";
+
 export default function Footer({ padding = false }) {
+  const intl = useIntl();
   return (
     <footer>
       <div style={{display: 'none'}}>
@@ -9,8 +12,8 @@ export default function Footer({ padding = false }) {
           style={{display: 'none'}}
           data-type="trigger"
           data-trigger-type="banner"
-          data-trigger-title="Ayo Geeks in Barcelona!"
-          data-trigger-subtitle="Hop on board for an epic HackBCN adventure!"
+          data-trigger-title={intl.t('footer.form.title')}
+          data-trigger-subtitle={intl.t('footer.form.subtitle')}
           data-conversation-id="a1DBrrA9bUXA"
         ></script>
       </div>
@@ -21,7 +24,7 @@ export default function Footer({ padding = false }) {
       >
         <div className="mt-8 md:order-1 md:mt-0">
           <p className="text-center text-lg leading-5 text-white">
-            &copy; 2024. Brought to you from BCN with{" "}
+            &copy; 2024. {intl.t('footer.signature')}{" "}
             <span style={{ color: "red" }}>&#x2764;</span>.
           </p>
         </div>

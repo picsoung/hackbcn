@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./../globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { IntlProvider } from "../components/Intl";
+import i18nConfig from '../../i18n.json';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,9 +32,17 @@ export async function generateMetadata(args: any) {
 
 export default async function HomeLayout(props: { children: any, params: { locale: string } }) {
   const localeData = await loadLocaleData(props.params.locale);
+  const allLocales = [
+    i18nConfig.locale.source,
+    ...i18nConfig.locale.targets,
+  ];
 
   return (
-    <IntlProvider locale={props.params.locale} data={localeData}>
+    <IntlProvider
+      locale={props.params.locale}
+      data={localeData}
+      locales={allLocales}
+    >
       <html>
         <body className={inter.className}>
           {props.children}

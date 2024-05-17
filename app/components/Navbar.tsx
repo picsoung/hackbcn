@@ -5,6 +5,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ApplyButton from "./ApplyButton";
 
 import Link from "next/link";
+import { useIntl } from "./Intl";
 
 interface NavbarProps {
   mobileMenuOpen: boolean;
@@ -17,6 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({
   setMobileMenuOpen,
   navigationOptions,
 }) => {
+  const intl = useIntl();
   return (
     <Disclosure as="nav">
       {({ open }) => {
@@ -34,9 +36,10 @@ const Navbar: React.FC<NavbarProps> = ({
                       alt="HackBCN logo"
                     />
                     <h3 className="pl-2 text-white text-lg font-medium">
-                      HackBCN
+                      {intl.t("navbar.title")}
                     </h3>
                   </Link>
+                  {renderLocaleSwitcher(intl)}
                 </div>
 
                 {/* Center - Navigation Links */}
@@ -58,7 +61,6 @@ const Navbar: React.FC<NavbarProps> = ({
                 {/* Mobile menu button */}
                 <div className="-mr-2 flex items-center sm:hidden">
                   <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                    <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                     ) : (
@@ -88,5 +90,24 @@ const Navbar: React.FC<NavbarProps> = ({
       }}
     </Disclosure>
   );
+
+  function renderLocaleSwitcher(intl: ReturnType<typeof useIntl>) {
+    // dropdown styled with tailwind
+    return (
+      <select
+        className="bg-transparent border border-white/50 rounded-md text-white tezt-sm px-2 py-1"
+        value={intl.locale}
+        onChange={(e) => {
+          window.location.href = e.target.value
+        }}
+      >
+        {intl.locales.map((locale) => (
+          <option key={locale} value={locale}>
+            {intl.t(`locale.${locale}`)}
+          </option>
+        ))}
+      </select>
+    );
+  }
 };
 export default Navbar;

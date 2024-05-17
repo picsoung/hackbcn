@@ -2,12 +2,15 @@
 
 import { createIntl } from '@formatjs/intl';
 import { createContext, useContext } from 'react';
-import i18nConfig from '../../i18n.json';
 
-export const IntlContext = createContext(createIntl({ locale: i18nConfig.locale.source }));
+export const IntlContext = createContext({
+  intl: createIntl({ locale: 'en' }),
+  locales: [] as string[],
+});
 
 export type IntlProviderProps = {
   locale: string;
+  locales: string[];
   data: Record<string, string>;
   children: React.ReactNode;
 };
@@ -15,7 +18,13 @@ export type IntlProviderProps = {
 export function IntlProvider(props: IntlProviderProps) {
   return (
     <IntlContext.Provider
-      value={createIntl({ locale: props.locale, messages: props.data })}
+      value={{
+        intl: createIntl({
+          locale: props.locale,
+          messages: props.data,
+        }),
+        locales: props.locales,
+      }}
     >
       {props.children}
     </IntlContext.Provider>
@@ -23,10 +32,15 @@ export function IntlProvider(props: IntlProviderProps) {
 }
 
 export function useIntl() {
-  return useContext(IntlContext);
+  const ctx = useContext(IntlContext);
+  return {
+    t: (id: string) => ctx.intl.formatMessage({ id }),
+    locale: ctx.intl.locale,
+    locales: ctx.locales,
+  };
 }
 
 export function IntlMessage({ id }: any) {
   const intl = useIntl();
-  return intl.formatMessage({ id });
+  return intl.t(id);
 }
