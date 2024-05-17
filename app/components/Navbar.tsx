@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({
               <div className="flex h-16 justify-between items-center">
                 {/* Left side - Logo, HackBCN text, and Apply button */}
                 <div className="flex items-center">
-                  <Link href="#" className="inline-flex items-center mr-5">
+                  <Link href="/" className="inline-flex items-center mr-5">
                     <img
                       className="h-8 w-auto"
                       src="/hackbcnlogo.png"
