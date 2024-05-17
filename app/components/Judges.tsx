@@ -1,9 +1,9 @@
-import DummyPhoto from "public/judges/DummyPhoto.jpg";
+import { useIntl } from "./Intl";
 
-const members = [
+const members = (intl: ReturnType<typeof useIntl>) => [
   {
-    name: "David Okuniev",
-    description: "Co-founder Typeform, Co-founder Float",
+    name: intl.t('judges.item.0.name'),
+    description: intl.t('judges.item.0.description'),
     image: {
       src: `https://pbs.twimg.com/profile_images/1784295597228335104/dQY2N4zt_400x400.jpg`,
     },
@@ -11,16 +11,16 @@ const members = [
     website: "https://float.build/",
   },
   {
-    name: "Linus Ekenstam",
-    description: "AI Gardener & Designer",
+    name: intl.t('judges.item.1.name'),
+    description: intl.t('judges.item.1.description'),
     image: {
       src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
     },
     twitter: "https://twitter.com/LinusEkenstam",
   },
   {
-    name: "Judge #3",
-    description: "TBA",
+    name: intl.t('judges.item.2.name'),
+    description: intl.t('judges.item.2.description'),
     image: {
       src: `https://picsum.photos/200`,
     },
@@ -28,17 +28,18 @@ const members = [
 ];
 
 export default function Judges() {
+  const intl = useIntl();
   return (
     <div id="judges" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-            Judges
+            {intl.t('judges.title')}
           </h2>
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {members.map((member) => (
+            {members(intl).map((member) => (
               <div key={member.name} className="flex flex-col align-middle">
                 <dt className="flex items-center gap-x-3 text-xl sm:text-2xl font-bold leading-7 text-gray-900">
                   <span
