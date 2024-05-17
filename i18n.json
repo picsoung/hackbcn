@@ -5,6 +5,6 @@
     "targets": ["es", "ca"]
   },
   "buckets": {
-    "": "replexica"
+    "i18n/[locale].json": "json"
   }
 }

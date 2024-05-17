@@ -12,9 +12,11 @@ import Dates from "../components/Dates";
 import SignupCTA from "../components/SignupCTA";
 import Team from "../components/Team";
 import Footer from "../components/Footer";
+import { useIntl } from "../components/Intl";
 // import CommunitySponsors from "./components/CommunitySponsors";
 
 export default function HomeContent() {
+  const intl = useIntl();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigationOptions = [
     { name: "Sponsors", href: "#sponsors" },
