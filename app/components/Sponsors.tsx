@@ -29,6 +29,15 @@ export default function Sponsors() {
                 alt="Algolia"
               />
             </a>
+            <a href="https://replexica.com/" target="_blank" rel="">
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/replexica.png"
+                width={300}
+                height={32}
+                alt="Replexica"
+              />
+            </a>
             <a href="https://www.lewagon.com/barcelona" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"

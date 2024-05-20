@@ -1,15 +1,15 @@
 import { useIntl } from "./Intl";
 
 const members = (intl: ReturnType<typeof useIntl>) => [
-  {
-    name: intl.t('judges.item.0.name'),
-    description: intl.t('judges.item.0.description'),
-    image: {
-      src: `https://pbs.twimg.com/profile_images/1784295597228335104/dQY2N4zt_400x400.jpg`,
-    },
-    twitter: "https://twitter.com/okuiux",
-    website: "https://float.build/",
-  },
+  // {
+  //   name: intl.t('judges.item.0.name'),
+  //   description: intl.t('judges.item.0.description'),
+  //   image: {
+  //     src: `https://pbs.twimg.com/profile_images/1784295597228335104/dQY2N4zt_400x400.jpg`,
+  //   },
+  //   twitter: "https://twitter.com/okuiux",
+  //   website: "https://float.build/",
+  // },
   {
     name: intl.t('judges.item.1.name'),
     description: intl.t('judges.item.1.description'),
