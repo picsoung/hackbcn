@@ -11,12 +11,19 @@ const members = (intl: ReturnType<typeof useIntl>) => [
   //   website: "https://float.build/",
   // },
   {
-    name: intl.t('judges.item.1.name'),
-    description: intl.t('judges.item.1.description'),
+    name: intl.t('judges.item.0.name'),
+    description: intl.t('judges.item.0.description'),
     image: {
       src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
     },
     twitter: "https://twitter.com/LinusEkenstam",
+  },
+  {
+    name: intl.t('judges.item.1.name'),
+    description: intl.t('judges.item.1.description'),
+    image: {
+      src: `https://picsum.photos/200`,
+    },
   },
   {
     name: intl.t('judges.item.2.name'),
