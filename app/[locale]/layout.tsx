@@ -14,18 +14,26 @@ export async function generateMetadata(args: any) {
     description: localeData["meta.description"],
     icons: {
       icon: ["/favicon.ico?v=4"],
-      apple: ["/apple-touch-icon.png?v=4"],
-      shortcut: ["/apple-touch-icon.png"],
     },
     manifest: "/site.webmanifest",
     metadataBase: new URL("https://hackbcn.com"),
+    alternates: {
+      canonical: '/',
+      languages: {
+        'x-default': '/',
+        'en': '/en',
+        'fr': '/fr',
+        'es': '/es',
+        'ca': '/ca',
+      },
+    },
     openGraph: {
       type: "website",
       url: "https://hackbcn.com",
       title: localeData["meta.title"],
       description: localeData["meta.description-og"],
       siteName: localeData["meta.name"],
-      images: "https://hackbcn.com/og_image.png",
+      images: "/og_image.png",
     },
   } satisfies Metadata;
 }

@@ -13,7 +13,7 @@ import SignupCTA from "../components/SignupCTA";
 import Team from "../components/Team";
 import Footer from "../components/Footer";
 import { useIntl } from "../components/Intl";
-// import CommunitySponsors from "./components/CommunitySponsors";
+import CommunitySponsors from "../components/CommunitySponsors";
 
 export default function HomeContent() {
   const intl = useIntl();
@@ -37,7 +37,7 @@ export default function HomeContent() {
       <main className="flex min-h-screen flex-col">
         <Hero />
         <Sponsors />  
-        {/* <CommunitySponsors /> */}
+        <CommunitySponsors />
         <Judges />
         <WhyJoin />
         <Dates />

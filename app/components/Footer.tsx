@@ -14,7 +14,7 @@ export default function Footer({ padding = false }) {
           data-trigger-type="banner"
           data-trigger-title={intl.t('footer.form.title')}
           data-trigger-subtitle={intl.t('footer.form.subtitle')}
-          data-conversation-id="a1DBrrA9bUXA"
+          data-conversation-id="a1DBrrA9bUXA" 
         ></script>
       </div>
       <div
