@@ -20,6 +20,7 @@ export async function generateMetadata(args: any) {
     icons: {
       icon: ["/favicon.ico?v=4"],
     },
+    manifest: "/site.webmanifest",
     metadataBase: new URL("https://hackbcn.com"),
     alternates: {
       canonical: '/',
