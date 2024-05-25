@@ -8,14 +8,18 @@ import i18nConfig from '../../i18n.json';
 const inter = Inter({ subsets: ["latin"] });
 
 export async function generateMetadata(args: any) {
-  const localeData = await loadLocaleData(args.params.locale);
+  const finalLocale = [
+    i18nConfig.locale.source,
+    ...i18nConfig.locale.targets,
+  ].includes(args.params.locale) ? args.params.locale : i18nConfig.locale.source;
+
+  const localeData = await loadLocaleData(finalLocale);
   return {
     title: localeData["meta.title"],
     description: localeData["meta.description"],
     icons: {
       icon: ["/favicon.ico?v=4"],
     },
-    manifest: "/site.webmanifest",
     metadataBase: new URL("https://hackbcn.com"),
     alternates: {
       canonical: '/',
