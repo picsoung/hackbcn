@@ -24,6 +24,13 @@ export default function CommunitySponsors() {
                 alt="TechFems"
               />
             </a>
+            <a href="https://www.saturdays.ai/online " target="_blank">
+              <img
+                className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                src="/logos/community/saturdaysai.png"
+                alt="SaturdaysAI logo"
+              />
+            </a>
             {/*<a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   className="h-auto max-h-40 object-contain hover:cursor-pointer"
