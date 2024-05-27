@@ -21,7 +21,7 @@ export default function CommunitySponsors() {
               <img
                 className="h-auto max-h-40 object-contain hover:cursor-pointer"
                 src="/logos/community/techfems.png"
-                alt="TechFeems"
+                alt="TechFems"
               />
             </a>
             {/*<a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">

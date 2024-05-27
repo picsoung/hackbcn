@@ -10,17 +10,26 @@ export default function Sponsors() {
           {intl.t("sponsors.title")}
         </h2>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
-          <div className="relative flex flex-wrap gap-4 justify-center">
-            <a href="https://mistral.ai/" target="_blank" rel="">
+          <div className="relative flex flex-wrap gap-4 items-center">
+            <a href="https://huggingface.co/" target="_blank" rel="hackbcn">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/mistral.svg"
                 width={300}
                 height={32}
+                alt="Huggingface logo"
+              />
+            </a>
+            <a href="https://mistral.ai/" target="_blank" rel="hackbcn">
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/hf.png"
+                width={300}
+                height={32}
                 alt="mistralai"
               />
             </a>
-            <a href="https://algolia.com/" target="_blank" rel="">
+            <a href="https://algolia.com/" target="_blank" rel="hackbcn">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/algolia.png"
@@ -29,7 +38,7 @@ export default function Sponsors() {
                 alt="Algolia"
               />
             </a>
-            <a href="https://replexica.com/" target="_blank" rel="">
+            <a href="https://replexica.com/" target="_blank" rel="hackbcn">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/replexica.png"
