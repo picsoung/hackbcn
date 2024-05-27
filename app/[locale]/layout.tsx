@@ -21,7 +21,7 @@ export async function generateMetadata(args: any) {
       icon: ["/favicon.ico?v=4"],
     },
     manifest: "/site.webmanifest",
-    metadataBase: new URL("https://hackbcn.com"),
+    // metadataBase: new URL("https://hackbcn.com"),
     alternates: {
       canonical: '/',
       languages: {
@@ -34,7 +34,7 @@ export async function generateMetadata(args: any) {
     },
     openGraph: {
       type: "website",
-      url: "https://hackbcn.com",
+      url: `https://hackbcn.com/${args.params.locale}`,
       title: localeData["meta.title"],
       description: localeData["meta.description-og"],
       siteName: localeData["meta.name"],

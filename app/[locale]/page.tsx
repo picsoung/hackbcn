@@ -9,6 +9,5 @@ export default async function Home(props: { params: { locale: string } }) {
   ];
   const isValidLocale = supportedLocales.includes(props.params.locale);
   if (!isValidLocale) { return redirect(`/${i18nConfig.locale.source}`); }
-
   return <HomeContent />;
 }
