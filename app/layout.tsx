@@ -1,3 +1,4 @@
+import { CSPostHogProvider } from "./providers";
 export default function RootLayout(props: any) {
-  return <>{props.children}</>;
+  return <CSPostHogProvider>{props.children}</CSPostHogProvider>;
 }
