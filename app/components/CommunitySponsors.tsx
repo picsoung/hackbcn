@@ -10,13 +10,6 @@ export default function CommunitySponsors() {
         </h3>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="flex flex-wrap gap-4 items-center">
-            <a href="https://www.inno-it.es" target="_blank">
-              <img
-                className="h-auto max-h-28 object-contain hover:cursor-pointer"
-                src="/logos/community/innoit.png"
-                alt="InnoIT"
-              />
-            </a>
             <a href="https://techfems.org/" target="_blank">
               <img
                 className="h-auto max-h-40 object-contain hover:cursor-pointer"
@@ -29,6 +22,13 @@ export default function CommunitySponsors() {
                 className="h-auto max-h-40 object-contain hover:cursor-pointer"
                 src="/logos/community/saturdaysai.png"
                 alt="SaturdaysAI logo"
+              />
+            </a>
+            <a href="https://www.camarafrancesa.es/ " target="_blank">
+              <img
+                className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                src="/logos/community/ccibcn.png"
+                alt="Chambre de Commerce Francaise à Barcelone logo"
               />
             </a>
             {/*<a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">

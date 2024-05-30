@@ -47,6 +47,15 @@ export default function Sponsors() {
                 alt="Replexica"
               />
             </a>
+            <a href="https://www.inno-it.es" target="_blank">
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/community/innoit_black.png"
+                alt="InnoIT"
+                width={300}
+                height={32}
+              />
+            </a>
             <a href="https://www.lewagon.com/barcelona" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"
