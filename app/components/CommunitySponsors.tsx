@@ -17,34 +17,27 @@ export default function CommunitySponsors() {
                 alt="TechFems"
               />
             </a>
-            <a href="https://www.saturdays.ai/online " target="_blank">
+            <a href="https://www.saturdays.ai/online" target="_blank">
               <img
                 className="h-auto max-h-40 object-contain hover:cursor-pointer"
                 src="/logos/community/saturdaysai.png"
                 alt="SaturdaysAI logo"
               />
             </a>
-            <a href="https://www.camarafrancesa.es/ " target="_blank">
+            <a href="https://www.camarafrancesa.es/" target="_blank">
               <img
                 className="h-auto max-h-40 object-contain hover:cursor-pointer"
                 src="/logos/community/ccibcn.png"
                 alt="Chambre de Commerce Francaise à Barcelone logo"
               />
             </a>
-            {/*<a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer">
-                <img
-                  className="h-auto max-h-40 object-contain hover:cursor-pointer"
-                  src="/logos/Anthropic.png"
-                  alt="Anthropic"
-                />
-              </a>
-              <a href="https://tech.cornell.edu/jacobs-technion-cornell-institute/" target="_blank" rel="noopener noreferrer">
-                <img
-                  className="h-auto max-h-40 object-contain hover:cursor-pointer"
-                  src="/logos/ctech2.png"
-                  alt="Cornell Tech"
-                />
-              </a> */}
+            <a href="https://www.meetup.com/ai-engineers-barcelona/" target="_blank">
+              <img
+                className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                src="/logos/community/aibcn.png"
+                alt="AI Engineers Barcelona meetup logo"
+              />
+            </a>
           </div>
           {/* 
             <div className="flex flex-wrap gap-4 justify-center mt-10">
