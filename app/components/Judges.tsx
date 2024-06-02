@@ -46,7 +46,7 @@ export default function Judges() {
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
           <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {members(intl).map((member,id) => (
+            {members(intl).map((member) => (
               <div
                 key={member.name}
                 className="flex flex-col items-center gap-2"
@@ -67,9 +67,9 @@ export default function Judges() {
                 </p>
                 <div className="flex flex-row gap-4">
                   {member.links &&
-                    Object.keys(member.links).map((linkType: string) => {
-                      return (
-                        <Link key={linkType} href={member.links[linkType]}>
+                    Object.keys(member.links).map((linkType: string,id) => {
+                      const linkURL = member.links[linkType as keyof typeof member.links]                      return (
+                        <Link key={id} href={linkURL || ""}>
                           {linkType === "twitter" && (
                             <FaSquareXTwitter className="text-3xl" />
                           )}
