@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { useIntl } from "./Intl";
+import { FaSquareXTwitter, FaLinkedin, FaLink } from "react-icons/fa6";
 
 const members = (intl: ReturnType<typeof useIntl>) => [
   // {
@@ -11,23 +13,26 @@ const members = (intl: ReturnType<typeof useIntl>) => [
   //   website: "https://float.build/",
   // },
   {
-    name: intl.t('judges.item.0.name'),
-    description: intl.t('judges.item.0.description'),
+    name: intl.t("judges.item.0.name"),
+    description: intl.t("judges.item.0.description"),
     image: {
       src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
     },
-    twitter: "https://twitter.com/LinusEkenstam",
+    links: {
+      twitter: "https://twitter.com/LinusEkenstam",
+      website: "https://insidemyhead.ai/"
+    },
   },
   {
-    name: intl.t('judges.item.1.name'),
-    description: intl.t('judges.item.1.description'),
+    name: intl.t("judges.item.1.name"),
+    description: intl.t("judges.item.1.description"),
     image: {
       src: `https://picsum.photos/200`,
     },
   },
   {
-    name: intl.t('judges.item.2.name'),
-    description: intl.t('judges.item.2.description'),
+    name: intl.t("judges.item.2.name"),
+    description: intl.t("judges.item.2.description"),
     image: {
       src: `https://picsum.photos/200`,
     },
@@ -41,14 +46,41 @@ export default function Judges() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-            {intl.t('judges.title')}
+            {intl.t("judges.title")}
           </h2>
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+          <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {members(intl).map((member) => (
-              <div key={member.name} className="flex flex-col align-middle">
-                <dt className="flex items-center gap-x-3 text-xl sm:text-2xl font-bold leading-7 text-gray-900">
+              <div key={member.name} className="flex flex-col items-center gap-2">
+                <img
+                  className="rounded-full aspect-square object-cover"
+                  src={member.image.src}
+                  alt={member.name}
+                  width="230"
+                  height="230"
+                  // style={{ border: "2px" }}
+                />
+                <span className="mb-2 text-xl font-medium leading-tight">
+                  {member.name}
+                </span>
+                <p className="text-neutral-500 dark:text-neutral-400">
+                  {member.description}
+                </p>
+                <div className="flex flex-row gap-4">
+                  {member.links &&
+                    Object.keys(member.links).map((linkType: string) => {
+                      console.log("liiinktype", linkType);
+                      return (
+                        <Link href={member.links[linkType]}>
+                          {linkType === "twitter" && <FaSquareXTwitter className="text-3xl"/>}
+                          {linkType === "linkedin" && <FaLinkedin className="text-3xl"/>}
+                          {linkType === "website" && <FaLink className="text-3xl"/>}
+                        </Link>
+                      );
+                    })}
+                </div>
+                {/* <dt className="flex items-center gap-x-3 text-xl sm:text-2xl font-bold leading-7 text-gray-900">
                   <span
                     className="h-5 w-12 flex-none text-indigo-600"
                     aria-hidden="true"
@@ -70,10 +102,10 @@ export default function Judges() {
                     <p className="flex-auto">{member.description}</p>
                   </div>
                   <div></div>
-                </dd>
+                </dd> */}
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       </div>
     </div>
