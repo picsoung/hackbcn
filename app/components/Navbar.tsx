@@ -98,7 +98,11 @@ const Navbar: React.FC<NavbarProps> = ({
         className="bg-transparent border border-white/50 rounded-md text-white tezt-sm px-2 py-1"
         value={intl.locale}
         onChange={(e) => {
-          window.location.href = e.target.value
+          // window.location.href = e.target.value
+          const regex = /^(https?:\/\/[^\/]+\/)([a-z]{2})(\/|$)/;
+          const currentURL = window.location.href
+          console.log('change', e.target.value, currentURL.replace(regex, `$1${e.target.value}$3`))
+          window.location.href = currentURL.replace(regex, `$1${e.target.value}$3`);
         }}
       >
         {intl.locales.map((locale) => (

@@ -25,6 +25,7 @@ export default function HomeContent() {
     { name: intl.t('navbar.faq'), href: "#faq" },
     { name: intl.t('navbar.team'), href: "#about" },
     { name: intl.t('navbar.judges'), href: "#judges" },
+    { name: intl.t('navbar.coc'), href: `${intl.locale}/conduct` },
   ];
 
   return (
