@@ -1,42 +1,37 @@
 import Link from "next/link";
 import { useIntl } from "./Intl";
-import { FaSquareXTwitter, FaLinkedin, FaLink } from "react-icons/fa6";
+import { FaSquareXTwitter, FaLinkedin, FaLink,FaMedium } from "react-icons/fa6";
 
 const members = (intl: ReturnType<typeof useIntl>) => [
-  // {
-  //   name: intl.t('judges.item.0.name'),
-  //   description: intl.t('judges.item.0.description'),
-  //   image: {
-  //     src: `https://pbs.twimg.com/profile_images/1784295597228335104/dQY2N4zt_400x400.jpg`,
-  //   },
-  //   twitter: "https://twitter.com/okuiux",
-  //   website: "https://float.build/",
-  // },
   {
-    name: intl.t("judges.item.0.name"),
-    description: intl.t("judges.item.0.description"),
+    name: "Linus Ekenstam",
+    description: "AI Gardener & Designer",
     image: {
       src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
     },
     links: {
       twitter: "https://twitter.com/LinusEkenstam",
-      website: "https://insidemyhead.ai/"
+      website: "https://insidemyhead.ai/",
     },
   },
   {
-    name: intl.t("judges.item.1.name"),
-    description: intl.t("judges.item.1.description"),
+    name: "Anna Via",
+    description:`ML Product Manager @ Adevinta`,
     image: {
-      src: `https://picsum.photos/200`,
+      src: `/judges/annavia.jpeg`,
+    },
+    links: {
+      linkedin: "https://www.linkedin.com/in/anna-via/",
+      medium: "https://annaviaba.medium.com/",
     },
   },
-  {
-    name: intl.t("judges.item.2.name"),
-    description: intl.t("judges.item.2.description"),
-    image: {
-      src: `https://picsum.photos/200`,
-    },
-  },
+  // {
+  //   name: intl.t("judges.item.2.name"),
+  //   description: intl.t("judges.item.2.description"),
+  //   image: {
+  //     src: `https://picsum.photos/200`,
+  //   },
+  // },
 ];
 
 export default function Judges() {
@@ -52,7 +47,10 @@ export default function Judges() {
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
           <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {members(intl).map((member) => (
-              <div key={member.name} className="flex flex-col items-center gap-2">
+              <div
+                key={member.name}
+                className="flex flex-col items-center gap-2"
+              >
                 <img
                   className="rounded-full aspect-square object-cover"
                   src={member.image.src}
@@ -73,9 +71,18 @@ export default function Judges() {
                       console.log("liiinktype", linkType);
                       return (
                         <Link href={member.links[linkType]}>
-                          {linkType === "twitter" && <FaSquareXTwitter className="text-3xl"/>}
-                          {linkType === "linkedin" && <FaLinkedin className="text-3xl"/>}
-                          {linkType === "website" && <FaLink className="text-3xl"/>}
+                          {linkType === "twitter" && (
+                            <FaSquareXTwitter className="text-3xl" />
+                          )}
+                          {linkType === "linkedin" && (
+                            <FaLinkedin className="text-3xl" />
+                          )}
+                          {linkType === "website" && (
+                            <FaLink className="text-3xl" />
+                          )}
+                          {linkType === "medium" && (
+                            <FaMedium className="text-3xl" />
+                          )}
                         </Link>
                       );
                     })}
