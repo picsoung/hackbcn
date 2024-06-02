@@ -5,7 +5,6 @@
     "targets": ["es", "ca", "fr"]
   },
   "buckets": {
-    "i18n/[locale].json": "json",
-    "legal/code-of-conduct/[locale].md": "markdown"
+    "i18n/[locale].json": "json"
   }
 }

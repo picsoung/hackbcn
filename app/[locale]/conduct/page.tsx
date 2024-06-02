@@ -30,7 +30,7 @@ export default function Page(props: { params: { locale: string } }) {
   ];
 
   const ConductContent = dynamic(
-    () => import("@/legal/code-of-conduct/" + props.params.locale + ".md")
+    () => import("@/legal/code-of-conduct/" + props.params.locale + ".mdx")
   );
 
   return (

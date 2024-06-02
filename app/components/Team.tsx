@@ -1,3 +1,4 @@
+import HideEmail from "./HideEmail";
 import { useIntl } from "./Intl";
 
 export default function Team() {
@@ -42,7 +43,7 @@ export default function Team() {
           <div className="w-full sm:w-1/2 mt-6 sm:mt-0">
             {intl.t("team.contact")}
             <br />
-            team@hackbcn.com
+            <HideEmail emailAddr="team@hackbcn.com" />
           </div>
         </div>
       </div>

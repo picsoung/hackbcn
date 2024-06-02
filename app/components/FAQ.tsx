@@ -1,7 +1,7 @@
 import { useIntl } from "./Intl";
 import Question from "./Question";
 
-const QUESTIONS = (intl: ReturnType<typeof useIntl>) => new Array(8).fill(0).map((_, index) => ({
+const QUESTIONS = (intl: ReturnType<typeof useIntl>) => new Array(9).fill(0).map((_, index) => ({
   title: intl.t(`faq.item.${index}.title`),
   answer: intl.t(`faq.item.${index}.answer`),
   category: intl.t(`faq.item.${index}.category`),
