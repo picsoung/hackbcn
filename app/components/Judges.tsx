@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { useIntl } from "./Intl";
-import { FaSquareXTwitter, FaLinkedin, FaLink,FaMedium } from "react-icons/fa6";
+import {
+  FaSquareXTwitter,
+  FaLinkedin,
+  FaLink,
+  FaMedium,
+} from "react-icons/fa6";
 
 const members = (intl: ReturnType<typeof useIntl>) => [
   {
@@ -16,7 +21,7 @@ const members = (intl: ReturnType<typeof useIntl>) => [
   },
   {
     name: "Anna Via",
-    description:`ML Product Manager @ Adevinta`,
+    description: `ML Product Manager @ Adevinta`,
     image: {
       src: `/judges/annavia.jpeg`,
     },
@@ -25,13 +30,6 @@ const members = (intl: ReturnType<typeof useIntl>) => [
       medium: "https://annaviaba.medium.com/",
     },
   },
-  // {
-  //   name: intl.t("judges.item.2.name"),
-  //   description: intl.t("judges.item.2.description"),
-  //   image: {
-  //     src: `https://picsum.photos/200`,
-  //   },
-  // },
 ];
 
 export default function Judges() {
@@ -67,8 +65,10 @@ export default function Judges() {
                 </p>
                 <div className="flex flex-row gap-4">
                   {member.links &&
-                    Object.keys(member.links).map((linkType: string,id) => {
-                      const linkURL = member.links[linkType as keyof typeof member.links]                      return (
+                    Object.keys(member.links).map((linkType: string, id) => {
+                      const linkURL =
+                        member.links[linkType as keyof typeof member.links];
+                      return (
                         <Link key={id} href={linkURL || ""}>
                           {linkType === "twitter" && (
                             <FaSquareXTwitter className="text-3xl" />
