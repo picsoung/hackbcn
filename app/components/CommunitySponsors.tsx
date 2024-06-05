@@ -38,6 +38,20 @@ export default function CommunitySponsors() {
                 alt="AI Engineers Barcelona meetup logo"
               />
             </a>
+            <a href="https://pybcn.org/pyladies_bcn/meetups/" target="_blank">
+              <img
+                className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                src="/logos/community/pyladies-bcn.jpeg"
+                alt="PyLadies BCN"
+              />
+            </a>
+            <a href="https://pybcn.org" target="_blank">
+              <img
+                className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                src="/logos/community/pybcn.png"
+                alt="PyBCN"
+              />
+            </a>
           </div>
           {/* 
             <div className="flex flex-wrap gap-4 justify-center mt-10">
