@@ -56,6 +56,15 @@ export default function Sponsors() {
                 height={32}
               />
             </a>
+            <a href="https://www.resend.com" target="_blank" rel="">
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/resend.png"
+                width={300}
+                height={32}
+                alt="Resend"
+              />
+            </a>
             <a href="https://www.lewagon.com/barcelona" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"
