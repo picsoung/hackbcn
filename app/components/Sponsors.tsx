@@ -74,6 +74,19 @@ export default function Sponsors() {
                 alt="LeWagon"
               />
             </a>
+            <a
+              href="https://xarxardi-ia.cat/convocatories/ai-accelerator-24/"
+              target="_blank"
+              rel=""
+            >
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/logo_xRDI-IA.png"
+                width={300}
+                height={32}
+                alt="xarxardi-ia"
+              />
+            </a>
             <a target="_blank" href="https://hackbcn.com/sponsorship.pdf">
               <Image
                 className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
