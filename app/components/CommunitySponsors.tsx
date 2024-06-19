@@ -52,6 +52,20 @@ export default function CommunitySponsors() {
                 alt="PyBCN"
               />
             </a>
+            <a href="https://www.youtube.com/@rivela_" target="_blank">
+              <img
+                className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                src="/logos/community/RivelaLogo.png"
+                alt="Rivela youtube"
+              />
+            </a>
+            <a href="https://www.youtube.com/@la_inteligencia_artificial/" target="_blank">
+              <img
+                className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                src="/logos/community/intelligencia_artificial_logo.jpeg"
+                alt="Artificial Intelligence youtube"
+              />
+            </a>
           </div>
           {/* 
             <div className="flex flex-wrap gap-4 justify-center mt-10">
