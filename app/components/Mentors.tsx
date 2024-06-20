@@ -24,7 +24,7 @@ const members = (intl: ReturnType<typeof useIntl>) => [
 export default function Mentors() {
   const intl = useIntl();
   return (
-    <div id="mentors" className="bg-white py-10 sm:py-10">
+    <div id="mentors" className="py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
@@ -42,14 +42,14 @@ export default function Mentors() {
                   className="rounded-full aspect-square object-cover"
                   src={member.image.src}
                   alt={member.name}
-                  width="230"
-                  height="230"
+                  width="120"
+                  height="120"
                   // style={{ border: "2px" }}
                 />
-                <span className="mb-2 text-xl font-medium leading-tight">
+                <span className="text-neutral-100 mb-2 text-xl font-medium leading-tight">
                   {member.name}
                 </span>
-                <p className="text-neutral-500 dark:text-neutral-400">
+                <p className="text-neutral-200 dark:text-neutral-400">
                   {member.description}
                 </p>
                 <div className="flex flex-row gap-4">
@@ -60,16 +60,16 @@ export default function Mentors() {
                       return (
                         <Link key={id} href={linkURL || ""}>
                           {linkType === "twitter" && (
-                            <FaSquareXTwitter className="text-3xl" />
+                            <FaSquareXTwitter className="text-teal-400 text-3xl" />
                           )}
                           {linkType === "linkedin" && (
-                            <FaLinkedin className="text-3xl" />
+                            <FaLinkedin className="text-blue-600 text-3xl" />
                           )}
                           {linkType === "website" && (
-                            <FaLink className="text-3xl" />
+                            <FaLink className="text-slate-100 text-3xl" />
                           )}
                           {linkType === "medium" && (
-                            <FaMedium className="text-3xl" />
+                            <FaMedium className="text-slate-100 text-3xl" />
                           )}
                         </Link>
                       );
