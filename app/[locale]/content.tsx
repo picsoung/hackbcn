@@ -14,6 +14,7 @@ import Team from "../components/Team";
 import Footer from "../components/Footer";
 import { useIntl } from "../components/Intl";
 import CommunitySponsors from "../components/CommunitySponsors";
+import Mentors from "../components/Mentors";
 
 export default function HomeContent() {
   const intl = useIntl();
@@ -40,6 +41,7 @@ export default function HomeContent() {
         <Sponsors />  
         <CommunitySponsors />
         <Judges />
+        <Mentors />
         <WhyJoin />
         <Dates />
         <Schedule />
