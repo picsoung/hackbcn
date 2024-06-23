@@ -18,6 +18,17 @@ const members = (intl: ReturnType<typeof useIntl>) => [
       linkedin: "https://www.linkedin.com/in/belleteric/",
       twitter: "https://x.com/eric_bellet",
     },
+  },
+  {
+    name: "Javier López-Nieto",
+    description: "Founding Software Engineer @ Açai Travel",
+    image: {
+      src: `https://media.licdn.com/dms/image/C5603AQGX-syAjvUArA/profile-displayphoto-shrink_400_400/0/1638805539864?e=1724889600&v=beta&t=mD46l9q3ObbjaBmG4xstKccu7PiZftFSfcJm6-qoGe0`,
+    },
+    links: {
+      linkedin: "https://www.linkedin.com/in/javier-lopez-nieto/",
+      website: "https://www.acaitravel.com/",
+    },
   }
 ];
 
