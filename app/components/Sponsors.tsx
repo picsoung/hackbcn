@@ -56,6 +56,19 @@ export default function Sponsors() {
                 height={32}
               />
             </a>
+            <a
+              href="https://hookdeck.com"
+              target="_blank"
+              rel="hackbcn"
+            >
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/hookdeck.svg"
+                width={300}
+                height={32}
+                alt="hookdeck"
+              />
+            </a>
             <a href="https://www.resend.com" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"
