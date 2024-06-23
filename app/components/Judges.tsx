@@ -30,6 +30,17 @@ const members = (intl: ReturnType<typeof useIntl>) => [
       medium: "https://annaviaba.medium.com/",
     },
   },
+  {
+    name: "Pavel Pratyush",
+    description: `Head of Engineering @ Acai Travel`,
+    image: {
+      src: `/judges/pavel.png`,
+    },
+    links: {
+      linkedin: "https://www.linkedin.com/in/akpratyush/",
+      website: "https://www.acaitravel.com",
+    },
+  },
 ];
 
 export default function Judges() {
