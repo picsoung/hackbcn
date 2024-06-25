@@ -5,7 +5,7 @@ export default function Footer({ padding = false }) {
   return (
     <footer>
       <div style={{display: 'none'}}>
-        <script
+        {/* <script
           id="formless_embed"
           src="https://embed.formless.ai/embed.js"
           async={true}
@@ -15,7 +15,7 @@ export default function Footer({ padding = false }) {
           data-trigger-title={intl.t('footer.form.title')}
           data-trigger-subtitle={intl.t('footer.form.subtitle')}
           data-conversation-id="a1DBrrA9bUXA" 
-        ></script>
+        ></script> */}
       </div>
       <div
         className={`mx-auto max-w-7xl ${
