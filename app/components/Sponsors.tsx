@@ -11,7 +11,7 @@ export default function Sponsors() {
         </h2>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="relative flex flex-wrap gap-4 items-center">
-            <a href="https://huggingface.co/" target="_blank" rel="hackbcn">
+            <a href="https://mistral.ai/?ref=hackbcn" target="_blank" rel="hackbcn">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/mistral.svg"
@@ -20,7 +20,7 @@ export default function Sponsors() {
                 alt="Huggingface logo"
               />
             </a>
-            <a href="https://mistral.ai/" target="_blank" rel="hackbcn">
+            <a href="https://huggingface.co/?ref=hackbcn" target="_blank" rel="hackbcn">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/hf.png"
@@ -29,7 +29,7 @@ export default function Sponsors() {
                 alt="mistralai"
               />
             </a>
-            <a href="https://algolia.com/" target="_blank" rel="hackbcn">
+            <a href="https://algolia.com/?ref=hackbcn" target="_blank" rel="hackbcn">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/algolia.png"
@@ -38,7 +38,7 @@ export default function Sponsors() {
                 alt="Algolia"
               />
             </a>
-            <a href="https://replexica.com/" target="_blank" rel="hackbcn">
+            <a href="https://replexica.com/?ref=hackbcn" target="_blank" rel="hackbcn">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/replexica.png"
@@ -47,7 +47,7 @@ export default function Sponsors() {
                 alt="Replexica"
               />
             </a>
-            <a href="https://www.inno-it.es" target="_blank">
+            <a href="https://www.inno-it.es?ref=hackbcn" target="_blank">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/community/innoit_black.png"
@@ -57,7 +57,7 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://hookdeck.com"
+              href="https://hookdeck.com?ref=hackbcn"
               target="_blank"
               rel="hackbcn"
             >
@@ -69,7 +69,7 @@ export default function Sponsors() {
                 alt="hookdeck"
               />
             </a>
-            <a href="https://www.resend.com" target="_blank" rel="">
+            <a href="https://www.resend.com?ref=hackbcn" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/resend.png"
@@ -78,7 +78,7 @@ export default function Sponsors() {
                 alt="Resend"
               />
             </a>
-            <a href="https://www.lewagon.com/barcelona" target="_blank" rel="">
+            <a href="https://www.lewagon.com/barcelona?ref=hackbcn" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/lewagon.png"
@@ -88,7 +88,7 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://xarxardi-ia.cat/convocatories/ai-accelerator-24/"
+              href="https://xarxardi-ia.cat/convocatories/ai-accelerator-24?ref=hackbcn"
               target="_blank"
               rel=""
             >
