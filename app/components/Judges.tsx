@@ -41,6 +41,17 @@ const members = (intl: ReturnType<typeof useIntl>) => [
       website: "https://www.acaitravel.com",
     },
   },
+  {
+    name: "Tanya Van Gastel",
+    description: `Co-founder/CMO @ Multiverse AI`,
+    image: {
+      src: `/judges/tanya.png`,
+    },
+    links: {
+      linkedin: "https://www.linkedin.com/in/tanyavangastel/",
+      website: "https://www.themultiverse.ai",
+    },
+  },
 ];
 
 export default function Judges() {
@@ -54,7 +65,7 @@ export default function Judges() {
           </h2>
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
-          <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+          <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
             {members(intl).map((member) => (
               <div
                 key={member.name}

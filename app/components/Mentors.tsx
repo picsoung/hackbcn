@@ -12,7 +12,7 @@ const members = (intl: ReturnType<typeof useIntl>) => [
     name: "Eric Bellet",
     description: "AI & Data Engineer @ Adevinta",
     image: {
-      src: `https://media.licdn.com/dms/image/C5603AQHkySrckReZ-w/profile-displayphoto-shrink_100_100/0/1581075923654?e=1724284800&v=beta&t=jhQSCGAh3edioNPtg5vjBgragieZQ0944auETDRQxkU`,
+      src: `./mentors/ericbellet.jpeg`,
     },
     links: {
       linkedin: "https://www.linkedin.com/in/belleteric/",
@@ -23,11 +23,42 @@ const members = (intl: ReturnType<typeof useIntl>) => [
     name: "Javier López-Nieto",
     description: "Founding Software Engineer @ Açai Travel",
     image: {
-      src: `https://media.licdn.com/dms/image/C5603AQGX-syAjvUArA/profile-displayphoto-shrink_400_400/0/1638805539864?e=1724889600&v=beta&t=mD46l9q3ObbjaBmG4xstKccu7PiZftFSfcJm6-qoGe0`,
+      src: `/mentors/javierlopez.jpeg`,
     },
     links: {
       linkedin: "https://www.linkedin.com/in/javier-lopez-nieto/",
       website: "https://www.acaitravel.com/",
+    },
+  },
+  {
+    name: "David Okuniev",
+    description: "Co-founder of Float, Co-Founder of Typeform",
+    image: {
+      src: `/mentors/davidokuniev.jpeg`,
+    },
+    links: {
+      linkedin: "https://www.linkedin.com/in/david-okuniev-a845b66",
+      website: "https://supercut.video/",
+    },
+  },
+  {
+    name: "Joan Gomez",
+    description: "Senior Software Engineer @ eDreams ODIGEO",
+    image: {
+      src: `/mentors/joangomez.jpeg`,
+    },
+    links: {
+      linkedin: "https://www.linkedin.com/in/joangomezalvarez/",
+    },
+  },
+  {
+    name: "Manuel Alba",
+    description: "Data Scientist @ eDreams ODIGEO",
+    image: {
+      src: `/mentors/manuelalba.jpeg`,
+    },
+    links: {
+      linkedin: "https://www.linkedin.com/in/manuel-alba-aviles/",
     },
   }
 ];
