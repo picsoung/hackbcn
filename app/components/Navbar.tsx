@@ -56,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 </div>
 
                 {/* Left - Navigation Links */}
-                <ApplyButton />
+                {/* <ApplyButton /> */}
 
                 {/* Mobile menu button */}
                 <div className="-mr-2 flex items-center sm:hidden">
