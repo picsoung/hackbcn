@@ -69,6 +69,19 @@ export default function Sponsors() {
                 alt="hookdeck"
               />
             </a>
+            <a
+              href="https://www.edreamsodigeocareers.com?ref=hackbcn"
+              target="_blank"
+              rel="hackbcn"
+            >
+              <Image
+                className="h-auto max-h-32 object-contain"
+                src="/logos/edreams.svg"
+                width={300}
+                height={32}
+                alt="edreams"
+              />
+            </a>
             <a href="https://www.resend.com?ref=hackbcn" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"
