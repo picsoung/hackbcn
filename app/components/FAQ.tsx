@@ -1,15 +1,16 @@
-import { useIntl } from "./Intl";
-import Question from "./Question";
+import { useIntl } from './Intl'
+import Question from './Question'
 
-const QUESTIONS = (intl: ReturnType<typeof useIntl>) => new Array(9).fill(0).map((_, index) => ({
-  title: intl.t(`faq.item.${index}.title`),
-  answer: intl.t(`faq.item.${index}.answer`),
-  category: intl.t(`faq.item.${index}.category`),
-}));
+const QUESTIONS = (intl: ReturnType<typeof useIntl>) =>
+  new Array(9).fill(0).map((_, index) => ({
+    title: intl.t(`faq.item.${index}.title`),
+    answer: intl.t(`faq.item.${index}.answer`),
+    category: intl.t(`faq.item.${index}.category`),
+  }))
 
 export default function FAQ({ padding = false }) {
-  const intl = useIntl();
-  type Question = { title: string; answer: string };
+  const intl = useIntl()
+  type Question = { title: string; answer: string }
 
   return (
     <div id="faq" className="bg-white">
@@ -18,7 +19,9 @@ export default function FAQ({ padding = false }) {
           <h2 className="text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
             {intl.t('faq.title')}
           </h2>
-          <div className={`${padding ? "faq-padding" : ""} grid grid-cols-2 gap-4`}>
+          <div
+            className={`${padding ? 'faq-padding' : ''} grid grid-cols-2 gap-4`}
+          >
             {QUESTIONS(intl).map((q, index) => (
               <Question key={index} title={q.title} answer={q.answer} />
             ))}
@@ -26,5 +29,5 @@ export default function FAQ({ padding = false }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

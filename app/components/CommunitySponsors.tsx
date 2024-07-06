@@ -31,7 +31,10 @@ export default function CommunitySponsors() {
                 alt="Chambre de Commerce Francaise à Barcelone logo"
               />
             </a>
-            <a href="https://www.meetup.com/ai-engineers-barcelona/" target="_blank">
+            <a
+              href="https://www.meetup.com/ai-engineers-barcelona/"
+              target="_blank"
+            >
               <img
                 className="h-auto max-h-40 object-contain hover:cursor-pointer"
                 src="/logos/community/aibcn.png"
@@ -59,7 +62,10 @@ export default function CommunitySponsors() {
                 alt="Rivela youtube"
               />
             </a>
-            <a href="https://www.youtube.com/@la_inteligencia_artificial/" target="_blank">
+            <a
+              href="https://www.youtube.com/@la_inteligencia_artificial/"
+              target="_blank"
+            >
               <img
                 className="h-auto max-h-40 object-contain hover:cursor-pointer"
                 src="/logos/community/intelligencia_artificial_logo.jpeg"
@@ -240,5 +246,5 @@ export default function CommunitySponsors() {
         </div>
       </div>
     </div>
-  );
+  )
 }

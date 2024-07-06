@@ -1,17 +1,21 @@
-import Image from "next/image";
-import React from "react"; // Import React if you haven't already
-import { useIntl } from "./Intl";
+import Image from 'next/image'
+import React from 'react' // Import React if you haven't already
+import { useIntl } from './Intl'
 export default function Sponsors() {
-  const intl = useIntl();
+  const intl = useIntl()
   return (
     <div id="sponsors" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-          {intl.t("sponsors.title")}
+          {intl.t('sponsors.title')}
         </h2>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="relative flex flex-wrap gap-4 items-center">
-            <a href="https://mistral.ai/?ref=hackbcn" target="_blank" rel="hackbcn">
+            <a
+              href="https://mistral.ai/?ref=hackbcn"
+              target="_blank"
+              rel="hackbcn"
+            >
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/mistral.svg"
@@ -20,7 +24,11 @@ export default function Sponsors() {
                 alt="Huggingface logo"
               />
             </a>
-            <a href="https://huggingface.co/?ref=hackbcn" target="_blank" rel="hackbcn">
+            <a
+              href="https://huggingface.co/?ref=hackbcn"
+              target="_blank"
+              rel="hackbcn"
+            >
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/hf.png"
@@ -29,7 +37,11 @@ export default function Sponsors() {
                 alt="mistralai"
               />
             </a>
-            <a href="https://algolia.com/?ref=hackbcn" target="_blank" rel="hackbcn">
+            <a
+              href="https://algolia.com/?ref=hackbcn"
+              target="_blank"
+              rel="hackbcn"
+            >
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/algolia.png"
@@ -38,7 +50,11 @@ export default function Sponsors() {
                 alt="Algolia"
               />
             </a>
-            <a href="https://replexica.com/?ref=hackbcn" target="_blank" rel="hackbcn">
+            <a
+              href="https://replexica.com/?ref=hackbcn"
+              target="_blank"
+              rel="hackbcn"
+            >
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/replexica.png"
@@ -91,7 +107,11 @@ export default function Sponsors() {
                 alt="Resend"
               />
             </a>
-            <a href="https://www.lewagon.com/barcelona?ref=hackbcn" target="_blank" rel="">
+            <a
+              href="https://www.lewagon.com/barcelona?ref=hackbcn"
+              target="_blank"
+              rel=""
+            >
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/lewagon.png"
@@ -126,5 +146,5 @@ export default function Sponsors() {
         </div>
       </div>
     </div>
-  );
+  )
 }

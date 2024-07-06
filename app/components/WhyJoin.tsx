@@ -1,31 +1,31 @@
-import { useIntl } from "./Intl";
+import { useIntl } from './Intl'
 
 const features = (intl: ReturnType<typeof useIntl>) => [
   {
-    name: intl.t("whyJoin.feature.0.name"),
-    description: intl.t("whyJoin.feature.0.description"),
+    name: intl.t('whyJoin.feature.0.name'),
+    description: intl.t('whyJoin.feature.0.description'),
     // icon: TrophyIcon,
   },
   {
-    name: intl.t("whyJoin.feature.1.name"),
-    description: intl.t("whyJoin.feature.1.description"),
+    name: intl.t('whyJoin.feature.1.name'),
+    description: intl.t('whyJoin.feature.1.description'),
     // icon: BriefcaseIcon,
   },
   {
-    name: intl.t("whyJoin.feature.2.name"),
-    description: intl.t("whyJoin.feature.2.description"),
+    name: intl.t('whyJoin.feature.2.name'),
+    description: intl.t('whyJoin.feature.2.description'),
     // icon: CodeBracketIcon,
   },
-];
+]
 
 export default function WhyJoin() {
-  const intl = useIntl();
+  const intl = useIntl()
   return (
     <div id="why" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-            {intl.t("whyJoin.title")}
+            {intl.t('whyJoin.title')}
           </h2>
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
@@ -48,5 +48,5 @@ export default function WhyJoin() {
         </div>
       </div>
     </div>
-  );
+  )
 }

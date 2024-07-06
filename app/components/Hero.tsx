@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import GradientHero from "./GradientHero";
-import Link from "next/link";
-import ApplyButton from "./ApplyButton";
-import Image from "next/image"; // Add this import
-import { useIntl } from "./Intl";
+import GradientHero from './GradientHero'
+import Link from 'next/link'
+import ApplyButton from './ApplyButton'
+import Image from 'next/image' // Add this import
+import { useIntl } from './Intl'
 
 export default function Hero() {
-  const intl = useIntl();
+  const intl = useIntl()
   return (
     <div>
       <main>
@@ -29,7 +29,11 @@ export default function Hero() {
             <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
               <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                 <h1 className="text-4xl font-cal text-white sm:text-6xl">
-                  {intl.t('hero.title.left-part')}<span className="text-amber-600">{intl.t('hero.title.right-part')}</span> - {intl.t('hero.title-edition')}
+                  {intl.t('hero.title.left-part')}
+                  <span className="text-amber-600">
+                    {intl.t('hero.title.right-part')}
+                  </span>{' '}
+                  - {intl.t('hero.title-edition')}
                 </h1>
                 <p className="relative mt-6 text-lg leading-8 text-gray-200 sm:max-w-md lg:max-w-none">
                   {intl.t('hero.description.0')}
@@ -52,7 +56,7 @@ export default function Hero() {
               <div className="mt-14 flex flex-col justify-end gap-8 sm:-mt-44 sm:flex-row sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                 <Image
                   src="/aihack.png"
-                  alt={"AI Hack illustration"}
+                  alt={'AI Hack illustration'}
                   className="w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                   width={0}
                   height={0}
@@ -76,5 +80,5 @@ export default function Hero() {
         </div>
       </main>
     </div>
-  );
+  )
 }

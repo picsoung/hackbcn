@@ -1,16 +1,16 @@
-"use client";
-import React, { Dispatch, SetStateAction } from "react";
-import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import ApplyButton from "./ApplyButton";
+'use client'
+import React, { Dispatch, SetStateAction } from 'react'
+import { Disclosure } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import ApplyButton from './ApplyButton'
 
-import Link from "next/link";
-import { useIntl } from "./Intl";
+import Link from 'next/link'
+import { useIntl } from './Intl'
 
 interface NavbarProps {
-  mobileMenuOpen: boolean;
-  setMobileMenuOpen: Dispatch<SetStateAction<boolean>>;
-  navigationOptions: { name: string; href: string }[];
+  mobileMenuOpen: boolean
+  setMobileMenuOpen: Dispatch<SetStateAction<boolean>>
+  navigationOptions: { name: string; href: string }[]
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -18,11 +18,11 @@ const Navbar: React.FC<NavbarProps> = ({
   setMobileMenuOpen,
   navigationOptions,
 }) => {
-  const intl = useIntl();
+  const intl = useIntl()
   return (
     <Disclosure as="nav">
       {({ open }) => {
-        if (open !== mobileMenuOpen) setMobileMenuOpen(open);
+        if (open !== mobileMenuOpen) setMobileMenuOpen(open)
         return (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-white">
@@ -36,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({
                       alt="HackBCN logo"
                     />
                     <h3 className="pl-2 text-white text-lg font-medium">
-                      {intl.t("navbar.title")}
+                      {intl.t('navbar.title')}
                     </h3>
                   </Link>
                   {renderLocaleSwitcher(intl)}
@@ -86,10 +86,10 @@ const Navbar: React.FC<NavbarProps> = ({
               </div>
             </Disclosure.Panel>
           </>
-        );
+        )
       }}
     </Disclosure>
-  );
+  )
 
   function renderLocaleSwitcher(intl: ReturnType<typeof useIntl>) {
     // dropdown styled with tailwind
@@ -99,10 +99,17 @@ const Navbar: React.FC<NavbarProps> = ({
         value={intl.locale}
         onChange={(e) => {
           // window.location.href = e.target.value
-          const regex = /^(https?:\/\/[^\/]+\/)([a-z]{2})(\/|$)/;
+          const regex = /^(https?:\/\/[^\/]+\/)([a-z]{2})(\/|$)/
           const currentURL = window.location.href
-          console.log('change', e.target.value, currentURL.replace(regex, `$1${e.target.value}$3`))
-          window.location.href = currentURL.replace(regex, `$1${e.target.value}$3`);
+          console.log(
+            'change',
+            e.target.value,
+            currentURL.replace(regex, `$1${e.target.value}$3`),
+          )
+          window.location.href = currentURL.replace(
+            regex,
+            `$1${e.target.value}$3`,
+          )
         }}
       >
         {intl.locales.map((locale) => (
@@ -111,7 +118,7 @@ const Navbar: React.FC<NavbarProps> = ({
           </option>
         ))}
       </select>
-    );
+    )
   }
-};
-export default Navbar;
+}
+export default Navbar

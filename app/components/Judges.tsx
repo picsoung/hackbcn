@@ -1,67 +1,62 @@
-import Link from "next/link";
-import { useIntl } from "./Intl";
-import {
-  FaSquareXTwitter,
-  FaLinkedin,
-  FaLink,
-  FaMedium,
-} from "react-icons/fa6";
+import Link from 'next/link'
+import { useIntl } from './Intl'
+import { FaSquareXTwitter, FaLinkedin, FaLink, FaMedium } from 'react-icons/fa6'
 
 const members = (intl: ReturnType<typeof useIntl>) => [
   {
-    name: "Linus Ekenstam",
-    description: "AI Gardener & Designer",
+    name: 'Linus Ekenstam',
+    description: 'AI Gardener & Designer',
     image: {
       src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
     },
     links: {
-      twitter: "https://twitter.com/LinusEkenstam",
-      website: "https://insidemyhead.ai/",
+      twitter: 'https://twitter.com/LinusEkenstam',
+      website: 'https://insidemyhead.ai/',
     },
   },
   {
-    name: "Anna Via",
+    name: 'Anna Via',
     description: `ML Product Manager @ Adevinta`,
     image: {
       src: `/judges/annavia.jpeg`,
     },
     links: {
-      linkedin: "https://www.linkedin.com/in/anna-via/",
-      medium: "https://annaviaba.medium.com/",
+      linkedin: 'https://www.linkedin.com/in/anna-via/',
+      medium: 'https://annaviaba.medium.com/',
     },
   },
   {
-    name: "Pavel Pratyush",
+    name: 'Pavel Pratyush',
     description: `Head of Engineering @ Acai Travel`,
     image: {
       src: `/judges/pavel.png`,
     },
     links: {
-      linkedin: "https://www.linkedin.com/in/akpratyush/",
-      website: "https://www.acaitravel.com",
+      linkedin: 'https://www.linkedin.com/in/akpratyush/',
+      website: 'https://www.acaitravel.com',
     },
   },
   {
-    name: "Tanya Van Gastel",
+    name: 'Tanya Van Gastel',
     description: `Co-founder/CMO @ Multiverse AI`,
     image: {
       src: `/judges/tanya.png`,
     },
     links: {
-      linkedin: "https://www.linkedin.com/in/tanyavangastel/",
-      website: "https://www.themultiverse.ai",
+      linkedin: 'https://www.linkedin.com/in/tanyavangastel/',
+      website: 'https://www.themultiverse.ai',
     },
   },
-];
+]
 
 export default function Judges() {
-  const intl = useIntl();
+  const intl = useIntl()
   return (
     <div id="judges" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-            {intl.t("judges.title")}
+            {intl.t('judges.title')}
           </h2>
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
@@ -89,23 +84,23 @@ export default function Judges() {
                   {member.links &&
                     Object.keys(member.links).map((linkType: string, id) => {
                       const linkURL =
-                        member.links[linkType as keyof typeof member.links];
+                        member.links[linkType as keyof typeof member.links]
                       return (
-                        <Link key={id} href={linkURL || ""}>
-                          {linkType === "twitter" && (
+                        <Link key={id} href={linkURL || ''}>
+                          {linkType === 'twitter' && (
                             <FaSquareXTwitter className="text-3xl" />
                           )}
-                          {linkType === "linkedin" && (
+                          {linkType === 'linkedin' && (
                             <FaLinkedin className="text-3xl" />
                           )}
-                          {linkType === "website" && (
+                          {linkType === 'website' && (
                             <FaLink className="text-3xl" />
                           )}
-                          {linkType === "medium" && (
+                          {linkType === 'medium' && (
                             <FaMedium className="text-3xl" />
                           )}
                         </Link>
-                      );
+                      )
                     })}
                 </div>
                 {/* <dt className="flex items-center gap-x-3 text-xl sm:text-2xl font-bold leading-7 text-gray-900">
@@ -137,5 +132,5 @@ export default function Judges() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 
 interface CardProps {
-  name: string;
-  imageSrc: string;
+  name: string
+  imageSrc: string
 }
 
 const Card: React.FC<CardProps> = ({ name, imageSrc }) => {
@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({ name, imageSrc }) => {
       />
       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card
