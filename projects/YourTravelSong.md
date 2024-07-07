@@ -3,7 +3,7 @@ title: YourTravelSong
 publishedDate: '2024-06-30'
 modifiedDate: '2024-06-30'
 description: Exploiting an untapped source of data for personalised Ads
-thumbnailUrl: 'https://picsum.photos/seed/picsum/200/300'
+thumbnailUrl: '/projects/YourTravelSong.png'
 category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=5262s'
@@ -46,4 +46,4 @@ Now, what if when we listen to a song that awakes a certain feeling, we are pres
 
 This is exactly what our project is about. We focused on travel industry to reduce the scope of the project to fit it in a Hackathon, but mainly, we try to make use of LLMs to align the lyrics of a given song to a brand, by matching them according to the sentiment they both aim to invoke in us.
 
-<YouTube id="JZzgPRxKiFM" timestamp="5262" thumbnail="https://picsum.photos/seed/picsum/200/300"/>
+<YouTube id="JZzgPRxKiFM" timestamp="5262" thumbnail="/projects/YourTravelSong.png"/>

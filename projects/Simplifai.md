@@ -3,10 +3,10 @@ title: Simplifai
 publishedDate: '2024-06-30'
 modifiedDate: '2024-06-30'
 description: Effortlessly browse the web with SimplifAI, designed for accessibility
-thumbnailUrl: 'https://picsum.photos/seed/picsum/200/300'
+thumbnailUrl: '/projects/SimplifiAI.png'
 category: 'Technology'
 status: 'published'
-youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=0s'
+youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=9700s'
 hackers:
   - name: 'Erwan Molina'
     job: ''
@@ -40,4 +40,4 @@ We had the idea to try and improve web accessibility, especially for older peopl
 
 Our application eliminates the need for difficult manual interactions by enabling users to surf the web with ease utilising voice commands and audio responses. This function makes sure people may browse the internet without becoming frustrated trying to figure out complex navigation systems.
 
-<YouTube id="JZzgPRxKiFM" timestamp="0" thumbnail="https://picsum.photos/seed/picsum/200/300"/>
+<YouTube id="JZzgPRxKiFM" timestamp="9700" thumbnail="/projects/SimplifiAI.png"/>

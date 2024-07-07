@@ -1,12 +1,12 @@
 ---
-title: Meal Matcher
+title: Meal Match
 publishedDate: '2024-06-30'
 modifiedDate: '2024-06-30'
 description: An easy way to find restaurants that groups of different diets can eat at together (vegans, keto, etc)!
-thumbnailUrl: 'https://picsum.photos/seed/picsum/200/300'
+thumbnailUrl: '/projects/MealMatch.png'
 category: 'Technology'
 status: 'published'
-youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=0s'
+youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=7800s'
 hackers:
   - name: 'Diyahir Campos'
     job: ''
@@ -42,4 +42,4 @@ Often times, you are looking for where to eat with a group of friends, and one p
 
 A friendly assistant also can recommend a place to eat based on more creative needs like 'Something sweet' etc
 
-<YouTube id="JZzgPRxKiFM" timestamp="0" thumbnail="https://picsum.photos/seed/picsum/200/300"/>
+<YouTube id="JZzgPRxKiFM" timestamp="7800" thumbnail="/projects/MealMatch.png"/>

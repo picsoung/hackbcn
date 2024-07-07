@@ -9,9 +9,12 @@ export type ProjectCategory =
   | 'Education'
   | 'Other'
 
-export interface Hacker {
+export interface Person {
   name: string
   job: string
+  image:{
+    src:string
+  },
   links: {
     github?: string
     linkedin?: string
@@ -30,8 +33,8 @@ export interface ProjectData {
   category: ProjectCategory
   status: 'draft' | 'published'
   youtubeLink: string
-  hackers: Hacker[]
-  //   techStack: string[]; // Array of technologies used in the project
+  hackers: Person[]
+  techStack: string[] // Array of technologies used in the project
 }
 
 export interface Project {
@@ -73,7 +76,7 @@ export function getProject(slugOrFilePath: string[]): Project {
     status: data.status ?? 'published',
     youtubeLink: data.youtubeLink,
     hackers: data.hackers,
-    //   techStack: data.techStack,
+    techStack: data.techStack,
   }
 
   return {
@@ -83,10 +86,8 @@ export function getProject(slugOrFilePath: string[]): Project {
   }
 }
 
-function sortArticlesByDate(project1: Project, project2: Project) {
-  const date1 = project1.data.publishedDate.getTime()
-  const date2 = project2.data.publishedDate.getTime()
-  return date2 - date1
+function sortProjectsByName(project1: Project, project2: Project) {
+  return project1.data.title.toLowerCase().localeCompare(project2.data.title.toLowerCase())
 }
 
 export function getProjects(): Project[] {
@@ -98,5 +99,5 @@ export function getProjects(): Project[] {
     .filter((project) => {
       return project.data.status !== 'draft'
     })
-    .sort(sortArticlesByDate)
+    .sort(sortProjectsByName)
 }

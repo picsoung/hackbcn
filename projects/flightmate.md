@@ -1,9 +1,9 @@
 ---
-title: flightmate
+title: Flightmate
 publishedDate: '2024-06-30'
 modifiedDate: '2024-06-30'
 description: Flight Delay Predict Chatbot
-thumbnailUrl: 'https://picsum.photos/seed/picsum/200/300'
+thumbnailUrl: '/projects/Flightmate.png'
 category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=7315s'
@@ -91,4 +91,4 @@ The project demonstrates strong potential with its innovative approach to levera
 
 While tools for airline optimization exist, the integration of passenger data sets this project apart in its potential impact on passenger experience. The project has significant potential impact on improving operational efficiency and passenger satisfaction, leading to potential cost savings and increased customer loyalty for airlines.
 
-<YouTube id="JZzgPRxKiFM" timestamp="7315" thumbnail="https://picsum.photos/seed/picsum/200/300"/>
+<YouTube id="JZzgPRxKiFM" timestamp="7315" thumbnail="/projects/Flightmate.png"/>
