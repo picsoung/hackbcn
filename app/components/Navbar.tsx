@@ -6,19 +6,29 @@ import ApplyButton from './ApplyButton'
 
 import Link from 'next/link'
 import { useIntl } from './Intl'
-
 interface NavbarProps {
   mobileMenuOpen: boolean
   setMobileMenuOpen: Dispatch<SetStateAction<boolean>>
-  navigationOptions: { name: string; href: string }[]
+  // navigationOptions: { name: string; href: string }[]
 }
 
 const Navbar: React.FC<NavbarProps> = ({
   mobileMenuOpen,
   setMobileMenuOpen,
-  navigationOptions,
+  // navigationOptions,
 }) => {
   const intl = useIntl()
+  const navigationOptions = [
+    { name: intl.t('navbar.sponsors'), href: '#sponsors' },
+    { name: intl.t('navbar.why-should-i-join'), href: '#why' },
+    { name: intl.t('navbar.schedule'), href: '#schedule' },
+    { name: intl.t('navbar.faq'), href: '#faq' },
+    { name: intl.t('navbar.team'), href: '#about' },
+    { name: intl.t('navbar.judges'), href: '#judges' },
+    { name: intl.t('navbar.coc'), href: `${intl.locale}/conduct` },
+    { name: intl.t('navbar.projects'), href: `${intl.locale}/projects` },
+  ]
+
   return (
     <Disclosure as="nav">
       {({ open }) => {

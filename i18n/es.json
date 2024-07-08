@@ -99,5 +99,7 @@
   "navbar.team": "Equipo",
   "navbar.judges": "Jueces",
   "navbar.coc": "CoC",
-  "conduct.title": "Código de Conducta"
+  "navbar.projects": "Proyectos",
+  "conduct.title": "Código de Conducta",
+  "projects.title": "Proyectos"
 }

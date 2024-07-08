@@ -1,19 +1,11 @@
 import React from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
-// import { useIntl } from '../components/Intl'
-import CommunitySponsors from '../../components/CommunitySponsors'
-import dynamic from 'next/dynamic'
-import { getFilenames, getProject, getProjects } from '@/app/helpers/projects'
-import { MDXRemote } from 'next-mdx-remote/rsc'
-import { notFound } from 'next/navigation'
-import path from 'path'
+import {getProjects } from '@/app/helpers/projects'
 import Link from 'next/link'
 
 export default function Page(props: { params: { locale: string } }) {
+
   const projects = getProjects()
   const allTags: string[] = []
-  console.log(projects)
   projects.forEach((project) => {
     allTags.push(...project.data.techStack)
   })

@@ -6,8 +6,6 @@ import path from 'path'
 import YouTube from '@/app/components/mdx/Youtube'
 import Avatar from '@/app/components/Avatar'
 
-// import { useIntl } from '@/app/components/Intl'
-
 export async function generateStaticParams() {
   const filenames = getFilenames()
   // This regex will match either .md or .mdx, producing a valid URL from either.
@@ -38,8 +36,6 @@ export default function ProjectBySlug({
 
   try {
     const project = getProject(params.slug)
-    console.log('slug', params.slug)
-    console.log('project', project)
 
     const getTagColor = (tag: string) => {
       const index = project.data.techStack.indexOf(tag)
