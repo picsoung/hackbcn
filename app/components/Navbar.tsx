@@ -25,8 +25,8 @@ const Navbar: React.FC<NavbarProps> = ({
     { name: intl.t('navbar.faq'), href: '#faq' },
     { name: intl.t('navbar.team'), href: '#about' },
     { name: intl.t('navbar.judges'), href: '#judges' },
-    { name: intl.t('navbar.coc'), href: `${intl.locale}/conduct` },
-    { name: intl.t('navbar.projects'), href: `${intl.locale}/projects` },
+    { name: intl.t('navbar.coc'), href: `/${intl.locale}/conduct` },
+    { name: intl.t('navbar.projects'), href: `/${intl.locale}/projects` },
   ]
 
   return (
