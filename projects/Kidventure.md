@@ -17,7 +17,7 @@ hackers:
       linkedin: 'https://linkedin.com/in/daniel-toran-mercade/'
 
   - name: 'Michael Riebenbauer'
-    job: ''
+    job: 'Backend Developer'
     image:
       src: '/hackers/michael_riebenbauer.jpeg'
     links:
