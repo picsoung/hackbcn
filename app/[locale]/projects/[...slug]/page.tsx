@@ -6,6 +6,8 @@ import path from 'path'
 import YouTube from '@/app/components/mdx/Youtube'
 import Avatar from '@/app/components/Avatar'
 
+import { FaTrophy } from 'react-icons/fa6'
+
 export async function generateStaticParams() {
   const filenames = getFilenames()
   // This regex will match either .md or .mdx, producing a valid URL from either.
@@ -33,6 +35,20 @@ export default function ProjectBySlug({
     'bg-purple-100 text-purple-700',
     'bg-pink-100 text-pink-700',
   ]
+  const winnerColors: { [key: string]: { bg: string; text: string } } = {
+    yellow: {
+      bg: 'bg-yellow-300',
+      text: 'text-yellow-900',
+    },
+    blue: {
+      bg: 'bg-blue-300',
+      text: 'text-blue-900',
+    },
+    stone: {
+      bg: 'bg-gray-300',
+      text: 'text-gray-900',
+    },
+  }
 
   try {
     const project = getProject(params.slug)
@@ -46,6 +62,17 @@ export default function ProjectBySlug({
     content = (
       <>
         <h1>{project.data.title}</h1>
+        {project.data.winner && (
+          <div>
+            <h2>Awards</h2>
+            <div
+              className={`flex flex-row gap-2 w-1/5 items-center ${winnerColors[project.data.winner.color].bg} ${winnerColors[project.data.winner.color].text} p-3 lg:px-5 my-4 rounded-lg`}
+            >
+              <FaTrophy size={20} />
+              <span className="text-lg">{project.data.winner.text}</span>
+            </div>
+          </div>
+        )}
         <div>
           <h2>Stack</h2>
           <small className="text-gray-400">
