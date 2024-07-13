@@ -7,6 +7,10 @@ thumbnailUrl: '/projects/Eloquent.png'
 category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=8310s'
+winner:
+  type: hookdeck
+  text: Hookdeck
+  color: blue
 hackers:
   - name: 'Luken Ignacio Quintana'
     job: 'General Manager @ INESA'

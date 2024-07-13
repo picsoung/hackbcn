@@ -7,6 +7,10 @@ thumbnailUrl: '/projects/Candit.png'
 category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=1570s'
+winner:
+  type: main
+  text: Grand prize
+  color: yellow
 hackers:
   - name: 'Kristian Gosvig'
     job: 'Software Engineer @ MethinksAi'

@@ -7,6 +7,10 @@ thumbnailUrl: '/projects/AQ-App.png'
 category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=4800s'
+winner:
+  type: replexica
+  text: Replexica
+  color: stone
 hackers:
   - name: 'David Redondo'
     job: 'Product Builder'

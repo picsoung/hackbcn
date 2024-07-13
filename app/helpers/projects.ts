@@ -12,9 +12,9 @@ export type ProjectCategory =
 export interface Person {
   name: string
   job: string
-  image:{
-    src:string
-  },
+  image: {
+    src: string
+  }
   links: {
     github?: string
     linkedin?: string
@@ -35,6 +35,11 @@ export interface ProjectData {
   youtubeLink: string
   hackers: Person[]
   techStack: string[] // Array of technologies used in the project
+  winner?: {
+    type: string
+    text: string
+    color:string
+  }
 }
 
 export interface Project {
@@ -77,6 +82,7 @@ export function getProject(slugOrFilePath: string[]): Project {
     youtubeLink: data.youtubeLink,
     hackers: data.hackers,
     techStack: data.techStack,
+    winner: data.winner ?? false,
   }
 
   return {
@@ -87,7 +93,9 @@ export function getProject(slugOrFilePath: string[]): Project {
 }
 
 function sortProjectsByName(project1: Project, project2: Project) {
-  return project1.data.title.toLowerCase().localeCompare(project2.data.title.toLowerCase())
+  return project1.data.title
+    .toLowerCase()
+    .localeCompare(project2.data.title.toLowerCase())
 }
 
 export function getProjects(): Project[] {

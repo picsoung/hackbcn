@@ -1,9 +1,10 @@
 import React from 'react'
-import {getProjects } from '@/app/helpers/projects'
+import { getProjects } from '@/app/helpers/projects'
 import Link from 'next/link'
 
-export default function Page(props: { params: { locale: string } }) {
+import { FaTrophy } from 'react-icons/fa6'
 
+export default function Page(props: { params: { locale: string } }) {
   const projects = getProjects()
   const allTags: string[] = []
   projects.forEach((project) => {
@@ -42,9 +43,8 @@ export default function Page(props: { params: { locale: string } }) {
               data-testid={'project-card'}
               key={project.slug}
             >
-              <div className="m-4 p-3 flex flex-col items-start">
+              <div className="m-4 p- flex flex-col items-start">
                 {' '}
-                {/* Add items-start class */}
                 <div className="mb-2">
                   <img
                     src={project.data.thumbnailUrl}
@@ -52,10 +52,19 @@ export default function Page(props: { params: { locale: string } }) {
                     className="w-full h-auto object-cover"
                   />
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold">
-                    {project.data.title}
-                  </h3>
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-row items-center gap-4">
+                    <h3 className="flex text-xl font-semibold">
+                      {project.data.title}
+                    </h3>
+                    {project.data.winner && (
+                      <div className={`flex flex-row gap-2 items-center bg-${project.data.winner.color}-300 text-${project.data.winner.color}-900 p-3 lg:px-5 my-4 rounded-lg`}>
+                        <FaTrophy size={20} />
+                        <span className="text-lg">{project.data.winner.text}</span>
+                      </div>
+                    )}
+                  </div>
+
                   <p className="text-gray-500">{project.data.description}</p>
                   {/* <p>
                     <small className="text-gray-400">
@@ -64,17 +73,19 @@ export default function Page(props: { params: { locale: string } }) {
                   </p> */}
                   <p>
                     <small className="text-gray-400">
-                      {project.data.techStack.map((tag: string, index: number) => {
-                        const colorClass = getTagColor(tag)
-                        return (
-                          <span
-                            key={tag}
-                            className={`inline-block rounded-full px-2 py-1 mr-1 mb-1 ${colorClass}`}
-                          >
-                            {tag}
-                          </span>
-                        )
-                      })}
+                      {project.data.techStack.map(
+                        (tag: string, index: number) => {
+                          const colorClass = getTagColor(tag)
+                          return (
+                            <span
+                              key={tag}
+                              className={`inline-block rounded-full px-2 py-1 mr-1 mb-1 ${colorClass}`}
+                            >
+                              {tag}
+                            </span>
+                          )
+                        },
+                      )}
                     </small>
                   </p>
                 </div>
