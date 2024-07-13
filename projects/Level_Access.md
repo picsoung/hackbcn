@@ -8,23 +8,27 @@ category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=3000s'
 hackers:
-  - name: 'Eleanor Pitcher'
-    job: ''
-    links:
-      github: ''
-      linkedin: ''
-
-  - name: 'Dora Morolli'
-    job: ''
-    links:
-      github: ''
-      linkedin: ''
-
   - name: 'Ditsuhi Iskandaryan'
-    job: ''
+    job: 'Data Scientist @ Idibell'
+    image:
+      src: '/hackers/ditsuhi_iskandaryan.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/Ditsuhi'
+      linkedin: 'https://www.linkedin.com/in/ditsuhi-iskandaryan-ph-d-1a816993'
+  - name: 'Dora Morolli'
+    job: 'Senior Software Engineer @ Wētā Fx'
+    image:
+      src: '/hackers/dora_morolli.jpeg'
+    links:
+      github: 'https://github.com/doruchan'
+      linkedin: 'https://www.linkedin.com/in/doramorolli/'
+  - name: 'Eleanor Pitcher'
+    job: 'Senior Marketing Specialist @ Gartner'
+    image:
+      src: '/hackers/eleanor_pitcher.jpeg'
+    links:
+      github: 'https://github.com/eleanorpitcher'
+      linkedin: 'https://www.linkedin.com/in/eleanorpitcher5/'
 
 techStack:
   [

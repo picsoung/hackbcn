@@ -9,22 +9,28 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=9700s'
 hackers:
   - name: 'Erwan Molina'
-    job: ''
+    job: 'Founder @ Robotlife'
+    image:
+      src: '/hackers/erwan_molina.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/Hellgard'
+      linkedin: 'https://linkedin.com/in/erwan-molina'
 
   - name: 'Julien Moussaoui'
-    job: ''
+    job: 'Founder @ Robotlife'
+    image:
+      src: '/hackers/julien_moussaoui.jpeg'
     links:
       github: ''
-      linkedin: ''
+      linkedin: 'https://www.linkedin.com/in/julien-moussaoui-batoux/'
 
   - name: 'Thomas Samson'
-    job: ''
+    job: 'Software Engineer @ Robotlife'
+    image:
+      src: '/hackers/thomas_samson.jpeg'
     links:
       github: ''
-      linkedin: ''
+      linkedin: 'https://www.linkedin.com/in/thomas-samson-aa8b61167/'
 
 techStack:
   [

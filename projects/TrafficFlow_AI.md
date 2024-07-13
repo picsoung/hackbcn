@@ -9,22 +9,26 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=3590s'
 hackers:
   - name: 'Pau Garcia'
-    job: ''
+    job: 'Student @ UPC'
+    image:
+      src: '/hackers/pau_garcia.jpeg'
     links:
-      github: ''
-      linkedin: ''
-
-  - name: 'Jordi Pompa'
-    job: ''
-    links:
-      github: ''
-      linkedin: ''
-
+      github: 'https://github.com/paugarcia32'
+      linkedin: 'https://www.linkedin.com/in/paugarcia32/'
   - name: 'Jose Larrinzal'
-    job: ''
+    job: 'Research @ EETAC-UPC'
+    image:
+      src: '/hackers/jose_larrinzal.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/Jlarrinzal'
+      linkedin: 'https://www.linkedin.com/in/jose-maria-larrinzal-jimenez-3915a6290/'
+  - name: 'Jordi Pompas Gutiérrez'
+    job: 'AI Developer @ Bravent'
+    image:
+      src: '/hackers/jordi_pompas.jpeg'
+    links:
+      github: 'https://github.com/JordiPG05'
+      linkedin: 'https://www.linkedin.com/in/jordipompas'
 
 techStack:
   ['PyTorch', 'Ultralytics', 'Yolov10', 'NextJS', 'Python', 'Flask', 'Cuda']

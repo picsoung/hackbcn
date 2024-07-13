@@ -8,17 +8,21 @@ category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=2100s'
 hackers:
-  - name: 'Alex'
-    job: ''
+  - name: 'Alex Palazón'
+    job: 'Founder @ ArmoxAI'
+    image:
+      src: '/hackers/alex_palazon.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/palarocks'
+      linkedin: 'https://www.linkedin.com/in/alexpalazon/'
 
-  - name: 'Marc'
-    job: ''
+  - name: 'Marc Planas Castello'
+    job: 'Android Team Lead @ Mobyfox'
+    image:
+      src: '/hackers/marc_planas.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/planasmultimedia'
+      linkedin: 'https://www.linkedin.com/in/marcplanascastello/'
 
 techStack:
   [

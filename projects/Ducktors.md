@@ -24,14 +24,6 @@ hackers:
       linkedin: ''
       github: ''
 
-  - name: 'Gabriel Vogel'
-    job: 'Data Scientist'
-    image:
-      src: '/hackers/gabriel_vogel.jpeg'
-    links:
-      linkedin: 'https://www.linkedin.com/in/g-vogel'
-      github: 'https://github.com/vogab'
-
   - name: 'Nick Kobets'
     job: 'Data Scientist'
     image:
@@ -39,6 +31,13 @@ hackers:
     links:
       linkedin: 'https://www.linkedin.com/in/nick-kobets/'
       github: 'https://github.com/footkol/Portfolio'
+  - name: 'Gabriel Vogel'
+    job: 'Data Scientist'
+    image:
+      src: '/hackers/gabriel_vogel.jpeg'
+    links:
+      linkedin: 'https://www.linkedin.com/in/g-vogel'
+      github: 'https://github.com/vogab'
 
 techStack: ['GPT-4o', 'Django']
 ---

@@ -9,22 +9,26 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=9345s'
 hackers:
   - name: 'Daniel'
-    job: ''
+    job: 'Data Scientist @ Sopho Factory'
+    image:
+      src: '/hackers/daniel_toran.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/dtm95'
+      linkedin: 'https://linkedin.com/in/daniel-toran-mercade/'
 
-  - name: 'Michael'
+  - name: 'Michael Riebenbauer'
     job: ''
+    image:
+      src: '/hackers/michael_riebenbauer.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/guybrushthr'
+      linkedin: 'https://linkedin.com/in/michaelriebenbauer'
 
-  - name: 'Francesc'
-    job: ''
+  - name: 'Francesc Brugarolas Padros'
+    job: 'Project Manager'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/fcesc-code'
+      linkedin: 'https://es.linkedin.com/in/francescbrugarolas'
 
 techStack: ['Angular', 'expressjs']
 ---

@@ -8,14 +8,6 @@ category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=8930s'
 hackers:
-  - name: 'Rebeca García'
-    job: 'Student @ Factoria F5'
-    image:
-      src: '/hackers/rebeca_garcia.jpeg'
-    links:
-      linkedin: 'https://www.linkedin.com/in/rebeca-garcia-58149061'
-      github: 'https://github.com/rebkg87'
-
   - name: 'Jessica Arroyo'
     job: 'Student @ Factoria F5'
     image:
@@ -23,6 +15,13 @@ hackers:
     links:
       linkedin: 'https://linkedin.com/in/jessica-arroyo-lebr%C3%B3n-9a2373207/'
       github: 'https://github.com/jess-ar'
+  - name: 'Rebeca García'
+    job: 'Student @ Factoria F5'
+    image:
+      src: '/hackers/rebeca_garcia.jpeg'
+    links:
+      linkedin: 'https://www.linkedin.com/in/rebeca-garcia-58149061'
+      github: 'https://github.com/rebkg87'
 
 techStack: ['React', 'OpenAI']
 ---

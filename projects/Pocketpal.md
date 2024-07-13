@@ -9,22 +9,28 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=2670s'
 hackers:
   - name: 'David Azcona'
-    job: ''
+    job: 'Staff Applied Scientist @ Etsy'
+    image:
+      src: '/hackers/david_azcona.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/dazcona'
+      linkedin: 'https://www.linkedin.com/in/davidazcona/'
 
   - name: 'Andreas Blixt'
-    job: ''
+    job: 'Exploring'
+    image:
+      src: '/hackers/andreas_blixt.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/blixt'
+      linkedin: 'https://www.linkedin.com/in/andreasblixt/'
 
   - name: 'Enric Moreu'
-    job: ''
+    job: 'Machine Learning Engineer @ Fever'
+    image:
+      src: '/hackers/enric_moreu.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/enric1994'
+      linkedin: 'https://www.linkedin.com/in/enricmf/'
 
 techStack:
   [

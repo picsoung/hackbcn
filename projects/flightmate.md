@@ -8,26 +8,32 @@ category: 'Technology'
 status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=7315s'
 hackers:
-  - name: 'Denis Pinto'
-    job: ''
-    links:
-      github: ''
-      linkedin: ''
   - name: 'Julia Gaitan'
-    job: ''
-    links:
-      github: ''
-      linkedin: ''
-  - name: 'Jordi Ren'
     job: ''
     links:
       github: ''
       linkedin: ''
   - name: 'Stefania Georgescu'
     job: ''
+    image:
+      src: '/hackers/stefania_georgescu.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/StephaniaGs'
+      linkedin: 'www.linkedin.com/in/stefania-georgescu-x'
+  - name: 'Denis Pinto'
+    job: ''
+    image:
+      src: '/hackers/denis_pinto.jpeg'
+    links:
+      github: 'https://github.com/DenisPinto'
+      linkedin: 'https://www.linkedin.com/in/denis-pinto-04369133'
+  - name: 'Jordi Ren'
+    job: ''
+    image:
+      src: '/hackers/jordi_ren.jpeg'
+    links:
+      github: 'https://github.com/Kytusla908'
+      linkedin: 'https://www.linkedin.com/in/jordi-ren-148387242'
 
 techStack: ['numpy', 'pandas', 'seaborn', 'sklearn', 'flask', 'joblib']
 ---

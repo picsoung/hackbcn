@@ -12,22 +12,6 @@ winner:
   text: Replexica
   color: stone
 hackers:
-  - name: 'David Redondo'
-    job: 'Product Builder'
-    image:
-      src: '/hackers/dave_redondo.jpeg'
-    links:
-      linkedin: 'https://www.linkedin.com/in/davidredondo83/'
-      github: ''
-
-  - name: 'Valentina Toni'
-    job: 'Student WebDev at F5'
-    image:
-      src: '/hackers/valentina_toni.jpeg'
-    links:
-      linkedin: 'https://www.linkedin.com/in/valentinatoni'
-      github: 'https://github.com/ItalianCookieMonster'
-
   - name: 'Hector Navarro'
     job: 'Researcher PhD Candidate'
     image:
@@ -35,6 +19,20 @@ hackers:
     links:
       linkedin: 'https://www.linkedin.com/in/hectornavarrobarboza/'
       github: ''
+  - name: 'David Redondo'
+    job: 'Product Builder'
+    image:
+      src: '/hackers/dave_redondo.jpeg'
+    links:
+      linkedin: 'https://www.linkedin.com/in/davidredondo83/'
+      github: ''
+  - name: 'Valentina Toni'
+    job: 'Student WebDev at F5'
+    image:
+      src: '/hackers/valentina_toni.jpeg'
+    links:
+      linkedin: 'https://www.linkedin.com/in/valentinatoni'
+      github: 'https://github.com/ItalianCookieMonster'
 
 techStack: ['Groq']
 ---

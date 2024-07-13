@@ -9,20 +9,26 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=10190s'
 hackers:
   - name: 'Pol Alvarez Vecino'
-    job: ''
+    job: 'Senior Software Engineer @ Fewsats'
+    image:
+      src: '/hackers/pol_alvarez.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/kafkasl'
+      linkedin: 'https://linkedin.com/in/pol-alvarez/'
   - name: 'Sergio Rodriguez Guasch,'
-    job: ''
+    job: 'Software Enginer @ IBM'
+    image:
+      src: '/hackers/sergio_rodriguez.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/srgrr'
+      linkedin: 'https://www.linkedin.com/in/sergiorgs/'
   - name: 'Ramon Amela Milian'
-    job: ''
+    job: 'Senior Research Developer @ Rootstock'
+    image:
+      src: '/hackers/ramon_amela.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/ramonamela'
+      linkedin: 'https://www.linkedin.com/in/ramonamela/'
 
 techStack: ['Anthropic', 'Docker', 'FastAPI', 'Python', 'SQLite', 'Tailwind']
 ---

@@ -9,20 +9,26 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=5262s'
 hackers:
   - name: 'Matias Martinez'
-    job: ''
+    job: 'Researcher @ UPC'
+    image:
+      src: '/hackers/matias_martinez.jpeg'
     links:
-      github: ''
-      linkedin: ''
-  - name: ' Manel Palacín Díaz'
-    job: ''
-    links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/martinezmatias/'
+      linkedin: 'https://www.linkedin.com/in/matiassebastianmartinez/'
   - name: 'Eyuel Muse'
-    job: ''
+    job: 'Data Scientist'
+    image:
+      src: '/hackers/eyuel_muse.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/EyuelPersonal'
+      linkedin: 'https://www.linkedin.com/in/eyuel-muse-woldesembet'
+  - name: 'Manel Palacín Díaz'
+    job: 'Developer'
+    image:
+      src: '/hackers/manel_palacin.jpeg'
+    links:
+      github: 'https://github.com/manelpalacdi'
+      linkedin: 'https://linkedin.com/in/manel-palacin-diaz'
 
 techStack:
   [

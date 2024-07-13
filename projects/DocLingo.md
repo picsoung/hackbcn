@@ -15,15 +15,6 @@ hackers:
     links:
       linkedin: 'https://www.linkedin.com/in/veroagnolutto/'
       github: ''
-
-  - name: 'Romina Mendez'
-    job: 'Date Engineer @ Basetis'
-    image:
-      src: '/hackers/romina_mendez.jpeg'
-    links:
-      linkedin: 'https://www.linkedin.com/in/mendezromina/'
-      github: 'https://github.com/r0mymendez/'
-
   - name: 'Alberto Labarga'
     job: 'Head of Biomedical Data Hub @ Barcelona Supercomputing Center'
     image:
@@ -31,6 +22,13 @@ hackers:
     links:
       linkedin: 'https://www.linkedin.com/in/albertolabarga/'
       github: 'https://github.com/alabarga'
+  - name: 'Romina Mendez'
+    job: 'Date Engineer @ Basetis'
+    image:
+      src: '/hackers/romina_mendez.jpeg'
+    links:
+      linkedin: 'https://www.linkedin.com/in/mendezromina/'
+      github: 'https://github.com/r0mymendez/'
 
 techStack:
   ['Python', 'Streamlit', 'Huggingface Transformers', 'MistralAi', 'VannaAI']

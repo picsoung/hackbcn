@@ -9,22 +9,28 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=7800s'
 hackers:
   - name: 'Diyahir Campos'
-    job: ''
+    job: 'Smart Contract Dev @ Hydrogen Labs'
+    image:
+      src: '/hackers/diyahir_campos.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/diyahir'
+      linkedin: 'https://www.linkedin.com/in/diyahir/'
 
   - name: 'David Kreuzer'
-    job: ''
+    job: 'Data Scientist'
+    image:
+      src: '/hackers/david_kreuzer.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/davecrosser91'
+      linkedin: 'https://www.linkedin.com/in/david-kreuzer-92b6a498'
 
   - name: 'Juan Urrutia'
-    job: ''
+    job: 'Data Scientist'
+    image:
+      src: '/hackers/juan_urrutia.jpeg'
     links:
-      github: ''
-      linkedin: ''
+      github: 'www.linkedin.com/in/juan-urrutia-gandolfo-55b73b140'
+      linkedin: 'https://github.com/jurrutiag'
 
 techStack:
   [
