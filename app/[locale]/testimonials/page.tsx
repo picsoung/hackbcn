@@ -8,7 +8,7 @@ import Linkedin from '@/app/components/mdx/Linkedin'
 export default function Page(props: { params: { locale: string } }) {
   const intl = useIntl()
 
-  const TestimonialContent = dynamic(() => import('@/content/testimonials.mdx'))
+  // const TestimonialContent = dynamic(() => import('@/content/testimonials.mdx'))
 
   const linkedinPosts = [
     'https://www.linkedin.com/embed/feed/update/urn:li:share:7212055783725776896',
