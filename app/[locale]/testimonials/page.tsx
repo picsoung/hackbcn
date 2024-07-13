@@ -39,7 +39,7 @@ export default function Page(props: { params: { locale: string } }) {
             <h3 className="m-2 text-2xl">Linkedin Posts</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {linkedinPosts.map((post, index) => (
-                <Linkedin title={`${index}`} link={post} />
+                <Linkedin key={index} title={`${index}`} link={post} />
               ))}
             </div>
           </div>
