@@ -29,6 +29,21 @@ export default function Page(props: { params: { locale: string } }) {
     return tagColors[colorIndex]
   }
 
+  const winnerColors: { [key: string]: { bg: string; text: string } } = {
+    yellow: {
+      bg: 'bg-yellow-300',
+      text: 'text-yellow-900',
+    },
+    blue: {
+      bg: 'bg-blue-300',
+      text: 'text-blue-900',
+    },
+    stone: {
+      bg: 'bg-gray-300',
+      text: 'text-gray-900',
+    },
+  }
+
   return (
     <div id="conduct" className="flex min-h-screen bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -58,9 +73,13 @@ export default function Page(props: { params: { locale: string } }) {
                       {project.data.title}
                     </h3>
                     {project.data.winner && (
-                      <div className={`flex flex-row gap-2 items-center bg-${project.data.winner.color}-300 text-${project.data.winner.color}-900 p-3 lg:px-5 my-4 rounded-lg`}>
+                      <div
+                        className={`flex flex-row gap-2 items-center ${winnerColors[project.data.winner.color].bg} ${winnerColors[project.data.winner.color].text} p-3 lg:px-5 my-4 rounded-lg`}
+                      >
                         <FaTrophy size={20} />
-                        <span className="text-lg">{project.data.winner.text}</span>
+                        <span className="text-lg">
+                          {project.data.winner.text}
+                        </span>
                       </div>
                     )}
                   </div>
