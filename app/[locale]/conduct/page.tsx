@@ -12,15 +12,18 @@ export default function Page(props: { params: { locale: string } }) {
   )
 
   return (
-        <div id="conduct" className="flex min-h-screen flex-col bg-white py-10 sm:py-10">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-              {intl.t('conduct.title')}
-            </h2>
-            <article className="prose">
-              <ConductContent />
-            </article>
-          </div>
-        </div>
+    <div
+      id="conduct"
+      className="flex min-h-screen flex-col bg-white py-10 sm:py-10"
+    >
+      <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
+          {intl.t('conduct.title')}
+        </h2>
+        <article className="prose">
+          <ConductContent />
+        </article>
+      </div>
+    </div>
   )
 }
