@@ -47,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({
                       alt="HackBCN logo"
                     />
                     <h3 className="pl-2 text-white text-lg font-medium">
-                      {intl.t('c')}
+                      {intl.t('navbar.title')}
                     </h3>
                   </Link>
                   {renderLocaleSwitcher(intl)}

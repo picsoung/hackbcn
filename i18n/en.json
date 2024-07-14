@@ -105,5 +105,8 @@
   "projects.title": "Projects",
   "testimonials.title": "Testimonials",
   "testimonials.press": "Press",
-  "testimonials.linkedin_posts": "LinkedIn Posts"
+  "testimonials.linkedin_posts": "LinkedIn Posts",
+  "error.notvalidemail": "Please enter a valid email address",
+  "applybutton.dontmiss": "Don't miss our next event",
+  "applybutton.subscribe": "Subscribe"
 }

@@ -105,5 +105,8 @@
   "projects.title": "Projectes",
   "testimonials.title": "Testimonis",
   "testimonials.press": "Premsa",
-  "testimonials.linkedin_posts": "Publicacions a LinkedIn"
+  "testimonials.linkedin_posts": "Publicacions a LinkedIn",
+  "error.notvalidemail": "Si us plau, introdueix una adreça de correu electrònic vàlida",
+  "applybutton.dontmiss": "No et perdis el nostre proper esdeveniment",
+  "applybutton.subscribe": "Subscriu-te"
 }
