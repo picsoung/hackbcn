@@ -59,7 +59,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <Link
                       key={option.name}
                       href={option.href}
-                      className="inline-flex items-center px-1 pt-1 text-lg font-medium text-black-200 hover:text-indigo-700"
+                      className="inline-flex items-center text-lg font-medium text-black-200 hover:text-indigo-700"
                     >
                       <p>{option.name}</p>
                     </Link>
