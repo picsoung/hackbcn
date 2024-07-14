@@ -5,12 +5,12 @@ import { useIntl } from './Intl'
 import { createRef, useState } from 'react'
 import { PopupButton } from '@typeform/embed-react'
 
-export const EMAIL_REGEX = /([\w-+_.]+@([\w-+_.])+[\w-]{2,4}$)/
+export const EMAIL_REGEX = /^[\w.+-]+@[a-zA-Z\d-]+\.[a-zA-Z]{2,}$/
 
 export default function ApplyButton() {
   const intl = useIntl()
   const [email, setEmail] = useState('')
-  const [isValidEmail, setIsValidEmail] = useState(true)
+  const [isValidEmail, setIsValidEmail] = useState(false)
   const [errorMessages, setErrorMessages] = useState('')
 
   const sidetabRef = createRef()
@@ -26,6 +26,7 @@ export default function ApplyButton() {
   }
 
   const checkEmail = (email: string) => {
+    console.log('test',EMAIL_REGEX.test(email))
     if (EMAIL_REGEX.test(email)) {
       setIsValidEmail(true)
       setErrorMessages('') // Clear error messages if the email is valid
@@ -38,10 +39,12 @@ export default function ApplyButton() {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     checkEmail(email)
+    console.log('eeeeeemail', email)
     if (isValidEmail) {
       // Handle invalid email case
       // console.error('Invalid email')
-      sidetabRef.current?.open()
+      // sidetabRef.current?.open()
+      window.open(`https://form.typeform.com/to/vXoAfRLT#email=${email}`)
       return
     }
   }
@@ -76,12 +79,12 @@ export default function ApplyButton() {
             {intl.t('applybutton.subscribe')}
           </button>
         </div>
-        <PopupButton
+        {/* <PopupButton
           id={'vXoAfRLT'}
           ref={sidetabRef}
           medium="hackbarna"
           hidden={{ email: email }}
-        />
+        /> */}
       </div>
       {/* https://picsoung.typeform.com/to/vXoAfRLT#email=xxxxx */}
       {/* <Link
