@@ -19,13 +19,14 @@ const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const intl = useIntl()
   const navigationOptions = [
-    { name: intl.t('navbar.sponsors'), href: '#sponsors' },
-    { name: intl.t('navbar.why-should-i-join'), href: '#why' },
-    { name: intl.t('navbar.schedule'), href: '#schedule' },
-    { name: intl.t('navbar.faq'), href: '#faq' },
-    { name: intl.t('navbar.team'), href: '#about' },
-    { name: intl.t('navbar.judges'), href: '#judges' },
+    { name: intl.t('navbar.sponsors'), href: '/#sponsors' },
+    { name: intl.t('navbar.why-should-i-join'), href: '/#why' },
+    { name: intl.t('navbar.schedule'), href: '/#schedule' },
+    { name: intl.t('navbar.faq'), href: '/#faq' },
+    { name: intl.t('navbar.team'), href: '/#about' },
+    { name: intl.t('navbar.judges'), href: '/#judges' },
     { name: intl.t('navbar.coc'), href: `/${intl.locale}/conduct` },
+    { name: intl.t('navbar.testimonials'), href: `/${intl.locale}/testimonials` },
     { name: intl.t('navbar.projects'), href: `/${intl.locale}/projects` },
   ]
 
@@ -46,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({
                       alt="HackBCN logo"
                     />
                     <h3 className="pl-2 text-white text-lg font-medium">
-                      {intl.t('navbar.title')}
+                      {intl.t('c')}
                     </h3>
                   </Link>
                   {renderLocaleSwitcher(intl)}
