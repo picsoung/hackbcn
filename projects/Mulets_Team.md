@@ -46,7 +46,6 @@ techStack:
   ]
 ---
 
-#Description:
 Our project is a copilot PoC to help social education professionals to prepare faster and with more quality activities for children.
 Currently a lot of resources in different formats (word, pdf, txt, videos) are stored in disconnected repositories (google drive, sharepoint, local) and it is difficult to prepare new activities based on former experiences.
 
