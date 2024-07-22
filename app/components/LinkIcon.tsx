@@ -34,8 +34,6 @@ const LinkIcon: React.FC<LinkIconProps> = ({
         return null
     }
   }
-
-  console.log('linkURL', linkURL, linkType, showText)
   return (
     <Link href={linkURL}>
       <div className="flex items-center">

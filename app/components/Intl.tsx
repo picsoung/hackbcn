@@ -31,7 +31,7 @@ export function IntlProvider(props: IntlProviderProps) {
   )
 }
 
-export function useIntl() {
+export const useIntl = () => {
   const ctx = useContext(IntlContext)
   return {
     t: (id: string) => ctx.intl.formatMessage({ id }),

@@ -23,8 +23,8 @@ const Avatar: React.FC<AvatarProps> = ({ person }) => {
             'https://pbs.twimg.com/profile_images/1784295597228335104/dQY2N4zt_400x400.jpg'
           }
           alt={person.name}
-          width="230"
-          height="230"
+          width="100"
+          height="100"
           style={{ padding: '0' }}
         />
       ) : (

@@ -1,7 +1,6 @@
 'use client'
 import Footer from '@/app/components/Footer'
 import GradientHero from '@/app/components/GradientHero'
-import { useIntl } from '@/app/components/Intl'
 import Navbar from '@/app/components/Navbar'
 import { useState } from 'react'
 export default function ProjectLayout({

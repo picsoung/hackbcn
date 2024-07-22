@@ -8,7 +8,6 @@ import Avatar from '@/app/components/Avatar'
 import LinkIcon from '@/app/components/LinkIcon'
 
 import { FaTrophy } from 'react-icons/fa6'
-import { link } from 'fs'
 
 export async function generateStaticParams() {
   const filenames = getFilenames()
@@ -25,7 +24,6 @@ export default function ProjectBySlug({
   params: { slug: string[]; locale: string }
 }) {
   let content
-  let project
 
   const tagColors = [
     'bg-indigo-100 text-indigo-700',
@@ -100,15 +98,14 @@ export default function ProjectBySlug({
               <p className="text-gray-500">{project.data.description}</p>
             </div>
             <div className="flex flex-col">
-              {project.data.links && (
+              {project.data.links && Number(project.data.links.length) > 0 && (
                 <>
                   <h2>Links</h2>
-
                   <div className="flex items-center gap-4">
                     {' '}
                     {Object.entries(project.data.links).map(
                       ([type, linkObj]) => {
-                       if (!linkObj) return null
+                        if (!linkObj) return null
                         const [[linkType, url]] = Object.entries(linkObj)
                         return (
                           <LinkIcon
