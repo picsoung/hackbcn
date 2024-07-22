@@ -5,8 +5,10 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import path from 'path'
 import YouTube from '@/app/components/mdx/Youtube'
 import Avatar from '@/app/components/Avatar'
+import LinkIcon from '@/app/components/LinkIcon'
 
 import { FaTrophy } from 'react-icons/fa6'
+import { link } from 'fs'
 
 export async function generateStaticParams() {
   const filenames = getFilenames()
@@ -62,33 +64,69 @@ export default function ProjectBySlug({
     content = (
       <>
         <h1>{project.data.title}</h1>
-        {project.data.winner && (
-          <div>
-            <h2>Awards</h2>
-            <div
-              className={`flex flex-row gap-2 w-1/5 items-center ${winnerColors[project.data.winner.color].bg} ${winnerColors[project.data.winner.color].text} p-3 lg:px-5 my-4 rounded-lg`}
-            >
-              <FaTrophy size={20} />
-              <span className="text-lg">{project.data.winner.text}</span>
+        <div className="flex flex-row gap-4 justify-between">
+          <div className="flex flex-col">
+            {project.data.winner && (
+              <div>
+                <h2>Awards</h2>
+                <div
+                  className={`flex flex-row gap-2 w-1/2 items-center ${winnerColors[project.data.winner.color].bg} ${winnerColors[project.data.winner.color].text} p-3 lg:px-5 my-4 rounded-lg`}
+                >
+                  <FaTrophy size={20} />
+                  <span className="text-lg">{project.data.winner.text}</span>
+                </div>
+              </div>
+            )}
+            <div>
+              <h2>Stack</h2>
+              <small className="text-gray-400">
+                {project.data.techStack.map((tag: string, index: number) => {
+                  const colorClass = getTagColor(tag)
+                  return (
+                    <span
+                      key={tag}
+                      className={`inline-block rounded-full px-2 py-1 mr-1 mb-1 ${colorClass}`}
+                    >
+                      {tag}
+                    </span>
+                  )
+                })}
+              </small>
             </div>
           </div>
-        )}
-        <div>
-          <h2>Stack</h2>
-          <small className="text-gray-400">
-            {project.data.techStack.map((tag: string, index: number) => {
-              const colorClass = getTagColor(tag)
-              return (
-                <span
-                  key={tag}
-                  className={`inline-block rounded-full px-2 py-1 mr-1 mb-1 ${colorClass}`}
-                >
-                  {tag}
-                </span>
-              )
-            })}
-          </small>
+          <div className="flex flex-col">
+            <div className="flex flex-col">
+              <h2>One liner</h2>
+              <p className="text-gray-500">{project.data.description}</p>
+            </div>
+            <div className="flex flex-col">
+              {project.data.links && (
+                <>
+                  <h2>Links</h2>
+
+                  <div className="flex items-center gap-4">
+                    {' '}
+                    {Object.entries(project.data.links).map(
+                      ([type, linkObj]) => {
+                       if (!linkObj) return null
+                        const [[linkType, url]] = Object.entries(linkObj)
+                        return (
+                          <LinkIcon
+                            key={type}
+                            linkType={linkType}
+                            linkURL={url}
+                            showText={true}
+                          />
+                        )
+                      },
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
+
         <div>
           <h2>Team</h2>
           <div

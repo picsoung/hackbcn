@@ -35,6 +35,8 @@ hackers:
       github: 'github.com/anninape'
 
 techStack: ['MongoDB', 'GPT-4o', 'Telegram', 'Node JS', 'React']
+links:
+  - website: https://candit.net
 ---
 
 Let's assume that you are hiring for a position or organise a hackathon :P and get a lot of applications. How do you decide which candidates to pick from your funnel? Checking CVs for keywords? Letting people fill out a form?

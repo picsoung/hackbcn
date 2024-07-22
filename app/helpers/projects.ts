@@ -15,12 +15,15 @@ export interface Person {
   image: {
     src: string
   }
-  links: {
-    github?: string
-    linkedin?: string
-    twitter?: string
-    [key: string]: string | undefined // Allows for additional link types
-  }
+  links: Links
+}
+
+export interface Links {
+  github?: string
+  linkedin?: string
+  twitter?: string
+  website?: string
+  [key: string]: string | undefined // Allows for additional link types
 }
 
 export interface ProjectData {
@@ -35,10 +38,11 @@ export interface ProjectData {
   youtubeLink: string
   hackers: Person[]
   techStack: string[] // Array of technologies used in the project
+  links?: Links
   winner?: {
     type: string
     text: string
-    color:string
+    color: string
   }
 }
 
@@ -83,6 +87,7 @@ export function getProject(slugOrFilePath: string[]): Project {
     hackers: data.hackers,
     techStack: data.techStack,
     winner: data.winner ?? false,
+    links: data.links ?? {},
   }
 
   return {
