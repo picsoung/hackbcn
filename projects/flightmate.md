@@ -9,10 +9,10 @@ status: 'published'
 youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=7315s'
 hackers:
   - name: 'Julia Gaitan'
-    job: ''
+    job: 'Data Analyst'
     links:
-      github: ''
-      linkedin: ''
+      github: 'https://github.com/ju-gavi'
+      linkedin: 'https://www.linkedin.com/in/julia-gavi/'
   - name: 'Stefania Georgescu'
     job: ''
     image:
