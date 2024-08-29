@@ -10,6 +10,8 @@ youtubeLink: 'https://www.youtube.com/watch?v=JZzgPRxKiFM&t=7315s'
 hackers:
   - name: 'Julia Gaitan'
     job: 'Data Analyst'
+    image:
+      src: '/hackers/julia_gaitan.jpeg'
     links:
       github: 'https://github.com/ju-gavi'
       linkedin: 'https://www.linkedin.com/in/julia-gavi/'
