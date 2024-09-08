@@ -12,9 +12,9 @@ export default function Sponsors() {
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="relative flex flex-wrap gap-4 items-center">
             <a
-              href="https://mistral.ai/?ref=hackbcn"
+              href="https://mistral.ai/?ref=hackbarna"
               target="_blank"
-              rel="hackbcn"
+              rel="hackbarna"
             >
               <Image
                 className="h-auto max-h-32 object-contain"
@@ -25,9 +25,9 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://huggingface.co/?ref=hackbcn"
+              href="https://huggingface.co/?ref=hackbarna"
               target="_blank"
-              rel="hackbcn"
+              rel="hackbarna"
             >
               <Image
                 className="h-auto max-h-32 object-contain"
@@ -38,9 +38,9 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://algolia.com/?ref=hackbcn"
+              href="https://algolia.com/?ref=hackbarna"
               target="_blank"
-              rel="hackbcn"
+              rel="hackbarna"
             >
               <Image
                 className="h-auto max-h-32 object-contain"
@@ -51,9 +51,9 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://replexica.com/?ref=hackbcn"
+              href="https://replexica.com/?ref=hackbarna"
               target="_blank"
-              rel="hackbcn"
+              rel="hackbarna"
             >
               <Image
                 className="h-auto max-h-32 object-contain"
@@ -63,7 +63,7 @@ export default function Sponsors() {
                 alt="Replexica"
               />
             </a>
-            <a href="https://www.inno-it.es?ref=hackbcn" target="_blank">
+            <a href="https://www.inno-it.es?ref=hackbarna" target="_blank">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/community/innoit_black.png"
@@ -73,9 +73,9 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://hookdeck.com?ref=hackbcn"
+              href="https://hookdeck.com?ref=hackbarna"
               target="_blank"
-              rel="hackbcn"
+              rel="hackbarna"
             >
               <Image
                 className="h-auto max-h-32 object-contain"
@@ -86,9 +86,9 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://www.edreamsodigeocareers.com?ref=hackbcn"
+              href="https://www.edreamsodigeocareers.com?ref=hackbarna"
               target="_blank"
-              rel="hackbcn"
+              rel="hackbarna"
             >
               <Image
                 className="h-auto max-h-32 object-contain"
@@ -98,7 +98,7 @@ export default function Sponsors() {
                 alt="edreams"
               />
             </a>
-            <a href="https://www.resend.com?ref=hackbcn" target="_blank" rel="">
+            <a href="https://www.resend.com?ref=hackbarna" target="_blank" rel="">
               <Image
                 className="h-auto max-h-32 object-contain"
                 src="/logos/resend.png"
@@ -108,7 +108,7 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://www.lewagon.com/barcelona?ref=hackbcn"
+              href="https://www.lewagon.com/barcelona?ref=hackbarna"
               target="_blank"
               rel=""
             >
@@ -121,7 +121,7 @@ export default function Sponsors() {
               />
             </a>
             <a
-              href="https://xarxardi-ia.cat/convocatories/ai-accelerator-24?ref=hackbcn"
+              href="https://xarxardi-ia.cat/convocatories/ai-accelerator-24?ref=hackbarna"
               target="_blank"
               rel=""
             >
@@ -133,7 +133,7 @@ export default function Sponsors() {
                 alt="xarxardi-ia"
               />
             </a>
-            <a target="_blank" href="https://hackbcn.com/sponsorship.pdf">
+            <a target="_blank" href="https://hackbarna.com/sponsorship.pdf">
               <Image
                 className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"
                 src="/cards/yourcompany.png"

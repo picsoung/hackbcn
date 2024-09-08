@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <img
                       className="h-8 w-auto"
                       src="/hackbcnlogo.png"
-                      alt="HackBCN logo"
+                      alt="HackBarna logo"
                     />
                     <h3 className="pl-2 text-white text-lg font-medium">
                       {intl.t('navbar.title')}
