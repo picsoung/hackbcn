@@ -27,7 +27,7 @@ export default function Hero() {
           </div>
           <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
             <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
-              <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+              <div className="">
                 <h1 className="text-4xl font-cal text-white sm:text-6xl">
                   {intl.t('hero.title.left-part')}
                   <span className="text-amber-600">
@@ -42,6 +42,13 @@ export default function Hero() {
                   {intl.t('hero.description.1')}
                   <br />
                 </p>
+                <iframe
+                  src="https://lu.ma/embed/event/evt-S7vtCcLEvcd4O8F/simple"
+                  width="100%"
+                  height="450"
+                  style={{ border: '1px solid #bfcbda88', borderRadius: '4px' }}
+                  aria-hidden="false"
+                ></iframe>
                 <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
                   <ApplyButton />
                   <Link
@@ -53,7 +60,7 @@ export default function Hero() {
                   </Link>
                 </div>
               </div>
-              <div className="mt-14 flex flex-col justify-end gap-8 sm:-mt-44 sm:flex-row sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+              {/*<div className="mt-14 flex flex-col justify-end gap-8 sm:-mt-44 sm:flex-row sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                 <Image
                   src="/aihack.png"
                   alt={'AI Hack illustration'}
@@ -62,7 +69,7 @@ export default function Hero() {
                   height={0}
                   sizes="100vw"
                 />
-                {/* <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36">
+                <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36">
                   <Card name="Warp" imageSrc="/cards/warp.png" />
                   <Card name="NYU" imageSrc="/cards/nyu.png" />
                 </div>
@@ -73,8 +80,9 @@ export default function Hero() {
                 <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                   <Card name="Columbia" imageSrc="/cards/columbia.png" />
                   <Card name="Jacobs" imageSrc="/cards/yourcompany.png" />
-                </div> */}
+                </div>
               </div>
+                */}
             </div>
           </div>
         </div>
