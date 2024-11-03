@@ -16,7 +16,7 @@ export default function ProjectLayout({
         setMobileMenuOpen={setMobileMenuOpen}
       />
       <main className="flex min-h-screen flex-col">
-        <GradientHero />
+        {/* <GradientHero /> */}
         {children}
       </main>
       <Footer />

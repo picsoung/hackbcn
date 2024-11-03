@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ['class'],
@@ -28,10 +28,12 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          light: 'hsl(var(--primary-light))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
+          light: 'hsl(var(--secondary-light))',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -44,6 +46,7 @@ const config = {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+          light: 'hsl(var(--accent-light))',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
@@ -73,9 +76,19 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
+        display: ['Orbitron', 'sans-serif'],
+      },
+      boxShadow: {
+        'neon': '0 0 5px hsl(var(--primary)), 0 0 20px hsl(var(--primary-light))',
+      },
+      backgroundImage: {
+        'grid-pattern': 'linear-gradient(to right, hsl(var(--grid)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--grid)) 1px, transparent 1px)',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
-} satisfies Config
+};
 
-export default config
+export default config;

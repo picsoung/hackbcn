@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './../globals.css'
 import { Analytics } from '@vercel/analytics/react'
-import { IntlProvider } from '../components/Intl'
+import { IntlProvider } from '@/app/components/Intl'
 import i18nConfig from '../../i18n.json'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -69,6 +69,12 @@ export default async function HomeLayout(props: {
 }
 
 async function loadLocaleData(locale: string) {
-  const localeData = await import(`@/i18n/${locale}.json`)
+  console.log('lll', locale, `@/i18n/${locale}.json`)
+
+  const finalLocale = [i18nConfig.locale.source, ...i18nConfig.locale.targets].includes(locale)
+    ? locale
+    : i18nConfig.locale.source;
+    console.log('finalelocale', finalLocale)
+  const localeData = await import(`@/i18n/${finalLocale}.json`)
   return localeData.default
 }

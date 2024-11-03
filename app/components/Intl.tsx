@@ -16,6 +16,7 @@ export type IntlProviderProps = {
 }
 
 export function IntlProvider(props: IntlProviderProps) {
+  console.log("intl", props)
   return (
     <IntlContext.Provider
       value={{
