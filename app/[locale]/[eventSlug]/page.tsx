@@ -1,5 +1,3 @@
-'use client'
-
 import { useEvent } from '@/app/contexts/EventContext'
 
 import React, { useState } from 'react'
@@ -18,21 +16,40 @@ import { useIntl } from '@/app/components/Intl'
 import CommunitySponsors from '@/app/components/CommunitySponsors'
 import Mentors from '@/app/components/Mentors'
 
-export default function EventPage() {
-  const event = useEvent()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+import { getJudgesByEvent } from '@/data/judges' // Import your data fetching function
+import { getAllEventSlugs } from '@/lib/events'
+
+export async function generateStaticParams() {
+  return getAllEventSlugs().map((slug) => ({
+    event: slug,
+  }))
+}
+
+export default function EventPage({
+  params,
+}: {
+  params: { locale: string; eventSlug: string }
+}) {
+  // const event = useEvent()
+  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const { eventSlug } = params
+
+  const { judges, metadata } = getJudgesByEvent(eventSlug)
+
+  console.log('slug', eventSlug)
 
   return (
     <div>
       <Navbar
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
+        mobileMenuOpen={false}
+        setMobileMenuOpen={false}
       />
       <main className="flex min-h-screen flex-col">
         <Hero />
         <Sponsors />
         <CommunitySponsors />
-        <Judges />
+        <Judges judges={judges}/>
         <Mentors />
         <WhyJoin />
         <Dates />

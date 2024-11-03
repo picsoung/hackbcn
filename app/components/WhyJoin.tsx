@@ -1,3 +1,5 @@
+'use client'
+
 import { useIntl } from './Intl'
 
 const features = (intl: ReturnType<typeof useIntl>) => [

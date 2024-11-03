@@ -8,7 +8,8 @@ import Link from 'next/link'
 import { useIntl } from './Intl'
 interface NavbarProps {
   mobileMenuOpen: boolean
-  setMobileMenuOpen: Dispatch<SetStateAction<boolean>>
+  setMobileMenuOpen: boolean 
+  // Dispatch<SetStateAction<boolean>>
   // navigationOptions: { name: string; href: string }[]
 }
 
@@ -33,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <Disclosure as="nav">
       {({ open }) => {
-        if (open !== mobileMenuOpen) setMobileMenuOpen(open)
+        // if (open !== mobileMenuOpen) setMobileMenuOpen(open)
         return (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-white">

@@ -1,3 +1,5 @@
+'use client'
+
 import HideEmail from './HideEmail'
 import { useIntl } from './Intl'
 

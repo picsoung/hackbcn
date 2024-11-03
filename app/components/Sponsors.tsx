@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import React from 'react' // Import React if you haven't already
 import { useIntl } from './Intl'

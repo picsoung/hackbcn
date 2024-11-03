@@ -1,3 +1,5 @@
+'use client'
+
 import ApplyButton from './ApplyButton'
 import { useIntl } from './Intl'
 

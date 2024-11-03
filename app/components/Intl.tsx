@@ -1,47 +1,50 @@
 'use client'
 
-import { createIntl } from '@formatjs/intl'
-import { createContext, useContext } from 'react'
+import React, { createContext, useContext, ReactNode } from 'react'
+import { IntlShape, createIntl } from '@formatjs/intl'
 
-export const IntlContext = createContext({
-  intl: createIntl({ locale: 'en' }),
-  locales: [] as string[],
-})
+interface IntlContextType {
+  intl: IntlShape
+  locales: string[]
+}
 
-export type IntlProviderProps = {
+interface IntlProviderProps {
   locale: string
   locales: string[]
   data: Record<string, string>
-  children: React.ReactNode
+  children: ReactNode
 }
 
-export function IntlProvider(props: IntlProviderProps) {
-  console.log("intl", props)
+// Create context with a default value
+const IntlContext = createContext<IntlContextType>({
+  intl: createIntl({ locale: 'en' }),
+  locales: [],
+})
+
+// Provider component
+export function IntlProvider({ locale, locales, data, children }: IntlProviderProps) {
+  const value = {
+    intl: createIntl({
+      locale,
+      messages: data,
+    }),
+    locales,
+  }
+
   return (
-    <IntlContext.Provider
-      value={{
-        intl: createIntl({
-          locale: props.locale,
-          messages: props.data,
-        }),
-        locales: props.locales,
-      }}
-    >
-      {props.children}
+    <IntlContext.Provider value={value}>
+      {children}
     </IntlContext.Provider>
   )
 }
 
-export const useIntl = () => {
+// Custom hook for using intl
+export function useIntl() {
   const ctx = useContext(IntlContext)
+  
   return {
     t: (id: string) => ctx.intl.formatMessage({ id }),
     locale: ctx.intl.locale,
     locales: ctx.locales,
   }
-}
-
-export function IntlMessage({ id }: any) {
-  const intl = useIntl()
-  return intl.t(id)
 }

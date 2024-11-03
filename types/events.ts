@@ -1,3 +1,5 @@
+import { Judge } from "./judge"
+
 export type Event = {
     id: string
     slug: string
@@ -7,5 +9,7 @@ export type Event = {
     startDate: string
     endDate: string
     location: string
+    // judges: Judge[];
+    // sponsors: Sponsor[];
     // Add other event-specific fields
 }

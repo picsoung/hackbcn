@@ -23,6 +23,10 @@ export const events: Event[] = [
   },
 ]
 
+export const getAllEventSlugs = () => {
+  return events.map(event => event.slug)
+}
+
 export const getEventBySlug = (slug: string) => {
   return events.find(event => event.slug === slug)
 }

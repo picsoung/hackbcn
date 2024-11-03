@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { useIntl } from './Intl'
 import { FaSquareXTwitter, FaLinkedin, FaLink, FaMedium } from 'react-icons/fa6'
@@ -7,7 +9,7 @@ const members = (intl: ReturnType<typeof useIntl>) => [
     name: 'Eric Bellet',
     description: 'AI & Data Engineer @ Adevinta',
     image: {
-      src: `./mentors/ericbellet.jpeg`,
+      src: `/mentors/ericbellet.jpeg`,
     },
     links: {
       linkedin: 'https://www.linkedin.com/in/belleteric/',

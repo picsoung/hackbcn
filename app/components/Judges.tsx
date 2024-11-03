@@ -1,55 +1,58 @@
+'use client'
+
 import Link from 'next/link'
 import { useIntl } from './Intl'
 import { FaSquareXTwitter, FaLinkedin, FaLink, FaMedium } from 'react-icons/fa6'
+import { Judge } from '@/types/judge'
 
-const members = (intl: ReturnType<typeof useIntl>) => [
-  {
-    name: 'Linus Ekenstam',
-    description: 'AI Gardener & Designer',
-    image: {
-      src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
-    },
-    links: {
-      twitter: 'https://twitter.com/LinusEkenstam',
-      website: 'https://insidemyhead.ai/',
-    },
-  },
-  {
-    name: 'Anna Via',
-    description: `ML Product Manager @ Adevinta`,
-    image: {
-      src: `/judges/annavia.jpeg`,
-    },
-    links: {
-      linkedin: 'https://www.linkedin.com/in/anna-via/',
-      medium: 'https://annaviaba.medium.com/',
-    },
-  },
-  {
-    name: 'Pavel Pratyush',
-    description: `Head of Engineering @ Acai Travel`,
-    image: {
-      src: `/judges/pavel.png`,
-    },
-    links: {
-      linkedin: 'https://www.linkedin.com/in/akpratyush/',
-      website: 'https://www.acaitravel.com',
-    },
-  },
-  {
-    name: 'Tanya Van Gastel',
-    description: `Co-founder/CMO @ Multiverse AI`,
-    image: {
-      src: `/judges/tanya.png`,
-    },
-    links: {
-      linkedin: 'https://www.linkedin.com/in/tanyavangastel/',
-      website: 'https://www.themultiverse.ai',
-    },
-  },
-]
+// const members = (intl: ReturnType<typeof useIntl>) => [
+//   {
+//     name: 'Linus Ekenstam',
+//     description: 'AI Gardener & Designer',
+//     image: {
+//       src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
+//     },
+//     links: {
+//       twitter: 'https://twitter.com/LinusEkenstam',
+//       website: 'https://insidemyhead.ai/',
+//     },
+//   },
+//   {
+//     name: 'Anna Via',
+//     description: `ML Product Manager @ Adevinta`,
+//     image: {
+//       src: `/judges/annavia.jpeg`,
+//     },
+//     links: {
+//       linkedin: 'https://www.linkedin.com/in/anna-via/',
+//       medium: 'https://annaviaba.medium.com/',
+//     },
+//   },
+//   {
+//     name: 'Pavel Pratyush',
+//     description: `Head of Engineering @ Acai Travel`,
+//     image: {
+//       src: `/judges/pavel.png`,
+//     },
+//     links: {
+//       linkedin: 'https://www.linkedin.com/in/akpratyush/',
+//       website: 'https://www.acaitravel.com',
+//     },
+//   },
+//   {
+//     name: 'Tanya Van Gastel',
+//     description: `Co-founder/CMO @ Multiverse AI`,
+//     image: {
+//       src: `/judges/tanya.png`,
+//     },
+//     links: {
+//       linkedin: 'https://www.linkedin.com/in/tanyavangastel/',
+//       website: 'https://www.themultiverse.ai',
+//     },
+//   },
+// ]
 
-export default function Judges() {
+export default function Judges({ judges }: { judges: Judge[] }) {
   const intl = useIntl()
   return (
     <div id="judges" className="bg-white py-10 sm:py-10">
@@ -61,7 +64,7 @@ export default function Judges() {
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
           <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
-            {members(intl).map((member) => (
+            {judges.map((member) => (
               <div
                 key={member.name}
                 className="flex flex-col items-center gap-2"

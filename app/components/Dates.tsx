@@ -1,3 +1,4 @@
+'use client'
 import { useIntl } from './Intl'
 
 export default function Dates() {
