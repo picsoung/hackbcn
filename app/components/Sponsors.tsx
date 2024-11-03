@@ -3,7 +3,9 @@
 import Image from 'next/image'
 import React from 'react' // Import React if you haven't already
 import { useIntl } from './Intl'
-export default function Sponsors() {
+import { Sponsor } from '@/data/sponsors'
+
+export default function Sponsors({sponsors}: {sponsors: Sponsor[]}) {
   const intl = useIntl()
   return (
     <div id="sponsors" className="bg-white py-10 sm:py-10">
@@ -13,128 +15,22 @@ export default function Sponsors() {
         </h2>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
           <div className="relative flex flex-wrap gap-4 items-center">
-            <a
-              href="https://mistral.ai/?ref=hackbarna"
-              target="_blank"
-              rel="hackbarna"
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/mistral.svg"
-                width={300}
-                height={32}
-                alt="Huggingface logo"
-              />
-            </a>
-            <a
-              href="https://huggingface.co/?ref=hackbarna"
-              target="_blank"
-              rel="hackbarna"
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/hf.png"
-                width={300}
-                height={32}
-                alt="mistralai"
-              />
-            </a>
-            <a
-              href="https://algolia.com/?ref=hackbarna"
-              target="_blank"
-              rel="hackbarna"
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/algolia.png"
-                width={300}
-                height={32}
-                alt="Algolia"
-              />
-            </a>
-            <a
-              href="https://replexica.com/?ref=hackbarna"
-              target="_blank"
-              rel="hackbarna"
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/replexica.png"
-                width={300}
-                height={32}
-                alt="Replexica"
-              />
-            </a>
-            <a href="https://www.inno-it.es?ref=hackbarna" target="_blank">
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/community/innoit_black.png"
-                alt="InnoIT"
-                width={300}
-                height={32}
-              />
-            </a>
-            <a
-              href="https://hookdeck.com?ref=hackbarna"
-              target="_blank"
-              rel="hackbarna"
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/hookdeck.svg"
-                width={300}
-                height={32}
-                alt="hookdeck"
-              />
-            </a>
-            <a
-              href="https://www.edreamsodigeocareers.com?ref=hackbarna"
-              target="_blank"
-              rel="hackbarna"
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/edreams.svg"
-                width={300}
-                height={32}
-                alt="edreams"
-              />
-            </a>
-            <a href="https://www.resend.com?ref=hackbarna" target="_blank" rel="">
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/resend.png"
-                width={300}
-                height={32}
-                alt="Resend"
-              />
-            </a>
-            <a
-              href="https://www.lewagon.com/barcelona?ref=hackbarna"
-              target="_blank"
-              rel=""
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/lewagon.png"
-                width={300}
-                height={32}
-                alt="LeWagon"
-              />
-            </a>
-            <a
-              href="https://xarxardi-ia.cat/convocatories/ai-accelerator-24?ref=hackbarna"
-              target="_blank"
-              rel=""
-            >
-              <Image
-                className="h-auto max-h-32 object-contain"
-                src="/logos/logo_xRDI-IA.png"
-                width={300}
-                height={32}
-                alt="xarxardi-ia"
-              />
-            </a>
+          {sponsors.map((sponsor) => (
+              <a
+                key={sponsor.name}
+                href={`${sponsor.url}?ref=hackbarna`}
+                target="_blank"
+                rel="hackbarna"
+              >
+                <Image
+                  className="h-auto max-h-32 object-contain"
+                  src={sponsor.logo}
+                  width={sponsor.width || 300}
+                  height={sponsor.height || 32}
+                  alt={sponsor.name}
+                />
+              </a>
+            ))}
             <a target="_blank" href="https://hackbarna.com/sponsorship.pdf">
               <Image
                 className="h-auto max-h-40 object-contain bg-black hover:cursor-pointer"

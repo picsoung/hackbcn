@@ -1,5 +1,3 @@
-import { Judge } from "./judge"
-
 export type Event = {
     id: string
     slug: string

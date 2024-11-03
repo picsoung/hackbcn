@@ -18,6 +18,9 @@ import Mentors from '@/app/components/Mentors'
 
 import { getJudgesByEvent } from '@/data/judges' // Import your data fetching function
 import { getAllEventSlugs } from '@/lib/events'
+import { getMentorsByEvent } from '@/data/mentors'
+import { getSponsorsByEvent } from '@/data/sponsors'
+import { getCommunitySponsorsByEvent } from '@/data/communitySponsors'
 
 export async function generateStaticParams() {
   return getAllEventSlugs().map((slug) => ({
@@ -35,22 +38,20 @@ export default function EventPage({
 
   const { eventSlug } = params
 
-  const { judges, metadata } = getJudgesByEvent(eventSlug)
-
-  console.log('slug', eventSlug)
+  const { judges } = getJudgesByEvent(eventSlug)
+  const { mentors } = getMentorsByEvent(eventSlug)
+  const { sponsors } = getSponsorsByEvent(eventSlug)
+  const { communitySponsors } = getCommunitySponsorsByEvent(eventSlug)
 
   return (
     <div>
-      <Navbar
-        mobileMenuOpen={false}
-        setMobileMenuOpen={false}
-      />
+      <Navbar mobileMenuOpen={false} setMobileMenuOpen={false} />
       <main className="flex min-h-screen flex-col">
         <Hero />
-        <Sponsors />
-        <CommunitySponsors />
-        <Judges judges={judges}/>
-        <Mentors />
+        <Sponsors sponsors={sponsors} />
+        <CommunitySponsors communitySponsors={communitySponsors}/>
+        <Judges judges={judges} />
+        <Mentors mentors={mentors} />
         <WhyJoin />
         <Dates />
         <Schedule />
