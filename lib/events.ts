@@ -126,7 +126,7 @@ export const events: Event[] = [
     active: true,
     startDate: '2025-10-11',
     endDate: '2025-10-12',
-    location: 'Barcelona',
+    location: 'Glovo HQ, Barcelona',
     schedule: {
       en: [
         {

@@ -9,7 +9,10 @@ import { useTheme } from '@/app/contexts/ThemeContext'
 
 export default function Hero() {
   const intl = useIntl()
-  const { theme } = useTheme()
+  const { theme, currentEventSlug } = useTheme()
+  
+  // Use current event slug, fallback to default event
+  const eventSlug = currentEventSlug || 'aisummit25'
   
   return (
     <div className={`${theme.colors.hero}`}>
@@ -36,13 +39,13 @@ export default function Hero() {
                   <span className={theme.colors.accent}>
                     {intl.t('hero.title.right-part')}
                   </span>{' '}
-                  - {intl.t('hero.title-edition')}
+                  - {intl.t(`hero.${eventSlug}.title-edition`)}
                 </h1>
                 <p className={`relative mt-6 text-lg leading-8 ${theme.colors.textSecondary} sm:max-w-md lg:max-w-none`}>
-                  {intl.t('hero.description.0')}
+                  {intl.t(`hero.${eventSlug}.description.0`)}
                   <br />
                   <br />
-                  {intl.t('hero.description.1')}
+                  {intl.t(`hero.${eventSlug}.description.1`)}
                   <br />
                 </p>
                 <iframe

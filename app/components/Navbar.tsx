@@ -34,9 +34,9 @@ const Navbar: React.FC<NavbarProps> = ({
     { name: intl.t('navbar.faq'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}#faq` : '/#faq' },
     { name: intl.t('navbar.team'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}#about` : '/#about' },
     { name: intl.t('navbar.judges'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}#judges` : '/#judges' },
-    { name: intl.t('navbar.coc'), href: `/${intl.locale}/conduct` },
-    { name: intl.t('navbar.testimonials'), href: `/${intl.locale}/testimonials` },
-    { name: intl.t('navbar.projects'), href: `/${intl.locale}/projects` },
+    { name: intl.t('navbar.coc'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/conduct` : `/${intl.locale}/conduct` },
+    { name: intl.t('navbar.testimonials'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/testimonials` : `/${intl.locale}/testimonials` },
+    { name: intl.t('navbar.projects'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/projects` : `/${intl.locale}/projects` },
   ]
 
   const renderBrandWithEventSwitcher = (intl: ReturnType<typeof useIntl>) => {
