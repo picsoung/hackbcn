@@ -1,8 +1,3 @@
-import GradientHero from './GradientHero'
-import Link from 'next/link'
-import ApplyButton from './ApplyButton'
-import Image from 'next/image' // Add this import
-import { useIntl } from './Intl'
 import React from 'react'
 
 interface HideEmailProps {

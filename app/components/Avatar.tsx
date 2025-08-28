@@ -1,6 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
-import { FaSquareXTwitter, FaLinkedin, FaLink, FaMedium, FaGithub } from 'react-icons/fa6'
+import {
+  FaSquareXTwitter,
+  FaLinkedin,
+  FaLink,
+  FaMedium,
+  FaGithub,
+} from 'react-icons/fa6'
 import { Person } from '../helpers/projects'
 
 type AvatarProps = {
@@ -35,11 +41,11 @@ const Avatar: React.FC<AvatarProps> = ({ person }) => {
         </div>
       )}
 
-      <span className="text-base font-medium leading-tight">
-        {person.name}
-      </span>
-      {person.job && (
-        <span className="text-neutral-500 dark:text-neutral-400">{person.job}</span>
+      <span className="text-base font-medium leading-tight">{person.name}</span>
+      {person.description && (
+        <span className="text-neutral-500 dark:text-neutral-400">
+          {person.description}
+        </span>
       )}
       <div className="flex flex-row gap-4">
         {person.links &&

@@ -1,7 +1,36 @@
+'use client'
 import { useIntl } from './Intl'
+import { useTheme } from '@/app/contexts/ThemeContext'
+import { getEventBySlug } from '@/lib/events'
 
 export default function Dates() {
   const intl = useIntl()
+  const { currentEventSlug } = useTheme()
+  const currentEvent = currentEventSlug ? getEventBySlug(currentEventSlug) : null
+
+  if (!currentEvent) {
+    return null
+  }
+
+  // Format the dates for display
+  const startDate = new Date(currentEvent.startDate)
+  const endDate = new Date(currentEvent.endDate)
+  
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString(intl.locale, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
+
+  const formatDateShort = (date: Date) => {
+    return date.toLocaleDateString(intl.locale, {
+      month: 'long',
+      day: 'numeric'
+    })
+  }
 
   return (
     <div className="py-10">
@@ -11,13 +40,13 @@ export default function Dates() {
         </h3>
         <p className="mt-4 text-xl text-gray-200">
           <span className="font-semibold">{intl.t('schedule.hacking')}: </span>
-          {intl.t('schedule.hacking-time')}
+          {formatDate(startDate)} - {formatDate(endDate)}
           <br />
-          {/* <span className="font-semibold">Internal Demo Fair: </span>
-          March 24, 3:45 PM
-          <br /> */}
+          <span className="font-semibold">{intl.t('schedule.location')}: </span>
+          {currentEvent.location}
+          <br />
           <span className="font-semibold pr-1">{intl.t('schedule.demo')}:</span>
-          {intl.t('schedule.demo-time')}
+          {formatDateShort(endDate)}
         </p>
       </div>
     </div>

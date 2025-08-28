@@ -1,22 +1,18 @@
 'use client'
 import Footer from '@/app/components/Footer'
 import GradientHero from '@/app/components/GradientHero'
-import Navbar from '@/app/components/Navbar'
+import ClientNavbar from '@/app/components/ClientNavbar'
 import { useState } from 'react'
 export default function ProjectLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   return (
     <div>
-      <Navbar
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={setMobileMenuOpen}
-      />
+      <ClientNavbar />
       <main className="flex min-h-screen flex-col">
-        <GradientHero />
+        {/* <GradientHero /> */}
         {children}
       </main>
       <Footer />

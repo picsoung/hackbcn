@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './../globals.css'
 import { Analytics } from '@vercel/analytics/react'
-import { IntlProvider } from '../components/Intl'
+import { IntlProvider } from '@/app/components/Intl'
 import i18nConfig from '../../i18n.json'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -44,23 +44,28 @@ export async function generateMetadata(args: any) {
     },
   } satisfies Metadata
 }
+interface HomeLayoutProps {
+  children: React.ReactNode
+  params: {
+    locale: string
+  }
+}
 
-export default async function HomeLayout(props: {
-  children: any
-  params: { locale: string }
-}) {
-  const localeData = await loadLocaleData(props.params.locale)
+export default async function HomeLayout({
+  children,
+  params,
+}: HomeLayoutProps) {
+  // Load translation data for the current locale
+  const localeData = await loadLocaleData(params.locale)
+
+  // Get all available locales from config
   const allLocales = [i18nConfig.locale.source, ...i18nConfig.locale.targets]
 
   return (
-    <IntlProvider
-      locale={props.params.locale}
-      data={localeData}
-      locales={allLocales}
-    >
+    <IntlProvider locale={params.locale} data={localeData} locales={allLocales}>
       <html>
         <body className={inter.className}>
-          {props.children}
+          {children}
           <Analytics />
         </body>
       </html>
@@ -69,6 +74,14 @@ export default async function HomeLayout(props: {
 }
 
 async function loadLocaleData(locale: string) {
-  const localeData = await import(`@/i18n/${locale}.json`)
+  // Load the locale JSON file dynamically
+  const finalLocale = [
+    i18nConfig.locale.source,
+    ...i18nConfig.locale.targets,
+  ].includes(locale)
+    ? locale
+    : i18nConfig.locale.source
+
+  const localeData = await import(`@/i18n/${finalLocale}.json`)
   return localeData.default
 }
