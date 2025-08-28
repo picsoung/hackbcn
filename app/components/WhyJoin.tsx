@@ -1,6 +1,7 @@
 'use client'
 
 import { useIntl } from './Intl'
+import { useTheme } from '@/app/contexts/ThemeContext'
 
 const features = (intl: ReturnType<typeof useIntl>) => [
   {
@@ -22,11 +23,13 @@ const features = (intl: ReturnType<typeof useIntl>) => [
 
 export default function WhyJoin() {
   const intl = useIntl()
+  const { theme } = useTheme()
+  
   return (
     <div id="why" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
-          <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
+          <h2 className={`mt-2 text-3xl sm:text-5xl font-cal font-semibold ${theme.colors.accentOnWhite}`}>
             {intl.t('whyJoin.title')}
           </h2>
         </div>
@@ -36,7 +39,7 @@ export default function WhyJoin() {
               <div key={feature.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-lg font-bold leading-7 text-gray-900">
                   {/* <feature.icon
-                    className="h-5 w-5 flex-none text-indigo-600"
+                    className={`h-5 w-5 flex-none ${theme.colors.accent}`}
                     aria-hidden="true"
                   /> */}
                   {feature.name}

@@ -41,7 +41,7 @@ export default function Footer({ padding = false }) {
                   href={`/${intl.locale}/${event.slug}`}
                   className={`${
                     event.slug === currentEventSlug
-                      ? `${theme.colors.button} ${theme.colors.text}`
+                      ? `${theme.colors.button}`
                       : `bg-white/10 ${theme.colors.text} ${theme.colors.buttonHover}`
                   } px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex flex-col items-center min-w-[120px]`}
                 >

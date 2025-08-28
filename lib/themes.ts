@@ -5,6 +5,7 @@ export type Theme = {
     primary: string
     secondary: string
     accent: string
+    accentOnWhite: string // For sections with white backgrounds
     background: string
     navbar: string
     text: string
@@ -30,7 +31,8 @@ export const themes: Record<string, Theme> = {
     colors: {
       primary: 'oklch(.21 .006 285.885)',
       secondary: 'ai-red', 
-      accent: 'text-white', // White accent text for better contrast
+      accent: 'text-white', // White accent text on dark backgrounds
+      accentOnWhite: 'text-ai-orange', // Orange accent text on white backgrounds
       background: 'bg-white',
       navbar: 'bg-gray-900', // Darker navbar for better contrast
       text: 'text-white', // White text on orange background
@@ -55,6 +57,7 @@ export const themes: Record<string, Theme> = {
       primary: 'rgb(99, 102, 241)', // indigo-500
       secondary: 'rgb(147, 51, 234)', // purple-500
       accent: 'text-amber-600', // amber accent for classic theme
+      accentOnWhite: 'text-indigo-600', // indigo accent on white backgrounds
       background: 'from-purple-900 via-indigo-900 to-blue-900',
       navbar: 'bg-gradient-to-r from-purple-800 to-indigo-900',
       text: 'text-purple-50',

@@ -2,16 +2,19 @@
 
 import Link from 'next/link'
 import { useIntl } from './Intl'
+import { useTheme } from '@/app/contexts/ThemeContext'
 import { FaSquareXTwitter, FaLinkedin, FaLink, FaMedium } from 'react-icons/fa6'
 import { Person } from '../helpers/projects'
 
 export default function Judges({ judges }: { judges: Person[] }) {
   const intl = useIntl()
+  const { theme } = useTheme()
+  
   return (
     <div id="judges" className="bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="max-w-3xl">
-          <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
+          <h2 className={`mt-2 text-3xl sm:text-5xl font-cal font-semibold ${theme.colors.accentOnWhite}`}>
             {intl.t('judges.title')}
           </h2>
         </div>

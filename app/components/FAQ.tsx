@@ -1,6 +1,7 @@
 'use client'
 
 import { useIntl } from './Intl'
+import { useTheme } from '@/app/contexts/ThemeContext'
 import Question from './Question'
 
 const QUESTIONS = (intl: ReturnType<typeof useIntl>) =>
@@ -12,13 +13,14 @@ const QUESTIONS = (intl: ReturnType<typeof useIntl>) =>
 
 export default function FAQ({ padding = false }) {
   const intl = useIntl()
+  const { theme } = useTheme()
   type Question = { title: string; answer: string }
 
   return (
     <div id="faq" className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-10 sm:py-10 lg:px-8 lg:py-10">
         <div className="mx-auto max-w-7xl divide-y divide-orange-900/10">
-          <h2 className="text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
+          <h2 className={`text-3xl sm:text-5xl font-cal font-semibold ${theme.colors.accentOnWhite}`}>
             {intl.t('faq.title')}
           </h2>
           <div

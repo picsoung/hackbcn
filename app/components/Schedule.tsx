@@ -21,7 +21,7 @@ export default function Schedule() {
     <div id="schedule" className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-10 sm:py-10 lg:px-8 lg:py-10">
         <div className="mx-auto max-w-7xl divide-y divide-orange-900/10">
-          <h2 className="text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
+          <h2 className={`text-3xl sm:text-5xl font-cal font-semibold ${theme.colors.accentOnWhite}`}>
             {intl.t('schedule.title')}
           </h2>
           <dl className="mt-10 space-y-6 divide-y divide-indigo-600/10">
