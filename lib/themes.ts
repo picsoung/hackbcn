@@ -24,28 +24,28 @@ export type Theme = {
 }
 
 export const themes: Record<string, Theme> = {
-  'aisummit25': {
+  aisummit25: {
     id: 'aisummit25',
     name: 'AI Summit',
     colors: {
-      primary: 'rgb(0, 0, 0)', // Pure black
-      secondary: 'rgb(31, 31, 31)', // Dark gray
-      accent: 'text-white', // Pure white for text accents
-      background: 'from-black via-gray-900 to-black',
-      navbar: 'bg-black',
-      text: 'text-white',
-      textSecondary: 'text-gray-300',
-      button: 'bg-white text-black hover:bg-gray-200',
-      buttonHover: 'hover:bg-white hover:bg-opacity-10',
+      primary: 'oklch(.21 .006 285.885)',
+      secondary: 'ai-red', 
+      accent: 'text-white', // White accent text for better contrast
+      background: 'bg-white',
+      navbar: 'bg-gray-900', // Darker navbar for better contrast
+      text: 'text-white', // White text on orange background
+      textSecondary: 'text-gray-100', // Light gray text
+      button: 'bg-white text-ai-orange hover:bg-gray-100 border border-white',
+      buttonHover: 'hover:bg-gray-100',
       badge: 'bg-white',
-      badgeText: 'text-black',
-      hero: 'bg-black',
-      gradient: 'bg-gradient-to-tr from-gray-600 to-gray-400'
+      badgeText: 'text-ai-orange',
+      hero: 'bg-gradient-to-br from-ai-orange to-ai-red',
+      gradient: 'bg-gradient-to-br from-ai-orange via-ai-red to-ai-burgundy'
     },
     gradients: {
-      primary: 'bg-gradient-to-r from-black to-gray-900',
-      secondary: 'bg-gradient-to-r from-gray-900 to-black',
-      hero: 'bg-black'
+      primary: 'bg-gradient-to-r from-ai-orange to-ai-red',
+      secondary: 'bg-gradient-to-r from-ai-red to-ai-burgundy',
+      hero: 'bg-gradient-to-br from-ai-orange via-ai-red to-ai-burgundy'
     }
   },
   'v1-2024': {
@@ -64,14 +64,14 @@ export const themes: Record<string, Theme> = {
       badge: 'bg-purple-500',
       badgeText: 'text-white',
       hero: 'bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900',
-      gradient: 'bg-gradient-to-tr from-[#ffb580] to-[#fcb589]'
+      gradient: 'bg-gradient-to-tr from-[#ffb580] to-[#fcb589]',
     },
     gradients: {
       primary: 'bg-gradient-to-r from-purple-500 to-indigo-600',
       secondary: 'bg-gradient-to-r from-indigo-500 to-purple-600',
-      hero: 'bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900'
-    }
-  }
+      hero: 'bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900',
+    },
+  },
 }
 
 export const getThemeByEventSlug = (eventSlug: string | null): Theme => {

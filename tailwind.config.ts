@@ -9,6 +9,35 @@ const config = {
     './src/**/*.{ts,tsx}',
     './legal/**/*.{md,mdx}',
   ],
+  safelist: [
+    // AI Summit custom colors - ensure they're always included
+    'bg-ai-orange',
+    'text-ai-orange',
+    'bg-ai-red', 
+    'text-ai-red',
+    'bg-ai-burgundy',
+    'text-ai-burgundy',
+    'from-ai-orange',
+    'to-ai-orange',
+    'from-ai-red',
+    'to-ai-red',
+    'from-ai-burgundy',
+    'to-ai-burgundy',
+    'via-ai-red',
+    'via-ai-burgundy',
+    'bg-gradient-to-r',
+    'bg-gradient-to-br',
+    'hover:bg-ai-red',
+    'hover:bg-ai-orange',
+    'hover:bg-gray-100',
+    'text-white',
+    'text-gray-100',
+    'bg-white',
+    'bg-gray-900',
+    'bg-opacity-95',
+    'border',
+    'border-white'
+  ],
   prefix: '',
   theme: {
     container: {
@@ -56,6 +85,10 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // AI Summit custom colors
+        'ai-orange': '#FF5733',
+        'ai-red': '#C70039', 
+        'ai-burgundy': '#900C3F',
       },
       borderRadius: {
         lg: 'var(--radius)',
