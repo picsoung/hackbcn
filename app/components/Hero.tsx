@@ -14,6 +14,104 @@ export default function Hero() {
   // Use current event slug, fallback to default event
   const eventSlug = currentEventSlug || 'aisummit25'
   
+  // AI Summit specific layout
+  if (eventSlug === 'aisummit25') {
+    return (
+      <div className={`${theme.colors.hero} min-h-screen`}>
+        <main>
+          <div className="relative isolate">
+            <div
+              className="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
+              aria-hidden="true"
+            >
+              <div
+                className={`aspect-[801/1036] w-[50.0625rem] ${theme.colors.gradient} opacity-30`}
+              />
+            </div>
+            <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+              <div className="text-center mb-16">
+                <h1 className={`text-6xl md:text-8xl font-cal ${theme.colors.text} mb-8`}>
+                  {intl.t('hero.title.left-part')}
+                  <span className={theme.colors.accent}>
+                    {intl.t('hero.title.right-part')}
+                  </span>
+                  {' - '}
+                  <span className={theme.colors.accent}>
+                    {intl.t(`hero.${eventSlug}.title-edition`)}
+                  </span>
+                </h1>
+              </div>
+              
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Description Column - Left */}
+                <div className="space-y-8">
+                  <p className={`text-xl leading-8 ${theme.colors.textSecondary}`}>
+                    {intl.t(`hero.${eventSlug}.description.0`)}
+                  </p>
+                  <p className={`text-xl leading-8 ${theme.colors.textSecondary}`}>
+                    {intl.t(`hero.${eventSlug}.description.1`)}
+                  </p>
+                  
+                  {/* Apply Button */}
+                  <div className="pt-6">
+                    <Link
+                      href="https://aisummitbarcelona.com/hackathon"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center px-8 py-4 text-xl font-semibold rounded-lg transition-all duration-200 ${theme.colors.button} ${theme.colors.buttonHover}`}
+                    >
+                      {intl.t('action.apply')}
+                      <svg 
+                        className="ml-2 h-5 w-5" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14" 
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                </div>
+                
+                {/* Image Column - Right */}
+                <div className="relative">
+                  <div className="relative mx-auto max-w-lg">
+                    <img
+                      src="/aihack.png"
+                      alt="AI Summit Barcelona"
+                      className="w-full h-auto rounded-2xl shadow-2xl"
+                      onError={(e) => {
+                        // Fallback to a gradient placeholder if image doesn't exist
+                        e.currentTarget.style.display = 'none'
+                        const nextElement = e.currentTarget.nextElementSibling as HTMLElement
+                        if (nextElement) nextElement.style.display = 'block'
+                      }}
+                    />
+                    {/* Fallback gradient placeholder */}
+                    <div 
+                      className={`w-full h-96 rounded-2xl shadow-2xl ${theme.colors.gradient} flex items-center justify-center`}
+                      style={{ display: 'none' }}
+                    >
+                      <span className={`text-2xl font-semibold ${theme.colors.text}`}>
+                        AI Summit 25
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    )
+  }
+  
+  // Original layout for other events
   return (
     <div className={`${theme.colors.hero}`}>
       <main>
