@@ -72,6 +72,36 @@ export const eventSponsors: EventSponsors = {
     },
     'aisummit25': {
         sponsors: [
+            {
+                name: 'Glovo',
+                logo: '/logos/glovo.svg',
+                url: 'https://www.glovoapp.com/',
+            },
+            {
+                name: 'Anthropic',
+                logo: '/logos/anthropic.svg',
+                url: 'https://www.anthropic.com/',
+            },
+            {
+                name: 'n8n',
+                logo: '/logos/n8n.svg',
+                url: 'https://n8n.io/',
+            },
+            {
+                name: 'ElevenLabs',
+                logo: '/logos/elevenlabs.svg',
+                url: 'https://elevenlabs.io/',
+            },
+            {
+                name: 'OVH',
+                logo: '/logos/ovh.svg',
+                url: 'https://www.ovhcloud.com/',
+            },
+            {
+                name: 'Norrsken',
+                logo: '/logos/norrsken.svg', // Placeholder logo - replace with official Norrsken logo
+                url: 'https://www.norrsken.org/',
+            },
         ]
     }
 }

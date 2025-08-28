@@ -29,8 +29,8 @@ export default function Hero() {
               />
             </div>
             <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
-              <div className="text-center mb-16">
-                <h1 className={`text-6xl md:text-8xl font-cal ${theme.colors.text} mb-8`}>
+              <div className="text-left mb-16">
+                <h1 className={`text-4xl md:text-6xl font-cal ${theme.colors.text} mb-8`}>
                   {intl.t('hero.title.left-part')}
                   <span className={theme.colors.accent}>
                     {intl.t('hero.title.right-part')}
