@@ -1,5 +1,3 @@
-import HomeContent from './__content'
-import i18nConfig from '../../i18n.json'
 // import { redirect } from 'next/navigation'
 
 // export default async function Home(props: { params: { locale: string } }) {
