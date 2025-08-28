@@ -56,7 +56,7 @@ export const communitySponsors: CommunitySponsors = {
             }
         ]
     },
-    'mwc25': {
+    'aisummit25': {
         communitySponsors: [
             {
                 url: "https://example-community1.com",

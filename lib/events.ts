@@ -13,12 +13,12 @@ export const events: Event[] = [
   },
   {
     id: '2',
-    slug: 'mwc25',
+    slug: 'aisummit25',
     year: '2025',
-    name: 'HackBarna MWC25',
+    name: 'HackBarna AI Summit 25',
     active: true,
-    startDate: '2025-02-24',
-    endDate: '2025-02-25',
+    startDate: '2025-10-11',
+    endDate: '2025-10-12',
     location: 'Barcelona',
   },
 ]

@@ -13,7 +13,7 @@ export const eventJudges: EventJudges = {
                 name: 'Linus Ekenstam',
                 description: 'AI Gardener & Designer',
                 image: {
-                    src: `https://pbs.twimg.com/profile_images/1584806710769762304/qCu_Jaox_400x400.jpg`,
+                    src: `/judges/linus.jpeg`,
                 },
                 links: {
                     twitter: 'https://twitter.com/LinusEkenstam',
@@ -56,7 +56,7 @@ export const eventJudges: EventJudges = {
             // ... other judges
         ]
     },
-    'mwc25': {
+    'aisummit25': {
         judges: [
             {
                 name: 'John Smith',

@@ -70,7 +70,7 @@ export const eventSponsors: EventSponsors = {
             // ... other judges
         ]
     },
-    'mwc25': {
+    'aisummit25': {
         sponsors: [
         ]
     }

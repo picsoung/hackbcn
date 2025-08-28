@@ -64,7 +64,7 @@ export const eventMentors: EventMentors = {
             },
         ]
     },
-    'mwc25': {
+    'aisummit25': {
         mentors: [
             {
                 name: 'John Smith',

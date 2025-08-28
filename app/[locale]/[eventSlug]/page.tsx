@@ -1,7 +1,5 @@
-import { useEvent } from '@/app/contexts/EventContext'
-
-import React, { useState } from 'react'
-import Navbar from '@/app/components/Navbar'
+import React from 'react'
+import ClientNavbar from '@/app/components/ClientNavbar'
 import Hero from '@/app/components/Hero'
 import Sponsors from '@/app/components/Sponsors'
 import Judges from '@/app/components/Judges'
@@ -33,9 +31,6 @@ export default function EventPage({
 }: {
   params: { locale: string; eventSlug: string }
 }) {
-  // const event = useEvent()
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
   const { eventSlug } = params
 
   const { judges } = getJudgesByEvent(eventSlug)
@@ -45,7 +40,7 @@ export default function EventPage({
 
   return (
     <div>
-      <Navbar mobileMenuOpen={false} setMobileMenuOpen={false} />
+      <ClientNavbar />
       <main className="flex min-h-screen flex-col">
         <Hero />
         <Sponsors sponsors={sponsors} />
