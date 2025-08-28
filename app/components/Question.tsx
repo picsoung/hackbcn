@@ -16,14 +16,17 @@ export default function Question({ title, answer }: QuestionProps) {
       {({ open }) => (
         /* Use the `open` state to conditionally change the direction of an icon. */
         <>
-          <Disclosure.Button className="flex w-full items-start text-left text-indigo-500  ">
+          <Disclosure.Button className="flex w-full items-start text-left text-indigo-500 font-medium">
             {title}
             <ChevronRightIcon
-              className={`h-6 w-6 ${open ? 'rotate-90 transform' : ''}`}
+              className={`h-6 w-6 ml-2 flex-shrink-0 ${open ? 'rotate-90 transform' : ''}`}
             />
           </Disclosure.Button>
-          <Disclosure.Panel>
-            <ReactMarkdown remarkPlugins={[gfm, remarkBreaks]}>
+          <Disclosure.Panel className="mt-2 text-gray-700">
+            <ReactMarkdown 
+              remarkPlugins={[gfm, remarkBreaks]}
+              className="prose prose-sm max-w-none text-gray-700"
+            >
               {answer}
             </ReactMarkdown>
           </Disclosure.Panel>

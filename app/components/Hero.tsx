@@ -5,11 +5,14 @@ import Link from 'next/link'
 import ApplyButton from './ApplyButton'
 import Image from 'next/image' // Add this import
 import { useIntl } from './Intl'
+import { useTheme } from '@/app/contexts/ThemeContext'
 
 export default function Hero() {
   const intl = useIntl()
+  const { theme } = useTheme()
+  
   return (
-    <div>
+    <div className={`${theme.colors.hero}`}>
       <main>
         {/* <GradientHero /> */}
         <div className="relative isolate">
@@ -18,7 +21,7 @@ export default function Hero() {
             aria-hidden="true"
           >
             <div
-              className="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#ffb580] to-[#fcb589] opacity-30"
+              className={`aspect-[801/1036] w-[50.0625rem] ${theme.colors.gradient} opacity-30`}
               // style={{
               //   clipPath:
               //     "polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)",
@@ -28,14 +31,14 @@ export default function Hero() {
           <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
             <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
               <div className="">
-                <h1 className="text-4xl font-cal text-white sm:text-6xl">
+                <h1 className={`text-4xl font-cal ${theme.colors.text} sm:text-6xl`}>
                   {intl.t('hero.title.left-part')}
-                  <span className="text-amber-600">
+                  <span className={theme.colors.accent}>
                     {intl.t('hero.title.right-part')}
                   </span>{' '}
                   - {intl.t('hero.title-edition')}
                 </h1>
-                <p className="relative mt-6 text-lg leading-8 text-gray-200 sm:max-w-md lg:max-w-none">
+                <p className={`relative mt-6 text-lg leading-8 ${theme.colors.textSecondary} sm:max-w-md lg:max-w-none`}>
                   {intl.t('hero.description.0')}
                   <br />
                   <br />
@@ -54,7 +57,7 @@ export default function Hero() {
                   <Link
                     href="https://hackbarna.com/sponsorship.pdf"
                     target="_blank"
-                    className="text-lg font-semibold leading-6 text-gray-200 hover:text-white z-30 mt-4 sm:mt-0"
+                    className={`text-lg font-semibold leading-6 ${theme.colors.textSecondary} hover:text-white z-30 mt-4 sm:mt-0`}
                   >
                     {intl.t('hero.cta.sponsor-us')}
                   </Link>

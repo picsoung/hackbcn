@@ -1,4 +1,5 @@
 import { EventProvider } from '@/app/contexts/EventContext'
+import { ThemeProvider } from '@/app/contexts/ThemeContext'
 import { getEventBySlug } from '@/lib/events'
 import { notFound } from 'next/navigation'
 
@@ -17,7 +18,9 @@ export default function EventLayout({
 
   return (
     <EventProvider event={event}>
-      {children}
+      <ThemeProvider eventSlug={params.eventSlug}>
+        {children}
+      </ThemeProvider>
     </EventProvider>
   )
 }
