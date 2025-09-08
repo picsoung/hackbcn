@@ -130,7 +130,7 @@ export const events: Event[] = [
     schedule: {
       en: [
         {
-          title: "Friday - October 11th",
+          title: "Saturday - October 11th",
           sections: [
             {
               name: "Morning",
@@ -159,7 +159,7 @@ export const events: Event[] = [
           ]
         },
         {
-          title: "Saturday - October 12th",
+          title: "Sunday - October 12th",
           sections: [
             {
               name: "Morning",
@@ -188,7 +188,7 @@ export const events: Event[] = [
       ],
       es: [
         {
-          title: "Viernes - 11 de Octubre",
+          title: "Sabado - 11 de Octubre",
           sections: [
             {
               name: "Mañana",
@@ -209,7 +209,7 @@ export const events: Event[] = [
           ]
         },
         {
-          title: "Sábado - 12 de Octubre",
+          title: "Domingo - 12 de Octubre",
           sections: [
             {
               name: "Mañana",
