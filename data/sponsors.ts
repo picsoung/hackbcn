@@ -90,12 +90,17 @@ export const eventSponsors: EventSponsors = {
             {
                 name: 'ElevenLabs',
                 logo: '/logos/elevenlabs.svg',
-                url: 'https://elevenlabs.io/',
+                url: 'https://try.elevenlabs.io/e2lh0if9af8w',
             },
             {
                 name: 'OVH',
                 logo: '/logos/ovh.svg',
                 url: 'https://www.ovhcloud.com/',
+            },
+            {
+                name: 'Lovable',
+                logo: '/logos/lovable-dark.png',
+                url: 'https://lovable.dev/?via=picsoung',
             },
             {
                 name: 'Norrsken',
