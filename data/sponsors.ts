@@ -83,6 +83,11 @@ export const eventSponsors: EventSponsors = {
                 url: 'https://www.anthropic.com/',
             },
             {
+                name: 'Acai',
+                logo: '/logos/acai.png',
+                url: 'https://acaitravel.com/',
+            },
+            {
                 name: 'n8n',
                 logo: '/logos/n8n.svg',
                 url: 'https://n8n.io/',
