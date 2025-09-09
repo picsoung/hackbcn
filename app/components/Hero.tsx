@@ -82,7 +82,7 @@ export default function Hero() {
                 <div className="relative">
                   <div className="relative mx-auto max-w-lg">
                     <img
-                      src="/aihack.png"
+                      src="/beyond_prompting.png"
                       alt="AI Summit Barcelona"
                       className="w-full h-auto rounded-2xl shadow-2xl"
                       onError={(e) => {
