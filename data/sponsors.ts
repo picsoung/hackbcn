@@ -78,14 +78,19 @@ export const eventSponsors: EventSponsors = {
                 url: 'https://www.glovoapp.com/',
             },
             {
-                name: 'Anthropic',
-                logo: '/logos/anthropic.svg',
-                url: 'https://www.anthropic.com/',
-            },
-            {
                 name: 'Acai',
                 logo: '/logos/acai.png',
                 url: 'https://acaitravel.com/',
+            },
+            {
+                name: 'Linkup',
+                logo: '/logos/linkup.svg',
+                url: 'https://linkup.so/',
+            },
+            {
+                name: 'Anthropic',
+                logo: '/logos/anthropic.svg',
+                url: 'https://www.anthropic.com/',
             },
             {
                 name: 'n8n',
