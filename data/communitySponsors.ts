@@ -59,20 +59,10 @@ export const communitySponsors: CommunitySponsors = {
     'aisummit25': {
         communitySponsors: [
             {
-                url: "https://example-community1.com",
-                logo: "https://unsplash.it/300/80",
-                name: "Community Partner 1"
+                url: "https://www.meetup.com/es-ES/ai-engineers-barcelona/",
+                logo: "/logos/community/aibcn.png",
+                name: "AI Engineers Barcelona meetup"
             },
-            {
-                url: "https://example-community2.com",
-                logo: "https://unsplash.it/300/80",
-                name: "Community Partner 2"
-            },
-            {
-                url: "https://example-community3.com",
-                logo: "https://unsplash.it/300/80",
-                name: "Community Partner 3"
-            }
         ]
     }
 }
