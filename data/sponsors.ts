@@ -103,9 +103,9 @@ export const eventSponsors: EventSponsors = {
                 url: 'https://try.elevenlabs.io/e2lh0if9af8w',
             },
             {
-                name: 'OVH',
-                logo: '/logos/ovh.svg',
-                url: 'https://www.ovhcloud.com/',
+                name: 'Hugging Face',
+                logo: '/logos/hf.png',
+                url: 'https://huggingface.co/',
             },
             {
                 name: 'Lovable',

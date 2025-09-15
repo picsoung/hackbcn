@@ -63,6 +63,16 @@ export const communitySponsors: CommunitySponsors = {
                 logo: "/logos/community/aibcn.png",
                 name: "AI Engineers Barcelona meetup"
             },
+            {
+                url: "https://www.lewagon.com/barcelona",
+                logo: "/logos/lewagon.png",
+                name: "Le Wagon Barcelona"
+            },
+            {
+                url: "https://techfems.org/",
+                logo: "/logos/community/techfems.png",
+                name: "TechFems"
+            }
         ]
     }
 }
