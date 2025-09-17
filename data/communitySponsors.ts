@@ -72,6 +72,15 @@ export const communitySponsors: CommunitySponsors = {
                 url: "https://techfems.org/",
                 logo: "/logos/community/techfems.png",
                 name: "TechFems"
+            },
+            {
+                url: "https://somosnlp.org/",
+                logo: "/logos/community/somosnlp.png",
+                name: "SomosNLP"
+            },{
+                url: "https://build.plyolab.com/",
+                logo: "/logos/community/plyo.svg",
+                name: "Plyolab"
             }
         ]
     }

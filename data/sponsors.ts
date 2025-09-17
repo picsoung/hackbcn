@@ -88,6 +88,11 @@ export const eventSponsors: EventSponsors = {
                 url: 'https://linkup.so/',
             },
             {
+                name: 'Lingo.dev',
+                logo: '/logos/lingodotdev.svg',
+                url: 'http://lingo.dev/',
+            },
+            {
                 name: 'Anthropic',
                 logo: '/logos/anthropic.svg',
                 url: 'https://www.anthropic.com/',

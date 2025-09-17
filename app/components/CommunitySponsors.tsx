@@ -19,7 +19,7 @@ export default function CommunitySponsors({
             {communitySponsors.map((sponsor, index) => (
               <a key={index} href={sponsor.url} target="_blank">
                 <img
-                  className="h-auto max-h-40 object-contain hover:cursor-pointer"
+                  className="h-auto max-h-40 max-w-40 object-contain hover:cursor-pointer"
                   src={sponsor.logo}
                   alt={`${sponsor.name} logo`}
                 />
