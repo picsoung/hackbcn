@@ -93,6 +93,11 @@ export const eventSponsors: EventSponsors = {
                 url: 'http://lingo.dev/',
             },
             {
+                name: 'Hookdeck',
+                logo: '/logos/hookdeck.svg',
+                url: 'https://hookdeck.com',
+            },
+            {
                 name: 'Anthropic',
                 logo: '/logos/anthropic.svg',
                 url: 'https://www.anthropic.com/',

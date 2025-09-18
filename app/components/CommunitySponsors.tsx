@@ -15,14 +15,14 @@ export default function CommunitySponsors({
           Making the local ecosystem stronger
         </h3>
         <div className="flex flex-col flex-wrap justify-center items-center mx-auto gap-4 mt-12">
-          <div className="flex flex-wrap gap-4 items-center">
+          <div className="flex flex-wrap gap-8 items-center">
             {communitySponsors.map((sponsor, index) => (
-              <a key={index} href={sponsor.url} target="_blank">
-                <img
-                  className="h-auto max-h-40 max-w-40 object-contain hover:cursor-pointer"
-                  src={sponsor.logo}
-                  alt={`${sponsor.name} logo`}
-                />
+              <a key={index} href={sponsor.url} target="_blank" className="p-2">
+          <img
+            className="h-auto max-h-40 max-w-40 object-contain hover:cursor-pointer"
+            src={sponsor.logo}
+            alt={`${sponsor.name} logo`}
+          />
               </a>
             ))}
           </div>
