@@ -70,7 +70,7 @@ export const communitySponsors: CommunitySponsors = {
             },
             {
                 url: "https://www.lewagon.com/barcelona",
-                logo: "/logos/lewagon.png",
+                logo: "/logos/community/lewagon_white.svg",
                 name: "Le Wagon Barcelona"
             },
             {

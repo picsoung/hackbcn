@@ -76,36 +76,46 @@ export const eventSponsors: EventSponsors = {
                 name: 'Glovo',
                 logo: '/logos/glovo.svg',
                 url: 'https://www.glovoapp.com/',
+                tier: 'gold'
             },
             {
                 name: 'Acai',
                 logo: '/logos/acai.png',
                 url: 'https://acaitravel.com/',
+                tier: 'gold'
             },
             {
                 name: 'Linkup',
                 logo: '/logos/linkup.svg',
                 url: 'https://linkup.so/',
+                tier: 'gold'
             },
             {
                 name: 'Lingo.dev',
                 logo: '/logos/lingodotdev.svg',
                 url: 'http://lingo.dev/',
+                tier: 'silver'
             },
             {
                 name: 'Hookdeck',
                 logo: '/logos/hookdeck.svg',
                 url: 'https://hookdeck.com',
+                tier: 'silver',
+                width: 280,
+                height: 80,
+                className: 'h-20 max-w-[280px]'
+            },
+
+            {
+                name: 'n8n',
+                logo: '/logos/n8n.svg',
+                url: 'https://n8n.io/',
+                tier: 'silver'
             },
             {
                 name: 'Anthropic',
                 logo: '/logos/anthropic.svg',
                 url: 'https://www.anthropic.com/',
-            },
-            {
-                name: 'n8n',
-                logo: '/logos/n8n.svg',
-                url: 'https://n8n.io/',
             },
             {
                 name: 'ElevenLabs',
