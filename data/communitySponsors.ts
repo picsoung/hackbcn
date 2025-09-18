@@ -53,6 +53,11 @@ export const communitySponsors: CommunitySponsors = {
                 url: "https://www.youtube.com/@la_inteligencia_artificial/",
                 logo: "/logos/community/intelligencia_artificial_logo.jpeg",
                 name: "Artificial Intelligence youtube"
+            },
+            {
+                url: "https://iot.barcelona/",
+                logo: "/logos/community/iotbarcelona.png",
+                name: "IoT Barcelona"
             }
         ]
     },
@@ -77,10 +82,16 @@ export const communitySponsors: CommunitySponsors = {
                 url: "https://somosnlp.org/",
                 logo: "/logos/community/somosnlp.png",
                 name: "SomosNLP"
-            },{
+            },
+            {
                 url: "https://build.plyolab.com/",
                 logo: "/logos/community/plyo.svg",
                 name: "Plyolab"
+            },
+            {
+                url: "https://iot.barcelona/",
+                logo: "/logos/community/iotbcn.png",
+                name: "IoT Barcelona"
             }
         ]
     }
