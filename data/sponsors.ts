@@ -79,6 +79,12 @@ export const eventSponsors: EventSponsors = {
         tier: 'gold',
       },
       {
+        name: 'Vonage',
+        logo: '/logos/vonage.svg',
+        url: 'https://www.vonage.com/',
+        tier: 'gold',
+      },
+      {
         name: 'Acai',
         logo: '/logos/acai.png',
         url: 'https://acaitravel.com/',
@@ -88,6 +94,12 @@ export const eventSponsors: EventSponsors = {
         name: 'Linkup',
         logo: '/logos/linkup.svg',
         url: 'https://linkup.so/',
+        tier: 'gold',
+      },
+      {
+        name: 'Veed.io',
+        logo: '/logos/veed.svg',
+        url: 'https://www.veed.io/',
         tier: 'gold',
       },
       {
