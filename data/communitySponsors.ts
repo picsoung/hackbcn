@@ -53,16 +53,6 @@ export const communitySponsors: CommunitySponsors = {
                 url: "https://www.youtube.com/@la_inteligencia_artificial/",
                 logo: "/logos/community/intelligencia_artificial_logo.jpeg",
                 name: "Artificial Intelligence youtube"
-            },
-            {
-                url: "https://iot.barcelona/",
-                logo: "/logos/community/iotbarcelona.png",
-                name: "IoT Barcelona"
-            },
-            {
-                url: "https://www.barcelonaproduct.xyz/",
-                logo: "/logos/community/barcelona_product.png",
-                name: "Barcelona Product"
             }
         ]
     },
@@ -97,6 +87,11 @@ export const communitySponsors: CommunitySponsors = {
                 url: "https://iot.barcelona/",
                 logo: "/logos/community/iotbcn.png",
                 name: "IoT Barcelona"
+            },
+            {
+                url: "https://www.barcelonaproduct.xyz/",
+                logo: "/logos/community/barcelona_product.png",
+                name: "Barcelona Product"
             }
         ]
     }
