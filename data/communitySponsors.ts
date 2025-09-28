@@ -95,7 +95,7 @@ export const communitySponsors: CommunitySponsors = {
       },
       {
         url: 'https://www.femcodersclub.com/',
-        logo: '/logos/community/femcodersclub.svg',
+        logo: '/logos/community/femcoders.svg',
         name: 'FemCoders Club',
       },
     ],
