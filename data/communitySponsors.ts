@@ -93,6 +93,11 @@ export const communitySponsors: CommunitySponsors = {
         logo: '/logos/community/barcelona_product.png',
         name: 'Barcelona Product',
       },
+      {
+        url: 'https://www.femcodersclub.com/',
+        logo: '/logos/community/femcodersclub.svg',
+        name: 'FemCoders Club',
+      },
     ],
   },
 }
