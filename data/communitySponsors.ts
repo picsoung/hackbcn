@@ -98,6 +98,11 @@ export const communitySponsors: CommunitySponsors = {
         logo: '/logos/community/femcoders.svg',
         name: 'FemCoders Club',
       },
+      {
+        url: 'https://www.nocodehackers.es/',
+        logo: '/logos/community/nocodehackers.png',
+        name: 'NoCodeHackers',
+      },
     ],
   },
 }

@@ -151,6 +151,16 @@ export const eventSponsors: EventSponsors = {
         logo: '/logos/norrsken.svg', // Placeholder logo - replace with official Norrsken logo
         url: 'https://www.norrsken.org/',
       },
+      {
+        name: 'AmazonDeveloper',
+        logo: '/logos/amazon-developer.svg',
+        url: 'https://m.amazonappservices.com/events-react-get-started',
+        tier: 'gold',
+      },{
+        name: 'Fal.ai',
+        logo: '/logos/falai.png',
+        url: 'https://fal.ai',
+      }
     ],
   },
 }
