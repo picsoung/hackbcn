@@ -53,7 +53,7 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
 
     // Special styling for supergold tier
     const sectionClass = tier === 'supergold'
-      ? "mb-16 p-8 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border-2 border-yellow-200"
+      ? "mb-16"
       : "mb-12"
 
     return (
