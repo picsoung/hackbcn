@@ -125,6 +125,11 @@ export const eventSponsors: EventSponsors = {
         logo: '/logos/slng.jpg',
         url: 'https://slng.ai/',
         tier: 'silver',
+      },{
+        name: 'Mankind',
+        logo: '/logos/mankind.svg',
+        url: 'http://mankind.technology/',
+        tier: 'silver',
       },
       {
         name: 'Anthropic',
