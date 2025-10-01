@@ -15,6 +15,7 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
     string,
     { height: number; maxWidth: number; className: string; containerClass: string }
   > = {
+    supergold: { height: 120, maxWidth: 400, className: 'w-full h-full object-contain', containerClass: 'h-30 w-96 flex items-center justify-center ' },
     gold: { height: 96, maxWidth: 320, className: 'w-full h-full object-contain', containerClass: 'h-24 w-72 flex items-center justify-center ' },
     silver: { height: 72, maxWidth: 240, className: 'w-full h-full object-contain', containerClass: 'h-18 w-56 flex items-center justify-center ' },
     bronze: { height: 56, maxWidth: 180, className: 'w-full h-full object-contain', containerClass: 'h-14 w-40 flex items-center justify-center ' },
@@ -32,24 +33,31 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
   }, {} as Record<string, Sponsor[]>)
 
   // Define tier order and labels
-  const tierOrder = ['gold', 'silver', 'bronze', 'default']
+  const tierOrder = ['supergold', 'gold', 'silver', 'bronze', 'default']
   const tierLabels = {
+    supergold: 'Supergold',
     gold: 'Gold',
-    silver: 'Silver', 
+    silver: 'Silver',
     bronze: 'Bronze',
     default: ''
   }
 
   const renderSponsorSection = (tier: string, tierSponsors: Sponsor[]) => {
     const { height, maxWidth, className, containerClass } = tierLogoSizes[tier]
-    
+
     // Define grid columns based on tier
-    const gridCols = tier === 'gold' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 
+    const gridCols = tier === 'supergold' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
+                     tier === 'gold' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
                      tier === 'silver' ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4' :
                      'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
 
+    // Special styling for supergold tier
+    const sectionClass = tier === 'supergold'
+      ? "mb-16 p-8 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border-2 border-yellow-200"
+      : "mb-12"
+
     return (
-      <div key={tier} className="mb-12">
+      <div key={tier} className={sectionClass}>
         {/* <h3 className="text-2xl font-semibold text-gray-800 text-center mb-8">
           {tierLabels[tier as keyof typeof tierLabels]}
         </h3> */}

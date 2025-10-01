@@ -5,7 +5,7 @@ export interface Sponsor {
   width?: number
   height?: number
   className?: string
-  tier?: 'gold' | 'silver' | 'bronze'
+  tier?: 'supergold' | 'gold' | 'silver' | 'bronze'
 }
 
 export interface EventSponsors {
@@ -155,7 +155,7 @@ export const eventSponsors: EventSponsors = {
         name: 'AmazonDeveloper',
         logo: '/logos/amazon-developer.svg',
         url: 'https://m.amazonappservices.com/events-react-get-started',
-        tier: 'gold',
+        tier: 'supergold',
       },{
         name: 'Fal.ai',
         logo: '/logos/falai.png',
