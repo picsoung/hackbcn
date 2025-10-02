@@ -132,6 +132,12 @@ export const eventSponsors: EventSponsors = {
         tier: 'silver',
       },
       {
+        name: 'Dopelist',
+        logo: '/logos/dopelist.png',
+        url: 'http://dopelist.com/',
+        tier: 'silver',
+      },
+      {
         name: 'Anthropic',
         logo: '/logos/anthropic.svg',
         url: 'https://www.anthropic.com/',

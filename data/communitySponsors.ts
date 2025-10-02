@@ -103,6 +103,16 @@ export const communitySponsors: CommunitySponsors = {
         logo: '/logos/community/nocodehackers.png',
         name: 'NoCodeHackers',
       },
+      {
+        url: 'https://www.youtube.com/@rivela_',
+        logo: '/logos/community/RivelaLogo.png',
+        name: 'Rivela youtube',
+      },
+      {
+        url: 'https://joppy.me/',
+        logo: '/logos/community/joppy.png',
+        name: 'Joppy',
+      },
     ],
   },
 }
