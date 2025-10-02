@@ -145,15 +145,17 @@ export const events: Event[] = [
               items: [
                 "01:00 PM | Lunch & Networking",
                 "02:00 PM | AI Workshops & Technical Sessions",
-                "04:00 PM | Mentor Speed Dating",
-                "06:00 PM | AI Panel Discussion"
+                "02:00 PM | AmazonDeveloper Workshop",
+                "03:00 PM | Acai Workshop",
+                "04:00 PM | Vonage Workshop",
+                "05:00 PM | n8n Workshop",
               ]
             },
             {
               name: "Evening",
               items: [
-                "08:00 PM | Welcome Reception",
-                "10:00 PM | Late Night Hacking"
+                "08:00 PM | Dinner",
+                "11:00 PM | Doors closing for the night"
               ]
             }
           ]
@@ -188,22 +190,32 @@ export const events: Event[] = [
       ],
       es: [
         {
-          title: "Sabado - 11 de Octubre",
+          title: "Sábado - 11 de Octubre",
           sections: [
             {
               name: "Mañana",
               items: [
-                "09:00 | Registro y Desayuno",
-                "10:00 | Keynote de Apertura AI Summit",
-                "11:00 | Lanzamiento del Hackathon"
+                "09:00 AM | Registro y Desayuno",
+                "10:00 AM | Keynote de Apertura AI Summit",
+                "11:00 AM | Lanzamiento del Hackathon y Formación de Equipos"
               ]
             },
             {
               name: "Tarde",
               items: [
                 "01:00 PM | Almuerzo y Networking",
-                "02:00 PM | Talleres de IA",
-                "06:00 PM | Panel de Discusión sobre IA"
+                "02:00 PM | Talleres de IA y Sesiones Técnicas",
+                "02:00 PM | Taller AmazonDeveloper",
+                "03:00 PM | Taller Acai",
+                "04:00 PM | Taller Vonage",
+                "05:00 PM | Taller n8n"
+              ]
+            },
+            {
+              name: "Noche",
+              items: [
+                "08:00 PM | Cena",
+                "11:00 PM | Cierre de puertas por la noche"
               ]
             }
           ]
@@ -214,15 +226,23 @@ export const events: Event[] = [
             {
               name: "Mañana",
               items: [
-                "09:00 | Desayuno y Sprint Final",
-                "10:00 | Fecha límite de entrega"
+                "09:00 AM | Desayuno y Sprint Final",
+                "10:00 AM | Fecha límite de entrega del código"
               ]
             },
             {
               name: "Tarde",
               items: [
-                "02:00 PM | Demos de Proyectos",
-                "06:30 PM | Ceremonia de Premios"
+                "01:00 PM | Almuerzo",
+                "02:00 PM | Demos de Proyectos y Presentaciones",
+                "04:00 PM | Panel de Líderes de la Industria IA"
+              ]
+            },
+            {
+              name: "Premios",
+              items: [
+                "05:30 PM | Evaluación y Deliberación",
+                "06:30 PM | Ceremonia de Premios y Clausura"
               ]
             }
           ]
