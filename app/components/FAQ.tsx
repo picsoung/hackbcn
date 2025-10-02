@@ -5,7 +5,7 @@ import { useTheme } from '@/app/contexts/ThemeContext'
 import Question from './Question'
 
 const QUESTIONS = (intl: ReturnType<typeof useIntl>) =>
-  new Array(9).fill(0).map((_, index) => ({
+  new Array(11).fill(0).map((_, index) => ({
     title: intl.t(`faq.item.${index}.title`),
     answer: intl.t(`faq.item.${index}.answer`),
     category: intl.t(`faq.item.${index}.category`),
