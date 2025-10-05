@@ -113,6 +113,11 @@ export const communitySponsors: CommunitySponsors = {
         logo: '/logos/community/joppy.png',
         name: 'Joppy',
       },
+      {
+        url: 'https://www.meetup.com/barcelona-rb/',
+        logo: '/logos/community/barcelonarb.png',
+        name: 'Barcelona.rb',
+      },
     ],
   },
 }
