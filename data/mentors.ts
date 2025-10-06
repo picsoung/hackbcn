@@ -67,25 +67,23 @@ export const eventMentors: EventMentors = {
     'aisummit25': {
         mentors: [
             {
-                name: 'John Smith',
-                description: 'AI Research Director @ Tech Corp',
+                name: 'Guillermo Blasco',
+                description: 'CEO @ Mankind Technology',
                 image: {
-                    src: `https://avatar.iran.liara.run/public`,
+                    src: `/mentors/antonio_mankind.jpeg`,
                 },
                 links: {
-                    linkedin: 'https://www.linkedin.com/in/johnsmith/',
-                    twitter: 'https://twitter.com/johnsmith',
+                    linkedin: 'https://www.linkedin.com/in/guillermoblascojimenez/',
                 },
             },
             {
-                name: 'Maria Garcia',
-                description: 'ML Engineering Lead @ Innovation Labs',
+                name: 'Antonio Hernandez',
+                description: "Tech Advisor @ Mankind Technology",
                 image: {
-                    src: `https://avatar.iran.liara.run/public`,
+                    src: `/mentors/antonio_mankind.jpeg`,
                 },
                 links: {
                     linkedin: 'https://www.linkedin.com/in/mariagarcia/',
-                    website: 'https://example.com',
                 },
             },
             {
