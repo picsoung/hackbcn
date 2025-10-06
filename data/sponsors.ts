@@ -113,6 +113,11 @@ export const eventSponsors: EventSponsors = {
         logo: '/logos/hookdeck.svg',
         url: 'https://hookdeck.com',
         tier: 'silver',
+      },{
+        name: 'runware',
+        logo: '/logos/runware.svg',
+        url: 'https://runware.ai/',
+        tier: 'silver',
       },
       {
         name: 'n8n',
@@ -167,10 +172,6 @@ export const eventSponsors: EventSponsors = {
         logo: '/logos/amazon-developer.svg',
         url: 'https://m.amazonappservices.com/events-react-get-started',
         tier: 'supergold',
-      },{
-        name: 'Fal.ai',
-        logo: '/logos/falai.png',
-        url: 'https://fal.ai',
       }
     ],
   },
