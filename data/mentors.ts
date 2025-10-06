@@ -70,7 +70,7 @@ export const eventMentors: EventMentors = {
                 name: 'Guillermo Blasco',
                 description: 'CEO @ Mankind Technology',
                 image: {
-                    src: `/mentors/antonio_mankind.jpeg`,
+                    src: `/mentors/guillermo_mankind.jpeg`,
                 },
                 links: {
                     linkedin: 'https://www.linkedin.com/in/guillermoblascojimenez/',
