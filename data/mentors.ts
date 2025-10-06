@@ -83,20 +83,20 @@ export const eventMentors: EventMentors = {
                     src: `/mentors/antonio_mankind.jpeg`,
                 },
                 links: {
-                    linkedin: 'https://www.linkedin.com/in/mariagarcia/',
+                    // linkedin: 'https://www.linkedin.com/in/mariagarcia/',
                 },
             },
-            {
-                name: 'David Chen',
-                description: 'Founder @ AI Startups Inc',
-                image: {
-                    src: `https://avatar.iran.liara.run/public`,
-                },
-                links: {
-                    linkedin: 'https://www.linkedin.com/in/davidchen/',
-                    website: 'https://example.com',
-                },
-            }
+            // {
+            //     name: 'David Chen',
+            //     description: 'Founder @ AI Startups Inc',
+            //     image: {
+            //         src: `https://avatar.iran.liara.run/public`,
+            //     },
+            //     links: {
+            //         linkedin: 'https://www.linkedin.com/in/davidchen/',
+            //         website: 'https://example.com',
+            //     },
+            // }
         ]
     }
 }
