@@ -59,36 +59,35 @@ export const eventJudges: EventJudges = {
     'aisummit25': {
         judges: [
             {
-                name: 'John Smith',
-                description: 'AI Research Director @ Tech Corp',
+                name: ' Igor Sakhankov',
+                description: 'Principal Software Engineer @  Glovo',
                 image: {
-                    src: `https://avatar.iran.liara.run/public`,
+                    src: `https://media.licdn.com/dms/image/v2/C5603AQEU6njmIYURMQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1606599514435?e=1762992000&v=beta&t=HNW2Amdr5ed8IBhMECzc4n0cM22jWhO9w3Voe1sgj_w`,
                 },
                 links: {
-                    linkedin: 'https://www.linkedin.com/in/johnsmith/',
-                    twitter: 'https://twitter.com/johnsmith',
+                    linkedin: 'https://www.linkedin.com/in/igor-sakhankov/'
                 },
             },
             {
-                name: 'Maria Garcia',
-                description: 'ML Engineering Lead @ Innovation Labs',
+                name: 'Elena Zangeeva',
+                description: 'Founder @ Kvistly',
                 image: {
-                    src: `https://avatar.iran.liara.run/public`,
+                    src: `https://media.licdn.com/dms/image/v2/D4D03AQGocZH222houg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1715716389872?e=1762992000&v=beta&t=ct9ni7t4hcsWXB9h2xP-WlAyBaVoaLbdX55gCDwQFcQ`,
                 },
                 links: {
-                    linkedin: 'https://www.linkedin.com/in/mariagarcia/',
-                    website: 'https://example.com',
+                    linkedin: 'https://www.linkedin.com/in/elenazangeeva/',
+                    website: 'https://kvistly.com/',
                 },
             },
             {
-                name: 'David Chen',
-                description: 'Founder @ AI Startups Inc',
+                name: 'Vincent Jong',
+                description: 'Founder & CEO at Poolside Ventures',
                 image: {
-                    src: `https://avatar.iran.liara.run/public`,
+                    src: `https://media.licdn.com/dms/image/v2/D4D03AQHQZeuuBGJ-Xg/profile-displayphoto-shrink_800_800/B4DZcGVPw0G0Ac-/0/1748157922834?e=1762992000&v=beta&t=fAXjBXlWczMTU_0t4wYlWd5KakCFcy15PXJqyuqK7Hg`,
                 },
                 links: {
-                    linkedin: 'https://www.linkedin.com/in/davidchen/',
-                    website: 'https://example.com',
+                    linkedin: 'https://www.linkedin.com/in/vincentjong',
+                    website: 'www.poolside.ventures',
                 },
             }
         ]
