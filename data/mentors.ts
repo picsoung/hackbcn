@@ -90,7 +90,7 @@ export const eventMentors: EventMentors = {
         name: 'Pavel Pratyush',
         description: 'Co-founder & CTO @ Acai Travel',
         image: {
-          src: `/mentors/pavel_pratyush.jpeg`,
+          src: `/judges/pavel.png`,
         },
         links: {
           linkedin: 'https://www.linkedin.com/in/pppb/',
@@ -100,7 +100,7 @@ export const eventMentors: EventMentors = {
         name: 'Enric Reverter López',
         description: 'Senior Machine Learning Engineer @ Acai Travel',
         image: {
-          src: `/mentors/enric_reverter.jpeg`,
+          src: `/hackers/enric_reverter.jpeg`,
         },
         links: {
           linkedin: 'hhttps://www.linkedin.com/in/ereverterlopez/',
