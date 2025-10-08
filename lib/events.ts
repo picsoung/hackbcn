@@ -167,7 +167,7 @@ export const events: Event[] = [
               name: "Morning",
               items: [
                 "09:00 AM | Breakfast & Final Push",
-                "10:00 AM | Code Submission Deadline"
+                "11:00 AM | Code Submission Deadline"
               ]
             },
             {
@@ -175,14 +175,14 @@ export const events: Event[] = [
               items: [
                 "01:00 PM | Lunch",
                 "02:00 PM | Project Demos & Presentations",
-                "04:00 PM | AI Industry Leaders Panel"
+                "04:00 PM | Top 10 Demoers announced"
               ]
             },
             {
               name: "Awards",
               items: [
-                "05:30 PM | Judging & Deliberation",
-                "06:30 PM | Awards Ceremony & Closing"
+                "04:00 PM | Top 10 demos Judging & Deliberation",
+                "06:00 PM | Awards Ceremony & Closing"
               ]
             }
           ]
@@ -235,14 +235,14 @@ export const events: Event[] = [
               items: [
                 "01:00 PM | Almuerzo",
                 "02:00 PM | Demos de Proyectos y Presentaciones",
-                "04:00 PM | Panel de Líderes de la Industria IA"
+                "04:00 PM | Anuncio de los 10 mejores demos"
               ]
             },
             {
               name: "Premios",
               items: [
-                "05:30 PM | Evaluación y Deliberación",
-                "06:30 PM | Ceremonia de Premios y Clausura"
+                "05:30 PM | Top 10 proyectos demos",
+                "06:00 PM | Ceremonia de Premios y Clausura"
               ]
             }
           ]
