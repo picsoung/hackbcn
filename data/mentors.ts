@@ -122,11 +122,11 @@ export const eventMentors: EventMentors = {
         name: 'Alejandro Cabello Jiménez',
         description: 'Staff Software Engineer @ Travelperk',
         image: {
-          src: `https://media.licdn.com/dms/image/v2/C4E03AQEUFaB1X0wyiA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1517433229134?e=1762387200&v=beta&t=i0C3gW3tBd-CqhFfIVJ2szQTRPq7tOs-Ye_8cY_8SvE`,
+          src: `https://media.licdn.com/dms/image/v2/D4D03AQG5LV7a0VIruQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1729345665019?e=1762992000&v=beta&t=P7eK5O9xeTTLheiC6xkN-egY9GjAeURLxrrdigHGV3E`,
         },
         links: {
           linkedin: 'https://www.linkedin.com/in/alejandrocabello/',
-          website: 'http://nicolas-pascual.com/',
+          website: 'https://acabello.io',
         },
       },
       {
