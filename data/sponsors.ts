@@ -109,6 +109,12 @@ export const eventSponsors: EventSponsors = {
         tier: 'silver',
       },
       {
+        name: 'Travelperk',
+        logo: '/logos/travelperk.svg',
+        url: 'http://travelperk.com/',
+        tier: 'silver',
+      },
+      {
         name: 'Hookdeck',
         logo: '/logos/hookdeck.svg',
         url: 'https://hookdeck.com',
