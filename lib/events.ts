@@ -10,6 +10,7 @@ export const events: Event[] = [
     startDate: '2024-06-29T09:00:00+02:00', // 09:00am CEST
     endDate: '2024-06-30T09:00:00+02:00',   // 09:00am CEST
     location: 'Le Wagon Barcelona',
+    timeZone: 'Europe/Madrid',
     schedule: {
       en: [
         {
@@ -127,6 +128,7 @@ export const events: Event[] = [
     startDate: '2025-10-11T09:00:00+02:00', // 09:00am CEST
     endDate: '2025-10-12T09:00:00+02:00',   // 09:00am CEST
     location: 'Yellow Park, Barcelona',
+    timeZone: 'Europe/Madrid',
     schedule: {
       en: [
         {

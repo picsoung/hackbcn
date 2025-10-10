@@ -15,6 +15,7 @@ export type Event = {
     startDate: string
     endDate: string
     location: string
+    timeZone?: Intl.DateTimeFormatOptions['timeZone']
     schedule: {
       [locale: string]: ScheduleItem[]
     }
