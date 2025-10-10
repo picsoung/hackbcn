@@ -7,8 +7,8 @@ export const events: Event[] = [
     year: '2024',
     name: 'HackBarna',
     active: false,
-    startDate: '2024-06-29',
-    endDate: '2024-06-30',
+    startDate: '2024-06-29T09:00:00+02:00', // 09:00am CEST
+    endDate: '2024-06-30T09:00:00+02:00',   // 09:00am CEST
     location: 'Le Wagon Barcelona',
     schedule: {
       en: [
@@ -124,8 +124,8 @@ export const events: Event[] = [
     year: '2025',
     name: 'HackBarna AI Summit 25',
     active: true,
-    startDate: '2025-10-11',
-    endDate: '2025-10-12',
+    startDate: '2025-10-11T09:00:00+02:00', // 09:00am CEST
+    endDate: '2025-10-12T09:00:00+02:00',   // 09:00am CEST
     location: 'Yellow Park, Barcelona',
     schedule: {
       en: [
