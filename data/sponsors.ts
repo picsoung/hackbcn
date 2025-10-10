@@ -111,7 +111,7 @@ export const eventSponsors: EventSponsors = {
       {
         name: 'Travelperk',
         logo: '/logos/travelperk.svg',
-        url: 'http://travelperk.com/',
+        url: 'https://grnh.se/pbr4ieo21us',
         tier: 'silver',
       },
       {
