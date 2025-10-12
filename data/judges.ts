@@ -59,7 +59,7 @@ export const eventJudges: EventJudges = {
     'aisummit25': {
         judges: [
             {
-                name: ' Igor Sakhankov',
+                name: 'Igor Sakhankov',
                 description: 'Principal Software Engineer @  Glovo',
                 image: {
                     src: `https://media.licdn.com/dms/image/v2/C5603AQEU6njmIYURMQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1606599514435?e=1762992000&v=beta&t=HNW2Amdr5ed8IBhMECzc4n0cM22jWhO9w3Voe1sgj_w`,

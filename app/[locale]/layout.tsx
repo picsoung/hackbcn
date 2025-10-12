@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './../globals.css'
 import { Analytics } from '@vercel/analytics/react'
 import { IntlProvider } from '@/app/components/Intl'
+import { ThemeProvider } from '@/app/contexts/ThemeContext'
 import i18nConfig from '../../i18n.json'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -63,12 +64,14 @@ export default async function HomeLayout({
 
   return (
     <IntlProvider locale={params.locale} data={localeData} locales={allLocales}>
-      <html>
-        <body className={inter.className}>
-          {children}
-          <Analytics />
-        </body>
-      </html>
+      {/* <ThemeProvider eventSlug="aisummit25"> */}
+        <html>
+          <body className={inter.className}>
+            {children}
+            <Analytics />
+          </body>
+        </html>
+      {/* </ThemeProvider> */}
     </IntlProvider>
   )
 }

@@ -33,7 +33,7 @@ export default function Judges({ judges }: { judges: Person[] }) {
                   height="230"
                   // style={{ border: "2px" }}
                 />
-                <span className="mb-2 text-xl font-medium leading-tight">
+                <span className={`mb-2 text-xl font-medium leading-tight ${theme.colors.accentOnWhite}`}>
                   {member.name}
                 </span>
                 <p className="text-neutral-500 dark:text-neutral-400">
