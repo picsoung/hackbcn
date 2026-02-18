@@ -44,6 +44,7 @@ export interface ProjectData {
     text: string
     color: string
   }
+  challenges?: string[]
 }
 
 export interface Project {
@@ -88,6 +89,7 @@ export function getProject(slugOrFilePath: string[]): Project {
     techStack: data.techStack,
     winner: data.winner ?? false,
     links: data.links ?? {},
+    challenges: data.challenges ?? [],
   }
 
   return {
@@ -112,5 +114,17 @@ export function getProjects(): Project[] {
     .filter((project) => {
       return project.data.status !== 'draft'
     })
+    .sort(sortProjectsByName)
+}
+
+export function getProjectsByEvent(eventSlug: string): Project[] {
+  const projectsDirectory = getProjectsDirectory()
+  const filenames = globSync(
+    [path.join(eventSlug, '**/*.md'), path.join(eventSlug, '**/*.mdx')],
+    { absolute: false, cwd: projectsDirectory },
+  )
+  return filenames
+    .map((filename) => getProject([filename]))
+    .filter((project) => project.data.status !== 'draft')
     .sort(sortProjectsByName)
 }

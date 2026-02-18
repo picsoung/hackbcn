@@ -1,11 +1,11 @@
 import React from 'react'
-import { getProjects } from '@/app/helpers/projects'
+import { getProjectsByEvent } from '@/app/helpers/projects'
 import Link from 'next/link'
 
 import { FaTrophy } from 'react-icons/fa6'
 
 export default function Page(props: { params: { locale: string; eventSlug: string } }) {
-  const projects = getProjects()
+  const projects = getProjectsByEvent(props.params.eventSlug)
   const allTags: string[] = []
   projects.forEach((project) => {
     allTags.push(...project.data.techStack)
