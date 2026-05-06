@@ -8,6 +8,14 @@ const nextConfig = {
   // Optionally, add any other Next.js config below
   // output: "export", // Will export all routes as static html
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.lumacdn.com',
+      },
+    ],
+  },
   redirects: async () => {
     return [
       {

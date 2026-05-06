@@ -4,6 +4,7 @@ import { useIntl } from '../Intl'
 import { getUpcomingEvents, getPastEvents } from '@/lib/events'
 import { getUpcomingHackNights, getPastHackNights } from '@/data/hacknights'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CalendarIcon, MapPinIcon } from '@heroicons/react/24/outline'
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -108,9 +109,11 @@ export default function EventList() {
                     className="flex items-center gap-5 p-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all"
                   >
                     {event.imageUrl && (
-                      <img
+                      <Image
                         src={event.imageUrl}
                         alt={event.name}
+                        width={80}
+                        height={80}
                         className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
                       />
                     )}

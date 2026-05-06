@@ -3,6 +3,7 @@
 import { useIntl } from '../Intl'
 import { Event } from '@/types/events'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Disclosure } from '@headlessui/react'
 import { CalendarIcon, MapPinIcon, ArrowLeftIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import { getSponsorsByEvent } from '@/data/sponsors'
@@ -116,10 +117,13 @@ export default function EventDetail({ event, locale }: { event: Event; locale: s
 
             {event.imageUrl && (
               <div className="lg:sticky lg:top-8">
-                <img
+                <Image
                   src={event.imageUrl}
                   alt={event.name}
-                  className="w-full rounded-xl shadow-sm"
+                  width={1200}
+                  height={630}
+                  priority
+                  className="w-full h-auto rounded-xl shadow-sm"
                 />
               </div>
             )}
@@ -170,6 +174,7 @@ export default function EventDetail({ event, locale }: { event: Event; locale: s
                   rel="noopener noreferrer"
                   className="hover:opacity-80 transition-opacity"
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={sponsor.logo} alt={sponsor.name} className="h-10 w-auto max-w-[140px] object-contain" />
                 </a>
               ))}
@@ -185,6 +190,7 @@ export default function EventDetail({ event, locale }: { event: Event; locale: s
                       rel="noopener noreferrer"
                       className="hover:opacity-80 transition-opacity"
                     >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={cs.logo} alt={cs.name} className="h-8 w-auto max-w-[100px] object-contain" />
                     </a>
                   ))}
@@ -200,6 +206,7 @@ export default function EventDetail({ event, locale }: { event: Event; locale: s
               {judges.map((judge) => (
                 <div key={judge.name} className="text-center">
                   {judge.image?.src && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
                     <img src={judge.image.src} alt={judge.name} className="w-16 h-16 rounded-full mx-auto mb-2 object-cover" />
                   )}
                   <p className="text-sm font-medium text-slate-900">{judge.name}</p>
@@ -216,6 +223,7 @@ export default function EventDetail({ event, locale }: { event: Event; locale: s
               {mentors.map((mentor) => (
                 <div key={mentor.name} className="text-center">
                   {mentor.image?.src && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
                     <img src={mentor.image.src} alt={mentor.name} className="w-16 h-16 rounded-full mx-auto mb-2 object-cover" />
                   )}
                   <p className="text-sm font-medium text-slate-900">{mentor.name}</p>
