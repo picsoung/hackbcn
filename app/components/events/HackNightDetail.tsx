@@ -3,6 +3,7 @@
 import { useIntl } from '../Intl'
 import { HackNight } from '@/data/hacknights'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CalendarIcon, MapPinIcon, ArrowLeftIcon, UsersIcon } from '@heroicons/react/24/outline'
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -100,10 +101,13 @@ export default function HackNightDetail({ hackNight }: { hackNight: HackNight })
 
           {hackNight.imageUrl && (
             <div className="lg:sticky lg:top-8">
-              <img
+              <Image
                 src={hackNight.imageUrl}
                 alt={hackNight.name}
-                className="w-full rounded-xl shadow-sm"
+                width={1200}
+                height={630}
+                priority
+                className="w-full h-auto rounded-xl shadow-sm"
               />
             </div>
           )}
@@ -114,6 +118,7 @@ export default function HackNightDetail({ hackNight }: { hackNight: HackNight })
             <h2 className="text-2xl font-semibold text-slate-900 mb-6">{intl.t('events.gallery')}</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {hackNight.gallery.map((img, i) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   key={i}
                   src={img}
