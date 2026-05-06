@@ -1,12 +1,10 @@
 'use client'
-import React, { Dispatch, SetStateAction, Fragment, useState } from 'react'
+import React, { Dispatch, SetStateAction, Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, GlobeAltIcon, ChevronDownIcon, CalendarIcon } from '@heroicons/react/24/outline'
-import ApplyButton from './ApplyButton'
+import { Bars3Icon, XMarkIcon, GlobeAltIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 
 import Link from 'next/link'
 import { useIntl } from './Intl'
-import { events } from '@/lib/events'
 import { usePathname } from 'next/navigation'
 import { useTheme } from '@/app/contexts/ThemeContext'
 interface NavbarProps {
@@ -39,73 +37,21 @@ const Navbar: React.FC<NavbarProps> = ({
     { name: intl.t('navbar.projects'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/projects` : `/${intl.locale}/projects` },
   ]
 
-  const renderBrandWithEventSwitcher = (intl: ReturnType<typeof useIntl>) => {
+  const renderBrand = (intl: ReturnType<typeof useIntl>) => {
     return (
-      <Menu as="div" className="relative inline-block text-left">
-        <div>
-          <Menu.Button className={`inline-flex items-center mr-5 p-1 rounded-md ${theme.colors.buttonHover} focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/20 transition-colors duration-200`}>
-            <img
-              className="h-8 w-auto"
-              src="/hackbcnlogo.png"
-              alt="HackBarna logo"
-            />
-            <h3 className={`pl-2 ${theme.colors.text} text-lg font-medium`}>
-              {intl.t('navbar.title')}
-            </h3>
-            <ChevronDownIcon className={`h-4 w-4 ml-2 ${theme.colors.text}`} aria-hidden="true" />
-          </Menu.Button>
-        </div>
-
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className="absolute left-0 z-10 mt-2 w-64 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="py-1">
-              <div className="px-4 py-3 bg-gray-50">
-                <p className="text-sm font-medium text-gray-900">Select Event</p>
-                <p className="text-xs text-gray-500">Choose which event to view</p>
-              </div>
-              {[...events].reverse().map((event) => (
-                <Menu.Item key={event.slug}>
-                  {({ active }) => (
-                    <button
-                      onClick={() => {
-                        const selectedEventSlug = event.slug
-                        const locale = intl.locale
-                        const newURL = `${window.location.origin}/${locale}/${selectedEventSlug}`
-                        window.location.href = newURL
-                      }}
-                      className={`${
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                      } ${
-                        event.slug === currentEventSlug ? 'bg-indigo-50 text-indigo-700 font-medium' : ''
-                      } block w-full px-4 py-3 text-left text-sm transition-colors duration-150`}
-                    >
-                      <div className="flex flex-col">
-                        <span className="font-medium">{event.name}</span>
-                        <div className="flex justify-between items-center mt-1">
-                          <span className="text-xs text-gray-500">{event.year}</span>
-                          {event.active && (
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${theme.colors.badge} ${theme.colors.badgeText}`}>
-                              Latest
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
-            </div>
-          </Menu.Items>
-        </Transition>
-      </Menu>
+      <Link
+        href={`/${intl.locale}`}
+        className={`inline-flex items-center mr-5 p-1 rounded-md ${theme.colors.buttonHover} transition-colors duration-200`}
+      >
+        <img
+          className="h-8 w-auto"
+          src="/hackbcnlogo.png"
+          alt="HackBarna logo"
+        />
+        <h3 className={`pl-2 ${theme.colors.text} text-lg font-medium`}>
+          {intl.t('navbar.title')}
+        </h3>
+      </Link>
     )
   }
 
@@ -120,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex h-16 justify-between items-center">
                   {/* Left side - Logo and HackBarna title */}
                   <div className="flex items-center">
-                    {renderBrandWithEventSwitcher(intl)}
+                    {renderBrand(intl)}
                   </div>
 
                   {/* Center - Navigation Links */}

@@ -6,6 +6,8 @@ export type ScheduleItem = {
   }[]
 }
 
+export type EventType = 'hackathon' | 'hacknight'
+
 export type Event = {
     id: string
     slug: string
@@ -16,10 +18,14 @@ export type Event = {
     endDate: string
     location: string
     timeZone?: Intl.DateTimeFormatOptions['timeZone']
+    eventType: EventType
+    description?: { [locale: string]: string }
+    registrationUrl?: string
+    imageUrl?: string
     schedule: {
       [locale: string]: ScheduleItem[]
     }
-    // judges: Judge[];
-    // sponsors: Sponsor[];
-    // Add other event-specific fields
+    topic?: string
+    gallery?: string[]
+    projectLinks?: string[]
 }
