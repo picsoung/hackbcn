@@ -87,8 +87,12 @@ const config = {
         },
         // AI Summit custom colors
         'ai-orange': '#FF5733',
-        'ai-red': '#C70039', 
+        'ai-red': '#C70039',
         'ai-burgundy': '#900C3F',
+        // Organization-level colors
+        'org-accent': '#E8523F',
+        'org-accent-light': '#F06B5A',
+        'org-accent-dark': '#D04535',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -104,10 +108,15 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        marquee: 'marquee 30s linear infinite',
       },
       fontFamily: {
         sans: ['Roboto', 'sans-serif'],
