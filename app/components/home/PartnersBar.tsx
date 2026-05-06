@@ -4,6 +4,23 @@ import { useIntl } from '../Intl'
 import { getSponsorsByEvent } from '@/data/sponsors'
 import { getCommunitySponsorsByEvent } from '@/data/communitySponsors'
 
+const PRIORITY_ORDER = [
+  'AmazonDeveloper',
+  'Vonage',
+  'Lovable',
+  'Hugging Face',
+  'Mistral AI',
+  'Algolia',
+  'n8n',
+  'Anthropic',
+  'ElevenLabs',
+  'Glovo',
+  'Linkup',
+  'eDreams',
+  'Travelperk',
+  'Acai',
+]
+
 export default function PartnersBar() {
   const intl = useIntl()
   const aisummitSponsors = getSponsorsByEvent('aisummit25').sponsors
@@ -14,6 +31,14 @@ export default function PartnersBar() {
   const uniqueLogos = allLogos.filter((s, i, arr) =>
     arr.findIndex(x => x.name === s.name) === i
   )
+
+  uniqueLogos.sort((a, b) => {
+    const ai = PRIORITY_ORDER.indexOf(a.name)
+    const bi = PRIORITY_ORDER.indexOf(b.name)
+    const aRank = ai === -1 ? PRIORITY_ORDER.length : ai
+    const bRank = bi === -1 ? PRIORITY_ORDER.length : bi
+    return aRank - bRank
+  })
 
   if (uniqueLogos.length === 0) return null
 
