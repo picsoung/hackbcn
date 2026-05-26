@@ -40,7 +40,30 @@ function hackNightToEvent(hn: HackNight): Event {
     gallery: hn.gallery,
     projectLinks: hn.projectLinks,
     past: hn.past,
+    recapVideoUrl: hn.recapVideoUrl,
+    shorts: hn.shorts,
   }
+}
+
+export type ShortRef = { url: string; eventName: string; eventSlug: string }
+
+// Aggregate vertical Shorts across all events + hack nights, most recent first.
+// Used by the homepage ShortsStrip.
+export function getRecentShorts(limit = 8): ShortRef[] {
+  const fromMdx = getAllMdxEvents().map((m) => m.event)
+  const fromHackNights = hackNights.map(hackNightToEvent)
+  const all = [...fromMdx, ...legacyEvents, ...fromHackNights]
+    .filter((e) => e.shorts && e.shorts.length > 0)
+    .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
+
+  const out: ShortRef[] = []
+  for (const event of all) {
+    for (const url of event.shorts ?? []) {
+      out.push({ url, eventName: event.name, eventSlug: event.slug })
+      if (out.length >= limit) return out
+    }
+  }
+  return out
 }
 
 // All known event slugs across all sources. Used by generateStaticParams.

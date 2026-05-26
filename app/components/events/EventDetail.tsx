@@ -15,6 +15,7 @@ import {
   UserGroupIcon,
 } from '@heroicons/react/24/outline'
 import Polaroid from '../Polaroid'
+import RecapVideo from './RecapVideo'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
 
@@ -117,11 +118,7 @@ function SponsorBlock({
         <p className="text-sm text-slate-500">
           No sponsors yet. Want to be the first?{' '}
           <a
-            href={withUtm('https://hackbarna.com/sponsorship.pdf', {
-              medium: 'cta',
-              campaign: deckCampaign,
-              content: 'empty-state',
-            })}
+            href="/sponsorship.pdf"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() =>
@@ -438,6 +435,13 @@ export default function EventDetail({
       </div>
 
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
+        {/* Relive this edition — long-form recap or vertical Shorts (self-hides if none) */}
+        <RecapVideo
+          recapVideoUrl={event.recapVideoUrl}
+          shorts={event.shorts}
+          eventName={event.name}
+        />
+
         {/* Sponsors — always-visible block (or quiet empty-state CTA / suppressed for past) */}
         <SponsorBlock
           sponsors={sponsors}

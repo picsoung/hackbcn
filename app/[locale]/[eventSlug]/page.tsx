@@ -19,7 +19,9 @@ import { getMentorsByEvent } from '@/data/mentors'
 import { getSponsorsByEvent } from '@/data/sponsors'
 import { getCommunitySponsorsByEvent } from '@/data/communitySponsors'
 import { getEventDataBySlug } from '@/lib/events-server'
+import { getEventBySlug } from '@/lib/events'
 import { getProjectsByEvent } from '@/app/helpers/projects'
+import RecapVideo from '@/app/components/events/RecapVideo'
 import { permanentRedirect, notFound } from 'next/navigation'
 import Link from 'next/link'
 
@@ -55,12 +57,24 @@ export default function EventPage({
   const { sponsors } = getSponsorsByEvent(eventSlug)
   const { communitySponsors } = getCommunitySponsorsByEvent(eventSlug)
   const projectCount = getProjectsByEvent(eventSlug).length
+  const legacyEvent = getEventBySlug(eventSlug)
 
   return (
     <div>
       <ClientNavbar />
       <main className="flex min-h-screen flex-col">
         <Hero />
+        {legacyEvent && (legacyEvent.recapVideoUrl || legacyEvent.shorts?.length) && (
+          <div className="bg-white">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <RecapVideo
+                recapVideoUrl={legacyEvent.recapVideoUrl}
+                shorts={legacyEvent.shorts}
+                eventName={legacyEvent.name}
+              />
+            </div>
+          </div>
+        )}
         <Sponsors sponsors={sponsors} />
         <CommunitySponsors communitySponsors={communitySponsors}/>
         <Judges judges={judges} />

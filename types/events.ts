@@ -35,6 +35,9 @@ export type Event = {
   gallery?: string[]
   projectLinks?: string[]
   past?: boolean // optional override; usually computed from endDate
+  // Recap video
+  recapVideoUrl?: string // long-form aftermovie (landscape)
+  shorts?: string[] // vertical clips / YouTube Shorts
 }
 
 // Bundle returned by the unified getEventDataBySlug helper.

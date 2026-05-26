@@ -67,6 +67,8 @@ export function readMdxEvent(slug: string): MdxEventContent | null {
     gallery: data.gallery,
     projectLinks: data.projectLinks,
     past: data.past,
+    recapVideoUrl: data.recapVideoUrl,
+    shorts: data.shorts,
   }
 
   return {

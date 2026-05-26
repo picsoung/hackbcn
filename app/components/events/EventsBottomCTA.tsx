@@ -1,6 +1,5 @@
 'use client'
 
-import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
 
 export default function EventsBottomCTA() {
@@ -24,11 +23,7 @@ export default function EventsBottomCTA() {
 
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3">
             <a
-              href={withUtm('https://hackbarna.com/sponsorship.pdf', {
-                medium: 'cta',
-                campaign: 'hackbarna-events-deck',
-                content: 'events-page-bottom',
-              })}
+              href="/sponsorship.pdf"
               target="_blank"
               rel="noopener"
               onClick={() =>

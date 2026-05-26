@@ -6,7 +6,6 @@ import ApplyButton from './ApplyButton'
 import Image from 'next/image' // Add this import
 import { useIntl } from './Intl'
 import { useTheme } from '@/app/contexts/ThemeContext'
-import { withUtm } from '@/app/helpers/utm'
 import { trackOutbound } from '@/app/helpers/track'
 
 export default function Hero() {
@@ -158,11 +157,7 @@ export default function Hero() {
                 <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
                   <ApplyButton />
                   <Link
-                    href={withUtm('https://hackbarna.com/sponsorship.pdf', {
-                      medium: 'cta',
-                      campaign: `hackbarna-${currentEventSlug ?? 'legacy'}-deck`,
-                      content: 'hero',
-                    })}
+                    href="/sponsorship.pdf"
                     target="_blank"
                     rel="noopener"
                     onClick={() =>

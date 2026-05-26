@@ -13,6 +13,8 @@ export const events: Event[] = [
     location: 'Le Wagon, Barcelona',
     timeZone: 'Europe/Madrid',
     imageUrl: '/summerhack.png',
+    // Demo-day livestream from the first edition — horizontal long-form recording.
+    recapVideoUrl: 'https://www.youtube.com/watch?v=JZzgPRxKiFM',
     description: {
       en: 'The inaugural HackBarna hackathon — 50+ hackers exploring GPT, Llama, and RAG in the heart of Barcelona.',
       es: 'El primer hackathon HackBarna — más de 50 hackers explorando GPT, Llama y RAG en el corazón de Barcelona.',

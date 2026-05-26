@@ -124,11 +124,7 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
             <a
               target="_blank"
               rel="noopener"
-              href={withUtm('https://hackbarna.com/sponsorship.pdf', {
-                medium: 'cta',
-                campaign: deckCampaign,
-                content: 'legacy-event-sponsor-block',
-              })}
+              href="/sponsorship.pdf"
               onClick={() =>
                 trackOutbound('sponsorship_deck_click', {
                   event_slug: currentEventSlug ?? 'legacy',

@@ -13,6 +13,7 @@ import {
   getUnifiedPastEvents,
   getUpcomingHackNights,
   getPastHackNights,
+  getRecentShorts,
 } from '@/lib/events-server'
 
 export default function HomePage() {
@@ -25,12 +26,13 @@ export default function HomePage() {
   const upcomingHackNights = getUpcomingHackNights().slice(0, 2)
   const pastHackathons = getUnifiedPastEvents()
   const pastHackNights = getPastHackNights()
+  const heroShorts = getRecentShorts(8)
 
   return (
     <div>
       <OrgNavbar featuredEvent={featured} />
       <main>
-        <OrgHero />
+        <OrgHero shorts={heroShorts} />
         <PartnersBar logos={partnerLogos} />
         <UpcomingEvents
           upcomingHackathons={upcomingHackathons}

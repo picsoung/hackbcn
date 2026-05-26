@@ -14,6 +14,8 @@ export type HackNight = {
   sponsor?: string
   capacity?: number
   past: boolean
+  recapVideoUrl?: string // long-form aftermovie (landscape)
+  shorts?: string[] // vertical clips / YouTube Shorts
 }
 
 export const hackNights: HackNight[] = [
@@ -52,6 +54,7 @@ export const hackNights: HackNight[] = [
     sponsor: 'Brandfetch & Lovable',
     capacity: 72,
     past: true,
+    shorts: ['https://www.youtube.com/shorts/oUSlr2JpvVU'],
   },
   {
     id: 'hn-2026-03',
@@ -88,6 +91,7 @@ export const hackNights: HackNight[] = [
     sponsor: 'Linkup',
     capacity: 107,
     past: true,
+    shorts: ['https://www.youtube.com/shorts/R_C-_ji9nS4'],
   },
   {
     id: 'hn-2026-06',
