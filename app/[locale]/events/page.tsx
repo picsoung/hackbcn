@@ -1,13 +1,19 @@
 import OrgNavbar from '@/app/components/home/OrgNavbar'
 import OrgFooter from '@/app/components/home/OrgFooter'
-import EventList from '@/app/components/events/EventList'
+import EventsIndex from '@/app/components/events/EventsIndex'
+import UpcomingFeature from '@/app/components/events/UpcomingFeature'
+import ArchiveWall from '@/app/components/events/ArchiveWall'
+import EventsBottomCTA from '@/app/components/events/EventsBottomCTA'
 
 export default function EventsPage() {
   return (
-    <div>
+    <div className="bg-white">
       <OrgNavbar />
       <main>
-        <EventList />
+        <EventsIndex />
+        <UpcomingFeature />
+        <ArchiveWall />
+        <EventsBottomCTA />
       </main>
       <OrgFooter />
     </div>
