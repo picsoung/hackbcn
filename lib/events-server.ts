@@ -112,16 +112,19 @@ export function getUnifiedPastEvents(): Event[] {
     .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
 }
 
-// Featured: next upcoming hackathon-or-hacknight by start date.
-export function getFeaturedUpcomingEvent(): Event | null {
+// All upcoming events (hackathons + hack nights), soonest first.
+export function getAllUpcoming(): Event[] {
   const now = Date.now()
   const allEvents = getAllUnifiedEvents()
   const hackNightsAsEvents = hackNights.map(hackNightToEvent)
-  const all = [...allEvents, ...hackNightsAsEvents]
-  const future = all
+  return [...allEvents, ...hackNightsAsEvents]
     .filter((e) => new Date(e.startDate).getTime() > now)
     .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
-  return future[0] ?? null
+}
+
+// Featured: next upcoming hackathon-or-hacknight by start date.
+export function getFeaturedUpcomingEvent(): Event | null {
+  return getAllUpcoming()[0] ?? null
 }
 
 // Aggregator for the PartnersBar marquee on the homepage.

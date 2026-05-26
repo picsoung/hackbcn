@@ -6,12 +6,14 @@ import ArchiveWall, { type ArchiveItem } from '@/app/components/events/ArchiveWa
 import EventsBottomCTA from '@/app/components/events/EventsBottomCTA'
 import {
   getFeaturedUpcomingEvent,
+  getAllUpcoming,
   getUnifiedPastEvents,
   getPastHackNights,
 } from '@/lib/events-server'
 
 export default function EventsPage() {
   const featured = getFeaturedUpcomingEvent()
+  const upcoming = getAllUpcoming()
 
   const archiveItems: ArchiveItem[] = [
     ...getUnifiedPastEvents().map((e) => ({
@@ -35,7 +37,7 @@ export default function EventsPage() {
       <OrgNavbar featuredEvent={featured} />
       <main>
         <EventsIndex />
-        <UpcomingFeature next={featured} />
+        <UpcomingFeature events={upcoming} />
         <ArchiveWall items={archiveItems} />
         <EventsBottomCTA />
       </main>

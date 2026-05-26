@@ -89,6 +89,20 @@ export const hackNights: HackNight[] = [
     capacity: 107,
     past: true,
   },
+  {
+    id: 'hn-2026-06',
+    slug: 'hacknight-june-2026',
+    name: 'June Hack Night',
+    date: '2026-06-23T18:00:00+02:00',
+    endDate: '2026-06-23T22:00:00+02:00',
+    location: 'Itnig, Barcelona',
+    topic: 'To be announced',
+    description: {
+      en: 'Our next evening hack night at Itnig. Topic and sponsor to be announced — save the date and come build with the Barcelona community.',
+      es: 'Nuestra próxima hack night nocturna en Itnig. Tema y patrocinador por confirmar — reserva la fecha y ven a construir con la comunidad de Barcelona.',
+    },
+    past: false,
+  },
 ]
 
 export const getUpcomingHackNights = () => {
