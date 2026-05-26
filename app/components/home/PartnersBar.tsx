@@ -1,8 +1,9 @@
 'use client'
 
 import { useIntl } from '../Intl'
-import { getSponsorsByEvent } from '@/data/sponsors'
-import { getCommunitySponsorsByEvent } from '@/data/communitySponsors'
+import type { Sponsor } from '@/data/sponsors'
+import { withUtm } from '../../helpers/utm'
+import { trackOutbound } from '../../helpers/track'
 
 const PRIORITY_ORDER = [
   'AmazonDeveloper',
@@ -21,26 +22,20 @@ const PRIORITY_ORDER = [
   'Acai',
 ]
 
-export default function PartnersBar() {
+// Logos are sourced server-side and passed in — keeps PartnersBar agnostic of
+// where event data lives (MDX, legacy TS, or hack-night sponsors).
+export default function PartnersBar({ logos }: { logos: Sponsor[] }) {
   const intl = useIntl()
-  const aisummitSponsors = getSponsorsByEvent('aisummit25').sponsors
-  const v1Sponsors = getSponsorsByEvent('v1-2024').sponsors
-  const communitySponsors = getCommunitySponsorsByEvent('aisummit25').communitySponsors
 
-  const allLogos = [...aisummitSponsors, ...v1Sponsors, ...communitySponsors]
-  const uniqueLogos = allLogos.filter((s, i, arr) =>
-    arr.findIndex(x => x.name === s.name) === i
-  )
+  if (logos.length === 0) return null
 
-  uniqueLogos.sort((a, b) => {
+  const sorted = [...logos].sort((a, b) => {
     const ai = PRIORITY_ORDER.indexOf(a.name)
     const bi = PRIORITY_ORDER.indexOf(b.name)
     const aRank = ai === -1 ? PRIORITY_ORDER.length : ai
     const bRank = bi === -1 ? PRIORITY_ORDER.length : bi
     return aRank - bRank
   })
-
-  if (uniqueLogos.length === 0) return null
 
   return (
     <section className="bg-white border-t border-gray-100 py-8 overflow-hidden">
@@ -52,15 +47,26 @@ export default function PartnersBar() {
       <div className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
-        <div className="flex animate-marquee">
-          {[...uniqueLogos, ...uniqueLogos].map((sponsor, i) => (
+        <div className="flex animate-marquee motion-reduce:animate-none">
+          {[...sorted, ...sorted].map((sponsor, i) => (
             <a
               key={`${sponsor.name}-${i}`}
-              href={sponsor.url}
+              href={withUtm(sponsor.url, {
+                medium: 'partner',
+                campaign: 'hackbarna-homepage',
+                content: 'marquee',
+              })}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
+              onClick={() =>
+                trackOutbound('partner_marquee_click', {
+                  sponsor: sponsor.name,
+                  source: 'homepage_marquee',
+                })
+              }
               className="flex-shrink-0 mx-8 grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all"
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={sponsor.logo}
                 alt={sponsor.name}

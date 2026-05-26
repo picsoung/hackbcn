@@ -2,17 +2,41 @@ import OrgNavbar from '@/app/components/home/OrgNavbar'
 import OrgFooter from '@/app/components/home/OrgFooter'
 import EventsIndex from '@/app/components/events/EventsIndex'
 import UpcomingFeature from '@/app/components/events/UpcomingFeature'
-import ArchiveWall from '@/app/components/events/ArchiveWall'
+import ArchiveWall, { type ArchiveItem } from '@/app/components/events/ArchiveWall'
 import EventsBottomCTA from '@/app/components/events/EventsBottomCTA'
+import {
+  getFeaturedUpcomingEvent,
+  getUnifiedPastEvents,
+  getPastHackNights,
+} from '@/lib/events-server'
 
 export default function EventsPage() {
+  const featured = getFeaturedUpcomingEvent()
+
+  const archiveItems: ArchiveItem[] = [
+    ...getUnifiedPastEvents().map((e) => ({
+      slug: e.slug,
+      name: e.name,
+      date: e.startDate,
+      tapeColor: 'coral' as const,
+      imageUrl: e.imageUrl,
+    })),
+    ...getPastHackNights().map((hn) => ({
+      slug: hn.slug,
+      name: hn.name,
+      date: hn.date,
+      tapeColor: 'kraft' as const,
+      imageUrl: hn.imageUrl,
+    })),
+  ]
+
   return (
     <div className="bg-white">
-      <OrgNavbar />
+      <OrgNavbar featuredEvent={featured} />
       <main>
         <EventsIndex />
-        <UpcomingFeature />
-        <ArchiveWall />
+        <UpcomingFeature next={featured} />
+        <ArchiveWall items={archiveItems} />
         <EventsBottomCTA />
       </main>
       <OrgFooter />

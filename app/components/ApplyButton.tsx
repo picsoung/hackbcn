@@ -5,6 +5,8 @@ import { useIntl } from './Intl'
 import { useTheme } from '@/app/contexts/ThemeContext'
 import { createRef, useState } from 'react'
 import { PopupButton } from '@typeform/embed-react'
+import { withUtm } from '@/app/helpers/utm'
+import { trackOutbound } from '@/app/helpers/track'
 
 export const EMAIL_REGEX = /^[\w.+-]+@[a-zA-Z\d-]+\.[a-zA-Z]{2,}$/
 
@@ -38,15 +40,22 @@ export default function ApplyButton() {
     }
   }
 
+  const campaign = `hackbarna-${currentEventSlug ?? 'legacy'}-register`
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     checkEmail(email)
-    console.log('eeeeeemail', email)
     if (isValidEmail) {
-      // Handle invalid email case
-      // console.error('Invalid email')
-      // sidetabRef.current?.open()
-      window.open(`https://form.typeform.com/to/vXoAfRLT#email=${email}`)
+      const target = withUtm(`https://form.typeform.com/to/vXoAfRLT#email=${email}`, {
+        medium: 'cta',
+        campaign,
+        content: 'subscribe-form',
+      })
+      trackOutbound('registration_click', {
+        event_slug: currentEventSlug ?? 'legacy',
+        source: 'subscribe-form',
+      })
+      window.open(target)
       return
     }
   }
@@ -54,10 +63,17 @@ export default function ApplyButton() {
   // Get the appropriate apply URL based on the event
   const getApplyUrl = () => {
     if (currentEventSlug === 'aisummit25') {
-      return 'https://aisummitbarcelona.com/hackathon'
+      return withUtm('https://aisummitbarcelona.com/hackathon', {
+        medium: 'cta',
+        campaign,
+        content: 'apply-button',
+      })
     }
-    // Default to typeform for other events
-    return 'https://form.typeform.com/to/vXoAfRLT'
+    return withUtm('https://form.typeform.com/to/vXoAfRLT', {
+      medium: 'cta',
+      campaign,
+      content: 'apply-button',
+    })
   }
 
   return (
@@ -96,7 +112,13 @@ export default function ApplyButton() {
           <Link
             href={getApplyUrl()}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
+            onClick={() =>
+              trackOutbound('registration_click', {
+                event_slug: currentEventSlug ?? 'legacy',
+                source: 'apply-button',
+              })
+            }
             className={`inline-flex items-center justify-center px-6 py-3 text-lg font-semibold rounded-lg transition-all duration-200 ${theme.colors.button} ${theme.colors.buttonHover} w-full sm:w-auto`}
           >
             {intl.t('action.apply')}

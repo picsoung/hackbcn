@@ -1,17 +1,22 @@
-import { getUpcomingEvents, getPastEvents } from '@/lib/events'
-import { getUpcomingHackNights, getPastHackNights } from '@/data/hacknights'
+import {
+  getUnifiedUpcomingEvents,
+  getUnifiedPastEvents,
+  getUpcomingHackNights,
+  getPastHackNights,
+} from '@/lib/events-server'
 import EventsTimeline from './EventsTimeline'
 
 export default function EventsIndex() {
-  const pastHackathons = getPastEvents().length
+  const pastHackathons = getUnifiedPastEvents().length
   const pastHackNights = getPastHackNights().length
-  const upcoming =
-    getUpcomingEvents().length + getUpcomingHackNights().length
+  const upcomingHackathons = getUnifiedUpcomingEvents().length
+  const upcomingHackNights = getUpcomingHackNights().length
+  const upcoming = upcomingHackathons + upcomingHackNights
 
   const indexStrip = [
-    { count: pastHackathons + getUpcomingEvents().length, label: 'hackathons' },
-    { count: pastHackNights + getUpcomingHackNights().length, label: 'hack nights' },
-    { count: upcoming, label: upcoming === 1 ? 'upcoming' : 'upcoming' },
+    { count: pastHackathons + upcomingHackathons, label: 'hackathons' },
+    { count: pastHackNights + upcomingHackNights, label: 'hack nights' },
+    { count: upcoming, label: 'upcoming' },
   ]
 
   return (

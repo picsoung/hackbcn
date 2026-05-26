@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon, GlobeAltIcon, ChevronDownIcon } from '@heroicons/
 import Link from 'next/link'
 import { useIntl } from '../Intl'
 import { usePathname } from 'next/navigation'
-import { events } from '@/lib/events'
+import type { Event } from '@/types/events'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -16,19 +16,15 @@ function formatEventDate(startDate: string, endDate: string) {
   return `${MONTHS[start.getUTCMonth()]} ${start.getUTCDate()}-${end.getUTCDate()}, ${end.getUTCFullYear()}`
 }
 
-export default function OrgNavbar() {
+// The featured ribbon is the next upcoming event. Parent pages (which can read
+// MDX server-side) compute and pass it in. Pass `null` to suppress the ribbon.
+export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | null }) {
   const intl = useIntl()
   const pathname = usePathname()
 
-  // The featured ribbon advertises the next upcoming hackathon by start date.
-  // Decoupled from the `active` flag, which marks the current/featured edition for theming.
-  const now = Date.now()
-  const featuredEvent = events
-    .filter(e => new Date(e.startDate).getTime() > now)
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())[0]
-
   const navigation = [
     { name: intl.t('home.navbar.events'), href: `/${intl.locale}/events` },
+    { name: intl.t('navbar.projects'), href: `/${intl.locale}/projects` },
     { name: intl.t('home.navbar.digest'), href: '#', soon: true },
   ]
 
@@ -39,7 +35,7 @@ export default function OrgNavbar() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center gap-3 flex-wrap">
             <span className="bg-org-accent text-white text-xs font-bold px-2 py-0.5 rounded">NEW</span>
             <span>
-              {featuredEvent.name} — {formatEventDate(featuredEvent.startDate, featuredEvent.endDate)}
+              {featuredEvent.name} · {formatEventDate(featuredEvent.startDate, featuredEvent.endDate)}
             </span>
             <Link
               href={`/${intl.locale}/events/${featuredEvent.slug}`}

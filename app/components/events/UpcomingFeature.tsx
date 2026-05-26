@@ -2,15 +2,9 @@
 
 import Link from 'next/link'
 import { useIntl } from '../Intl'
-import { getUpcomingEvents } from '@/lib/events'
-import { getUpcomingHackNights, type HackNight } from '@/data/hacknights'
 import type { Event } from '@/types/events'
 import { MapPinIcon, CalendarIcon } from '@heroicons/react/24/outline'
 import SubscribeForm from '../home/SubscribeForm'
-
-type UpcomingItem =
-  | { kind: 'hackathon'; slug: string; name: string; startDate: string; endDate: string; location: string; description?: string; imageUrl?: string }
-  | { kind: 'hacknight'; slug: string; name: string; startDate: string; endDate?: string; location: string; description?: string; imageUrl?: string; sponsor?: string }
 
 const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -28,34 +22,6 @@ function formatDateRange(start: string, end?: string) {
   return `${startStr} – ${MONTHS_SHORT[e.getUTCMonth()]} ${e.getUTCDate()}, ${e.getUTCFullYear()}`
 }
 
-function pickNext(intl: ReturnType<typeof useIntl>): UpcomingItem | null {
-  const hackathons: UpcomingItem[] = getUpcomingEvents().map((e: Event) => ({
-    kind: 'hackathon',
-    slug: e.slug,
-    name: e.name,
-    startDate: e.startDate,
-    endDate: e.endDate,
-    location: e.location,
-    description: e.description?.[intl.locale] || e.description?.en,
-    imageUrl: e.imageUrl,
-  }))
-  const hackNights: UpcomingItem[] = getUpcomingHackNights().map((hn: HackNight) => ({
-    kind: 'hacknight',
-    slug: hn.slug,
-    name: `${hn.name}: ${hn.topic}`,
-    startDate: hn.date,
-    endDate: hn.endDate,
-    location: hn.location,
-    description: hn.description[intl.locale] || hn.description.en,
-    imageUrl: hn.imageUrl,
-    sponsor: hn.sponsor,
-  }))
-  const all = [...hackathons, ...hackNights].sort(
-    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-  )
-  return all[0] ?? null
-}
-
 function PolaroidFallback({ tag }: { tag: string }) {
   return (
     <div className="relative mx-auto w-full max-w-md">
@@ -63,7 +29,6 @@ function PolaroidFallback({ tag }: { tag: string }) {
         className="relative bg-white p-3 pb-10 shadow-xl"
         style={{ transform: 'rotate(-4deg)' }}
       >
-        {/* Masking-tape strip */}
         <span
           aria-hidden="true"
           className="absolute -top-3 left-8 rotate-[-6deg] bg-org-accent/80 px-4 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-white shadow-sm"
@@ -87,9 +52,12 @@ function PolaroidFallback({ tag }: { tag: string }) {
   )
 }
 
-export default function UpcomingFeature() {
+export default function UpcomingFeature({ next }: { next: Event | null }) {
   const intl = useIntl()
-  const next = pickNext(intl)
+  const description = next
+    ? next.description?.[intl.locale] || next.description?.en || ''
+    : ''
+  const isHackNight = next?.eventType === 'hacknight'
 
   return (
     <section className="bg-white">
@@ -101,11 +69,10 @@ export default function UpcomingFeature() {
         {next ? (
           <article className="relative overflow-hidden rounded-2xl border border-org-accent/30 ring-1 ring-org-accent/10 bg-white shadow-sm">
             <div className="grid lg:grid-cols-[1.15fr_1fr]">
-              {/* Details column */}
               <div className="p-8 sm:p-12 lg:p-14 flex flex-col justify-center">
                 <p className="font-mono text-xs uppercase tracking-[0.3em] text-org-accent">
-                  {next.kind === 'hackathon' ? 'hackathon' : 'hack night'}
-                  {next.kind === 'hacknight' && next.sponsor && (
+                  {isHackNight ? 'hack night' : 'hackathon'}
+                  {isHackNight && next.sponsor && (
                     <span className="ml-3 text-slate-500">· {next.sponsor}</span>
                   )}
                 </p>
@@ -133,9 +100,9 @@ export default function UpcomingFeature() {
                   </div>
                 </dl>
 
-                {next.description && (
+                {description && (
                   <p className="mt-6 text-base text-slate-600 leading-relaxed max-w-prose">
-                    {next.description}
+                    {description}
                   </p>
                 )}
 
@@ -153,7 +120,6 @@ export default function UpcomingFeature() {
                 </div>
               </div>
 
-              {/* Image column — real photo if available, branded polaroid fallback otherwise */}
               <div className="bg-gradient-to-br from-orange-50 via-amber-50 to-rose-50 p-8 sm:p-12 flex items-center justify-center">
                 {next.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -164,11 +130,7 @@ export default function UpcomingFeature() {
                   />
                 ) : (
                   <PolaroidFallback
-                    tag={`v${
-                      next.kind === 'hackathon'
-                        ? (next.name.match(/(\d{2})$/)?.[1] ?? '')
-                        : ''
-                    } · ${formatDateRange(next.startDate, next.endDate)}`.replace(/^v\s·\s/, '')}
+                    tag={formatDateRange(next.startDate, next.endDate)}
                   />
                 )}
               </div>

@@ -1,11 +1,11 @@
 import React from 'react'
-import { getProjects } from '@/app/helpers/projects'
+import { getProjectsByEvent } from '@/app/helpers/projects'
 import Link from 'next/link'
 
 import { FaTrophy } from 'react-icons/fa6'
 
 export default function Page(props: { params: { locale: string; eventSlug: string } }) {
-  const projects = getProjects()
+  const projects = getProjectsByEvent(props.params.eventSlug)
   const allTags: string[] = []
   projects.forEach((project) => {
     allTags.push(...project.data.techStack)
@@ -50,6 +50,9 @@ export default function Page(props: { params: { locale: string; eventSlug: strin
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
           Projects
         </h2>
+        {projects.length === 0 && (
+          <p className="mt-6 text-gray-500">No projects published from this edition yet.</p>
+        )}
         <div className="mx-auto max-w-7xl px-4 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {' '}
           {projects.map((project) => (

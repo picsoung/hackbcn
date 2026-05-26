@@ -1,4 +1,5 @@
 ---
+event: v1-2024
 title: Mulet's Team
 publishedDate: '2024-06-30'
 modifiedDate: '2024-06-30'

@@ -1,10 +1,17 @@
+'use client'
+
 import { Sponsor } from '@/data/sponsors'
+import { useTheme } from '@/app/contexts/ThemeContext'
+import { withUtm } from '@/app/helpers/utm'
+import { trackOutbound } from '@/app/helpers/track'
 
 export default function CommunitySponsors({
   communitySponsors,
 }: {
   communitySponsors: Sponsor[]
 }) {
+  const { currentEventSlug } = useTheme()
+  const campaign = `hackbarna-${currentEventSlug ?? 'legacy'}`
   return (
     <div id="community-sponsors" className="py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -19,9 +26,19 @@ export default function CommunitySponsors({
             {communitySponsors.map((sponsor) => (
               <a
                 key={sponsor.name}
-                href={sponsor.url}
+                href={withUtm(sponsor.url, {
+                  medium: 'community-sponsor',
+                  campaign,
+                })}
                 target="_blank"
                 rel="noopener"
+                onClick={() =>
+                  trackOutbound('community_sponsor_click', {
+                    sponsor: sponsor.name,
+                    event_slug: currentEventSlug ?? 'legacy',
+                    source: 'legacy_event_page',
+                  })
+                }
                 className="flex items-center justify-center p-4 hover:scale-105 transition-transform duration-200"
               >
                 <img

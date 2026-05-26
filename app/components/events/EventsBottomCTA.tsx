@@ -1,4 +1,7 @@
-import Link from 'next/link'
+'use client'
+
+import { withUtm } from '../../helpers/utm'
+import { trackOutbound } from '../../helpers/track'
 
 export default function EventsBottomCTA() {
   return (
@@ -21,9 +24,18 @@ export default function EventsBottomCTA() {
 
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3">
             <a
-              href="https://hackbarna.com/sponsorship.pdf"
+              href={withUtm('https://hackbarna.com/sponsorship.pdf', {
+                medium: 'cta',
+                campaign: 'hackbarna-events-deck',
+                content: 'events-page-bottom',
+              })}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
+              onClick={() =>
+                trackOutbound('sponsorship_deck_click', {
+                  source: 'events-page-bottom',
+                })
+              }
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-org-accent px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-org-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-org-accent focus-visible:ring-offset-2"
             >
               Sponsorship deck
@@ -31,6 +43,12 @@ export default function EventsBottomCTA() {
             </a>
             <a
               href="mailto:team@hackbarna.com?subject=Host%20a%20HackBarna%20event"
+              onClick={() =>
+                trackOutbound('sponsorship_deck_click', {
+                  source: 'events-page-bottom',
+                  variant: 'host-mailto',
+                })
+              }
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 px-6 py-3 text-base font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2"
             >
               Host at your office

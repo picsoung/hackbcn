@@ -1,14 +1,18 @@
 'use client'
 
 import { useIntl } from '../Intl'
-import { getPastEvents } from '@/lib/events'
-import { getPastHackNights } from '@/data/hacknights'
+import type { Event } from '@/types/events'
+import type { HackNight } from '@/data/hacknights'
 import EventCard from './EventCard'
 
-export default function PastEvents() {
+export default function PastEvents({
+  pastHackathons,
+  pastHackNights,
+}: {
+  pastHackathons: Event[]
+  pastHackNights: HackNight[]
+}) {
   const intl = useIntl()
-  const pastHackathons = getPastEvents()
-  const pastHackNights = getPastHackNights()
 
   const allPast = [
     ...pastHackathons.map(e => ({
