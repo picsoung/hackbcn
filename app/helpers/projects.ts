@@ -44,6 +44,7 @@ export interface ProjectData {
     text: string
     color: string
   }
+  event?: string // event slug — used for per-event project filtering
 }
 
 export interface Project {
@@ -88,6 +89,7 @@ export function getProject(slugOrFilePath: string[]): Project {
     techStack: data.techStack,
     winner: data.winner ?? false,
     links: data.links ?? {},
+    event: data.event ?? undefined,
   }
 
   return {
@@ -113,4 +115,17 @@ export function getProjects(): Project[] {
       return project.data.status !== 'draft'
     })
     .sort(sortProjectsByName)
+}
+
+// Returns projects whose frontmatter `event:` matches the given slug.
+// Winners surface first, then alphabetical.
+export function getProjectsByEvent(eventSlug: string): Project[] {
+  return getProjects()
+    .filter((project) => project.data.event === eventSlug)
+    .sort((a, b) => {
+      const aWinner = a.data.winner ? 0 : 1
+      const bWinner = b.data.winner ? 0 : 1
+      if (aWinner !== bWinner) return aWinner - bWinner
+      return a.data.title.toLowerCase().localeCompare(b.data.title.toLowerCase())
+    })
 }

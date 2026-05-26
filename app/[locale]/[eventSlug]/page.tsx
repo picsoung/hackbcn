@@ -15,15 +15,25 @@ import CommunitySponsors from '@/app/components/CommunitySponsors'
 import Mentors from '@/app/components/Mentors'
 
 import { getJudgesByEvent } from '@/data/judges' // Import your data fetching function
-import { getAllEventSlugs } from '@/lib/events'
 import { getMentorsByEvent } from '@/data/mentors'
 import { getSponsorsByEvent } from '@/data/sponsors'
 import { getCommunitySponsorsByEvent } from '@/data/communitySponsors'
+import { getEventDataBySlug } from '@/lib/events-server'
+import { getEventBySlug } from '@/lib/events'
+import { getProjectsByEvent } from '@/app/helpers/projects'
+import RecapVideo from '@/app/components/events/RecapVideo'
+import { permanentRedirect, notFound } from 'next/navigation'
+import Link from 'next/link'
+
+// Past events keep this legacy URL as their canonical address (indexed, externally linked).
+// Anything else here (new MDX events, hack nights) gets a 308 to /events/<slug>.
+const PAST_LEGACY_SLUGS = new Set(['v1-2024', 'aisummit25'])
+
+// Allow dynamic rendering for unknown slugs so the redirect logic can fire.
+export const dynamicParams = true
 
 export async function generateStaticParams() {
-  return getAllEventSlugs().map((slug) => ({
-    event: slug,
-  }))
+  return Array.from(PAST_LEGACY_SLUGS).map((slug) => ({ eventSlug: slug }))
 }
 
 export default function EventPage({
@@ -31,18 +41,40 @@ export default function EventPage({
 }: {
   params: { locale: string; eventSlug: string }
 }) {
-  const { eventSlug } = params
+  const { locale, eventSlug } = params
+
+  if (!PAST_LEGACY_SLUGS.has(eventSlug)) {
+    // If the slug exists in any newer source, send the visitor to its canonical URL.
+    const data = getEventDataBySlug(eventSlug)
+    if (data) {
+      permanentRedirect(`/${locale}/events/${eventSlug}`)
+    }
+    notFound()
+  }
 
   const { judges } = getJudgesByEvent(eventSlug)
   const { mentors } = getMentorsByEvent(eventSlug)
   const { sponsors } = getSponsorsByEvent(eventSlug)
   const { communitySponsors } = getCommunitySponsorsByEvent(eventSlug)
+  const projectCount = getProjectsByEvent(eventSlug).length
+  const legacyEvent = getEventBySlug(eventSlug)
 
   return (
     <div>
       <ClientNavbar />
       <main className="flex min-h-screen flex-col">
         <Hero />
+        {legacyEvent && (legacyEvent.recapVideoUrl || legacyEvent.shorts?.length) && (
+          <div className="bg-white">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <RecapVideo
+                recapVideoUrl={legacyEvent.recapVideoUrl}
+                shorts={legacyEvent.shorts}
+                eventName={legacyEvent.name}
+              />
+            </div>
+          </div>
+        )}
         <Sponsors sponsors={sponsors} />
         <CommunitySponsors communitySponsors={communitySponsors}/>
         <Judges judges={judges} />
@@ -52,6 +84,25 @@ export default function EventPage({
         <Schedule />
         <SignupCTA />
         <FAQ />
+        {projectCount > 0 && (
+          <section className="bg-white py-12">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+              <h2 className="text-3xl sm:text-4xl font-cal font-semibold text-slate-900 mb-3">
+                Projects shipped this edition
+              </h2>
+              <p className="text-slate-600 mb-6">
+                {projectCount} {projectCount === 1 ? 'project' : 'projects'} from team formation to final demo.
+              </p>
+              <Link
+                href={`/${locale}/events/${eventSlug}/projects`}
+                className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold rounded-lg bg-slate-900 text-white hover:bg-slate-700 transition-colors"
+              >
+                View all {projectCount} {projectCount === 1 ? 'project' : 'projects'}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </section>
+        )}
         <Team />
         <Footer />
       </main>

@@ -5,17 +5,44 @@ import UpcomingEvents from '@/app/components/home/UpcomingEvents'
 import StatsBar from '@/app/components/home/StatsBar'
 import PastEvents from '@/app/components/home/PastEvents'
 import OrgFooter from '@/app/components/home/OrgFooter'
+import {
+  getFeaturedUpcomingEvent,
+  getAllSponsorsAcrossEvents,
+  getAllCommunitySponsorsAcrossEvents,
+  getUnifiedUpcomingEvents,
+  getUnifiedPastEvents,
+  getUpcomingHackNights,
+  getPastHackNights,
+  getRecentShorts,
+} from '@/lib/events-server'
 
 export default function HomePage() {
+  const featured = getFeaturedUpcomingEvent()
+  const partnerLogos = [
+    ...getAllSponsorsAcrossEvents(),
+    ...getAllCommunitySponsorsAcrossEvents(),
+  ]
+  const upcomingHackathons = getUnifiedUpcomingEvents()
+  const upcomingHackNights = getUpcomingHackNights().slice(0, 2)
+  const pastHackathons = getUnifiedPastEvents()
+  const pastHackNights = getPastHackNights()
+  const heroShorts = getRecentShorts(8)
+
   return (
     <div>
-      <OrgNavbar />
+      <OrgNavbar featuredEvent={featured} />
       <main>
-        <OrgHero />
-        <PartnersBar />
-        <UpcomingEvents />
+        <OrgHero shorts={heroShorts} />
+        <PartnersBar logos={partnerLogos} />
+        <UpcomingEvents
+          upcomingHackathons={upcomingHackathons}
+          upcomingHackNights={upcomingHackNights}
+        />
         <StatsBar />
-        <PastEvents />
+        <PastEvents
+          pastHackathons={pastHackathons}
+          pastHackNights={pastHackNights}
+        />
       </main>
       <OrgFooter />
     </div>

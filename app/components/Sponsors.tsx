@@ -5,10 +5,14 @@ import React from 'react' // Import React if you haven't already
 import { useIntl } from './Intl'
 import { Sponsor } from '@/data/sponsors'
 import { useTheme } from '@/app/contexts/ThemeContext'
+import { withUtm } from '@/app/helpers/utm'
+import { trackOutbound } from '@/app/helpers/track'
 
 export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
   const intl = useIntl()
-  const { theme } = useTheme()
+  const { theme, currentEventSlug } = useTheme()
+  const campaign = `hackbarna-${currentEventSlug ?? 'legacy'}`
+  const deckCampaign = `${campaign}-deck`
 
   // Define logo sizes by tier
   const tierLogoSizes: Record<
@@ -65,9 +69,21 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
           {tierSponsors.map((sponsor) => (
             <a
               key={sponsor.name}
-              href={`${sponsor.url}?ref=hackbarna`}
+              href={withUtm(sponsor.url, {
+                medium: 'sponsor',
+                campaign,
+                content: sponsor.tier ?? tier,
+              })}
               target="_blank"
-              rel="hackbarna"
+              rel="noopener"
+              onClick={() =>
+                trackOutbound('sponsor_click', {
+                  sponsor: sponsor.name,
+                  tier: sponsor.tier ?? tier,
+                  event_slug: currentEventSlug ?? 'legacy',
+                  source: 'legacy_event_page',
+                })
+              }
               className="hover:scale-105 transition-transform duration-200"
             >
               <div className={containerClass}>
@@ -107,7 +123,14 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
           <div className="flex justify-center">
             <a
               target="_blank"
-              href="https://hackbarna.com/sponsorship.pdf"
+              rel="noopener"
+              href="/sponsorship.pdf"
+              onClick={() =>
+                trackOutbound('sponsorship_deck_click', {
+                  event_slug: currentEventSlug ?? 'legacy',
+                  source: 'legacy-event-sponsor-block',
+                })
+              }
               className="flex items-center justify-center p-6 hover:scale-105 transition-transform duration-200 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 hover:border-gray-400 min-h-[100px] max-w-[280px] w-full"
             >
               <div className="text-center">

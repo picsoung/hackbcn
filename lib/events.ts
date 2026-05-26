@@ -13,6 +13,8 @@ export const events: Event[] = [
     location: 'Le Wagon, Barcelona',
     timeZone: 'Europe/Madrid',
     imageUrl: '/summerhack.png',
+    // Demo-day livestream from the first edition — horizontal long-form recording.
+    recapVideoUrl: 'https://www.youtube.com/watch?v=JZzgPRxKiFM',
     description: {
       en: 'The inaugural HackBarna hackathon — 50+ hackers exploring GPT, Llama, and RAG in the heart of Barcelona.',
       es: 'El primer hackathon HackBarna — más de 50 hackers explorando GPT, Llama y RAG en el corazón de Barcelona.',
@@ -264,82 +266,7 @@ export const events: Event[] = [
       ]
     }
   },
-  {
-    id: '3',
-    slug: 'aisummit26',
-    year: '2026',
-    name: 'HackBarna AI Summit 26',
-    active: true,
-    eventType: 'hackathon',
-    registrationUrl: 'https://lu.ma/hackbarna',
-    startDate: '2026-09-19T09:00:00+02:00',
-    endDate: '2026-09-20T18:00:00+02:00',
-    location: 'Barcelona',
-    timeZone: 'Europe/Madrid',
-    description: {
-      en: 'The third edition of HackBarna is coming! Join 100+ builders for a weekend of hacking, workshops, and demos. Location and sponsors to be announced soon.',
-      es: 'La tercera edición de HackBarna llega pronto. Únete a más de 100 builders para un fin de semana de hacking, talleres y demos. Ubicación y patrocinadores por confirmar.',
-    },
-    schedule: {
-      en: [
-        {
-          title: "Saturday - September 19th",
-          sections: [
-            {
-              name: "Morning",
-              items: [
-                "09:00 AM | Registration & Breakfast",
-                "10:00 AM | Opening Keynote",
-                "11:00 AM | Hackathon Launch & Team Formation"
-              ]
-            },
-            {
-              name: "Afternoon",
-              items: [
-                "01:00 PM | Lunch & Networking",
-                "02:00 PM | Workshops & Technical Sessions",
-                "06:00 PM | Dinner"
-              ]
-            },
-            {
-              name: "Evening",
-              items: [
-                "08:00 PM | Hacking continues",
-                "11:00 PM | Doors close for the night"
-              ]
-            }
-          ]
-        },
-        {
-          title: "Sunday - September 20th",
-          sections: [
-            {
-              name: "Morning",
-              items: [
-                "09:00 AM | Breakfast & Final Push",
-                "11:00 AM | Code Submission Deadline"
-              ]
-            },
-            {
-              name: "Afternoon",
-              items: [
-                "01:00 PM | Lunch",
-                "02:00 PM | Project Demos & Presentations",
-                "04:00 PM | Judging & Deliberation"
-              ]
-            },
-            {
-              name: "Awards",
-              items: [
-                "05:30 PM | Awards Ceremony",
-                "06:00 PM | Closing & Networking"
-              ]
-            }
-          ]
-        }
-      ],
-    }
-  },
+  // aisummit26 and later editions live in /events/<slug>.mdx (see lib/events-server.ts).
 ]
 
 export const getAllEventSlugs = () => {

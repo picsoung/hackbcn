@@ -1,16 +1,16 @@
 import OrgNavbar from '@/app/components/home/OrgNavbar'
 import OrgFooter from '@/app/components/home/OrgFooter'
-import HackNightDetail from '@/app/components/events/HackNightDetail'
 import EventDetail from '@/app/components/events/EventDetail'
-import { getHackNightBySlug, hackNights } from '@/data/hacknights'
-import { getEventBySlug, events } from '@/lib/events'
+import {
+  getEventDataBySlug,
+  getAllUnifiedEventSlugs,
+  getFeaturedUpcomingEvent,
+} from '@/lib/events-server'
+import { getProjectsByEvent } from '@/app/helpers/projects'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
-  return [
-    ...hackNights.map((hn) => ({ slug: hn.slug })),
-    ...events.map((e) => ({ slug: e.slug })),
-  ]
+  return getAllUnifiedEventSlugs().map((slug) => ({ slug }))
 }
 
 export default function EventDetailPage({
@@ -18,22 +18,26 @@ export default function EventDetailPage({
 }: {
   params: { locale: string; slug: string }
 }) {
-  const hackNight = getHackNightBySlug(params.slug)
-  const event = getEventBySlug(params.slug)
-
-  if (!hackNight && !event) {
+  const data = getEventDataBySlug(params.slug)
+  if (!data) {
     notFound()
   }
+  const featured = getFeaturedUpcomingEvent()
+  const projectCount = getProjectsByEvent(params.slug).length
 
   return (
     <div>
-      <OrgNavbar />
+      <OrgNavbar featuredEvent={featured} />
       <main>
-        {hackNight ? (
-          <HackNightDetail hackNight={hackNight} />
-        ) : event ? (
-          <EventDetail event={event} locale={params.locale} />
-        ) : null}
+        <EventDetail
+          event={data.event}
+          sponsors={data.sponsors}
+          communitySponsors={data.communitySponsors}
+          judges={data.judges}
+          mentors={data.mentors}
+          locale={params.locale}
+          projectCount={projectCount}
+        />
       </main>
       <OrgFooter />
     </div>

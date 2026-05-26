@@ -11,11 +11,11 @@ export default function Schedule() {
   const { currentEventSlug, theme } = useTheme()
   const currentEvent = currentEventSlug ? getEventBySlug(currentEventSlug) : null
 
-  if (!currentEvent || !currentEvent.schedule[intl.locale]) {
+  if (!currentEvent || !currentEvent.schedule?.[intl.locale]) {
     return null
   }
 
-  const scheduleData = currentEvent.schedule[intl.locale] || currentEvent.schedule['en'] || []
+  const scheduleData = currentEvent.schedule?.[intl.locale] || currentEvent.schedule?.['en'] || []
 
   return (
     <div id="schedule" className="bg-white">

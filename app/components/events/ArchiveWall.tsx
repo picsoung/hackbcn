@@ -1,11 +1,9 @@
 'use client'
 
 import { useIntl } from '../Intl'
-import { getPastEvents } from '@/lib/events'
-import { getPastHackNights } from '@/data/hacknights'
 import Polaroid, { type TapeColor } from '../Polaroid'
 
-type ArchiveItem = {
+export type ArchiveItem = {
   slug: string
   name: string
   date: string
@@ -38,26 +36,8 @@ function groupByYear(items: ArchiveItem[]): [string, ArchiveItem[]][] {
     .map((year) => [year, buckets[year]] as [string, ArchiveItem[]])
 }
 
-export default function ArchiveWall() {
+export default function ArchiveWall({ items }: { items: ArchiveItem[] }) {
   const intl = useIntl()
-
-  const items: ArchiveItem[] = [
-    ...getPastEvents().map((e) => ({
-      slug: e.slug,
-      name: e.name,
-      date: e.startDate,
-      tapeColor: 'coral' as TapeColor,
-      imageUrl: e.imageUrl,
-    })),
-    ...getPastHackNights().map((hn) => ({
-      slug: hn.slug,
-      name: hn.name,
-      date: hn.date,
-      tapeColor: 'kraft' as TapeColor,
-      imageUrl: hn.imageUrl,
-    })),
-  ]
-
   const years = groupByYear(items)
 
   if (years.length === 0) {

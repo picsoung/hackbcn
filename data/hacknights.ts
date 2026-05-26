@@ -14,6 +14,8 @@ export type HackNight = {
   sponsor?: string
   capacity?: number
   past: boolean
+  recapVideoUrl?: string // long-form aftermovie (landscape)
+  shorts?: string[] // vertical clips / YouTube Shorts
 }
 
 export const hackNights: HackNight[] = [
@@ -52,6 +54,7 @@ export const hackNights: HackNight[] = [
     sponsor: 'Brandfetch & Lovable',
     capacity: 72,
     past: true,
+    shorts: ['https://www.youtube.com/shorts/oUSlr2JpvVU'],
   },
   {
     id: 'hn-2026-03',
@@ -88,6 +91,21 @@ export const hackNights: HackNight[] = [
     sponsor: 'Linkup',
     capacity: 107,
     past: true,
+    shorts: ['https://www.youtube.com/shorts/R_C-_ji9nS4'],
+  },
+  {
+    id: 'hn-2026-06',
+    slug: 'hacknight-june-2026',
+    name: 'June Hack Night',
+    date: '2026-06-23T18:00:00+02:00',
+    endDate: '2026-06-23T22:00:00+02:00',
+    location: 'Itnig, Barcelona',
+    topic: 'To be announced',
+    description: {
+      en: 'Our next evening hack night at Itnig. Topic and sponsor to be announced — save the date and come build with the Barcelona community.',
+      es: 'Nuestra próxima hack night nocturna en Itnig. Tema y patrocinador por confirmar — reserva la fecha y ven a construir con la comunidad de Barcelona.',
+    },
+    past: false,
   },
 ]
 

@@ -1,15 +1,19 @@
 'use client'
 
 import { useIntl } from '../Intl'
-import { getUpcomingEvents } from '@/lib/events'
-import { getUpcomingHackNights } from '@/data/hacknights'
+import type { Event } from '@/types/events'
+import type { HackNight } from '@/data/hacknights'
 import EventCard from './EventCard'
 import Link from 'next/link'
 
-export default function UpcomingEvents() {
+export default function UpcomingEvents({
+  upcomingHackathons,
+  upcomingHackNights,
+}: {
+  upcomingHackathons: Event[]
+  upcomingHackNights: HackNight[]
+}) {
   const intl = useIntl()
-  const upcomingHackathons = getUpcomingEvents()
-  const upcomingHackNights = getUpcomingHackNights().slice(0, 2)
 
   const hasEvents = upcomingHackathons.length > 0 || upcomingHackNights.length > 0
 

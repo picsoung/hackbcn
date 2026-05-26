@@ -1,8 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { useIntl } from '../Intl'
 import SubscribeForm from './SubscribeForm'
 import Polaroid from '../Polaroid'
+import RecapLightbox from '../RecapLightbox'
 
 type HeroPolaroid = {
   src: string
@@ -11,6 +13,8 @@ type HeroPolaroid = {
   rotate: number
   translateY: number
 }
+
+type Short = { url: string; eventName: string; eventSlug: string }
 
 const photos: HeroPolaroid[] = [
   {
@@ -36,8 +40,12 @@ const photos: HeroPolaroid[] = [
   },
 ]
 
-export default function OrgHero() {
+export default function OrgHero({ shorts = [] }: { shorts?: Short[] }) {
   const intl = useIntl()
+  const [activeRecap, setActiveRecap] = useState<string | null>(null)
+
+  // Map event slug → its recap Short url, so a polaroid with a recap opens the lightbox.
+  const shortBySlug = new Map(shorts.map((s) => [s.eventSlug, s.url]))
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-amber-50 to-rose-50">
@@ -60,21 +68,43 @@ export default function OrgHero() {
 
           <div className="relative hidden lg:block">
             <div className="flex gap-4 justify-center items-start">
-              {photos.map((photo) => (
-                <Polaroid
-                  key={photo.slug}
-                  src={photo.src}
-                  alt={photo.label}
-                  label={photo.label}
-                  href={`/${intl.locale}/events/${photo.slug}`}
-                  rotate={photo.rotate}
-                  translateY={photo.translateY}
-                />
-              ))}
+              {photos.map((photo) => {
+                const recapUrl = shortBySlug.get(photo.slug)
+                if (recapUrl) {
+                  // Polaroid with a recap → opens the fullscreen lightbox.
+                  return (
+                    <Polaroid
+                      key={photo.slug}
+                      src={photo.src}
+                      alt={photo.label}
+                      label={photo.label}
+                      onActivate={() => setActiveRecap(recapUrl)}
+                      rotate={photo.rotate}
+                      translateY={photo.translateY}
+                      overlayText="view recap →"
+                    />
+                  )
+                }
+                // No recap → links to the event detail page.
+                return (
+                  <Polaroid
+                    key={photo.slug}
+                    src={photo.src}
+                    alt={photo.label}
+                    label={photo.label}
+                    href={`/${intl.locale}/events/${photo.slug}`}
+                    rotate={photo.rotate}
+                    translateY={photo.translateY}
+                    overlayText="view event →"
+                  />
+                )
+              })}
             </div>
           </div>
         </div>
       </div>
+
+      <RecapLightbox url={activeRecap} title="Event recap" onClose={() => setActiveRecap(null)} />
     </section>
   )
 }

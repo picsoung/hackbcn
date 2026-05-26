@@ -6,6 +6,7 @@ import ApplyButton from './ApplyButton'
 import Image from 'next/image' // Add this import
 import { useIntl } from './Intl'
 import { useTheme } from '@/app/contexts/ThemeContext'
+import { trackOutbound } from '@/app/helpers/track'
 
 export default function Hero() {
   const intl = useIntl()
@@ -156,8 +157,15 @@ export default function Hero() {
                 <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
                   <ApplyButton />
                   <Link
-                    href="https://hackbarna.com/sponsorship.pdf"
+                    href="/sponsorship.pdf"
                     target="_blank"
+                    rel="noopener"
+                    onClick={() =>
+                      trackOutbound('sponsorship_deck_click', {
+                        event_slug: currentEventSlug ?? 'legacy',
+                        source: 'hero',
+                      })
+                    }
                     className={`text-lg font-semibold leading-6 ${theme.colors.textSecondary} hover:text-white z-30 mt-4 sm:mt-0`}
                   >
                     {intl.t('hero.cta.sponsor-us')}
