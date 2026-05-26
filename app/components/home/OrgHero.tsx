@@ -2,11 +2,38 @@
 
 import { useIntl } from '../Intl'
 import SubscribeForm from './SubscribeForm'
+import Polaroid from '../Polaroid'
 
-const photos = [
-  { src: 'https://images.lumacdn.com/event-covers/41/f4b95409-4ae0-4c6d-8cc8-7ca32c4368fc', label: 'Hack Night #1' },
-  { src: 'https://images.lumacdn.com/event-covers/ro/c43bde0a-23b8-4231-a81b-5f66a3f5efaa.png', label: 'Skill-a-thon' },
-  { src: 'https://images.lumacdn.com/event-covers/2s/47338d9f-91de-417d-b96b-6c78be64dc73.png', label: 'HackNight #3' },
+type HeroPolaroid = {
+  src: string
+  label: string
+  slug: string
+  rotate: number
+  translateY: number
+}
+
+const photos: HeroPolaroid[] = [
+  {
+    src: 'https://images.lumacdn.com/event-covers/41/f4b95409-4ae0-4c6d-8cc8-7ca32c4368fc',
+    label: 'Hack Night #1',
+    slug: 'hacknight-edreams-2024',
+    rotate: -6,
+    translateY: 0,
+  },
+  {
+    src: 'https://images.lumacdn.com/event-covers/ro/c43bde0a-23b8-4231-a81b-5f66a3f5efaa.png',
+    label: 'Skill-a-thon',
+    slug: 'skillathon-hacknight-2026',
+    rotate: 2,
+    translateY: -12,
+  },
+  {
+    src: 'https://images.lumacdn.com/event-covers/2s/47338d9f-91de-417d-b96b-6c78be64dc73.png',
+    label: 'HackNight #3',
+    slug: 'hacknight-3-linkup-2026',
+    rotate: -3,
+    translateY: 8,
+  },
 ]
 
 export default function OrgHero() {
@@ -33,23 +60,16 @@ export default function OrgHero() {
 
           <div className="relative hidden lg:block">
             <div className="flex gap-4 justify-center items-start">
-              {photos.map((photo, i) => (
-                <div
-                  key={i}
-                  className="bg-white p-2 pb-8 shadow-lg w-44"
-                  style={{
-                    transform: `rotate(${i === 0 ? -6 : i === 1 ? 2 : -3}deg) translateY(${i === 1 ? -12 : i === 2 ? 8 : 0}px)`,
-                  }}
-                >
-                  <img
-                    src={photo.src}
-                    alt={photo.label}
-                    className="w-full aspect-square object-cover"
-                  />
-                  <p className="text-center text-xs text-slate-500 mt-2 font-medium">
-                    {photo.label}
-                  </p>
-                </div>
+              {photos.map((photo) => (
+                <Polaroid
+                  key={photo.slug}
+                  src={photo.src}
+                  alt={photo.label}
+                  label={photo.label}
+                  href={`/${intl.locale}/events/${photo.slug}`}
+                  rotate={photo.rotate}
+                  translateY={photo.translateY}
+                />
               ))}
             </div>
           </div>

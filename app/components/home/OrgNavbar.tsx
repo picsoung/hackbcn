@@ -20,7 +20,12 @@ export default function OrgNavbar() {
   const intl = useIntl()
   const pathname = usePathname()
 
-  const featuredEvent = events.find(e => e.active && new Date(e.startDate) > new Date('2026-01-01'))
+  // The featured ribbon advertises the next upcoming hackathon by start date.
+  // Decoupled from the `active` flag, which marks the current/featured edition for theming.
+  const now = Date.now()
+  const featuredEvent = events
+    .filter(e => new Date(e.startDate).getTime() > now)
+    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())[0]
 
   const navigation = [
     { name: intl.t('home.navbar.events'), href: `/${intl.locale}/events` },
