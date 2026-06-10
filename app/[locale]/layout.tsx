@@ -41,7 +41,11 @@ export async function generateMetadata(args: any) {
       title: localeData['meta.title'],
       description: localeData['meta.description-og'],
       siteName: localeData['meta.name'],
-      images: '/og_image.png',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: localeData['meta.title'],
+      description: localeData['meta.description-og'],
     },
   } satisfies Metadata
 }
