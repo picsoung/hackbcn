@@ -9,9 +9,8 @@ import {
   getFeaturedUpcomingEvent,
   getAllSponsorsAcrossEvents,
   getAllCommunitySponsorsAcrossEvents,
-  getUnifiedUpcomingEvents,
+  getAllUpcoming,
   getUnifiedPastEvents,
-  getUpcomingHackNights,
   getPastHackNights,
   getRecentShorts,
 } from '@/lib/events-server'
@@ -22,8 +21,7 @@ export default function HomePage() {
     ...getAllSponsorsAcrossEvents(),
     ...getAllCommunitySponsorsAcrossEvents(),
   ]
-  const upcomingHackathons = getUnifiedUpcomingEvents()
-  const upcomingHackNights = getUpcomingHackNights().slice(0, 2)
+  const upcoming = getAllUpcoming().slice(0, 3)
   const pastHackathons = getUnifiedPastEvents()
   const pastHackNights = getPastHackNights()
   const heroShorts = getRecentShorts(8)
@@ -34,10 +32,7 @@ export default function HomePage() {
       <main>
         <OrgHero shorts={heroShorts} />
         <PartnersBar logos={partnerLogos} />
-        <UpcomingEvents
-          upcomingHackathons={upcomingHackathons}
-          upcomingHackNights={upcomingHackNights}
-        />
+        <UpcomingEvents events={upcoming} />
         <StatsBar />
         <PastEvents
           pastHackathons={pastHackathons}

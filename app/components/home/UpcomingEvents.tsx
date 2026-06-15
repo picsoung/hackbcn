@@ -2,20 +2,13 @@
 
 import { useIntl } from '../Intl'
 import type { Event } from '@/types/events'
-import type { HackNight } from '@/data/hacknights'
 import EventCard from './EventCard'
 import Link from 'next/link'
 
-export default function UpcomingEvents({
-  upcomingHackathons,
-  upcomingHackNights,
-}: {
-  upcomingHackathons: Event[]
-  upcomingHackNights: HackNight[]
-}) {
+export default function UpcomingEvents({ events }: { events: Event[] }) {
   const intl = useIntl()
 
-  const hasEvents = upcomingHackathons.length > 0 || upcomingHackNights.length > 0
+  const hasEvents = events.length > 0
 
   return (
     <section className="bg-white py-16 sm:py-24">
@@ -38,34 +31,24 @@ export default function UpcomingEvents({
           <p className="text-slate-500 text-lg">{intl.t('home.upcoming.empty')}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {upcomingHackathons.map((event) => (
-              <EventCard
-                key={event.slug}
-                name={event.name}
-                href={`/${intl.locale}/events/${event.slug}`}
-                startDate={event.startDate}
-                endDate={event.endDate}
-                location={event.location}
-                description={event.description?.[intl.locale] || event.description?.en}
-                eventType="hackathon"
-                imageUrl={event.imageUrl}
-                featured
-              />
-            ))}
-            {upcomingHackNights.map((hn) => (
-              <EventCard
-                key={hn.slug}
-                name={`${hn.name} — ${hn.topic}`}
-                href={`/${intl.locale}/events/${hn.slug}`}
-                startDate={hn.date}
-                endDate={hn.endDate}
-                location={hn.location}
-                description={hn.description[intl.locale] || hn.description.en}
-                eventType="hacknight"
-                imageUrl={hn.imageUrl}
-                sponsor={hn.sponsor}
-              />
-            ))}
+            {events.map((event) => {
+              const isHackNight = event.eventType === 'hacknight'
+              return (
+                <EventCard
+                  key={event.slug}
+                  name={isHackNight && event.topic ? `${event.name} — ${event.topic}` : event.name}
+                  href={`/${intl.locale}/events/${event.slug}`}
+                  startDate={event.startDate}
+                  endDate={event.endDate}
+                  location={event.location}
+                  description={event.description?.[intl.locale] || event.description?.en}
+                  eventType={event.eventType}
+                  imageUrl={event.imageUrl}
+                  sponsor={event.sponsor}
+                  featured={!isHackNight}
+                />
+              )
+            })}
           </div>
         )}
 

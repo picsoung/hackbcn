@@ -42,6 +42,9 @@ function hackNightToEvent(hn: HackNight): Event {
     past: hn.past,
     recapVideoUrl: hn.recapVideoUrl,
     shorts: hn.shorts,
+    schedule: hn.schedule,
+    faq: hn.faq,
+    partners: hn.partners,
   }
 }
 
@@ -150,13 +153,28 @@ export function getFeaturedUpcomingEvent(): Event | null {
   return getAllUpcoming()[0] ?? null
 }
 
+// Hack nights store their sponsor as a free-text string. Map the ones we have
+// brand logos for so they can surface in the homepage partners marquee.
+const HACKNIGHT_SPONSOR_LOGOS: Record<string, { logo: string; url: string }> = {
+  Netlify: { logo: '/logos/netlify.svg', url: 'https://www.netlify.com/' },
+}
+
+function hackNightPartnerSponsors(): Sponsor[] {
+  const out: Sponsor[] = []
+  for (const hn of hackNights) {
+    const meta = hn.sponsor ? HACKNIGHT_SPONSOR_LOGOS[hn.sponsor] : undefined
+    if (meta) out.push({ name: hn.sponsor as string, logo: meta.logo, url: meta.url })
+  }
+  return out
+}
+
 // Aggregator for the PartnersBar marquee on the homepage.
 export function getAllSponsorsAcrossEvents(): Sponsor[] {
   const fromMdx = getAllMdxEvents().flatMap((m) => m.sponsors)
   const fromLegacy = legacyEvents.flatMap(
     (e) => getSponsorsByEvent(e.slug).sponsors
   )
-  return dedupeByName([...fromMdx, ...fromLegacy])
+  return dedupeByName([...fromMdx, ...fromLegacy, ...hackNightPartnerSponsors()])
 }
 
 export function getAllCommunitySponsorsAcrossEvents(): Sponsor[] {

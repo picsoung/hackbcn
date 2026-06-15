@@ -452,6 +452,56 @@ export default function EventDetail({
           eventSlug={event.slug}
         />
 
+        {/* Partners with roles (hack nights) */}
+        {event.partners && event.partners.length > 0 && (
+          <section className="py-10 border-b border-slate-100">
+            <h2 className="text-xl font-semibold text-slate-900 mb-6">Partners</h2>
+            <div className="flex flex-wrap items-start gap-x-12 gap-y-8">
+              {event.partners.map((p) => {
+                const inner = p.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={p.logo}
+                    alt={p.name}
+                    style={{ height: 36, maxWidth: 160, width: 'auto' }}
+                    className="object-contain"
+                  />
+                ) : (
+                  <span className="text-lg font-semibold text-slate-800">{p.name}</span>
+                )
+                return (
+                  <div key={p.name} className="flex flex-col gap-2">
+                    {p.url ? (
+                      <a
+                        href={withUtm(p.url, { medium: 'partner', campaign: `hackbarna-${event.slug}`, content: p.role })}
+                        target="_blank"
+                        rel="noopener"
+                        aria-label={p.name}
+                        onClick={() =>
+                          trackOutbound('sponsor_click', {
+                            sponsor: p.name,
+                            tier: p.role,
+                            event_slug: event.slug,
+                            source: 'event_detail_partners',
+                          })
+                        }
+                        className="block transition-transform hover:-rotate-1"
+                      >
+                        {inner}
+                      </a>
+                    ) : (
+                      <div>{inner}</div>
+                    )}
+                    <span className="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">
+                      {p.role}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
+
         {/* Hack-night gallery */}
         {isHackNight && event.gallery && event.gallery.length > 0 && (
           <section className="py-10 border-b border-slate-100">
@@ -579,6 +629,31 @@ export default function EventDetail({
                     )}
                   </Disclosure>
                 ))}
+            </div>
+          </Section>
+        )}
+
+        {/* Event-specific FAQ (hack nights) */}
+        {event.faq && (event.faq[intl.locale] || event.faq.en) && (
+          <Section title={intl.t('faq.title')}>
+            <div className="space-y-0 divide-y divide-slate-100">
+              {(event.faq[intl.locale] || event.faq.en).map((item, i) => (
+                <Disclosure key={i}>
+                  {({ open }) => (
+                    <div>
+                      <Disclosure.Button className="flex w-full items-center justify-between py-4 text-left">
+                        <span className="text-sm font-medium text-slate-800">{item.q}</span>
+                        <ChevronDownIcon
+                          className={`h-4 w-4 text-slate-400 flex-shrink-0 ml-4 transition-transform ${open ? 'rotate-180' : ''}`}
+                        />
+                      </Disclosure.Button>
+                      <Disclosure.Panel className="pb-4 text-sm text-slate-600">
+                        {item.a}
+                      </Disclosure.Panel>
+                    </div>
+                  )}
+                </Disclosure>
+              ))}
             </div>
           </Section>
         )}

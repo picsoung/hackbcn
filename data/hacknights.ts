@@ -1,3 +1,5 @@
+import type { ScheduleItem, Partner } from '@/types/events'
+
 export type HackNight = {
   id: string
   slug: string
@@ -16,6 +18,9 @@ export type HackNight = {
   past: boolean
   recapVideoUrl?: string // long-form aftermovie (landscape)
   shorts?: string[] // vertical clips / YouTube Shorts
+  schedule?: { [locale: string]: ScheduleItem[] }
+  faq?: { [locale: string]: { q: string; a: string }[] }
+  partners?: Partner[]
 }
 
 export const hackNights: HackNight[] = [
@@ -96,15 +101,105 @@ export const hackNights: HackNight[] = [
   {
     id: 'hn-2026-06',
     slug: 'hacknight-june-2026',
-    name: 'June Hack Night',
-    date: '2026-06-23T18:00:00+02:00',
-    endDate: '2026-06-23T22:00:00+02:00',
+    name: 'HackNight #4: Build with Netlify',
+    date: '2026-06-30T17:00:00+02:00',
+    endDate: '2026-06-30T21:15:00+02:00',
     location: 'Itnig, Barcelona',
-    topic: 'To be announced',
+    topic: 'Building & deploying full-stack apps with Netlify',
     description: {
-      en: 'Our next evening hack night at Itnig. Topic and sponsor to be announced — save the date and come build with the Barcelona community.',
-      es: 'Nuestra próxima hack night nocturna en Itnig. Tema y patrocinador por confirmar — reserva la fecha y ven a construir con la comunidad de Barcelona.',
+      en: 'An evening of building and shipping full-stack apps with Netlify. A 90-minute workshop on Netlify’s AI agent and Claude Code — deploying with functions, environment variables, and databases — followed by 90 minutes of open hacking. Bring an idea and ship it live with the Barcelona community.',
+      es: 'Una noche para construir y desplegar apps full-stack con Netlify. Un taller de 90 minutos sobre el agente de IA de Netlify y Claude Code — desplegando con funciones, variables de entorno y bases de datos — seguido de 90 minutos de hacking abierto. Trae una idea y publícala en vivo con la comunidad de Barcelona.',
     },
+    registrationUrl: 'https://luma.com/37ddi2n0',
+    imageUrl: '/netlify-hacknight.png',
+    sponsor: 'Netlify',
+    schedule: {
+      en: [
+        {
+          title: 'June 30 · 17:00–21:15',
+          sections: [
+            {
+              name: 'Agenda',
+              items: [
+                '17:00 — Doors open. Meet people, grab a drink',
+                '17:30 — Intro: building & deploying with Netlify + live examples',
+                '19:00 — Hack time',
+                '20:30 — Demos',
+                '21:15 — Wrap-up',
+              ],
+            },
+          ],
+        },
+      ],
+      es: [
+        {
+          title: '30 de junio · 17:00–21:15',
+          sections: [
+            {
+              name: 'Agenda',
+              items: [
+                '17:00 — Apertura de puertas. Conoce gente, toma algo',
+                '17:30 — Intro: construir y desplegar con Netlify + ejemplos en directo',
+                '19:00 — Tiempo de hacking',
+                '20:30 — Demos',
+                '21:15 — Cierre',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    faq: {
+      en: [
+        {
+          q: 'Who should attend?',
+          a: 'Product builders, bootstrappers, founders, vibe coders, hobbyists, and any developer who wants to build with AI. All experience levels are welcome.',
+        },
+        {
+          q: 'What should I bring?',
+          a: "Just a laptop and your ideas — we'll help with the rest.",
+        },
+        {
+          q: 'Do I need to register?',
+          a: 'Yes, an RSVP on Luma is required for entry.',
+        },
+        {
+          q: 'What will I build?',
+          a: "You'll go from prompt to deployed site using Netlify's AI agent and Claude Code — building beyond the frontend with functions, environment variables, and databases.",
+        },
+        {
+          q: 'Are there prizes?',
+          a: 'Drinks, snacks, and Netlify credits for everyone, plus 10,000 Netlify credits for the most-voted project.',
+        },
+      ],
+      es: [
+        {
+          q: '¿Quién debería asistir?',
+          a: 'Product builders, bootstrappers, founders, vibe coders, hobbyistas y cualquier developer que quiera construir con IA. Todos los niveles son bienvenidos.',
+        },
+        {
+          q: '¿Qué debo traer?',
+          a: 'Solo un portátil y tus ideas — del resto nos encargamos nosotros.',
+        },
+        {
+          q: '¿Necesito registrarme?',
+          a: 'Sí, es obligatorio reservar plaza en Luma para entrar.',
+        },
+        {
+          q: '¿Qué voy a construir?',
+          a: 'Irás del prompt a una web desplegada usando el agente de IA de Netlify y Claude Code — yendo más allá del frontend con funciones, variables de entorno y bases de datos.',
+        },
+        {
+          q: '¿Hay premios?',
+          a: 'Bebidas, snacks y créditos de Netlify para todos, además de 10.000 créditos de Netlify para el proyecto más votado.',
+        },
+      ],
+    },
+    partners: [
+      { name: 'Netlify', role: 'Main sponsor', url: 'https://www.netlify.com/', logo: '/logos/netlify.svg' },
+      { name: 'Itnig', role: 'Venue', url: 'https://itnig.net/', logo: '/logos/itnig.svg' },
+      { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators.png' },
+    ],
     past: false,
   },
 ]
