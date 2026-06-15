@@ -38,6 +38,17 @@ export type Event = {
   // Recap video
   recapVideoUrl?: string // long-form aftermovie (landscape)
   shorts?: string[] // vertical clips / YouTube Shorts
+  // Event-specific FAQ (hack nights). Hackathons use the shared i18n FAQ.
+  faq?: { [locale: string]: { q: string; a: string }[] }
+  // Partners with roles (hack nights): main sponsor, venue, co-organizer, etc.
+  partners?: Partner[]
+}
+
+export type Partner = {
+  name: string
+  role: string
+  url?: string
+  logo?: string
 }
 
 // Bundle returned by the unified getEventDataBySlug helper.
