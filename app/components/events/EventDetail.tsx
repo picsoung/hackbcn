@@ -324,6 +324,19 @@ export default function EventDetail({
   const isPast = event.past ?? new Date(event.endDate) < new Date()
   const isHackNight = event.eventType === 'hacknight'
   const schedule = event.schedule?.[intl.locale] || event.schedule?.en || []
+  const eventFaq = event.faq?.[intl.locale] || event.faq?.en
+  const sharedFaq = !isHackNight
+    ? new Array(11)
+        .fill(0)
+        .map((_, i) => {
+          const q = intl.t(`faq.item.${i}.title`)
+          const a = intl.t(`faq.item.${i}.answer`)
+          if (q === `faq.item.${i}.title`) return null
+          return { q, a }
+        })
+        .filter((item): item is { q: string; a: string } => item !== null)
+    : []
+  const faq = eventFaq ?? sharedFaq
 
   return (
     <div className="bg-white">
@@ -599,45 +612,11 @@ export default function EventDetail({
           </Section>
         )}
 
-        {/* FAQ — hackathon only */}
-        {!isHackNight && (
+        {/* Event-specific FAQ takes precedence; legacy hackathons use shared copy. */}
+        {faq.length > 0 && (
           <Section title={intl.t('faq.title')}>
             <div className="space-y-0 divide-y divide-slate-100">
-              {new Array(11)
-                .fill(0)
-                .map((_, i) => {
-                  const title = intl.t(`faq.item.${i}.title`)
-                  const answer = intl.t(`faq.item.${i}.answer`)
-                  if (title === `faq.item.${i}.title`) return null
-                  return { title, answer, i }
-                })
-                .filter((x): x is { title: string; answer: string; i: number } => x !== null)
-                .map((item) => (
-                  <Disclosure key={item.i}>
-                    {({ open }) => (
-                      <div>
-                        <Disclosure.Button className="flex w-full items-center justify-between py-4 text-left">
-                          <span className="text-sm font-medium text-slate-800">{item.title}</span>
-                          <ChevronDownIcon
-                            className={`h-4 w-4 text-slate-400 flex-shrink-0 ml-4 transition-transform ${open ? 'rotate-180' : ''}`}
-                          />
-                        </Disclosure.Button>
-                        <Disclosure.Panel className="pb-4 text-sm text-slate-600">
-                          {item.answer}
-                        </Disclosure.Panel>
-                      </div>
-                    )}
-                  </Disclosure>
-                ))}
-            </div>
-          </Section>
-        )}
-
-        {/* Event-specific FAQ (hack nights) */}
-        {event.faq && (event.faq[intl.locale] || event.faq.en) && (
-          <Section title={intl.t('faq.title')}>
-            <div className="space-y-0 divide-y divide-slate-100">
-              {(event.faq[intl.locale] || event.faq.en).map((item, i) => (
+              {faq.map((item, i) => (
                 <Disclosure key={i}>
                   {({ open }) => (
                     <div>
