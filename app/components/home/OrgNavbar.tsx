@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useIntl } from '../Intl'
 import { usePathname } from 'next/navigation'
 import type { Event } from '@/types/events'
+import { getDigestHref } from '@/app/helpers/digest'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -24,8 +25,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
 
   const navigation = [
     { name: intl.t('home.navbar.events'), href: `/${intl.locale}/events` },
-    { name: intl.t('navbar.projects'), href: `/${intl.locale}/projects` },
-    { name: intl.t('home.navbar.digest'), href: '#', soon: true },
+    { name: intl.t('home.navbar.digest'), href: getDigestHref(intl.locale), external: true },
   ]
 
   return (
@@ -68,14 +68,14 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
 
                   <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-6">
                     {navigation.map((item) =>
-                      item.soon ? (
-                        <span
+                      item.external ? (
+                        <a
                           key={item.name}
-                          className="text-slate-400 text-sm font-medium cursor-default flex items-center gap-1.5"
+                          href={item.href}
+                          className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
                         >
                           {item.name}
-                          <span className="text-[10px] font-semibold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-full uppercase">soon</span>
-                        </span>
+                        </a>
                       ) : (
                         <Link
                           key={item.name}
@@ -148,14 +148,14 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
               <Disclosure.Panel className="sm:hidden border-t border-gray-100">
                 <div className="space-y-1 pb-3 pt-2">
                   {navigation.map((item) =>
-                    item.soon ? (
-                      <span
+                    item.external ? (
+                      <a
                         key={item.name}
-                        className="block py-2 pl-6 pr-4 text-base font-medium text-slate-400 flex items-center gap-2"
+                        href={item.href}
+                        className="block py-2 pl-6 pr-4 text-base font-medium text-slate-600"
                       >
                         {item.name}
-                        <span className="text-[10px] font-semibold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-full uppercase">soon</span>
-                      </span>
+                      </a>
                     ) : (
                       <Link
                         key={item.name}

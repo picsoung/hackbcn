@@ -2,7 +2,7 @@
 
 import { useIntl } from '../Intl'
 import Link from 'next/link'
-import { events } from '@/lib/events'
+import { getDigestHref } from '@/app/helpers/digest'
 
 export default function OrgFooter() {
   const intl = useIntl()
@@ -11,14 +11,19 @@ export default function OrgFooter() {
     <footer className="border-t border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-6 text-sm text-slate-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
             <Link href={`/${intl.locale}/events`} className="hover:text-slate-700 transition-colors">
               {intl.t('events.title')}
             </Link>
-            <span className="text-slate-400 flex items-center gap-1.5">
+            <a href={getDigestHref(intl.locale)} className="hover:text-slate-700 transition-colors">
               {intl.t('home.navbar.digest')}
-              <span className="text-[10px] font-semibold bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded-full uppercase">soon</span>
-            </span>
+            </a>
+            <Link href={`/${intl.locale}/projects`} className="hover:text-slate-700 transition-colors">
+              {intl.t('projects.title')}
+            </Link>
+            <Link href={`/${intl.locale}/testimonials`} className="hover:text-slate-700 transition-colors">
+              {intl.t('navbar.testimonials')}
+            </Link>
             <Link href={`/${intl.locale}/conduct`} className="hover:text-slate-700 transition-colors">
               {intl.t('navbar.coc')}
             </Link>
