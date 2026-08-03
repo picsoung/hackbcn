@@ -11,13 +11,19 @@ export default function OrgFooter() {
     <footer className="border-t border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-6 text-sm text-slate-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
             <Link href={`/${intl.locale}/events`} className="hover:text-slate-700 transition-colors">
               {intl.t('events.title')}
             </Link>
             <a href={getDigestHref(intl.locale)} className="hover:text-slate-700 transition-colors">
               {intl.t('home.navbar.digest')}
             </a>
+            <Link href={`/${intl.locale}/projects`} className="hover:text-slate-700 transition-colors">
+              {intl.t('projects.title')}
+            </Link>
+            <Link href={`/${intl.locale}/testimonials`} className="hover:text-slate-700 transition-colors">
+              {intl.t('navbar.testimonials')}
+            </Link>
             <Link href={`/${intl.locale}/conduct`} className="hover:text-slate-700 transition-colors">
               {intl.t('navbar.coc')}
             </Link>

@@ -25,7 +25,6 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
 
   const navigation = [
     { name: intl.t('home.navbar.events'), href: `/${intl.locale}/events` },
-    { name: intl.t('navbar.projects'), href: `/${intl.locale}/projects` },
     { name: intl.t('home.navbar.digest'), href: getDigestHref(intl.locale), external: true },
   ]
 

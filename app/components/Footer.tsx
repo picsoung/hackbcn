@@ -2,6 +2,7 @@
 import { useIntl } from './Intl'
 import { useTheme } from '@/app/contexts/ThemeContext'
 import Link from 'next/link'
+import { getDigestHref } from '@/app/helpers/digest'
 
 export default function Footer({ padding = false }) {
   const intl = useIntl()
@@ -39,6 +40,30 @@ export default function Footer({ padding = false }) {
               className={`bg-white/10 ${theme.colors.text} ${theme.colors.buttonHover} px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
             >
               {intl.t('home.navbar.events') || 'Events'}
+            </Link>
+            <a
+              href={getDigestHref(intl.locale)}
+              className={`bg-white/10 ${theme.colors.text} ${theme.colors.buttonHover} px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
+            >
+              {intl.t('home.navbar.digest')}
+            </a>
+            <Link
+              href={`/${intl.locale}/projects`}
+              className={`bg-white/10 ${theme.colors.text} ${theme.colors.buttonHover} px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
+            >
+              {intl.t('projects.title')}
+            </Link>
+            <Link
+              href={`/${intl.locale}/testimonials`}
+              className={`bg-white/10 ${theme.colors.text} ${theme.colors.buttonHover} px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
+            >
+              {intl.t('navbar.testimonials')}
+            </Link>
+            <Link
+              href={`/${intl.locale}/conduct`}
+              className={`bg-white/10 ${theme.colors.text} ${theme.colors.buttonHover} px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200`}
+            >
+              {intl.t('navbar.coc')}
             </Link>
           </div>
         </div>

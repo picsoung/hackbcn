@@ -35,7 +35,10 @@ const Navbar: React.FC<NavbarProps> = ({
     { name: intl.t('navbar.judges'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}#judges` : '/#judges' },
     { name: intl.t('navbar.coc'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/conduct` : `/${intl.locale}/conduct` },
     { name: intl.t('navbar.testimonials'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/testimonials` : `/${intl.locale}/testimonials` },
-    { name: intl.t('navbar.projects'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/projects` : `/${intl.locale}/projects` },
+    {
+      name: currentEventSlug ? intl.t('navbar.projects') : intl.t('projects.title'),
+      href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/projects` : `/${intl.locale}/projects`,
+    },
     { name: intl.t('home.navbar.digest'), href: getDigestHref(intl.locale), external: true },
   ]
 

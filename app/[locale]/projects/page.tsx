@@ -4,7 +4,13 @@ import Link from 'next/link'
 
 import { FaTrophy } from 'react-icons/fa6'
 
-export default function Page(props: { params: { locale: string } }) {
+async function getProjectArchiveTitle(locale: string) {
+  const localeData = await import(`@/i18n/${locale}.json`).catch(() => import('@/i18n/en.json'))
+  return localeData.default['projects.title'] ?? 'Project Archive'
+}
+
+export default async function Page(props: { params: { locale: string } }) {
+  const title = await getProjectArchiveTitle(props.params.locale)
   const projects = getProjects()
   const allTags: string[] = []
   projects.forEach((project) => {
@@ -48,7 +54,7 @@ export default function Page(props: { params: { locale: string } }) {
     <div id="projects" className="flex min-h-screen bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-          Projects
+          {title}
         </h2>
         <div className="mx-auto max-w-7xl px-4 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {' '}
