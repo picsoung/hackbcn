@@ -8,6 +8,7 @@ import { useIntl } from '../Intl'
 import { usePathname } from 'next/navigation'
 import type { Event } from '@/types/events'
 import { getDigestHref } from '@/app/helpers/digest'
+import { Wordmark } from '../brand/Mark'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -30,16 +31,26 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
 
   return (
     <>
+      {/* The ribbon is the loudest thing above the fold, and the site's one
+          arrival glitch: the NEW badge tears on mount, then settles. */}
       {featuredEvent && (
-        <div className="bg-slate-900 text-white text-sm">
+        <div className="bg-ground text-ink text-sm border-b border-band-2">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center gap-3 flex-wrap">
-            <span className="bg-org-accent text-white text-xs font-bold px-2 py-0.5 rounded">NEW</span>
+            <span className="hb-tear bg-accent text-ground text-xs font-bold px-2 py-0.5 rounded-pixel">
+              NEW
+              <span aria-hidden="true" className="hb-tear-layer bg-accent rounded-pixel">
+                NEW
+              </span>
+              <span aria-hidden="true" className="hb-tear-layer bg-accent rounded-pixel">
+                NEW
+              </span>
+            </span>
             <span>
               {featuredEvent.name} · {formatEventDate(featuredEvent.startDate, featuredEvent.endDate)}
             </span>
             <Link
               href={`/${intl.locale}/events/${featuredEvent.slug}`}
-              className="bg-white text-slate-900 text-xs font-semibold px-3 py-1 rounded hover:bg-gray-100 transition-colors"
+              className="hb-px hb-px-sm bg-screen text-ground text-xs font-semibold px-3 py-1 hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
             >
               {intl.t('events.viewDetails')}
             </Link>
@@ -47,22 +58,27 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
         </div>
       )}
 
-      <nav className="bg-white border-b border-gray-100">
+      <nav className="bg-ground-raised border-b border-band-2">
         <Disclosure as="div">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-14 justify-between items-center">
                   <div className="flex items-center">
-                    <Link href={`/${intl.locale}`} className="flex items-center">
-                      <img
-                        className="h-7 w-auto"
-                        src="/hackbcnlogo.png"
-                        alt="HackBarna logo"
+                    {/* The lockup IS the wordmark, so the old {HackBarna}
+                        brace text is gone: keeping both was redundant, and the
+                        pixel letterforms carry builder-coded better than the
+                        braces did. */}
+                    <Link
+                      href={`/${intl.locale}`}
+                      className="flex items-center rounded-pixel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-ground-raised"
+                    >
+                      <Wordmark
+                        tone="bone"
+                        split
+                        alt="HackBarna"
+                        className="h-5 w-auto sm:h-6"
                       />
-                      <span className="pl-2 text-slate-900 text-base font-medium font-mono">
-                        {'{'}{intl.t('navbar.title')}{'}'}
-                      </span>
                     </Link>
                   </div>
 
@@ -72,7 +88,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                         <a
                           key={item.name}
                           href={item.href}
-                          className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+                          className="text-sm font-medium text-ink-dim hover:text-ink transition-colors"
                         >
                           {item.name}
                         </a>
@@ -82,8 +98,8 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                           href={item.href}
                           className={`text-sm font-medium transition-colors ${
                             pathname.startsWith(item.href)
-                              ? 'text-slate-900'
-                              : 'text-slate-600 hover:text-slate-900'
+                              ? 'text-ink'
+                              : 'text-ink-dim hover:text-ink'
                           }`}
                         >
                           {item.name}
@@ -92,7 +108,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                     )}
 
                     <Menu as="div" className="relative">
-                      <Menu.Button className="inline-flex items-center p-1.5 rounded-md text-slate-500 hover:text-slate-700 hover:bg-gray-50 transition-colors">
+                      <Menu.Button className="inline-flex items-center p-1.5 rounded-pixel text-ink-dim hover:text-ink hover:bg-band-2 transition-colors">
                         <GlobeAltIcon className="h-5 w-5" />
                         <ChevronDownIcon className="h-3.5 w-3.5 ml-0.5" />
                       </Menu.Button>
@@ -105,7 +121,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-pixel bg-ground-raised shadow-lg ring-1 ring-band-2 focus:outline-none">
                           <div className="py-1">
                             {intl.locales.map((locale) => (
                               <Menu.Item key={locale}>
@@ -117,9 +133,9 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                                       window.location.href = currentURL.replace(regex, `$1${locale}$3`)
                                     }}
                                     className={`${
-                                      active ? 'bg-gray-50 text-gray-900' : 'text-gray-700'
+                                      active ? 'bg-band-2 text-ink' : 'text-ink-dim'
                                     } ${
-                                      locale === intl.locale ? 'font-medium text-slate-900' : ''
+                                      locale === intl.locale ? 'font-medium text-ink' : ''
                                     } block w-full px-4 py-2 text-left text-sm transition-colors`}
                                   >
                                     {intl.t(`locale.${locale}`)}
@@ -134,7 +150,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                   </div>
 
                   <div className="-mr-2 flex items-center sm:hidden">
-                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-gray-50">
+                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-pixel text-ink-dim hover:text-ink hover:bg-band-2">
                       {open ? (
                         <XMarkIcon className="block h-6 w-6" />
                       ) : (
@@ -145,14 +161,14 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                 </div>
               </div>
 
-              <Disclosure.Panel className="sm:hidden border-t border-gray-100">
+              <Disclosure.Panel className="sm:hidden border-t border-band-2">
                 <div className="space-y-1 pb-3 pt-2">
                   {navigation.map((item) =>
                     item.external ? (
                       <a
                         key={item.name}
                         href={item.href}
-                        className="block py-2 pl-6 pr-4 text-base font-medium text-slate-600"
+                        className="block py-2 pl-6 pr-4 text-base font-medium text-ink-dim hover:text-ink"
                       >
                         {item.name}
                       </a>
@@ -160,14 +176,14 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="block py-2 pl-6 pr-4 text-base font-medium text-slate-600"
+                        className="block py-2 pl-6 pr-4 text-base font-medium text-ink-dim hover:text-ink"
                       >
                         {item.name}
                       </Link>
                     )
                   )}
-                  <div className="pl-6 pr-4 py-2 border-t border-gray-100">
-                    <div className="flex items-center space-x-2 text-slate-500 mb-2">
+                  <div className="pl-6 pr-4 py-2 border-t border-band-2">
+                    <div className="flex items-center space-x-2 text-ink-dim mb-2">
                       <GlobeAltIcon className="h-5 w-5" />
                       <span className="text-sm font-medium">{intl.t('home.navbar.language')}</span>
                     </div>
@@ -182,9 +198,9 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                           }}
                           className={`${
                             locale === intl.locale
-                              ? 'text-slate-900 font-medium'
-                              : 'text-slate-500 hover:text-slate-700'
-                          } block w-full text-left px-3 py-2 text-sm rounded-md transition-colors`}
+                              ? 'text-ink font-medium'
+                              : 'text-ink-dim hover:text-ink'
+                          } block w-full text-left px-3 py-2 text-sm rounded-pixel transition-colors`}
                         >
                           {intl.t(`locale.${locale}`)}
                         </button>

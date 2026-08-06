@@ -11,24 +11,24 @@ export default function UpcomingEvents({ events }: { events: Event[] }) {
   const hasEvents = events.length > 0
 
   return (
-    <section className="bg-white py-16 sm:py-24">
+    <section className="bg-band-2 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900">
+            <h2 className="text-3xl font-bold text-ink">
               {intl.t('home.upcoming.title')}
             </h2>
           </div>
           <Link
             href={`/${intl.locale}/events`}
-            className="text-sm font-medium text-org-accent hover:text-org-accent-dark transition-colors hidden sm:block"
+            className="text-sm font-medium text-accent hover:text-ink transition-colors hidden sm:block"
           >
             {intl.t('home.hacknights.seeAll')} &rarr;
           </Link>
         </div>
 
         {!hasEvents ? (
-          <p className="text-slate-500 text-lg">{intl.t('home.upcoming.empty')}</p>
+          <p className="text-ink-dim text-lg">{intl.t('home.upcoming.empty')}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => {
@@ -55,7 +55,7 @@ export default function UpcomingEvents({ events }: { events: Event[] }) {
         <div className="mt-8 text-center sm:hidden">
           <Link
             href={`/${intl.locale}/events`}
-            className="text-sm font-medium text-org-accent hover:text-org-accent-dark transition-colors"
+            className="text-sm font-medium text-accent hover:text-ink transition-colors"
           >
             {intl.t('home.hacknights.seeAll')} &rarr;
           </Link>

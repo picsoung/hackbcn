@@ -26,7 +26,10 @@ export default function EventDetailPage({
   const projectCount = getProjectsByEvent(params.slug).length
 
   return (
-    <div>
+    <div
+      data-register={data.event.register ?? 'night'}
+      className="min-h-screen bg-ground"
+    >
       <OrgNavbar featuredEvent={featured} />
       <main>
         <EventDetail

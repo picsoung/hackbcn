@@ -23,96 +23,423 @@
 }
 
 @layer base {
+  /* Legacy document defaults. These are NOT dead: app/[locale]/[eventSlug]/layout.tsx
+     mounts ThemeProvider, which overwrites --background/--foreground on
+     documentElement for aisummit25, and v1-2024 falls through to the values
+     below. --border backs the global `* { @apply border-border }`. Changing any
+     of the three alters a shipped past edition, so they stay as they are.
+     The rest of the abandoned neon set (--card, --popover, --primary,
+     --secondary, --muted, --accent, --destructive, --grid, the .dark block)
+     had no consumers and has been removed. */
   :root {
     --background: 270 100% 10%;
     --foreground: 0 0% 100%;
-
-    --card: 270 100% 15%;
-    --card-foreground: 0 0% 100%;
-
-    --popover: 270 100% 15%;
-    --popover-foreground: 0 0% 100%;
-
-    --primary: 300 100% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-light: 300 100% 75%;
-
-    --secondary: 180 100% 50%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-light: 180 100% 75%;
-
-    --muted: 270 50% 20%;
-    --muted-foreground: 0 0% 70%;
-
-    --accent: 30 100% 50%;
-    --accent-foreground: 0 0% 100%;
-    --accent-light: 30 100% 70%;
-
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 0 0% 100%;
-
     --border: 270 60% 30%;
-    --input: 270 60% 30%;
-    --ring: 300 100% 50%;
-
     --radius: 0.5rem;
-
-    --grid: 300 100% 25%;
   }
 
-  .dark {
-    --background: 270 100% 5%;
-    --foreground: 0 0% 90%;
-
-    --card: 270 100% 10%;
-    --card-foreground: 0 0% 90%;
-
-    --popover: 270 100% 10%;
-    --popover-foreground: 0 0% 90%;
-
-    --primary: 300 100% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-light: 300 100% 80%;
-
-    --secondary: 180 100% 60%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-light: 180 100% 80%;
-
-    --muted: 270 50% 15%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent: 30 100% 60%;
-    --accent-foreground: 0 0% 100%;
-    --accent-light: 30 100% 80%;
-
-    --destructive: 0 100% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 270 60% 20%;
-    --input: 270 60% 20%;
-    --ring: 300 100% 60%;
-
-    --grid: 300 100% 20%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
 
+  /* Canvas colour lives on html rather than body so a night page can override
+     it without repainting over the ladder. Background propagation makes this
+     visually identical to the previous body rule. */
+  html {
+    background-color: hsl(var(--background));
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }
 
-/* HackBarna specific fonts
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+/* ==========================================================================
+   The night register
+   Applied via data-register on org page wrappers only. Legacy [eventSlug]
+   routes never carry the attribute, so this system cannot reach them.
+   ========================================================================== */
 
-body {
-  font-family: 'Roboto', sans-serif;
+@layer base {
+  /* Barcelona after midnight. Dark rungs step through indigo and violet —
+     coloured darks, never pure black — punctuated by two DRENCHED neon bands.
+     A drenched band takes near-black type and nothing else: on pink, the cool
+     white is 2.87:1, cyan is 2.25:1 and a dimmed black is 3.17:1. Two drenched
+     bands never touch; a dark rung always separates them.
+     Channel triplets rather than hex, so Tailwind's `<alpha-value>` slot works
+     and `bg-accent/15` tints resolve correctly. */
+  [data-register='night'] {
+    --ground: 6 6 14; /* ink        · #06060E, violet-black, never pure black */
+    --ground-raised: 11 10 22; /* ink-raised · #0B0A16, the constant card colour */
+    --band-2: 20 15 38; /* indigo     · #140F26 */
+    --band-3: 36 18 66; /* violet     · #241242 */
+    --band-4: 255 61 154; /* neon-pink  · #FF3D9A · DRENCHED. Near-black type only. */
+    --inversion: 77 227 232; /* neon-cyan  · #4DE3E8 · DRENCHED. Closes the page. */
+
+    --ink: 230 232 242; /* screen     · #E6E8F2 · 16.5:1 on ground */
+    --ink-dim: 154 160 191; /* screen-dim · #9AA0BF · 7.8:1 on ground */
+    --ink-edge: #40405a; /* glitch/wipe edge only, never text */
+
+    --paper: 239 234 223; /* warm bone · physical objects only: frames, plates */
+
+    --accent: 255 61 154; /* neon-pink · 5.15–6.14:1 across every dark rung */
+    --accent-alt: 77 227 232; /* neon-cyan · 10.86–12.95:1, punctuation */
+
+    --module: 4px;
+  }
+
+  /* The sea variant: aisummit26. Same structure, cooler rungs, cyan promoted
+     to the edition's primary accent — it is the port, and cyan is the water. */
+  [data-register='night-sea'] {
+    --ground: 4 8 15; /* #04080F */
+    --ground-raised: 7 19 31; /* #07131F */
+    --band-2: 11 32 48; /* #0B2030 */
+    --band-3: 14 42 60; /* #0E2A3C */
+    --band-4: 255 61 154; /* neon-pink · the edition's one pink moment */
+    --inversion: 77 227 232; /* neon-cyan · closes here too */
+
+    --ink: 230 232 242;
+    --ink-dim: 154 160 191;
+    --ink-edge: #34455a;
+
+    --paper: 239 234 223;
+
+    --accent: 77 227 232; /* cyan leads the port-side edition */
+    --accent-alt: 255 61 154;
+
+    --module: 4px;
+  }
+
+  /* Overscroll should not flash the legacy white behind a night page. */
+  html:has([data-register='night']) {
+    background-color: #06060e;
+  }
+
+  html:has([data-register='night-sea']) {
+    background-color: #04080f;
+  }
+
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Orbitron', sans-serif;
-} */
+@layer components {
+  /* Light type on dark ground reads lighter than it is, so reading surfaces
+     need more air. Opt-in rather than a blanket `p` rule, which would
+     out-specify Tailwind's leading-* utilities everywhere else. */
+  .hb-prose p,
+  .hb-prose li {
+    line-height: 1.75;
+  }
+}
+
+/* ==========================================================================
+   Dither
+   One ordered 4x4 Bayer tile, the same matrix the dusk study uses, tiled at
+   6px. The image keeps its own hues: contrast posterises, the tile supplies
+   the screen door. Both layers resolve on hover: the photo develops.
+   ========================================================================== */
+
+@layer components {
+  .hb-dither {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Quantize the colour, don't tint it. An earlier pass ran the whole archive
+     through grayscale + sepia, which turned every photograph the same shade of
+     orange and read as a filter rather than as a resolution. Hues stay true;
+     contrast does the posterising and the Bayer tile does the rest. */
+  .hb-dither-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    filter: contrast(1.45) saturate(1.2) brightness(0.96);
+    transition: filter 320ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .hb-dither-tex {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* 4x4 Bayer thresholds as greys: cell value v renders as #{v*17}. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect width='1' height='1' x='0' y='0' fill='%23000000'/%3E%3Crect width='1' height='1' x='1' y='0' fill='%23888888'/%3E%3Crect width='1' height='1' x='2' y='0' fill='%23222222'/%3E%3Crect width='1' height='1' x='3' y='0' fill='%23aaaaaa'/%3E%3Crect width='1' height='1' x='0' y='1' fill='%23cccccc'/%3E%3Crect width='1' height='1' x='1' y='1' fill='%23444444'/%3E%3Crect width='1' height='1' x='2' y='1' fill='%23eeeeee'/%3E%3Crect width='1' height='1' x='3' y='1' fill='%23666666'/%3E%3Crect width='1' height='1' x='0' y='2' fill='%23333333'/%3E%3Crect width='1' height='1' x='1' y='2' fill='%23bbbbbb'/%3E%3Crect width='1' height='1' x='2' y='2' fill='%23111111'/%3E%3Crect width='1' height='1' x='3' y='2' fill='%23999999'/%3E%3Crect width='1' height='1' x='0' y='3' fill='%23ffffff'/%3E%3Crect width='1' height='1' x='1' y='3' fill='%23777777'/%3E%3Crect width='1' height='1' x='2' y='3' fill='%23dddddd'/%3E%3Crect width='1' height='1' x='3' y='3' fill='%23555555'/%3E%3C/svg%3E");
+    /* 6px cells, not 4px. With the colour shift gone the tile is the only
+       thing carrying the quantized read: bigger cells say resolution, smaller
+       ones just say noise. */
+    background-size: 6px 6px;
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
+    /* Enough veil to read as a screen door, not so much that a pale cover
+       goes hazy. Contrast on the image below does the rest. */
+    opacity: 0.55;
+    transition: opacity 320ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  /* Develop. Identity filter chain rather than `none`, so it interpolates. */
+  .hb-dither:hover .hb-dither-img,
+  .hb-dither:focus-within .hb-dither-img,
+  .group:hover .hb-dither-img,
+  .group:focus-visible .hb-dither-img {
+    filter: contrast(1) saturate(1) brightness(1);
+  }
+
+  .hb-dither:hover .hb-dither-tex,
+  .hb-dither:focus-within .hb-dither-tex,
+  .group:hover .hb-dither-tex,
+  .group:focus-visible .hb-dither-tex {
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   The stepped corner
+   The signet's 0.75-radius arc sits on a 5-unit grid. Read at low resolution
+   that arc is a staircase, so every box in the system loses its radius and
+   gains two steps of one module per corner instead.
+
+   Two things clip-path breaks, and the patterns that answer them:
+
+   1. It clips box-shadow, which is how every focus ring here is drawn. Never
+      put .hb-px on an <a> or <button>. The interactive element stays
+      unclipped and keeps its focus-visible:ring-*; an inner div carries the
+      fill and the clip.
+   2. It clips box-shadow used as elevation too, so clipped surfaces use
+      filter: drop-shadow() instead — which follows the stepped silhouette
+      and is the better rendering anyway.
+
+   A clipped element cannot show a border either: bordered cards nest two
+   clipped layers, the outer one being the border colour with 1px of padding.
+   ========================================================================== */
+
+@layer components {
+  .hb-px {
+    --px-step: 4px;
+    clip-path: polygon(
+      calc(var(--px-step) * 2) 0,
+      calc(100% - var(--px-step) * 2) 0,
+      calc(100% - var(--px-step) * 2) var(--px-step),
+      calc(100% - var(--px-step)) var(--px-step),
+      calc(100% - var(--px-step)) calc(var(--px-step) * 2),
+      100% calc(var(--px-step) * 2),
+      100% calc(100% - var(--px-step) * 2),
+      calc(100% - var(--px-step)) calc(100% - var(--px-step) * 2),
+      calc(100% - var(--px-step)) calc(100% - var(--px-step)),
+      calc(100% - var(--px-step) * 2) calc(100% - var(--px-step)),
+      calc(100% - var(--px-step) * 2) 100%,
+      calc(var(--px-step) * 2) 100%,
+      calc(var(--px-step) * 2) calc(100% - var(--px-step)),
+      var(--px-step) calc(100% - var(--px-step)),
+      var(--px-step) calc(100% - var(--px-step) * 2),
+      0 calc(100% - var(--px-step) * 2),
+      0 calc(var(--px-step) * 2),
+      var(--px-step) calc(var(--px-step) * 2),
+      var(--px-step) var(--px-step),
+      calc(var(--px-step) * 2) var(--px-step)
+    );
+  }
+
+  /* Chips and buttons are small enough that a 4px step eats the corner. */
+  .hb-px-sm {
+    --px-step: 3px;
+  }
+
+  /* Large photo frames can afford a chunkier staircase. */
+  .hb-px-lg {
+    --px-step: 6px;
+  }
+
+  /* Elevation for clipped surfaces. box-shadow would be clipped away. */
+  .hb-px-shadow {
+    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.25));
+  }
+
+  .hb-px-shadow-lg {
+    filter: drop-shadow(0 6px 8px rgb(0 0 0 / 0.35));
+  }
+
+  /* A rule drawn at module scale. Decorative dividers only: structural 1px
+     borders stay solid, because a dashed nav edge reads as noise, not voice. */
+  .hb-rule {
+    height: 2px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      currentColor 0 4px,
+      transparent 4px 8px
+    );
+  }
+}
+
+/* ==========================================================================
+   Motion primitives
+   Four gestures reinterpreted from the dusk study as CSS. Glitch fires on a
+   change of state — arrival, hover, focus, a badge going live — never as
+   ambient decoration, and never on more than one element at a time.
+   ========================================================================== */
+
+@layer components {
+  /* 1. Scanline tear. Whole rows torn sideways for 70-180ms at irregular
+     intervals, mirroring the study's one-tick-per-0.4-1.6s cadence. Two
+     layers on different schedules so the tears never look periodic. */
+  @keyframes hb-tear-a {
+    0%,
+    7.9%,
+    9.6%,
+    43.9%,
+    45.2%,
+    100% {
+      clip-path: inset(50% 0 50% 0);
+      transform: translateX(0);
+    }
+    8%,
+    9.5% {
+      clip-path: inset(18% 0 66% 0);
+      transform: translateX(calc(var(--module) * -2));
+    }
+    44%,
+    45.1% {
+      clip-path: inset(58% 0 30% 0);
+      transform: translateX(var(--module));
+    }
+  }
+
+  @keyframes hb-tear-b {
+    0%,
+    23.9%,
+    25.4%,
+    70.9%,
+    72.6%,
+    100% {
+      clip-path: inset(50% 0 50% 0);
+      transform: translateX(0);
+    }
+    24%,
+    25.3% {
+      clip-path: inset(72% 0 14% 0);
+      transform: translateX(var(--module));
+    }
+    71%,
+    72.5% {
+      clip-path: inset(30% 0 54% 0);
+      transform: translateX(calc(var(--module) * -1));
+    }
+  }
+
+  .hb-tear {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Layers are copies of the element's own content, so a tear displaces the
+     mark rather than sliding a blank block across it. Three passes, not
+     infinite: this is an arrival glitch that settles, and ambient glitch is
+     exactly what makes the gesture read as costume. */
+  .hb-tear > .hb-tear-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: hb-tear-a 5.4s steps(1, end) 3 both;
+  }
+
+  .hb-tear > .hb-tear-layer + .hb-tear-layer {
+    animation: hb-tear-b 7.1s steps(1, end) 3 both;
+  }
+
+  /* 2. Wavefront reveal. A quantized wipe with a soft dim rung on the leading
+     edge, the way the study lights a pixel dim before it lights it fully. */
+  /* mask-size is 300%, so the window onto the gradient is one third of it.
+     At position 100% that window sits over the gradient's transparent third
+     and the element is hidden; at 0% it sits over the fully opaque third and
+     the element is completely shown. Anything less than a full opaque third
+     at rest would permanently clip the content. */
+  @keyframes hb-reveal {
+    from {
+      -webkit-mask-position: 100% 0;
+      mask-position: 100% 0;
+    }
+    to {
+      -webkit-mask-position: 0% 0;
+      mask-position: 0% 0;
+    }
+  }
+
+  .hb-reveal {
+    --hb-wavefront: linear-gradient(
+      90deg,
+      #000 0 40%,
+      rgba(0, 0, 0, 0.5) 40% 47%,
+      rgba(0, 0, 0, 0.15) 47% 54%,
+      transparent 60%
+    );
+    -webkit-mask-image: var(--hb-wavefront);
+    mask-image: var(--hb-wavefront);
+    -webkit-mask-size: 300% 100%;
+    mask-size: 300% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    animation: hb-reveal 1.3s cubic-bezier(0, 0, 0.2, 1) both;
+  }
+
+  /* 3. Two-frame bob. One module of travel, two discrete frames, no easing —
+     a sprite, not an animation. */
+  @keyframes hb-bob {
+    0%,
+    49.99% {
+      transform: translateY(0);
+    }
+    50%,
+    100% {
+      transform: translateY(var(--module));
+    }
+  }
+
+  .hb-bob {
+    animation: hb-bob 960ms steps(1, end) infinite;
+  }
+
+  /* 4. Chromatic split. drop-shadow follows the alpha silhouette, so an SVG
+     mark fringes exactly like the reference artwork. State only, never at
+     rest. */
+  .hb-split {
+    transition: filter 140ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .hb-split:hover,
+  .hb-split:focus-visible,
+  a:hover .hb-split,
+  a:focus-visible .hb-split {
+    filter: drop-shadow(-2px 0 0 #ff2ea6) drop-shadow(2px 0 0 #35e0e8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-tear > .hb-tear-layer,
+  .hb-bob,
+  .hb-reveal {
+    animation: none !important;
+  }
+
+  .hb-reveal {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hb-tear > .hb-tear-layer {
+    display: none;
+  }
+
+  .hb-split:hover,
+  .hb-split:focus-visible,
+  a:hover .hb-split,
+  a:focus-visible .hb-split {
+    filter: none;
+  }
+
+  .hb-dither-img,
+  .hb-dither-tex {
+    transition: none;
+  }
+}

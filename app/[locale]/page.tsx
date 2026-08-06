@@ -27,10 +27,11 @@ export default function HomePage() {
   const heroShorts = getRecentShorts(8)
 
   return (
-    <div>
+    <div data-register="night" className="min-h-screen bg-ground">
       <OrgNavbar featuredEvent={featured} />
       <main>
-        <OrgHero shorts={heroShorts} />
+        {/* Same value the ribbon uses — computed once, not fetched twice. */}
+        <OrgHero shorts={heroShorts} upcoming={featured} />
         <PartnersBar logos={partnerLogos} />
         <UpcomingEvents events={upcoming} />
         <StatsBar />

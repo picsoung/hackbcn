@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-06T10:30:00Z",
+  "title": "Design System: HackBarna",
+  "extensions": {
+    "colorMeta": {
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "#06060E",
+        "tonalRamp": [
+          "oklch(12% 0.04 275)",
+          "oklch(22% 0.07 275)",
+          "oklch(33% 0.1 275)",
+          "oklch(45% 0.13 275)",
+          "oklch(58% 0.14 275)",
+          "oklch(72% 0.11 275)",
+          "oklch(86% 0.06 275)",
+          "oklch(96% 0.02 275)"
+        ]
+      },
+      "night-raised": {
+        "role": "neutral",
+        "displayName": "Night Raised",
+        "canonical": "#0B0A16",
+        "tonalRamp": [
+          "oklch(12% 0.04 273)",
+          "oklch(22% 0.07 273)",
+          "oklch(33% 0.1 273)",
+          "oklch(45% 0.13 273)",
+          "oklch(58% 0.14 273)",
+          "oklch(72% 0.11 273)",
+          "oklch(86% 0.06 273)",
+          "oklch(96% 0.02 273)"
+        ]
+      },
+      "night-indigo": {
+        "role": "neutral",
+        "displayName": "Night Indigo",
+        "canonical": "#140F26",
+        "tonalRamp": [
+          "oklch(12% 0.04 285)",
+          "oklch(22% 0.07 285)",
+          "oklch(33% 0.1 285)",
+          "oklch(45% 0.13 285)",
+          "oklch(58% 0.14 285)",
+          "oklch(72% 0.11 285)",
+          "oklch(86% 0.06 285)",
+          "oklch(96% 0.02 285)"
+        ]
+      },
+      "night-violet": {
+        "role": "secondary",
+        "displayName": "Night Violet",
+        "canonical": "#241242",
+        "tonalRamp": [
+          "oklch(12% 0.04 295)",
+          "oklch(22% 0.07 295)",
+          "oklch(33% 0.1 295)",
+          "oklch(45% 0.13 295)",
+          "oklch(58% 0.14 295)",
+          "oklch(72% 0.11 295)",
+          "oklch(86% 0.06 295)",
+          "oklch(96% 0.02 295)"
+        ]
+      },
+      "neon-pink": {
+        "role": "primary",
+        "displayName": "Neon Pink",
+        "canonical": "#FF3D9A",
+        "tonalRamp": [
+          "oklch(12% 0.04 0)",
+          "oklch(22% 0.07 0)",
+          "oklch(33% 0.1 0)",
+          "oklch(45% 0.13 0)",
+          "oklch(58% 0.14 0)",
+          "oklch(72% 0.11 0)",
+          "oklch(86% 0.06 0)",
+          "oklch(96% 0.02 0)"
+        ]
+      },
+      "neon-cyan": {
+        "role": "primary",
+        "displayName": "Neon Cyan",
+        "canonical": "#4DE3E8",
+        "tonalRamp": [
+          "oklch(12% 0.04 195)",
+          "oklch(22% 0.07 195)",
+          "oklch(33% 0.1 195)",
+          "oklch(45% 0.13 195)",
+          "oklch(58% 0.14 195)",
+          "oklch(72% 0.11 195)",
+          "oklch(86% 0.06 195)",
+          "oklch(96% 0.02 195)"
+        ]
+      },
+      "sea-0": {
+        "role": "tertiary",
+        "displayName": "Sea 0",
+        "canonical": "#04080F",
+        "tonalRamp": [
+          "oklch(12% 0.04 245)",
+          "oklch(22% 0.07 245)",
+          "oklch(33% 0.1 245)",
+          "oklch(45% 0.13 245)",
+          "oklch(58% 0.14 245)",
+          "oklch(72% 0.11 245)",
+          "oklch(86% 0.06 245)",
+          "oklch(96% 0.02 245)"
+        ]
+      },
+      "sea-1": {
+        "role": "tertiary",
+        "displayName": "Sea 1",
+        "canonical": "#07131F",
+        "tonalRamp": [
+          "oklch(12% 0.04 245)",
+          "oklch(22% 0.07 245)",
+          "oklch(33% 0.1 245)",
+          "oklch(45% 0.13 245)",
+          "oklch(58% 0.14 245)",
+          "oklch(72% 0.11 245)",
+          "oklch(86% 0.06 245)",
+          "oklch(96% 0.02 245)"
+        ]
+      },
+      "sea-2": {
+        "role": "tertiary",
+        "displayName": "Sea 2",
+        "canonical": "#0B2030",
+        "tonalRamp": [
+          "oklch(12% 0.04 245)",
+          "oklch(22% 0.07 245)",
+          "oklch(33% 0.1 245)",
+          "oklch(45% 0.13 245)",
+          "oklch(58% 0.14 245)",
+          "oklch(72% 0.11 245)",
+          "oklch(86% 0.06 245)",
+          "oklch(96% 0.02 245)"
+        ]
+      },
+      "sea-3": {
+        "role": "tertiary",
+        "displayName": "Sea 3",
+        "canonical": "#0E2A3C",
+        "tonalRamp": [
+          "oklch(12% 0.04 235)",
+          "oklch(22% 0.07 235)",
+          "oklch(33% 0.1 235)",
+          "oklch(45% 0.13 235)",
+          "oklch(58% 0.14 235)",
+          "oklch(72% 0.11 235)",
+          "oklch(86% 0.06 235)",
+          "oklch(96% 0.02 235)"
+        ]
+      },
+      "screen": {
+        "role": "neutral",
+        "displayName": "Screen (cool white)",
+        "canonical": "#E6E8F2",
+        "tonalRamp": [
+          "oklch(12% 0.04 260)",
+          "oklch(22% 0.07 260)",
+          "oklch(33% 0.1 260)",
+          "oklch(45% 0.13 260)",
+          "oklch(58% 0.14 260)",
+          "oklch(72% 0.11 260)",
+          "oklch(86% 0.06 260)",
+          "oklch(96% 0.02 260)"
+        ]
+      },
+      "screen-dim": {
+        "role": "neutral",
+        "displayName": "Screen Dim",
+        "canonical": "#9AA0BF",
+        "tonalRamp": [
+          "oklch(12% 0.04 260)",
+          "oklch(22% 0.07 260)",
+          "oklch(33% 0.1 260)",
+          "oklch(45% 0.13 260)",
+          "oklch(58% 0.14 260)",
+          "oklch(72% 0.11 260)",
+          "oklch(86% 0.06 260)",
+          "oklch(96% 0.02 260)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper (warm, physical objects only)",
+        "canonical": "#EFEADF",
+        "tonalRamp": [
+          "oklch(12% 0.04 80)",
+          "oklch(22% 0.07 80)",
+          "oklch(33% 0.1 80)",
+          "oklch(45% 0.13 80)",
+          "oklch(58% 0.14 80)",
+          "oklch(72% 0.11 80)",
+          "oklch(86% 0.06 80)",
+          "oklch(96% 0.02 80)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headlines. Split across i18n keys so individual words carry coral; verify the highlighted words land sensibly in ES/CA/FR."
+      },
+      "label": {
+        "displayName": "Label / Kicker",
+        "purpose": "Mono uppercase section kickers. Sparse by rule: mono-on-dark is one of the named anti-references, so repetition turns voice into costume."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Measure capped at 65-75ch, line-height raised to 1.7 because light type on a dark ground closes up."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-rest",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Event cards and sponsor plates at rest."
+      },
+      {
+        "name": "card-hover",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "Response to a cursor. Paired with a title colour shift, never a translate."
+      },
+      {
+        "name": "photo-object",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Polaroids. Shadow means physical object, nothing else."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-standard",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "Every state transition."
+      },
+      {
+        "name": "scanline-tear",
+        "value": "hb-tear-a 5.4s steps(1,end) 3 both / hb-tear-b 7.1s steps(1,end) 3 both",
+        "purpose": "Rows torn sideways by one or two modules. Three passes then settles: an arrival glitch, never ambient."
+      },
+      {
+        "name": "wavefront-reveal",
+        "value": "hb-reveal 1.3s cubic-bezier(0,0,0.2,1) both, mask-size 300%",
+        "purpose": "Quantized wipe with a dim leading rung. The opaque third of the mask must fully cover the element at rest or content is permanently clipped."
+      },
+      {
+        "name": "two-frame-bob",
+        "value": "hb-bob 960ms steps(1,end) infinite, translateY(4px)",
+        "purpose": "One module of travel, two discrete frames. A sprite, not an animation."
+      },
+      {
+        "name": "chromatic-split",
+        "value": "drop-shadow(-2px 0 0 #ff2ea6) drop-shadow(2px 0 0 #35e0e8)",
+        "purpose": "Follows the mark's alpha silhouette. Hover and focus only, never at rest."
+      },
+      {
+        "name": "dither-develop",
+        "value": "filter 320ms + texture opacity 320ms",
+        "purpose": "A photograph resolving from quantized to full colour when reached for. Hues are never shifted: contrast posterises and a 6px Bayer tile supplies the screen door. The hover target is an identity chain of the same filter functions, never `none`, or it will not interpolate."
+      },
+      {
+        "name": "stepped-corner",
+        "value": ".hb-px clip-path polygon, --px-step 3/4/6px",
+        "purpose": "Two-step staircase per corner at the module. clip-path erases box-shadow, so a clipped interactive element must use ring-inset and a clipped surface must use filter: drop-shadow(). A clipped element cannot render a border: bordered cards nest two clipped layers, the outer one being the border colour with 1px padding."
+      },
+      {
+        "name": "pixel-rule",
+        "value": ".hb-rule — 2px, repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 8px)",
+        "purpose": "Decorative dividers only. Structural 1px borders stay solid."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ],
+    "contrastLedger": {
+      "note": "Measured. These numbers produce the Drenched Band Rule and the Ring Follows The Fill Rule.",
+      "pass": {
+        "screen/night-ink": 16.53,
+        "screen/night-raised": 16.08,
+        "screen/night-indigo": 15.27,
+        "screen/night-violet": 13.86,
+        "screen-dim/night-ink": 7.84,
+        "screen-dim/night-violet": 6.58,
+        "neon-pink/night-ink": 6.14,
+        "neon-pink/night-violet": 5.15,
+        "neon-cyan/night-ink": 12.95,
+        "neon-cyan/night-violet": 10.86,
+        "night-ink/neon-pink": 6.14,
+        "night-ink/neon-cyan": 12.95,
+        "night-ink@80/neon-pink": 4.98,
+        "night-ink@60/neon-cyan": 4.71,
+        "night-raised/neon-pink": 5.61,
+        "night-raised/neon-cyan": 12.6,
+        "neon-pink/night-raised": 5.97
+      },
+      "fail": {
+        "screen/neon-pink": 2.87,
+        "neon-cyan/neon-pink": 2.25,
+        "neon-pink/neon-cyan": 2.11,
+        "screen/neon-cyan": 1.28,
+        "paper/neon-cyan": 1.3,
+        "night-ink@70/neon-pink": 4.18,
+        "night-ink@50/neon-cyan": 3.47
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Polaroid",
+      "kind": "custom",
+      "refersTo": "polaroid",
+      "description": "The signature component, carried over from the previous system onto a bone frame. Hand-set rotation, dithered photo, caption in a real voice. Straightens and develops on hover or focus.",
+      "html": "<a href=\"#\" class=\"ds-polaroid\" style=\"transform: rotate(-5deg)\" aria-label=\"Hack Night #1: view event\"><span class=\"ds-polaroid-tape\" aria-hidden=\"true\">✦ ✦ ✦</span><span class=\"ds-polaroid-photo\"><img src=\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%238F5230'/%3E%3Ccircle cx='100' cy='150' r='34' fill='%23D9A95A'/%3E%3Crect y='150' width='200' height='50' fill='%2319132C'/%3E%3C/svg%3E\" alt=\"Hack Night #1 at eDreams, October\" /><span class=\"ds-polaroid-tex\" aria-hidden=\"true\"></span></span><p class=\"ds-polaroid-caption\">Hack Night #1</p></a>",
+      "css": ".ds-polaroid { position: relative; display: block; width: 11rem; background: #EFEADF; padding: 0.5rem 0.5rem 2rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); text-decoration: none; transition: transform 300ms cubic-bezier(0,0,0.2,1); } .ds-polaroid:hover, .ds-polaroid:focus-visible { transform: rotate(0deg) scale(1.06) !important; } .ds-polaroid:focus-visible { outline: none; box-shadow: 0 0 0 2px #05060F, 0 0 0 4px #E8523F; } .ds-polaroid-photo { position: relative; display: block; overflow: hidden; } .ds-polaroid-photo img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; filter: grayscale(1) contrast(2.4) brightness(0.82) sepia(0.55) hue-rotate(-14deg) saturate(2.6); transition: filter 320ms cubic-bezier(0,0,0.2,1); } .ds-polaroid-tex { position: absolute; inset: 0; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'%3E%3Crect width='1' height='1' x='0' y='0' fill='%23000000'/%3E%3Crect width='1' height='1' x='1' y='0' fill='%23888888'/%3E%3Crect width='1' height='1' x='2' y='0' fill='%23222222'/%3E%3Crect width='1' height='1' x='3' y='0' fill='%23aaaaaa'/%3E%3Crect width='1' height='1' x='0' y='1' fill='%23cccccc'/%3E%3Crect width='1' height='1' x='1' y='1' fill='%23444444'/%3E%3Crect width='1' height='1' x='2' y='1' fill='%23eeeeee'/%3E%3Crect width='1' height='1' x='3' y='1' fill='%23666666'/%3E%3Crect width='1' height='1' x='0' y='2' fill='%23333333'/%3E%3Crect width='1' height='1' x='1' y='2' fill='%23bbbbbb'/%3E%3Crect width='1' height='1' x='2' y='2' fill='%23111111'/%3E%3Crect width='1' height='1' x='3' y='2' fill='%23999999'/%3E%3Crect width='1' height='1' x='0' y='3' fill='%23ffffff'/%3E%3Crect width='1' height='1' x='1' y='3' fill='%23777777'/%3E%3Crect width='1' height='1' x='2' y='3' fill='%23dddddd'/%3E%3Crect width='1' height='1' x='3' y='3' fill='%23555555'/%3E%3C/svg%3E\"); background-size: 4px 4px; mix-blend-mode: overlay; opacity: 0.85; transition: opacity 320ms cubic-bezier(0,0,0.2,1); pointer-events: none; } .ds-polaroid:hover img { filter: grayscale(0) contrast(1) brightness(1) sepia(0) hue-rotate(0deg) saturate(1); } .ds-polaroid:hover .ds-polaroid-tex { opacity: 0; } .ds-polaroid-caption { margin: 0.5rem 0 0; text-align: center; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; color: rgba(5,6,15,0.7); } .ds-polaroid-tape { position: absolute; top: -0.5rem; left: 50%; transform: translateX(-50%) rotate(-3deg); padding: 0.125rem 0.75rem; background: rgba(232,82,63,0.8); color: #05060F; font-family: Inter, sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; z-index: 1; } @media (prefers-reduced-motion: reduce) { .ds-polaroid, .ds-polaroid img, .ds-polaroid-tex { transition: none; } .ds-polaroid:hover, .ds-polaroid:focus-visible { transform: none !important; } }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Coral fill with a near-black label, deepening to amber on hover. Colour transition only: no lift, no scale.",
+      "html": "<a href=\"#\" class=\"ds-btn-primary\">Register<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M12 5l7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: #E8523F; color: #05060F; padding: 0.75rem 1.5rem; border: none; border-radius: 2px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: background-color 150ms cubic-bezier(0,0,0.2,1); } .ds-btn-primary:hover { background: #D9A95A; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px #05060F, 0 0 0 4px #E8523F; }"
+    },
+    {
+      "name": "Event Card",
+      "kind": "card",
+      "refersTo": "card-event",
+      "description": "Always night-1 whatever band it sits on, so coral stays legible inside it even on warm rungs. Dithered media band, 2px corners.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-media\"><img src=\"data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%2319132C'/%3E%3Ccircle cx='320' cy='120' r='38' fill='%23D9A95A'/%3E%3Cpath d='M0 200 q100 -60 200 -20 t200 -30 v50z' fill='%238F5230'/%3E%3C/svg%3E\" alt=\"Norrsken Barcelona at dusk\" /><span class=\"ds-card-tex\" aria-hidden=\"true\"></span></div><div class=\"ds-card-body\"><span class=\"ds-chip\">Hackathon</span><h3 class=\"ds-card-title\">AI Summit 26</h3><p class=\"ds-card-meta\">Sep 19-20, 2026 · Norrsken House</p><a href=\"#\" class=\"ds-btn-primary\" style=\"margin-top:1.25rem\">Register</a></div></div>",
+      "css": ".ds-card { max-width: 24rem; overflow: hidden; background: #090B19; border: 1px solid #19132C; border-radius: 2px; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); transition: box-shadow 150ms cubic-bezier(0,0,0.2,1); font-family: Inter, ui-sans-serif, system-ui, sans-serif; } .ds-card:hover { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); } .ds-card-media { position: relative; aspect-ratio: 2/1; overflow: hidden; } .ds-card-media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(2.4) brightness(0.82) sepia(0.55) hue-rotate(-14deg) saturate(2.6); transition: filter 320ms cubic-bezier(0,0,0.2,1); } .ds-card-tex { position: absolute; inset: 0; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' x='0' y='0' fill='%23000'/%3E%3Crect width='1' height='1' x='1' y='0' fill='%23888'/%3E%3Crect width='1' height='1' x='2' y='0' fill='%23222'/%3E%3Crect width='1' height='1' x='3' y='0' fill='%23aaa'/%3E%3Crect width='1' height='1' x='0' y='1' fill='%23ccc'/%3E%3Crect width='1' height='1' x='1' y='1' fill='%23444'/%3E%3Crect width='1' height='1' x='2' y='1' fill='%23eee'/%3E%3Crect width='1' height='1' x='3' y='1' fill='%23666'/%3E%3C/svg%3E\"); background-size: 4px 4px; mix-blend-mode: overlay; opacity: 0.85; transition: opacity 320ms; } .ds-card:hover .ds-card-media img { filter: grayscale(0) contrast(1) brightness(1) sepia(0) hue-rotate(0deg) saturate(1); } .ds-card:hover .ds-card-tex { opacity: 0; } .ds-card-body { padding: 1.5rem; } .ds-chip { display: inline-flex; padding: 0.125rem 0.625rem; border-radius: 2px; background: rgba(232,82,63,0.15); color: #E8523F; font-size: 0.75rem; font-weight: 500; } .ds-card-title { margin: 0.75rem 0 0; font-size: 1.25rem; font-weight: 600; color: #EFEADF; transition: color 150ms; } .ds-card:hover .ds-card-title { color: #E8523F; } .ds-card-meta { margin: 0.75rem 0 0; font-size: 0.875rem; color: #9A948A; }"
+    },
+    {
+      "name": "Sponsor Plate",
+      "kind": "custom",
+      "refersTo": "sponsor-plate",
+      "description": "A bone tile behind every partner logo. Not decoration: most partner marks are dark monochrome and would be invisible on near-black.",
+      "html": "<a href=\"#\" class=\"ds-sponsor\" aria-label=\"Vonage\"><svg width=\"120\" height=\"28\" viewBox=\"0 0 120 28\" aria-hidden=\"true\"><text x=\"0\" y=\"20\" font-family=\"Inter, sans-serif\" font-size=\"18\" font-weight=\"700\" fill=\"#111\">VONAGE</text></svg></a>",
+      "css": ".ds-sponsor { display: inline-block; background: #EFEADF; padding: 0.75rem 1rem; border-radius: 2px; transition: transform 150ms cubic-bezier(0,0,0.2,1); } .ds-sponsor:hover { transform: rotate(-1deg); } .ds-sponsor:focus-visible { outline: none; box-shadow: 0 0 0 2px #05060F, 0 0 0 4px #E8523F; }"
+    },
+    {
+      "name": "Ribbon with arrival glitch",
+      "kind": "nav",
+      "refersTo": "ribbon",
+      "description": "The next event, loudest above the fold. Its NEW badge is the site's one arrival glitch: copies tear sideways for three passes, then settle.",
+      "html": "<div class=\"ds-ribbon\"><span class=\"ds-tear\">NEW<span class=\"ds-tear-l\" aria-hidden=\"true\">NEW</span></span><span>HackBarna AI Summit 26 · Sep 19-20, 2026</span><a href=\"#\" class=\"ds-ribbon-cta\">View details</a></div>",
+      "css": "@keyframes ds-tear { 0%,7.9%,9.6%,43.9%,45.2%,100% { clip-path: inset(50% 0 50% 0); transform: translateX(0);} 8%,9.5% { clip-path: inset(18% 0 66% 0); transform: translateX(-8px);} 44%,45.1% { clip-path: inset(58% 0 30% 0); transform: translateX(4px);} } .ds-ribbon { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.75rem; padding: 0.5rem 1rem; background: #05060F; color: #EFEADF; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; } .ds-tear { position: relative; display: inline-block; padding: 0.125rem 0.5rem; border-radius: 2px; background: #E8523F; color: #05060F; font-size: 0.75rem; font-weight: 700; } .ds-tear-l { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 2px; background: #E8523F; animation: ds-tear 5.4s steps(1,end) 3 both; pointer-events: none; } .ds-ribbon-cta { padding: 0.25rem 0.75rem; background: #EFEADF; color: #05060F; border-radius: 2px; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: background-color 150ms; } .ds-ribbon-cta:hover { background: #D9A95A; } @media (prefers-reduced-motion: reduce) { .ds-tear-l { display: none; } }"
+    },
+    {
+      "name": "Digest Signup",
+      "kind": "input",
+      "refersTo": "input-email",
+      "description": "The system's only joined control: field welded to its button. Focus shifts the border to coral.",
+      "html": "<form class=\"ds-subscribe\"><input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\" aria-label=\"Email address\" /><button class=\"ds-sub-btn\" type=\"submit\">Subscribe</button></form>",
+      "css": ".ds-subscribe { display: flex; max-width: 24rem; font-family: Inter, ui-sans-serif, system-ui, sans-serif; } .ds-input { flex: 1; height: 2.5rem; padding: 0 0.75rem; font-size: 0.875rem; color: #EFEADF; background: #090B19; border: 1px solid #19132C; border-right: 0; border-radius: 2px 0 0 2px; } .ds-input::placeholder { color: #9A948A; } .ds-input:focus { outline: none; border-color: #E8523F; box-shadow: 0 0 0 1px #E8523F; } .ds-sub-btn { height: 2.5rem; padding: 0 1.25rem; background: #E8523F; color: #05060F; border: none; border-radius: 0 2px 2px 0; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background-color 150ms; } .ds-sub-btn:hover { background: #D9A95A; }"
+    },
+    {
+      "name": "Amber Inversion Band",
+      "kind": "custom",
+      "refersTo": "footer-inversion",
+      "description": "The one band per page that flips to the sun, placed low where the horizon belongs. The site's highest-contrast surface at 9.40:1.",
+      "html": "<footer class=\"ds-inversion\"><div class=\"ds-inv-links\"><a href=\"#\">Events</a><a href=\"#\">Digest</a><a href=\"#\">Projects</a><a href=\"#\">Conduct</a></div><p class=\"ds-inv-note\">© 2026 HackBarna. Made in Barcelona ♥</p></footer>",
+      "css": ".ds-inversion { background: #D9A95A; color: #05060F; padding: 3rem 1.5rem; font-family: Inter, ui-sans-serif, system-ui, sans-serif; } .ds-inv-links { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.875rem; } .ds-inv-links a { color: rgba(5,6,15,0.8); text-decoration: none; border-radius: 2px; transition: color 150ms; } .ds-inv-links a:hover { color: rgba(5,6,15,0.5); } .ds-inv-links a:focus-visible { outline: none; box-shadow: 0 0 0 2px #D9A95A, 0 0 0 4px #05060F; } .ds-inv-note { margin: 2rem 0 0; font-size: 0.875rem; color: rgba(5,6,15,0.7); }"
+    },
+    {
+      "name": "Section Kicker",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "Mono, wide-tracked, slash-prefixed. The only dev shorthand left in the system after the brace mark was retired.",
+      "html": "<p class=\"ds-kicker\">/ by the numbers</p>",
+      "css": ".ds-kicker { margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.32em; color: #E8523F; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Barcelona, after midnight",
+    "overview": "The system is one image held at low resolution, and the light source is signage rather than the sun. Grounds are coloured darks that step, corners are staircases, photographs are thresholded through an ordered Bayer tile.\\n\\nThis palette runs deliberately at PRODUCT.md's first anti-reference, the neon-on-black cliché. Four things keep it from becoming that, and none is optional: never pure black; no glow; no grid chrome; and every dark surface carries a real photograph or is plain ramp ground.",
+    "keyCharacteristics": [
+      "Coloured darks step through indigo and violet, punctuated by two drenched neon bands",
+      "Drenched bands carry near-black type and nothing else",
+      "Photographs keep their own hues; contrast posterises and the tile supplies the screen door",
+      "No radius at all: every box loses its corner to a two-step staircase",
+      "Two whites: warm paper for physical objects, cool screen white for everything rendered",
+      "Glitch fires on state change and then stops"
+    ],
+    "rules": [
+      {
+        "name": "The Drenched Band Rule",
+        "section": "colors",
+        "body": "A neon band takes near-black type and nothing else. On pink the cool white is 2.87:1, cyan 2.25:1 and near-black at 70% is 4.18:1 — all fail; only full near-black clears at 6.14:1. Cyan holds a dim tier to 60% (4.71:1). If a surface needs two levels of text colour it cannot be pink."
+      },
+      {
+        "name": "The Separation Rule",
+        "section": "colors",
+        "body": "Two drenched bands never touch. A dark rung always sits between them, so the page reads as punctuation rather than as a gradient."
+      },
+      {
+        "name": "The No Glow Rule",
+        "section": "elevation",
+        "body": "No coloured shadow, no bloom, no backdrop blur. On a neon palette this single rule decides whether the page reads as designed or as a template. The only hued shadow is the chromatic split, and it is a state."
+      },
+      {
+        "name": "The Ring Follows The Fill Rule",
+        "section": "elevation",
+        "body": "A focus ring must contrast with the surface it sits on, not with the page. On a pink or cyan fill the inset ring is near-black; on a dark fill it is cool white. A cool-white ring on pink is 2.87:1 and fails."
+      },
+      {
+        "name": "The Warm Plate Rule",
+        "section": "colors",
+        "body": "Paper never lands on a drenched band — warm bone on cyan is 1.28:1. Sponsor plates sit on dark rungs only."
+      },
+      {
+        "name": "The Real Place Rule",
+        "body": "Every dark surface either depicts a real photograph or a real place, or it is plain ramp ground. Never an abstract grid, never a synthetic gradient, never a particle field. The dither exists to quantize something that happened, not to decorate emptiness.",
+        "section": "colors"
+      },
+      {
+        "name": "The Light-On-Dark Leading Rule",
+        "body": "Every reading size gains 0.05-0.1 line-height over its light-ground equivalent, because light type on a dark ground reads lighter than it is and closes up. Display went 1.1 to 1.15, body 1.625 to 1.7.",
+        "section": "typography"
+      },
+      {
+        "name": "The Kicker Restraint Rule",
+        "body": "The mono uppercase kicker is voice, but repeating it above every section turns it into AI scaffolding, and mono-on-dark is one of the named anti-references. If three consecutive sections carry one, delete the middle.",
+        "section": "typography"
+      },
+      {
+        "name": "The Slash Rule",
+        "body": "Coral kickers open with a forward slash. It is now the only piece of dev shorthand in the system: the {HackBarna} brace mark was retired when the pixel lockup arrived, because the lockup is the wordmark and carrying both was redundant.",
+        "section": "typography"
+      },
+      {
+        "name": "The Constant Card Rule",
+        "body": "Cards are always night-1, whatever band they sit on. On the cold rungs they read as a slight lift; on wine and ember they read as windows cut through the ladder. The payoff is that coral stays legible inside a card even when the surrounding band would have killed it.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Glitch-on-Transition Rule",
+        "body": "Glitch fires on a change of state: arrival, hover, focus, a badge going live. Never ambient, never on body text, never on more than one element at a time.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Ambient Glow Rule",
+        "body": "No coloured shadows, no glow, no shadow-neon. That token has been deleted from the config.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Stepped Corner Rule",
+        "body": "Boxes have no radius; each corner is a two-step staircase at the module. clip-path erases box-shadow, which is how every focus ring here is drawn, so never put .hb-px on an element carrying a ring-offset ring: either the interactive element stays unclipped with the clip on an inner div, or the ring goes ring-inset. Clipped surfaces use filter: drop-shadow() for elevation, and bordered cards nest two clipped layers because a clipped element cannot render a border.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Pixel Rule Rule",
+        "body": "Decorative dividers are .hb-rule: 2px tall, dashed at module scale. Structural 1px borders — nav edge, card borders, section boundaries — stay solid. A dashed line there reads as noise, not as voice.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do descend the ladder in scroll order and close on the amber inversion.",
+      "Do put a real photograph on dark surfaces, or leave them as plain ramp ground.",
+      "Do dither photographs at rest and let them develop on hover or focus.",
+      "Do drop the accent to amber below night-3. Coral is measured, not decorative.",
+      "Do use one ink on ember: bone.",
+      "Do give boxes the stepped corner, not a radius. Check the focus ring survives it.",
+      "Do add 0.05-0.1 line-height over the light-ground equivalent on every reading size.",
+      "Do put a bone plate behind partner and sponsor logos, at full opacity.",
+      "Do guard every motion primitive with prefers-reduced-motion, and check the static fallback is legible, not hidden.",
+      "Do set focus-ring offset colours to the actual band the element sits on."
+    ],
+    "donts": [
+      "Don't build the AI-startup neon-on-black cliché: dark background, cyan glow, grid lines, terminal mono as decoration. This system is dark, which makes the line thin. foam never becomes a UI colour, kickers stay sparse, and no surface gets an abstract grid.",
+      "Don't build a generic SaaS landing: big gradient hero, three feature cards, testimonial slider, \"Trusted by\" strip.",
+      "Don't reproduce the second-order \"community brand landing\" template: split hero plus subscribe form plus photo collage, logo marquee, big-number stats bar, card grid, card grid, plain footer. Every new surface must break at least one of those beats.",
+      "Don't use the hero-metric template. The stats grid is a standing approved exception for the org homepage only.",
+      "Don't ship identical card grids.",
+      "Don't use border-left or border-right above 1px as a coloured stripe.",
+      "Don't use background-clip: text with a gradient.",
+      "Don't add glassmorphism, backdrop blur, or a translucent sticky nav.",
+      "Don't let glitch run ambiently. It fires on a state change, on one element, and stops.",
+      "Don't use chromatic aberration at rest. Hover and focus only.",
+      "Don't interpolate between ramp steps with a gradient.",
+      "Don't nest a card inside a card.",
+      "Don't use em dashes in copy.",
+      "Don't touch app/[locale]/[eventSlug]/**, lib/themes.ts, or the legacy component set. Past editions are shipped history and are structurally excluded: the night tokens live under [data-register], which those routes never carry.",
+      "Don't tint photographs. Quantize them and leave the hues alone; grayscale and sepia turn the whole archive one colour.",
+      "Don't put .hb-px on an element with an offset focus ring. clip-path deletes the ring silently.",
+      "Don't lead the hero with past events while something is upcoming.",
+      "Don't put a cool-white or cyan glyph on the pink band. Only near-black clears there.",
+      "Don't introduce a third accent hue, and never add a glow to the two you have.",
+      "Don't place a warm paper plate on a drenched band."
+    ]
+  },
+  "description": "Barcelona after midnight"
+}

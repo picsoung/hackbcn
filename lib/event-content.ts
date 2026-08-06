@@ -57,6 +57,7 @@ export function readMdxEvent(slug: string): MdxEventContent | null {
     location: data.location,
     timeZone: data.timeZone,
     eventType: data.eventType ?? 'hackathon',
+    register: data.register,
     description: data.description,
     registrationUrl: data.registrationUrl,
     imageUrl: data.imageUrl,
