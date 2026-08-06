@@ -242,14 +242,17 @@ function SponsorBlock({
                       source: 'event_detail',
                     })
                   }
-                  className="hb-px hb-px-sm block bg-paper px-3 py-2 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
+                  className="hb-px hb-px-sm flex h-[76px] w-[152px] items-center justify-center bg-paper px-4 py-3 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
                 >
+                  {/* A fixed plate rather than a fixed height: sizing logos by
+                      height alone shrinks a square mark to a third of the width
+                      of a wide one. Every plate is the same box and each logo
+                      scales to fit it, so they read as equal partners. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={cs.logo}
                     alt={cs.name}
-                    style={{ height: 36, maxWidth: 120, width: 'auto' }}
-                    className="object-contain"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </a>
               ))}
