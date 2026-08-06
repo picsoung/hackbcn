@@ -13,6 +13,7 @@ type OutboundEvent =
   | 'sponsor_click'
   | 'community_sponsor_click'
   | 'sponsorship_deck_click'
+  | 'sponsor_contact_click'
   | 'registration_click'
   | 'partner_marquee_click'
 
