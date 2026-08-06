@@ -20,8 +20,15 @@ export async function generateMetadata(args: any) {
   return {
     title: localeData['meta.title'],
     description: localeData['meta.description'],
+    // SVG first so modern browsers take the pixel signet; the .ico stays as
+    // the fallback for clients that can't render one. Cache-bust bumped, or
+    // browsers keep serving the old mark for weeks.
     icons: {
-      icon: ['/favicon.ico?v=4'],
+      icon: [
+        { url: '/icon.svg?v=5', type: 'image/svg+xml' },
+        { url: '/favicon.ico?v=5', sizes: '48x48' },
+      ],
+      apple: [{ url: '/apple-touch-icon.png?v=5', sizes: '180x180' }],
     },
     manifest: '/site.webmanifest',
     metadataBase: new URL(`https://hackbarna.com`),
