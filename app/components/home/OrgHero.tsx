@@ -7,6 +7,8 @@ import type { Event } from '@/types/events'
 import SubscribeForm from './SubscribeForm'
 import Polaroid from '../Polaroid'
 import RecapLightbox from '../RecapLightbox'
+import { withUtm } from '../../helpers/utm'
+import { trackOutbound } from '../../helpers/track'
 
 type HeroPolaroid = {
   src: string
@@ -121,11 +123,25 @@ export default function OrgHero({
                 <p className="mt-1 text-sm text-ink-dim">{upcoming.location}</p>
 
                 <div className="mt-5 flex flex-wrap items-center gap-4">
+                  {/* The site's most prominent RSVP link, so it carries the
+                      same attribution as the two on the event page. withUtm
+                      passes internal hrefs through untouched, so the fallback
+                      to the event page stays clean. */}
                   <a
-                    href={upcoming.registrationUrl || eventHref}
+                    href={withUtm(upcoming.registrationUrl || eventHref, {
+                      medium: 'cta',
+                      campaign: `hackbarna-${upcoming.slug}`,
+                      content: 'register-home-hero',
+                    })}
                     {...(upcoming.registrationUrl
                       ? { target: '_blank', rel: 'noopener noreferrer' }
                       : {})}
+                    onClick={() =>
+                      trackOutbound('registration_click', {
+                        event_slug: upcoming.slug,
+                        source: 'register-home-hero',
+                      })
+                    }
                     className="hb-px inline-flex items-center gap-2 bg-accent px-5 py-2.5 text-sm font-semibold text-ground transition-colors hover:bg-inversion focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
                   >
                     {intl.t('events.register')}
