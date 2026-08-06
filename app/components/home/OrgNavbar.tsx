@@ -121,8 +121,8 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-pixel bg-ground-raised shadow-lg ring-1 ring-band-2 focus:outline-none">
-                          <div className="py-1">
+                        <Menu.Items className="hb-px hb-px-shadow absolute right-0 z-10 mt-2 w-32 origin-top-right bg-band-2 p-px focus:outline-none">
+                          <div className="hb-px bg-ground-raised py-1">
                             {intl.locales.map((locale) => (
                               <Menu.Item key={locale}>
                                 {({ active }) => (

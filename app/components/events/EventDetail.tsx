@@ -355,19 +355,19 @@ export default function EventDetail({
             <div>
               <div className="flex items-center gap-2 mb-4 flex-wrap">
                 <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-pixel text-xs font-medium ${
+                  className={`hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${
                     isHackNight ? 'bg-band-2 text-ink' : 'bg-accent/15 text-accent'
                   }`}
                 >
                   {isHackNight ? intl.t('events.hacknight') : intl.t('events.hackathon')}
                 </span>
                 {isHackNight && event.sponsor && (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-pixel text-xs font-medium bg-accent/15 text-accent">
+                  <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-accent/15 text-accent">
                     presented by {event.sponsor}
                   </span>
                 )}
                 {isPast && (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-pixel text-xs font-medium bg-band-2 text-ink-dim">
+                  <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-band-2 text-ink-dim">
                     {intl.t('events.past.label')}
                   </span>
                 )}
@@ -424,7 +424,7 @@ export default function EventDetail({
                       source: 'register-hero',
                     })
                   }
-                  className="inline-flex items-center px-6 py-3 text-base font-semibold rounded-pixel bg-accent text-ground hover:bg-inversion transition-colors"
+                  className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
                 >
                   {intl.t('events.register')} →
                 </a>
@@ -433,7 +433,7 @@ export default function EventDetail({
 
             {event.imageUrl && (
               <div className="lg:sticky lg:top-8">
-                <div className="hb-dither rounded-pixel shadow-sm">
+                <div className="hb-dither hb-px hb-px-shadow">
                   <Image
                     src={event.imageUrl}
                     alt={event.name}
@@ -529,7 +529,7 @@ export default function EventDetail({
                   key={i}
                   src={src}
                   alt=""
-                  className="w-full aspect-square object-cover rounded-pixel"
+                  className="hb-px w-full aspect-square object-cover"
                   loading="lazy"
                 />
               ))}
@@ -649,7 +649,7 @@ export default function EventDetail({
             </p>
             <Link
               href={`/${locale}/events/${event.slug}/projects`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-pixel bg-accent text-ground hover:bg-inversion transition-colors"
+              className="hb-px inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
             >
               View all {projectCount} {projectCount === 1 ? 'project' : 'projects'}
               <span aria-hidden="true">→</span>
@@ -675,7 +675,7 @@ export default function EventDetail({
                   source: 'register-bottom',
                 })
               }
-              className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-pixel bg-accent text-ground hover:bg-inversion transition-colors"
+              className="hb-px inline-flex items-center px-8 py-4 text-lg font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
             >
               {intl.t('events.register')} →
             </a>
