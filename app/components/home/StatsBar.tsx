@@ -13,9 +13,9 @@ export default function StatsBar() {
   const intl = useIntl()
 
   return (
-    <section className="bg-orange-50 border-y border-orange-100 py-14 sm:py-16">
+    <section className="bg-band-4 py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <p className="font-mono text-xs uppercase tracking-[0.32em] text-org-accent mb-10 text-center">
+        <p className="font-mono text-xs uppercase tracking-[0.32em] text-ground/80 mb-10 text-center">
           / by the numbers
         </p>
 
@@ -26,12 +26,12 @@ export default function StatsBar() {
               <dd>
                 <p
                   className={`text-4xl sm:text-5xl font-bold tracking-tight leading-none ${
-                    stat.highlight ? 'text-org-accent' : 'text-slate-900'
+                    stat.highlight ? 'text-ground' : 'text-ground/85'
                   }`}
                 >
                   {stat.value}
                 </p>
-                <p className="mt-3 text-xs sm:text-sm uppercase tracking-[0.18em] text-slate-600 font-medium">
+                <p className="mt-3 text-xs sm:text-sm uppercase tracking-[0.18em] text-ground font-semibold">
                   {intl.t(stat.key)}
                 </p>
               </dd>

@@ -13,9 +13,11 @@ const MARKERS: Marker[] = [
   { label: 'soon', x: 1060, variant: 'soon' },
 ]
 
-const INK = 'oklch(0.22 0.02 50)'
-const CORAL = 'oklch(0.62 0.18 33)'
-const MUTED = 'oklch(0.55 0.01 50 / 0.6)'
+// Driven by the register's tokens rather than fixed values, so the timeline
+// inverts with the ladder instead of drawing dark ink on a dark ground.
+const INK = 'rgb(var(--ink))'
+const CORAL = 'rgb(var(--accent))'
+const MUTED = 'rgb(var(--ink-dim) / 0.7)'
 
 export default function EventsTimeline({ className = '' }: { className?: string }) {
   return (

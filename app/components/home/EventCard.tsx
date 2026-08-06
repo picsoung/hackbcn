@@ -59,73 +59,80 @@ export default function EventCard({
 
   return (
     <div
-      className={`rounded-xl border bg-white shadow-sm hover:shadow-md transition-all overflow-hidden ${
-        featured ? 'border-org-accent/30 ring-1 ring-org-accent/10' : 'border-gray-200'
+      className={`hb-px hb-px-shadow group transition-all p-px ${
+        featured ? 'bg-accent/50' : 'bg-band-2'
       }`}
     >
-      {imageUrl && (
-        <div className="aspect-[2/1] overflow-hidden bg-slate-100">
-          <img
-            src={imageUrl}
-            alt={name}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
-      <div className="p-6">
+      {/* Inner layer holds the fill; the 1px outer layer is the border, since
+          a clipped element cannot render one. */}
+      <div className="hb-px bg-ground-raised">
+        {imageUrl && (
+          <div className="hb-dither aspect-[2/1] overflow-hidden bg-band-2">
+            <img
+              src={imageUrl}
+              alt={name}
+              className="hb-dither-img w-full h-full"
+            />
+            <span aria-hidden="true" className="hb-dither-tex" />
+          </div>
+        )}
+        <div className="p-6">
         <div className="flex items-center gap-2 mb-3 flex-wrap">
           <span
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            className={`hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${
               eventType === 'hackathon'
-                ? 'bg-org-accent/10 text-org-accent'
-                : 'bg-purple-100 text-purple-700'
+                ? 'bg-accent/15 text-accent'
+                : 'bg-inversion/15 text-inversion'
             }`}
           >
             {typeLabel}
           </span>
           {sponsor && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
+            <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-band-2 text-ink-dim">
               {sponsor}
             </span>
           )}
           {isPast && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">
+            <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-band-2 text-ink-dim">
               {intl.t('events.past.label')}
             </span>
           )}
         </div>
 
-        <h3 className={`font-semibold text-slate-900 ${featured ? 'text-xl' : 'text-lg'}`}>
+        <h3 className={`font-semibold text-ink group-hover:text-accent transition-colors ${featured ? 'text-xl' : 'text-lg'}`}>
           {name}
         </h3>
 
         <div className="mt-3 space-y-1.5">
-          <div className="flex items-center text-sm text-slate-500">
+          <div className="flex items-center text-sm text-ink-dim">
             <CalendarIcon className="h-4 w-4 mr-2 flex-shrink-0" />
             {formatDateRange(startDate, endDate)}
           </div>
-          <div className="flex items-center text-sm text-slate-500">
+          <div className="flex items-center text-sm text-ink-dim">
             <MapPinIcon className="h-4 w-4 mr-2 flex-shrink-0" />
             {location}
           </div>
         </div>
 
         {description && (
-          <p className="mt-3 text-sm text-slate-600 line-clamp-2">{description}</p>
+          <p className="mt-3 text-sm text-ink-dim line-clamp-2">{description}</p>
         )}
 
         <div className="mt-5">
           <LinkComponent
             href={href}
             {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+            /* Clipped AND interactive, so the ring goes inset: an offset ring
+               is a box-shadow outside the box and clip-path erases it. */
+            className={`hb-px hb-px-sm inline-flex items-center px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 ${
               isPast
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                : 'bg-org-accent text-white hover:bg-org-accent-dark'
+                ? 'bg-band-2 text-ink hover:bg-accent hover:text-ground focus-visible:ring-ink'
+                : 'bg-accent text-ground hover:bg-inversion focus-visible:ring-ground'
             }`}
           >
             {cta}
           </LinkComponent>
+        </div>
         </div>
       </div>
     </div>

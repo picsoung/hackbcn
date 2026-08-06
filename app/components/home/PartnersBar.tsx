@@ -38,15 +38,15 @@ export default function PartnersBar({ logos }: { logos: Sponsor[] }) {
   })
 
   return (
-    <section className="bg-white border-t border-gray-100 py-8 overflow-hidden">
+    <section className="bg-ground-raised border-t border-band-2 py-8 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <p className="text-center text-sm font-medium text-slate-400 mb-6">
+        <p className="text-center text-sm font-medium text-ink-dim mb-6">
           {intl.t('home.partners.title')}
         </p>
       </div>
       <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-ground-raised to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-ground-raised to-transparent z-10" />
         <div className="flex animate-marquee motion-reduce:animate-none">
           {[...sorted, ...sorted].map((sponsor, i) => (
             <a
@@ -64,14 +64,16 @@ export default function PartnersBar({ logos }: { logos: Sponsor[] }) {
                   source: 'homepage_marquee',
                 })
               }
-              className="flex-shrink-0 mx-8 grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all"
+              className="flex-shrink-0 mx-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ground-raised"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={sponsor.logo}
-                alt={sponsor.name}
-                className="h-8 w-auto max-w-[120px] object-contain"
-              />
+              <span className="hb-px hb-px-sm block bg-paper px-4 py-3 transition-transform hover:-rotate-1 motion-reduce:transition-none motion-reduce:hover:rotate-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  className="h-8 w-auto max-w-[120px] object-contain"
+                />
+              </span>
             </a>
           ))}
         </div>

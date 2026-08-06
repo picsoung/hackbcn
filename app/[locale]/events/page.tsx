@@ -20,20 +20,20 @@ export default function EventsPage() {
       slug: e.slug,
       name: e.name,
       date: e.startDate,
-      tapeColor: 'coral' as const,
+      tapeColor: 'accent' as const,
       imageUrl: e.imageUrl,
     })),
     ...getPastHackNights().map((hn) => ({
       slug: hn.slug,
       name: hn.name,
       date: hn.date,
-      tapeColor: 'kraft' as const,
+      tapeColor: 'alt' as const,
       imageUrl: hn.imageUrl,
     })),
   ]
 
   return (
-    <div className="bg-white">
+    <div data-register="night" className="min-h-screen bg-ground">
       <OrgNavbar featuredEvent={featured} />
       <main>
         <EventsIndex />

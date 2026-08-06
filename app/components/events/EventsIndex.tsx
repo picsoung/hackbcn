@@ -20,30 +20,30 @@ export default function EventsIndex() {
   ]
 
   return (
-    <section className="bg-stone-50">
+    <section className="bg-ground">
       <div className="mx-auto max-w-7xl px-6 pt-16 pb-12 sm:pt-20 sm:pb-16 lg:px-8">
         {/* Page index strip — counts about this page, not lifetime stats */}
-        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-[0.28em] text-slate-500">
-          <li className="text-slate-400">/ index</li>
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs uppercase tracking-[0.28em] text-ink-dim">
+          <li className="text-accent">/ index</li>
           {indexStrip.map((item, i) => (
             <li key={item.label} className="flex items-center gap-2">
-              <span className="text-slate-900 font-semibold">{item.count}</span>
+              <span className="text-ink font-semibold">{item.count}</span>
               <span>{item.label}</span>
               {i < indexStrip.length - 1 && (
-                <span aria-hidden="true" className="ml-3 text-slate-300">·</span>
+                <span aria-hidden="true" className="ml-3 text-ink-dim/50">·</span>
               )}
             </li>
           ))}
         </ul>
 
         {/* Editorial headline — left-aligned, "catalogue" feel */}
-        <h1 className="mt-10 max-w-4xl text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] text-slate-900">
+        <h1 className="hb-reveal mt-10 max-w-4xl text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-ink">
           Everything we&apos;ve built,
           <br />
-          and <span className="text-org-accent">what&apos;s next</span>.
+          and <span className="text-accent">what&apos;s next</span>.
         </h1>
 
-        <p className="mt-5 max-w-2xl text-lg text-slate-600 leading-relaxed">
+        <p className="mt-5 max-w-2xl text-lg text-ink-dim leading-relaxed">
           One flagship hackathon a year. Hack nights every few weeks. A growing
           archive of projects shipped on deadline.
         </p>

@@ -22,11 +22,13 @@ export default function SubscribeForm() {
 
   return (
     <div>
-      <p className="text-sm text-slate-500 mb-2">{intl.t('applybutton.dontmiss')}</p>
-      <form onSubmit={handleSubmit} className="flex">
+      <p className="text-sm text-ink-dim mb-2">{intl.t('applybutton.dontmiss')}</p>
+      <form onSubmit={handleSubmit} className="hb-px hb-px-sm flex">
         <input
           type="email"
-          className="flex-1 h-10 px-3 text-sm text-slate-700 border border-gray-300 border-r-0 rounded-l-md focus:outline-none focus:ring-1 focus:ring-org-accent focus:border-org-accent"
+          /* Inset, like the button: the pair is clipped as one unit, so an
+             outward ring would lose its corners to the staircase. */
+          className="flex-1 h-10 px-3 text-sm text-ink bg-ground-raised placeholder:text-ink-dim border border-band-2 border-r-0 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:border-accent"
           placeholder="you@example.com"
           value={email}
           onChange={(e) => {
@@ -36,12 +38,12 @@ export default function SubscribeForm() {
         />
         <button
           type="submit"
-          className="h-10 px-5 text-sm font-semibold bg-org-accent text-white rounded-r-md hover:bg-org-accent-dark transition-colors"
+          className="h-10 px-5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
         >
           {intl.t('applybutton.subscribe')}
         </button>
       </form>
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      {error && <p className="text-inversion text-xs mt-1">{error}</p>}
     </div>
   )
 }

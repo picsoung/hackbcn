@@ -58,11 +58,11 @@ function Section({
   return (
     <Disclosure defaultOpen={defaultOpen}>
       {({ open }) => (
-        <div className="border-b border-slate-100">
+        <div className="border-b border-band-2">
           <Disclosure.Button className="flex w-full items-center justify-between py-5 text-left">
-            <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
+            <h2 className="text-xl font-semibold text-ink">{title}</h2>
             <ChevronDownIcon
-              className={`h-5 w-5 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`}
+              className={`h-5 w-5 text-ink-dim transition-transform ${open ? 'rotate-180' : ''}`}
             />
           </Disclosure.Button>
           <Disclosure.Panel className="pb-8">{children}</Disclosure.Panel>
@@ -114,8 +114,8 @@ function SponsorBlock({
   // Future events with no data: quiet one-line CTA.
   if (!hasAny) {
     return (
-      <section className="py-10 border-b border-slate-100">
-        <p className="text-sm text-slate-500">
+      <section className="py-10 border-b border-band-2">
+        <p className="text-sm text-ink-dim">
           No sponsors yet. Want to be the first?{' '}
           <a
             href="/sponsorship.pdf"
@@ -127,7 +127,7 @@ function SponsorBlock({
                 source: 'empty-state',
               })
             }
-            className="font-semibold text-org-accent hover:text-org-accent-dark underline underline-offset-2"
+            className="font-semibold text-accent hover:text-inversion underline underline-offset-2"
           >
             View the deck →
           </a>
@@ -144,8 +144,8 @@ function SponsorBlock({
   }, {})
 
   return (
-    <section className="py-10 border-b border-slate-100">
-      <h2 className="text-xl font-semibold text-slate-900 mb-6">Sponsors</h2>
+    <section className="py-10 border-b border-band-2">
+      <h2 className="text-xl font-semibold text-ink mb-6">Sponsors</h2>
       <div className="space-y-8">
         {TIER_ORDER.map((tier) => {
           const tierSponsors = byTier[tier]
@@ -153,7 +153,7 @@ function SponsorBlock({
           const { h, max, label } = TIER_SIZE[tier]
           return (
             <div key={tier}>
-              <p className="font-mono text-xs uppercase tracking-[0.22em] text-slate-500 mb-3">
+              <p className="font-mono text-xs uppercase tracking-[0.22em] text-ink-dim mb-3">
                 {label}
               </p>
               <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
@@ -172,7 +172,7 @@ function SponsorBlock({
                         source: 'event_detail',
                       })
                     }
-                    className="block transition-transform hover:-rotate-1"
+                    className="hb-px hb-px-sm block bg-paper px-4 py-3 transition-transform hover:-rotate-1 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground motion-reduce:transition-none motion-reduce:hover:rotate-0"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -189,7 +189,7 @@ function SponsorBlock({
         })}
         {byTier['default']?.length > 0 && (
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-slate-500 mb-3">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-ink-dim mb-3">
               {TIER_SIZE['default'].label}
             </p>
             <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
@@ -208,7 +208,7 @@ function SponsorBlock({
                       source: 'event_detail',
                     })
                   }
-                  className="block transition-transform hover:-rotate-1"
+                  className="hb-px hb-px-sm block bg-paper px-4 py-3 transition-transform hover:-rotate-1 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground motion-reduce:transition-none motion-reduce:hover:rotate-0"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -223,8 +223,8 @@ function SponsorBlock({
           </div>
         )}
         {communitySponsors.length > 0 && (
-          <div className="pt-6 border-t border-slate-100">
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-slate-500 mb-3">
+          <div className="pt-6 border-t border-band-2">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-ink-dim mb-3">
               Community partners
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -242,14 +242,17 @@ function SponsorBlock({
                       source: 'event_detail',
                     })
                   }
-                  className="block opacity-80 hover:opacity-100 transition-opacity"
+                  className="hb-px hb-px-sm flex h-[76px] w-[152px] items-center justify-center bg-paper px-4 py-3 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
                 >
+                  {/* A fixed plate rather than a fixed height: sizing logos by
+                      height alone shrinks a square mark to a third of the width
+                      of a wide one. Every plate is the same box and each logo
+                      scales to fit it, so they read as equal partners. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={cs.logo}
                     alt={cs.name}
-                    style={{ height: 36, maxWidth: 120, width: 'auto' }}
-                    className="object-contain"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </a>
               ))}
@@ -272,7 +275,7 @@ function PolaroidPeopleGrid({
 }) {
   if (people.length === 0) {
     if (!showEmpty) return null
-    return <p className="text-sm text-slate-500 italic">{emptyLabel}</p>
+    return <p className="text-sm text-ink-dim italic">{emptyLabel}</p>
   }
   // Alternating rotations for the polaroid hand-placed feel.
   const ROTATIONS = [-2, 2, -1, 1, -3, 3]
@@ -288,11 +291,11 @@ function PolaroidPeopleGrid({
             rotate={ROTATIONS[i % ROTATIONS.length]}
             translateY={0}
             width="w-32"
-            tapeColor="kraft"
+            tapeColor="alt"
             showOverlay={false}
           />
           {p.description && (
-            <p className="mt-2 text-center text-[11px] text-slate-500 leading-snug px-1">
+            <p className="mt-2 text-center text-[11px] text-ink-dim leading-snug px-1">
               {p.description}
             </p>
           )}
@@ -339,13 +342,13 @@ export default function EventDetail({
   const faq = eventFaq ?? sharedFaq
 
   return (
-    <div className="bg-white">
+    <div className="bg-ground">
       {/* Hero */}
-      <div className={isHackNight ? 'bg-white border-b border-slate-100' : 'bg-gradient-to-br from-orange-50 via-amber-50 to-rose-50'}>
+      <div className={isHackNight ? 'bg-ground border-b border-band-2' : 'bg-ground-raised'}>
         <div className="mx-auto max-w-4xl px-6 py-12 sm:py-16 lg:px-8">
           <Link
             href={`/${locale}/events`}
-            className="inline-flex items-center text-sm text-slate-500 hover:text-slate-700 mb-8 transition-colors"
+            className="inline-flex items-center text-sm text-ink-dim hover:text-ink mb-8 transition-colors"
           >
             <ArrowLeftIcon className="h-4 w-4 mr-1" />
             {intl.t('events.backToEvents')}
@@ -355,58 +358,58 @@ export default function EventDetail({
             <div>
               <div className="flex items-center gap-2 mb-4 flex-wrap">
                 <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    isHackNight ? 'bg-slate-100 text-slate-700' : 'bg-org-accent/10 text-org-accent'
+                  className={`hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${
+                    isHackNight ? 'bg-band-2 text-ink' : 'bg-accent/15 text-accent'
                   }`}
                 >
                   {isHackNight ? intl.t('events.hacknight') : intl.t('events.hackathon')}
                 </span>
                 {isHackNight && event.sponsor && (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-org-accent/10 text-org-accent">
+                  <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-accent/15 text-accent">
                     presented by {event.sponsor}
                   </span>
                 )}
                 {isPast && (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">
+                  <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-band-2 text-ink-dim">
                     {intl.t('events.past.label')}
                   </span>
                 )}
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
+              <h1 className="text-3xl sm:text-4xl font-bold text-ink mb-2">
                 {event.name}
               </h1>
               {isHackNight && event.topic && (
-                <p className="text-lg text-slate-600 mb-6">{event.topic}</p>
+                <p className="text-lg text-ink-dim mb-6">{event.topic}</p>
               )}
               {!isHackNight && <div className="mb-6" />}
 
               <div className="space-y-2 mb-6">
-                <div className="flex items-center text-slate-600">
-                  <CalendarIcon className="h-5 w-5 mr-3 text-slate-400" />
+                <div className="flex items-center text-ink-dim">
+                  <CalendarIcon className="h-5 w-5 mr-3 text-ink-dim" />
                   <span>
                     {formatDateRange(event.startDate, event.endDate)}
                     {isHackNight && (
-                      <span className="ml-2 text-slate-500">
+                      <span className="ml-2 text-ink-dim">
                         · {formatTimeRange(event.startDate, event.endDate)}
                       </span>
                     )}
                   </span>
                 </div>
-                <div className="flex items-center text-slate-600">
-                  <MapPinIcon className="h-5 w-5 mr-3 text-slate-400" />
+                <div className="flex items-center text-ink-dim">
+                  <MapPinIcon className="h-5 w-5 mr-3 text-ink-dim" />
                   <span>{event.location}</span>
                 </div>
                 {event.capacity && (
-                  <div className="flex items-center text-slate-600">
-                    <UserGroupIcon className="h-5 w-5 mr-3 text-slate-400" />
+                  <div className="flex items-center text-ink-dim">
+                    <UserGroupIcon className="h-5 w-5 mr-3 text-ink-dim" />
                     <span>up to {event.capacity}</span>
                   </div>
                 )}
               </div>
 
               {description && (
-                <p className="text-lg text-slate-600 leading-relaxed mb-8">{description}</p>
+                <p className="text-lg text-ink-dim leading-relaxed mb-8">{description}</p>
               )}
 
               {event.registrationUrl && !isPast && (
@@ -424,7 +427,7 @@ export default function EventDetail({
                       source: 'register-hero',
                     })
                   }
-                  className="inline-flex items-center px-6 py-3 text-base font-semibold rounded-lg bg-org-accent text-white hover:bg-org-accent-dark transition-colors"
+                  className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
                 >
                   {intl.t('events.register')} →
                 </a>
@@ -433,14 +436,17 @@ export default function EventDetail({
 
             {event.imageUrl && (
               <div className="lg:sticky lg:top-8">
-                <Image
-                  src={event.imageUrl}
-                  alt={event.name}
-                  width={1200}
-                  height={630}
-                  priority
-                  className="w-full h-auto rounded-xl shadow-sm"
-                />
+                <div className="hb-dither hb-px hb-px-shadow">
+                  <Image
+                    src={event.imageUrl}
+                    alt={event.name}
+                    width={1200}
+                    height={630}
+                    priority
+                    className="hb-dither-img w-full h-auto"
+                  />
+                  <span aria-hidden="true" className="hb-dither-tex" />
+                </div>
               </div>
             )}
           </div>
@@ -467,8 +473,8 @@ export default function EventDetail({
 
         {/* Partners with roles (hack nights) */}
         {event.partners && event.partners.length > 0 && (
-          <section className="py-10 border-b border-slate-100">
-            <h2 className="text-xl font-semibold text-slate-900 mb-6">Partners</h2>
+          <section className="py-10 border-b border-band-2">
+            <h2 className="text-xl font-semibold text-ink mb-6">Partners</h2>
             <div className="flex flex-wrap items-start gap-x-12 gap-y-8">
               {event.partners.map((p) => {
                 const inner = p.logo ? (
@@ -480,7 +486,7 @@ export default function EventDetail({
                     className="object-contain"
                   />
                 ) : (
-                  <span className="text-lg font-semibold text-slate-800">{p.name}</span>
+                  <span className="text-lg font-semibold text-ink">{p.name}</span>
                 )
                 return (
                   <div key={p.name} className="flex flex-col gap-2">
@@ -498,14 +504,14 @@ export default function EventDetail({
                             source: 'event_detail_partners',
                           })
                         }
-                        className="block transition-transform hover:-rotate-1"
+                        className="hb-px hb-px-sm block bg-paper px-4 py-3 transition-transform hover:-rotate-1 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground motion-reduce:transition-none motion-reduce:hover:rotate-0"
                       >
                         {inner}
                       </a>
                     ) : (
                       <div>{inner}</div>
                     )}
-                    <span className="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">
+                    <span className="font-mono text-xs uppercase tracking-[0.18em] text-ink-dim">
                       {p.role}
                     </span>
                   </div>
@@ -517,8 +523,8 @@ export default function EventDetail({
 
         {/* Hack-night gallery */}
         {isHackNight && event.gallery && event.gallery.length > 0 && (
-          <section className="py-10 border-b border-slate-100">
-            <h2 className="text-xl font-semibold text-slate-900 mb-6">Gallery</h2>
+          <section className="py-10 border-b border-band-2">
+            <h2 className="text-xl font-semibold text-ink mb-6">Gallery</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {event.gallery.map((src, i) => (
                 /* eslint-disable-next-line @next/next/no-img-element */
@@ -526,7 +532,7 @@ export default function EventDetail({
                   key={i}
                   src={src}
                   alt=""
-                  className="w-full aspect-square object-cover rounded-lg"
+                  className="hb-px w-full aspect-square object-cover"
                   loading="lazy"
                 />
               ))}
@@ -536,8 +542,8 @@ export default function EventDetail({
 
         {/* Hack-night project links */}
         {isHackNight && event.projectLinks && event.projectLinks.length > 0 && (
-          <section className="py-10 border-b border-slate-100">
-            <h2 className="text-xl font-semibold text-slate-900 mb-4">Projects shipped</h2>
+          <section className="py-10 border-b border-band-2">
+            <h2 className="text-xl font-semibold text-ink mb-4">Projects shipped</h2>
             <ul className="space-y-2">
               {event.projectLinks.map((url, i) => (
                 <li key={i}>
@@ -545,7 +551,7 @@ export default function EventDetail({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-org-accent hover:text-org-accent-dark underline underline-offset-2 text-sm break-all"
+                    className="text-accent hover:text-inversion underline underline-offset-2 text-sm break-all"
                   >
                     {url}
                   </a>
@@ -561,20 +567,20 @@ export default function EventDetail({
             <div className="space-y-8">
               {schedule.map((day, i) => (
                 <div key={i}>
-                  <h3 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">
+                  <h3 className="text-lg font-semibold text-ink mb-4 pb-2 border-b border-band-2">
                     {day.title}
                   </h3>
                   <div className="space-y-4">
                     {day.sections.map((section, j) => (
                       <div key={j}>
-                        <h4 className="text-sm font-medium text-org-accent uppercase tracking-wide mb-2">
+                        <h4 className="text-sm font-medium text-accent uppercase tracking-wide mb-2">
                           {section.name}
                         </h4>
                         <ul className="space-y-1.5">
                           {section.items.map((item, k) => (
                             <li
                               key={k}
-                              className="text-sm text-slate-600 pl-4 border-l-2 border-slate-100"
+                              className="text-sm text-ink-dim pl-4 border-l border-band-2"
                             >
                               {item}
                             </li>
@@ -615,18 +621,18 @@ export default function EventDetail({
         {/* Event-specific FAQ takes precedence; legacy hackathons use shared copy. */}
         {faq.length > 0 && (
           <Section title={intl.t('faq.title')}>
-            <div className="space-y-0 divide-y divide-slate-100">
+            <div className="space-y-0 divide-y divide-band-2">
               {faq.map((item, i) => (
                 <Disclosure key={i}>
                   {({ open }) => (
                     <div>
                       <Disclosure.Button className="flex w-full items-center justify-between py-4 text-left">
-                        <span className="text-sm font-medium text-slate-800">{item.q}</span>
+                        <span className="text-sm font-medium text-ink">{item.q}</span>
                         <ChevronDownIcon
-                          className={`h-4 w-4 text-slate-400 flex-shrink-0 ml-4 transition-transform ${open ? 'rotate-180' : ''}`}
+                          className={`h-4 w-4 text-ink-dim flex-shrink-0 ml-4 transition-transform ${open ? 'rotate-180' : ''}`}
                         />
                       </Disclosure.Button>
-                      <Disclosure.Panel className="pb-4 text-sm text-slate-600">
+                      <Disclosure.Panel className="pb-4 text-sm text-ink-dim">
                         {item.a}
                       </Disclosure.Panel>
                     </div>
@@ -639,14 +645,14 @@ export default function EventDetail({
 
         {/* Projects shipped — only for past events with projects */}
         {isPast && projectCount > 0 && (
-          <section className="py-10 border-b border-slate-100">
-            <h2 className="text-xl font-semibold text-slate-900 mb-3">Projects shipped this edition</h2>
-            <p className="text-slate-600 mb-5">
+          <section className="py-10 border-b border-band-2">
+            <h2 className="text-xl font-semibold text-ink mb-3">Projects shipped this edition</h2>
+            <p className="text-ink-dim mb-5">
               {projectCount} {projectCount === 1 ? 'project' : 'projects'} from {event.name}, from team formation to final demo.
             </p>
             <Link
               href={`/${locale}/events/${event.slug}/projects`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg bg-slate-900 text-white hover:bg-slate-700 transition-colors"
+              className="hb-px inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
             >
               View all {projectCount} {projectCount === 1 ? 'project' : 'projects'}
               <span aria-hidden="true">→</span>
@@ -657,7 +663,7 @@ export default function EventDetail({
         {/* Bottom CTA — repeat register button when future + has registration link */}
         {event.registrationUrl && !isPast && (
           <div className="py-12 text-center">
-            <p className="text-lg text-slate-700 mb-4">{intl.t('signupCTA.description')}</p>
+            <p className="text-lg text-ink mb-4">{intl.t('signupCTA.description')}</p>
             <a
               href={withUtm(event.registrationUrl, {
                 medium: 'cta',
@@ -672,7 +678,7 @@ export default function EventDetail({
                   source: 'register-bottom',
                 })
               }
-              className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg bg-org-accent text-white hover:bg-org-accent-dark transition-colors"
+              className="hb-px inline-flex items-center px-8 py-4 text-lg font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
             >
               {intl.t('events.register')} →
             </a>

@@ -42,6 +42,11 @@ export type Event = {
   faq?: { [locale: string]: { q: string; a: string }[] }
   // Partners with roles (hack nights): main sponsor, venue, co-organizer, etc.
   partners?: Partner[]
+  // Visual register for this edition's detail page. Omit for the parent
+  // HackBarna ladder; 'night-sea' swaps to the cooler rungs and promotes amber
+  // to the primary accent. This is the whole per-event theming hook, on
+  // purpose: a full theming system is not warranted by two editions.
+  register?: 'night' | 'night-sea'
 }
 
 export type Partner = {

@@ -15,7 +15,7 @@ export type ArchiveItem = {
 const ROTATIONS = [-5, 3, -2, 4, -3, 5, -4, 2, -6, 4]
 const TRANSLATES = [0, -8, 4, -4, 8, -2, 6, -8, 2, -6]
 
-const FALLBACK_IMAGE = '/hackbcnlogo.png'
+const FALLBACK_IMAGE = '/brand/signet-black.svg'
 
 function groupByYear(items: ArchiveItem[]): [string, ArchiveItem[]][] {
   const buckets: Record<string, ArchiveItem[]> = {}
@@ -45,15 +45,15 @@ export default function ArchiveWall({ items }: { items: ArchiveItem[] }) {
   }
 
   return (
-    <section className="bg-orange-50 border-y border-orange-100">
+    <section className="bg-band-2 border-y border-band-3">
       <div className="mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
-        <p className="font-mono text-xs uppercase tracking-[0.32em] text-org-accent mb-3">
+        <p className="font-mono text-xs uppercase tracking-[0.32em] text-accent mb-3">
           / archive
         </p>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 max-w-2xl">
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-ink max-w-2xl">
           Looking back.
         </h2>
-        <p className="mt-3 text-base text-slate-600 max-w-xl">
+        <p className="mt-3 text-base text-ink-dim max-w-xl">
           Every edition and every hack night, pinned by year. Tap a polaroid to
           see what was built.
         </p>
@@ -64,14 +64,14 @@ export default function ArchiveWall({ items }: { items: ArchiveItem[] }) {
             return (
               <div key={year}>
                 <div className="flex items-baseline gap-4 mb-8">
-                  <h3 className="font-mono text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                  <h3 className="font-mono text-2xl sm:text-3xl font-bold text-ink tracking-tight">
                     {year}
                   </h3>
-                  <span className="font-mono text-xs uppercase tracking-[0.3em] text-slate-500">
+                  <span className="font-mono text-xs uppercase tracking-[0.3em] text-ink-dim">
                     {yearItems.length}{' '}
                     {yearItems.length === 1 ? 'event' : 'events'}
                   </span>
-                  <span aria-hidden="true" className="flex-1 h-px bg-orange-200" />
+                  <span aria-hidden="true" className="hb-rule flex-1 text-band-3" />
                 </div>
 
                 <ul className="flex flex-wrap justify-center sm:justify-start gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-12">

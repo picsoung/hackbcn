@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import Dither from './Dither'
 
-export type TapeColor = 'coral' | 'kraft' | 'none'
+export type TapeColor = 'accent' | 'alt' | 'none'
 
 type PolaroidProps = {
   src: string
@@ -20,13 +21,24 @@ type PolaroidProps = {
   overlayText?: string
 }
 
+// Both tape colours carry near-black marks: they are drenched surfaces in
+// miniature, and the drenched-band rule applies at any size.
 const TAPE_STYLES: Record<Exclude<TapeColor, 'none'>, string> = {
-  coral: 'bg-org-accent/70 text-white/90',
-  kraft: 'bg-amber-200/85 text-amber-900/70',
+  accent: 'bg-accent text-ground',
+  alt: 'bg-inversion text-ground/80',
 }
 
+// The interactive element carries the focus ring and stays UNCLIPPED: the ring
+// is a box-shadow, and clip-path would erase it silently. The bone frame and
+// its stepped corners live on the inner div. The ring's offset colour is the
+// page ground rather than white, so it reads as a gap in the ladder step it
+// sits on instead of a white halo.
 const FRAME_CLASS =
-  'group relative block bg-white p-2 pb-8 shadow-lg transition-transform duration-300 ease-out hover:scale-[1.06] hover:!rotate-0 focus-visible:scale-[1.06] focus-visible:!rotate-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-org-accent focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:focus-visible:scale-100'
+  'group relative block transition-transform duration-300 ease-out hover:scale-[1.06] hover:!rotate-0 focus-visible:scale-[1.06] focus-visible:!rotate-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ground motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:focus-visible:scale-100'
+
+// drop-shadow rather than box-shadow, so the lift follows the staircase.
+const PAPER_CLASS =
+  'hb-px hb-px-lg hb-px-shadow-lg relative block bg-paper p-2 pb-8'
 
 export default function Polaroid({
   src,
@@ -46,32 +58,31 @@ export default function Polaroid({
 
   const inner = (
     <>
+      {/* The tape sits outside the paper's box, so it lives on the unclipped
+          wrapper. Inside the clipped div it would be sliced off. */}
       {tapeColor !== 'none' && (
         <span
           aria-hidden="true"
-          className={`pointer-events-none absolute -top-2 left-1/2 -translate-x-1/2 -rotate-3 px-3 py-0.5 text-[9px] font-bold uppercase tracking-[0.2em] shadow-sm ${TAPE_STYLES[tapeColor]}`}
+          className={`hb-px hb-px-sm pointer-events-none absolute -top-2 left-1/2 z-10 -translate-x-1/2 -rotate-3 px-3 py-0.5 text-[9px] font-bold uppercase tracking-[0.2em] ${TAPE_STYLES[tapeColor]}`}
         >
           ✦ ✦ ✦
         </span>
       )}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt={alt}
-        className="w-full aspect-square object-cover"
-        loading="lazy"
-      />
-      <p className="text-center text-xs text-slate-500 mt-2 font-medium px-1 truncate">
-        {label}
-      </p>
-      {showOverlay && (
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-2 bottom-2 flex items-center justify-center bg-white/95 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-org-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
-        >
-          {overlayText}
+      <span className={PAPER_CLASS}>
+        {/* Dithered at rest, developing on the frame's own hover/focus. */}
+        <Dither src={src} alt={alt} className="hb-px block w-full aspect-square" />
+        <span className="block text-center text-xs text-ground/70 mt-2 font-medium px-1 truncate">
+          {label}
         </span>
-      )}
+        {showOverlay && (
+          <span
+            aria-hidden="true"
+            className="hb-px hb-px-sm pointer-events-none absolute inset-x-2 bottom-2 flex items-center justify-center bg-paper/95 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+          >
+            {overlayText}
+          </span>
+        )}
+      </span>
     </>
   )
 
