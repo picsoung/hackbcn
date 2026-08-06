@@ -93,6 +93,7 @@ function SponsorBlock({
   isHackNight,
   hackNightSponsor,
   eventSlug,
+  eventName,
 }: {
   sponsors: Sponsor[]
   communitySponsors: Sponsor[]
@@ -100,6 +101,7 @@ function SponsorBlock({
   isHackNight: boolean
   hackNightSponsor?: string
   eventSlug: string
+  eventName: string
 }) {
   const campaign = `hackbarna-${eventSlug}`
   const deckCampaign = `hackbarna-${eventSlug}-deck`
@@ -256,6 +258,59 @@ function SponsorBlock({
                   />
                 </a>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Someone reading the sponsor list is exactly who might want to join
+            it, so the pitch sits here rather than at the foot of the page.
+            accent-alt is deliberately the opposite channel to the Register
+            button in both registers — cyan when Register is pink, pink when
+            Register is cyan — so it reads as a second audience, not a
+            competing primary action. */}
+        {!isPast && (
+          <div className="hb-px hb-px-shadow mt-2 bg-accent-alt/40 p-px">
+            <div className="hb-px flex flex-col gap-5 bg-ground-raised p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+              <div>
+                <p className="text-lg font-semibold text-ink">
+                  Want your logo here?
+                </p>
+                <p className="mt-1.5 text-sm text-ink-dim max-w-md">
+                  We build every edition with companies that want to spend a
+                  weekend with the people they hire.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-4 sm:flex-shrink-0">
+                <a
+                  href="/sponsorship.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackOutbound('sponsorship_deck_click', {
+                      event_slug: eventSlug,
+                      source: 'sponsor-block',
+                    })
+                  }
+                  className="hb-px inline-flex items-center gap-2 bg-accent-alt px-5 py-2.5 text-sm font-semibold text-ground transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
+                >
+                  Sponsorship deck
+                  <span aria-hidden="true">→</span>
+                </a>
+                <a
+                  href={`mailto:team@hackbarna.com?subject=${encodeURIComponent(
+                    `Sponsoring ${eventName}`
+                  )}`}
+                  onClick={() =>
+                    trackOutbound('sponsor_contact_click', {
+                      event_slug: eventSlug,
+                      source: 'sponsor-block',
+                    })
+                  }
+                  className="text-sm font-semibold text-ink-dim underline underline-offset-4 transition-colors hover:text-ink"
+                >
+                  Talk to us
+                </a>
+              </div>
             </div>
           </div>
         )}
@@ -469,6 +524,7 @@ export default function EventDetail({
           isHackNight={isHackNight}
           hackNightSponsor={event.sponsor}
           eventSlug={event.slug}
+          eventName={event.name}
         />
 
         {/* Partners with roles (hack nights) */}
