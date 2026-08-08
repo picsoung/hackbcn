@@ -10,6 +10,13 @@ import i18nConfig from '../../i18n.json'
 
 const inter = Inter({ subsets: ['latin'] })
 
+function getMetadataBase() {
+  if (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL) {
+    return new URL(`https://${process.env.VERCEL_URL}`)
+  }
+  return new URL('https://hackbarna.com')
+}
+
 export async function generateMetadata(args: any) {
   const finalLocale = [
     i18nConfig.locale.source,
@@ -20,6 +27,7 @@ export async function generateMetadata(args: any) {
 
   const localeData = await loadLocaleData(finalLocale)
   const upcoming = getFeaturedUpcomingEvent()
+  const metadataBase = getMetadataBase()
   const ogImage = buildOgImagePath({
     title: 'HackBarna',
     eyebrow: "Barcelona's builder community",
@@ -44,7 +52,7 @@ export async function generateMetadata(args: any) {
       apple: [{ url: '/apple-touch-icon.png?v=5', sizes: '180x180' }],
     },
     manifest: '/site.webmanifest',
-    metadataBase: new URL(`https://hackbarna.com`),
+    metadataBase,
     alternates: {
       canonical: '/',
       languages: {
@@ -57,7 +65,7 @@ export async function generateMetadata(args: any) {
     },
     openGraph: {
       type: 'website',
-      url: `https://hackbarna.com/${args.params.locale}`,
+      url: `/${args.params.locale}`,
       title: localeData['meta.title'],
       description: localeData['meta.description-og'],
       siteName: localeData['meta.name'],
