@@ -11,14 +11,6 @@ const COLORS = {
   paper: '#EFEADF',
 }
 
-const SITE_URL = 'https://hackbarna.com'
-
-function resolveImageUrl(imageUrl?: string) {
-  if (!imageUrl) return undefined
-  if (/^https?:\/\//i.test(imageUrl)) return imageUrl
-  return new URL(imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`, SITE_URL).toString()
-}
-
 function PixelCorners({ color }: { color: string }) {
   const corner: CSSProperties = {
     position: 'absolute',
@@ -63,7 +55,6 @@ export function formatOgDate(startDate: string, endDate?: string) {
 
 export default function OpenGraphCard({ title, eyebrow, date, location, imageUrl, footer = 'hackbarna.com' }: { title: string; eyebrow?: string; date?: string; location?: string; imageUrl?: string; footer?: string }) {
   const details = [date, location].filter(Boolean)
-  const resolvedImageUrl = resolveImageUrl(imageUrl)
 
   return (
     <div style={{ width: '100%', height: '100%', display: 'flex', position: 'relative', overflow: 'hidden', background: COLORS.ground, color: COLORS.ink, fontFamily: 'Inter, Arial, sans-serif' }}>
@@ -92,9 +83,9 @@ export default function OpenGraphCard({ title, eyebrow, date, location, imageUrl
           <div style={{ display: 'flex', width: 430, height: 430, padding: 13, paddingBottom: 48, position: 'relative', background: COLORS.paper, transform: 'rotate(2deg)' }}>
             <PixelCorners color={COLORS.ground} />
             <div style={{ display: 'flex', width: '100%', height: '100%', overflow: 'hidden', position: 'relative', background: COLORS.raised }}>
-              {resolvedImageUrl ? (
+              {imageUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={resolvedImageUrl} alt="" width="404" height="369" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={imageUrl} alt="" width="404" height="369" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
                 <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: COLORS.pink, fontSize: 132, fontWeight: 900 }}>H</div>
               )}
