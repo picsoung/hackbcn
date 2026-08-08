@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og'
 import OpenGraphCard, { formatOgDate } from '@/app/components/brand/OpenGraphCard'
 import { getEventDataBySlug } from '@/lib/events-server'
+import { getOgImageSource } from '@/lib/og-image-source'
 
 export const runtime = 'nodejs'
 export const alt = 'HackBarna event'
@@ -32,7 +33,7 @@ export default function Image({ params }: { params: { locale: string; slug: stri
       title={title}
       date={formatOgDate(event.startDate, event.endDate)}
       location={event.location}
-      imageUrl={event.imageUrl}
+      imageUrl={getOgImageSource(event.imageUrl)}
       footer={`hackbarna.com/events/${event.slug}`}
     />,
     size
