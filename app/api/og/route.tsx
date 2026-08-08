@@ -21,6 +21,7 @@ function safeImageUrl(raw: string | null, origin: string) {
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
   const title = params.get('title') || 'HackBarna'
+  const origin = request.nextUrl.origin
 
   return new ImageResponse(
     <OpenGraphCard
@@ -28,7 +29,8 @@ export async function GET(request: NextRequest) {
       eyebrow={params.get('eyebrow')?.slice(0, 60) || undefined}
       date={params.get('date')?.slice(0, 80) || undefined}
       location={params.get('location')?.slice(0, 100) || undefined}
-      imageUrl={safeImageUrl(params.get('image'), request.nextUrl.origin)}
+      imageUrl={safeImageUrl(params.get('image'), origin)}
+      wordmarkUrl={new URL('/brand/wordmark-white.svg', origin).toString()}
       footer={params.get('footer')?.slice(0, 100) || 'hackbarna.com'}
     />,
     size
