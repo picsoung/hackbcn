@@ -4,6 +4,8 @@ import './../globals.css'
 import { Analytics } from '@vercel/analytics/react'
 import { IntlProvider } from '@/app/components/Intl'
 import { ThemeProvider } from '@/app/contexts/ThemeContext'
+import { getFeaturedUpcomingEvent } from '@/lib/events-server'
+import { buildOgImagePath, formatOgDate } from '@/lib/og'
 import i18nConfig from '../../i18n.json'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -17,6 +19,17 @@ export async function generateMetadata(args: any) {
     : i18nConfig.locale.source
 
   const localeData = await loadLocaleData(finalLocale)
+  const upcoming = getFeaturedUpcomingEvent()
+  const ogImage = buildOgImagePath({
+    title: 'HackBarna',
+    eyebrow: "Barcelona's builder community",
+    date: upcoming
+      ? `Next up · ${formatOgDate(upcoming.startDate, upcoming.endDate)}`
+      : undefined,
+    location: upcoming?.location ?? 'Barcelona, Spain',
+    image: upcoming?.imageUrl,
+  })
+
   return {
     title: localeData['meta.title'],
     description: localeData['meta.description'],
@@ -48,11 +61,20 @@ export async function generateMetadata(args: any) {
       title: localeData['meta.title'],
       description: localeData['meta.description-og'],
       siteName: localeData['meta.name'],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: 'HackBarna — Barcelona AI & tech community',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: localeData['meta.title'],
       description: localeData['meta.description-og'],
+      images: [ogImage],
     },
   } satisfies Metadata
 }
