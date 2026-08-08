@@ -4,9 +4,18 @@ import './../globals.css'
 import { Analytics } from '@vercel/analytics/react'
 import { IntlProvider } from '@/app/components/Intl'
 import { ThemeProvider } from '@/app/contexts/ThemeContext'
+import { getFeaturedUpcomingEvent } from '@/lib/events-server'
+import { buildOgImagePath, formatOgDate } from '@/lib/og'
 import i18nConfig from '../../i18n.json'
 
 const inter = Inter({ subsets: ['latin'] })
+
+function getMetadataBase() {
+  if (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL) {
+    return new URL(`https://${process.env.VERCEL_URL}`)
+  }
+  return new URL('https://hackbarna.com')
+}
 
 export async function generateMetadata(args: any) {
   const finalLocale = [
@@ -17,6 +26,18 @@ export async function generateMetadata(args: any) {
     : i18nConfig.locale.source
 
   const localeData = await loadLocaleData(finalLocale)
+  const upcoming = getFeaturedUpcomingEvent()
+  const metadataBase = getMetadataBase()
+  const ogImage = buildOgImagePath({
+    title: 'HackBarna',
+    eyebrow: "Barcelona's builder community",
+    date: upcoming
+      ? `Next up · ${formatOgDate(upcoming.startDate, upcoming.endDate)}`
+      : undefined,
+    location: upcoming?.location ?? 'Barcelona, Spain',
+    image: upcoming?.imageUrl,
+  })
+
   return {
     title: localeData['meta.title'],
     description: localeData['meta.description'],
@@ -31,7 +52,7 @@ export async function generateMetadata(args: any) {
       apple: [{ url: '/apple-touch-icon.png?v=5', sizes: '180x180' }],
     },
     manifest: '/site.webmanifest',
-    metadataBase: new URL(`https://hackbarna.com`),
+    metadataBase,
     alternates: {
       canonical: '/',
       languages: {
@@ -44,15 +65,24 @@ export async function generateMetadata(args: any) {
     },
     openGraph: {
       type: 'website',
-      url: `https://hackbarna.com/${args.params.locale}`,
+      url: `/${args.params.locale}`,
       title: localeData['meta.title'],
       description: localeData['meta.description-og'],
       siteName: localeData['meta.name'],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: 'HackBarna — Barcelona AI & tech community',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: localeData['meta.title'],
       description: localeData['meta.description-og'],
+      images: [ogImage],
     },
   } satisfies Metadata
 }
