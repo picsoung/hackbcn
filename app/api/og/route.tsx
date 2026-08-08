@@ -5,11 +5,15 @@ import OpenGraphCard from '@/app/components/brand/OpenGraphCard'
 export const runtime = 'edge'
 
 const size = { width: 1200, height: 630 }
+const ASSET_ORIGIN = 'https://hackbarna.com'
 
-function safeImageUrl(raw: string | null, origin: string) {
+function safeImageUrl(raw: string | null) {
   if (!raw) return undefined
   try {
-    const url = new URL(raw, origin)
+    // Vercel preview deployments can be protected, so an Edge function cannot
+    // reliably fetch its own preview-origin public assets. Resolve local event
+    // artwork against the stable public production origin instead.
+    const url = new URL(raw, ASSET_ORIGIN)
     return url.protocol === 'http:' || url.protocol === 'https:'
       ? url.toString()
       : undefined
@@ -21,7 +25,6 @@ function safeImageUrl(raw: string | null, origin: string) {
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
   const title = params.get('title') || 'HackBarna'
-  const origin = request.nextUrl.origin
 
   return new ImageResponse(
     <OpenGraphCard
@@ -29,8 +32,8 @@ export async function GET(request: NextRequest) {
       eyebrow={params.get('eyebrow')?.slice(0, 60) || undefined}
       date={params.get('date')?.slice(0, 80) || undefined}
       location={params.get('location')?.slice(0, 100) || undefined}
-      imageUrl={safeImageUrl(params.get('image'), origin)}
-      wordmarkUrl={new URL('/brand/wordmark-white.svg', origin).toString()}
+      imageUrl={safeImageUrl(params.get('image'))}
+      wordmarkUrl={`${ASSET_ORIGIN}/brand/wordmark-white.svg`}
       footer={params.get('footer')?.slice(0, 100) || 'hackbarna.com'}
     />,
     size
