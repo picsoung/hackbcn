@@ -29,49 +29,6 @@ function PixelCorners({ color }: { color: string }) {
   )
 }
 
-function PixelWordmark() {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 48,
-          height: 48,
-          backgroundColor: COLORS.pink,
-          color: COLORS.ground,
-          fontSize: 26,
-          fontWeight: 700,
-        }}
-      >
-        H
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          marginLeft: 14,
-          color: COLORS.ink,
-          fontSize: 29,
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-        }}
-      >
-        HackBarna
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          marginLeft: 10,
-          width: 9,
-          height: 24,
-          backgroundColor: COLORS.cyan,
-        }}
-      />
-    </div>
-  )
-}
-
 export function formatOgDate(startDate: string, endDate?: string) {
   const start = new Date(startDate)
   const end = endDate ? new Date(endDate) : start
@@ -92,6 +49,7 @@ export default function OpenGraphCard({
   date,
   location,
   imageUrl,
+  wordmarkUrl,
   footer = 'hackbarna.com',
 }: {
   title: string
@@ -99,6 +57,7 @@ export default function OpenGraphCard({
   date?: string
   location?: string
   imageUrl?: string
+  wordmarkUrl?: string
   footer?: string
 }) {
   return (
@@ -126,7 +85,16 @@ export default function OpenGraphCard({
           paddingRight: 42,
         }}
       >
-        <PixelWordmark />
+        {wordmarkUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={wordmarkUrl}
+            alt="HackBarna"
+            width="270"
+            height="50"
+            style={{ width: 270, height: 50, objectFit: 'contain', objectPosition: 'left center' }}
+          />
+        ) : null}
 
         <div style={{ display: 'flex', flexDirection: 'column', marginTop: 68 }}>
           {eyebrow ? (
