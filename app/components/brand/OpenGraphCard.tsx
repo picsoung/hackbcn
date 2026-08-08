@@ -29,6 +29,21 @@ function PixelCorners({ color }: { color: string }) {
   )
 }
 
+function PixelMarker({ color }: { color: string }) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flex: '0 0 auto',
+        width: 9,
+        height: 9,
+        marginRight: 13,
+        backgroundColor: color,
+      }}
+    />
+  )
+}
+
 export function formatOgDate(startDate: string, endDate?: string) {
   const start = new Date(startDate)
   const end = endDate ? new Date(endDate) : start
@@ -131,15 +146,15 @@ export default function OpenGraphCard({
           </div>
 
           {date ? (
-            <div style={{ display: 'flex', marginTop: 34, color: COLORS.ink, fontSize: 24, fontWeight: 700 }}>
-              <span style={{ display: 'flex', marginRight: 12, color: COLORS.pink }}>■</span>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: 34, color: COLORS.ink, fontSize: 24, fontWeight: 700 }}>
+              <PixelMarker color={COLORS.pink} />
               {date}
             </div>
           ) : null}
 
           {location ? (
-            <div style={{ display: 'flex', marginTop: 11, color: COLORS.dim, fontSize: 23, fontWeight: 600 }}>
-              <span style={{ display: 'flex', marginRight: 12, color: COLORS.cyan }}>■</span>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: 11, color: COLORS.dim, fontSize: 23, fontWeight: 600 }}>
+              <PixelMarker color={COLORS.cyan} />
               {location}
             </div>
           ) : null}
