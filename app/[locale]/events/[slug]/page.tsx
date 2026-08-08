@@ -48,7 +48,7 @@ export function generateMetadata({
     alternates: { canonical },
     openGraph: {
       type: 'website',
-      url: `https://hackbarna.com${canonical}`,
+      url: canonical,
       title: eventTitle,
       description,
       siteName: 'HackBarna',
