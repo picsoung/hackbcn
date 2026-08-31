@@ -516,18 +516,8 @@ export default function EventDetail({
           eventName={event.name}
         />
 
-        {/* Sponsors — always-visible block (or quiet empty-state CTA / suppressed for past) */}
-        <SponsorBlock
-          sponsors={sponsors}
-          communitySponsors={communitySponsors}
-          isPast={isPast}
-          isHackNight={isHackNight}
-          hackNightSponsor={event.sponsor}
-          eventSlug={event.slug}
-          eventName={event.name}
-        />
-
-        {/* Partners with roles (hack nights) */}
+        {/* Partners with roles (e.g. co-organizers) — surfaced above sponsors
+            because a co-organizer runs the event, not just backs it. */}
         {event.partners && event.partners.length > 0 && (
           <section className="py-10 border-b border-band-2">
             <h2 className="text-xl font-semibold text-ink mb-6">Partners</h2>
@@ -576,6 +566,17 @@ export default function EventDetail({
             </div>
           </section>
         )}
+
+        {/* Sponsors — always-visible block (or quiet empty-state CTA / suppressed for past) */}
+        <SponsorBlock
+          sponsors={sponsors}
+          communitySponsors={communitySponsors}
+          isPast={isPast}
+          isHackNight={isHackNight}
+          hackNightSponsor={event.sponsor}
+          eventSlug={event.slug}
+          eventName={event.name}
+        />
 
         {/* Hack-night gallery */}
         {isHackNight && event.gallery && event.gallery.length > 0 && (
