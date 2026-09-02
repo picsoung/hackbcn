@@ -40,6 +40,12 @@ export type Event = {
   shorts?: string[] // vertical clips / YouTube Shorts
   // Event-specific FAQ (hack nights). Hackathons use the shared i18n FAQ.
   faq?: { [locale: string]: { q: string; a: string }[] }
+  // Sponsored problem statements for this edition. Each challenge ties to a
+  // sponsor by name (reusing that sponsor's logo/url) and carries its own prize.
+  // Localized like schedule/faq.
+  challenges?: { [locale: string]: Challenge[] }
+  // Top / overall prizes for the edition (distinct from the per-challenge prize).
+  prizes?: { [locale: string]: Prize[] }
   // Partners with roles (hack nights): main sponsor, venue, co-organizer, etc.
   partners?: Partner[]
   // Visual register for this edition's detail page. Omit for the parent
@@ -54,6 +60,27 @@ export type Partner = {
   role: string
   url?: string
   logo?: string
+}
+
+// A sponsored challenge/track. `sponsor` matches a Sponsor.name in the same
+// event so the UI can reuse that sponsor's logo and url; `prize` is free text
+// for this challenge's reward.
+export type Challenge = {
+  title: string
+  description: string
+  sponsor?: string
+  prize?: string
+  // Optional labeled lists (e.g. "Requirements", "What a strong submission looks like").
+  details?: { heading: string; items: string[] }[]
+}
+
+// A top/overall prize row.
+export type Prize = {
+  place: string // "Grand Prize", "2nd", "Best Rookie", ...
+  title?: string
+  value?: string
+  description?: string
+  perks?: string[] // itemized rewards, rendered as a list
 }
 
 // Bundle returned by the unified getEventDataBySlug helper.

@@ -19,6 +19,11 @@ type PolaroidProps = {
   tapeColor?: TapeColor
   showOverlay?: boolean
   overlayText?: string
+  // For non-recap uses (e.g. a person linking to their profile): open in a new
+  // tab and override the recap-flavoured aria-label.
+  target?: string
+  rel?: string
+  ariaLabel?: string
 }
 
 // Both tape colours carry near-black marks: they are drenched surfaces in
@@ -52,9 +57,13 @@ export default function Polaroid({
   tapeColor = 'none',
   showOverlay = true,
   overlayText = 'view recap →',
+  target,
+  rel,
+  ariaLabel: ariaLabelProp,
 }: PolaroidProps) {
   const style = { transform: `rotate(${rotate}deg) translateY(${translateY}px)` }
-  const ariaLabel = onActivate ? `${label}: watch recap` : `${label}: view event recap`
+  const ariaLabel =
+    ariaLabelProp ?? (onActivate ? `${label}: watch recap` : `${label}: view event recap`)
 
   const inner = (
     <>
@@ -101,7 +110,14 @@ export default function Polaroid({
   }
 
   return (
-    <Link href={href ?? '#'} aria-label={ariaLabel} className={`${FRAME_CLASS} ${width}`} style={style}>
+    <Link
+      href={href ?? '#'}
+      target={target}
+      rel={rel}
+      aria-label={ariaLabel}
+      className={`${FRAME_CLASS} ${width}`}
+      style={style}
+    >
       {inner}
     </Link>
   )

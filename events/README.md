@@ -49,3 +49,36 @@ mentors:
 ```
 
 Empty arrays are explicit — set them to `[]` rather than omitting if you want the page to render the "first call" empty-state CTA.
+
+Judge and mentor cards link to each person's profile: the UI picks the first available link in the order `linkedin → website → twitter → github`. A person with no `links` renders a non-clickable card.
+
+## Challenges & prizes frontmatter shape
+
+Both are localized like `schedule`/`faq` (`{ en: [...], es: [...] }`). Challenges are sponsored problem statements; each `sponsor` must match a `name` in this event's `sponsors:` list so the card can reuse that sponsor's logo and link. `prize` is the per-challenge reward (free text). The top-level `prizes` block is the overall award list, separate from the per-challenge prize.
+
+```yaml
+challenges:
+  en:
+    - title: Best Voice AI Agent
+      sponsor: SLNG # must match a sponsors[].name above
+      description: Build the most compelling real-time voice agent.
+      prize: €2,000 in credits + swag
+  es:
+    - title: Mejor agente de voz IA
+      sponsor: SLNG
+      description: Crea el agente de voz en tiempo real más convincente.
+      prize: €2,000 en créditos + merch
+prizes:
+  en:
+    - place: Grand Prize # "2nd", "Best Rookie", ...
+      title: Best Overall Project # optional
+      value: €5,000 # optional
+      description: Awarded to the top project across all challenges. # optional
+  es:
+    - place: Gran Premio
+      title: Mejor proyecto general
+      value: €5,000
+      description: Para el mejor proyecto de todos los retos.
+```
+
+Like the people arrays, an empty/omitted `challenges`/`prizes` on an upcoming event renders an "announced soon" placeholder; on a past event the section is hidden.

@@ -19,6 +19,34 @@ import RecapVideo from './RecapVideo'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
 
+// Render a small subset of markdown — inline [label](url) links — inside
+// otherwise plain event copy (perks, challenge descriptions). Anything that
+// isn't a well-formed http(s) link stays literal text.
+function renderWithLinks(text: string): React.ReactNode {
+  const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g
+  const parts: React.ReactNode[] = []
+  let lastIndex = 0
+  let key = 0
+  let match: RegExpExecArray | null
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) parts.push(text.slice(lastIndex, match.index))
+    parts.push(
+      <a
+        key={key++}
+        href={match[2]}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-accent underline underline-offset-2 hover:text-inversion"
+      >
+        {match[1]}
+      </a>
+    )
+    lastIndex = regex.lastIndex
+  }
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex))
+  return parts
+}
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
@@ -78,6 +106,12 @@ const TIER_ORDER: Array<'supergold' | 'gold' | 'silver' | 'bronze'> = [
   'silver',
   'bronze',
 ]
+// Podium presentation for the top prizes: medals by rank, and — on desktop —
+// stepped pedestal heights with the classic 2nd · 1st · 3rd column ordering.
+const PODIUM_MEDALS = ['🥇', '🥈', '🥉']
+const PODIUM_PEDESTAL_H = ['sm:h-24', 'sm:h-16', 'sm:h-10']
+const PODIUM_ORDER = ['sm:order-2', 'sm:order-1', 'sm:order-3']
+
 const TIER_SIZE: Record<string, { h: number; max: number; label: string }> = {
   supergold: { h: 80, max: 280, label: 'Founding partners' },
   gold: { h: 64, max: 220, label: 'Gold' },
@@ -334,15 +368,24 @@ function PolaroidPeopleGrid({
   }
   // Alternating rotations for the polaroid hand-placed feel.
   const ROTATIONS = [-2, 2, -1, 1, -3, 3]
+  // Prefer a person's public profile in a stable order; undefined leaves the
+  // card non-navigating rather than a dead "#" link.
+  const primaryLink = (p: Person) =>
+    p.links?.linkedin || p.links?.website || p.links?.twitter || p.links?.github
   return (
     <ul className="flex flex-wrap justify-center sm:justify-start gap-x-6 gap-y-8">
-      {people.map((p, i) => (
+      {people.map((p, i) => {
+        const link = primaryLink(p)
+        return (
         <li key={p.name} className="w-32">
           <Polaroid
             src={p.image?.src || '/hackbcnlogo.png'}
             alt={p.name}
             label={p.name}
-            href="#"
+            href={link}
+            target={link ? '_blank' : undefined}
+            rel={link ? 'noopener' : undefined}
+            ariaLabel={link ? `${p.name}: view profile` : p.name}
             rotate={ROTATIONS[i % ROTATIONS.length]}
             translateY={0}
             width="w-32"
@@ -355,7 +398,8 @@ function PolaroidPeopleGrid({
             </p>
           )}
         </li>
-      ))}
+        )
+      })}
     </ul>
   )
 }
@@ -382,6 +426,10 @@ export default function EventDetail({
   const isPast = event.past ?? new Date(event.endDate) < new Date()
   const isHackNight = event.eventType === 'hacknight'
   const schedule = event.schedule?.[intl.locale] || event.schedule?.en || []
+  const challenges = event.challenges?.[intl.locale] || event.challenges?.en || []
+  const prizes = event.prizes?.[intl.locale] || event.prizes?.en || []
+  // Resolve a challenge's `sponsor` name to its logo/url from this event's sponsor list.
+  const sponsorByName = new Map(sponsors.map((s) => [s.name, s]))
   const eventFaq = event.faq?.[intl.locale] || event.faq?.en
   const sharedFaq = !isHackNight
     ? new Array(11)
@@ -577,6 +625,167 @@ export default function EventDetail({
           eventSlug={event.slug}
           eventName={event.name}
         />
+
+        {/* Challenges — sponsored problem statements (hackathon only). Shown while
+            upcoming even if empty ("announced soon"); hidden when empty + past. */}
+        {!isHackNight && (challenges.length > 0 || !isPast) && (
+          <section className="py-10 border-b border-band-2">
+            <h2 className="text-xl font-semibold text-ink mb-6">{intl.t('challenges.title')}</h2>
+            {challenges.length === 0 ? (
+              <p className="text-sm text-ink-dim italic">Challenges announced soon.</p>
+            ) : (
+              <div className="grid gap-5 sm:grid-cols-2">
+                {challenges.map((c) => {
+                  const sponsor = c.sponsor ? sponsorByName.get(c.sponsor) : undefined
+                  return (
+                    <div
+                      key={c.title}
+                      className="hb-px hb-px-shadow flex flex-col gap-3 bg-ground-raised p-6"
+                    >
+                      {(sponsor || c.sponsor) && (
+                        <div>
+                          {sponsor ? (
+                            <a
+                              href={withUtm(sponsor.url, {
+                                medium: 'challenge',
+                                campaign: `hackbarna-${event.slug}`,
+                                content: c.title,
+                              })}
+                              target="_blank"
+                              rel="noopener"
+                              aria-label={sponsor.name}
+                              onClick={() =>
+                                trackOutbound('sponsor_click', {
+                                  sponsor: sponsor.name,
+                                  tier: 'challenge',
+                                  event_slug: event.slug,
+                                  source: 'event_detail_challenges',
+                                })
+                              }
+                              className="hb-px hb-px-sm inline-block bg-paper px-3 py-2"
+                            >
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={sponsor.logo}
+                                alt={sponsor.name}
+                                style={{ height: 28, maxWidth: 120, width: 'auto' }}
+                                className="object-contain"
+                              />
+                            </a>
+                          ) : (
+                            <span className="font-mono text-xs uppercase tracking-[0.18em] text-ink-dim">
+                              {c.sponsor}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      <h3 className="text-lg font-semibold text-ink">{c.title}</h3>
+                      <p className="text-sm text-ink-dim leading-relaxed">
+                        {renderWithLinks(c.description)}
+                      </p>
+                      {c.details?.map((group) => (
+                        <div key={group.heading}>
+                          <p className="font-mono text-xs uppercase tracking-[0.18em] text-ink-dim mb-2">
+                            {group.heading}
+                          </p>
+                          <ul className="space-y-1">
+                            {group.items.map((item, i) => (
+                              <li
+                                key={i}
+                                className="flex gap-2 text-sm text-ink-dim leading-relaxed"
+                              >
+                                <span aria-hidden="true" className="text-accent">
+                                  ›
+                                </span>
+                                <span>{renderWithLinks(item)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                      {c.prize && (
+                        <p className="mt-auto pt-1 text-sm font-semibold text-accent">
+                          🏆 {renderWithLinks(c.prize)}
+                        </p>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Top prizes — overall awards, distinct from per-challenge prizes. */}
+        {!isHackNight && (prizes.length > 0 || !isPast) && (
+          <section className="py-10 border-b border-band-2">
+            <h2 className="text-xl font-semibold text-ink mb-6">{intl.t('prizes.title')}</h2>
+            {prizes.length === 0 ? (
+              <p className="text-sm text-ink-dim italic">Prizes announced soon.</p>
+            ) : (
+              // 2nd · 1st · 3rd on desktop with stepped pedestals; a plain
+              // 1 · 2 · 3 stack on mobile. First place's fuller perk list makes
+              // the centre column naturally the tallest.
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-center sm:gap-4">
+                {prizes.map((p, idx) => {
+                  const isFirst = idx === 0
+                  return (
+                    <div
+                      key={p.place}
+                      className={`flex w-full flex-col sm:max-w-xs sm:flex-1 ${PODIUM_ORDER[idx] ?? ''}`}
+                    >
+                      <div
+                        className={`hb-px hb-px-shadow flex flex-col gap-3 bg-ground-raised p-6 ${
+                          isFirst ? 'ring-2 ring-accent' : ''
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl" aria-hidden="true">
+                            {PODIUM_MEDALS[idx] ?? '🏅'}
+                          </span>
+                          <span className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+                            {p.place}
+                          </span>
+                        </div>
+                        {p.title && <p className="text-base font-semibold text-ink">{p.title}</p>}
+                        {p.value && <p className="text-lg font-semibold text-ink">{p.value}</p>}
+                        {p.description && (
+                          <p className="text-sm text-ink-dim leading-relaxed">
+                            {renderWithLinks(p.description)}
+                          </p>
+                        )}
+                        {p.perks && p.perks.length > 0 && (
+                          <ul className="space-y-1">
+                            {p.perks.map((perk, i) => (
+                              <li
+                                key={i}
+                                className="flex gap-2 text-sm text-ink-dim leading-relaxed"
+                              >
+                                <span aria-hidden="true" className="text-accent">
+                                  ›
+                                </span>
+                                <span>{renderWithLinks(perk)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                      {/* Pedestal step — desktop only; height encodes the rank. */}
+                      <div
+                        aria-hidden="true"
+                        className={`hidden items-center justify-center bg-accent/15 text-2xl font-bold text-accent sm:flex ${
+                          PODIUM_PEDESTAL_H[idx] ?? 'sm:h-10'
+                        }`}
+                      >
+                        {idx + 1}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Hack-night gallery */}
         {isHackNight && event.gallery && event.gallery.length > 0 && (

@@ -71,6 +71,8 @@ export function readMdxEvent(slug: string): MdxEventContent | null {
     recapVideoUrl: data.recapVideoUrl,
     shorts: data.shorts,
     faq: data.faq,
+    challenges: data.challenges,
+    prizes: data.prizes,
     partners: data.partners,
   }
 
