@@ -330,6 +330,44 @@ challenges:
             - '[Demo repo](https://github.com/qualityclouds/Norma-byQualityClouds-demo-repo)'
             - '[VS Code extension](https://marketplace.visualstudio.com/items?itemName=qualityclouds.norma-for-vscode)'
       prize: A Keychron V6 8K mechanical keyboard (ISO-ES) for each winning team member, plus 12 months of Norma Pro
+    - title: Build an agent people can message
+      sponsor: Mastra
+      description: Build a Mastra agent and put it on a messaging platform people already use — Telegram, Discord, Slack, WhatsApp, Teams, or iMessage. A remote Mastra judge will message your agent cold, from their own phone, with no walkthrough. Nobody watches a demo; they text it. A chatbot that answers questions is the floor — your agent has to do at least one thing a plain LLM wrapper can't.
+      details:
+        - heading: Go beyond a wrapper (do at least one)
+          items:
+            - 'Remember: it knows who it''s talking to and what they said yesterday, using Mastra memory.'
+            - 'Act: it calls tools that change something in the world, and asks for approval in the chat before anything risky (requireApproval renders Approve / Deny cards in the channel).'
+            - 'Run a process: a multi-step workflow that pauses for a human and resumes later.'
+            - 'Message first: a schedule or background task means it reaches out to the user, not just the other way round.'
+        - heading: Rules
+          items:
+            - Built on Mastra (@mastra/core), with any model provider through the model router. Nebius Token Factory counts, so one project can enter this and the Nebius challenge.
+            - Reachable on at least one real messaging platform through Mastra Channels.
+            - Does at least one of the four things above.
+            - A public repo with a README that gets a stranger from clone to first message. This also satisfies the Cognition open-source challenge.
+            - Built during the event. Existing ideas are fine, existing code is not.
+            - Submit by the Sunday 11:00 code freeze — bot handle or invite link, repo URL, a 60-second recording of a real conversation, and one line on who it's for.
+            - Keep the bot live until 17:30 Sunday; the remote judge messages it in the afternoon.
+        - heading: Judging criteria
+          items:
+            - 'Works from a stranger''s phone (30 points): responds in reasonable time, stays coherent, and handles a message it wasn''t built for.'
+            - 'More than a wrapper (30 points): remove the memory, tools, workflow, or schedule — does the product collapse?'
+            - 'Someone would keep it (20 points): a clear user and a clear problem. Would the judge leave the bot in their contacts?'
+            - 'Craft (20 points): readable agent instructions, tool schemas that make sense, and a README that works.'
+            - 'Tie-break: whichever bot is still answering when the judge checks again at 17:00.'
+        - heading: Resources
+          items:
+            - 'Quickstart: run npm create mastra@latest'
+            - '[Docs](https://mastra.ai/docs)'
+            - '[Channels](https://mastra.ai/docs/channels)'
+            - '[Telegram setup](https://mastra.ai/integrations/channels/telegram)'
+            - '[Discord setup](https://mastra.ai/integrations/channels/discord)'
+            - '[Memory](https://mastra.ai/docs/memory)'
+            - '[Harness (schedules, background tasks, durable agents)](https://mastra.ai/docs/harness/overview)'
+            - '[Templates](https://mastra.ai/templates)'
+            - '[GitHub](https://github.com/mastra-ai/mastra)'
+      prize: €250 to the winning team
   es:
     - title: Agente de IA para recomendación de contenido en TVs
       sponsor: Titan OS
@@ -506,6 +544,44 @@ challenges:
             - '[Repo de demo](https://github.com/qualityclouds/Norma-byQualityClouds-demo-repo)'
             - '[Extensión de VS Code](https://marketplace.visualstudio.com/items?itemName=qualityclouds.norma-for-vscode)'
       prize: Un teclado mecánico Keychron V6 8K (ISO-ES) para cada miembro del equipo ganador, más 12 meses de Norma Pro
+    - title: Crea un agente al que la gente pueda escribir
+      sponsor: Mastra
+      description: Crea un agente con Mastra y ponlo en una plataforma de mensajería que la gente ya use — Telegram, Discord, Slack, WhatsApp, Teams o iMessage. Un juez remoto de Mastra escribirá a tu agente en frío, desde su propio teléfono, sin ninguna explicación. Nadie mira una demo; le escriben. Un chatbot que responde preguntas es el mínimo — tu agente tiene que hacer al menos una cosa que un simple wrapper de LLM no pueda.
+      details:
+        - heading: Ve más allá de un wrapper (haz al menos una)
+          items:
+            - 'Recordar: sabe con quién habla y qué le dijeron ayer, usando la memoria de Mastra.'
+            - 'Actuar: llama a herramientas que cambian algo en el mundo, y pide aprobación en el chat antes de cualquier acción arriesgada (requireApproval muestra tarjetas de Aprobar / Denegar en el canal).'
+            - 'Ejecutar un proceso: un flujo de varios pasos que se pausa para una persona y se reanuda más tarde.'
+            - 'Escribir primero: una tarea programada o en segundo plano hace que contacte al usuario, no solo al revés.'
+        - heading: Reglas
+          items:
+            - Construido sobre Mastra (@mastra/core), con cualquier proveedor de modelos a través del model router. Nebius Token Factory cuenta, así que un proyecto puede entrar en este reto y en el de Nebius.
+            - Accesible en al menos una plataforma de mensajería real a través de Mastra Channels.
+            - Hace al menos una de las cuatro cosas de arriba.
+            - Un repo público con un README que lleve a un desconocido de clonar a su primer mensaje. Esto también cumple el reto de código abierto de Cognition.
+            - Construido durante el evento. Las ideas previas valen, el código previo no.
+            - Envía antes del code freeze del domingo a las 11:00 — el handle del bot o el enlace de invitación, la URL del repo, una grabación de 60 segundos de una conversación real y una línea sobre para quién es.
+            - Mantén el bot activo hasta las 17:30 del domingo; el juez remoto le escribirá por la tarde.
+        - heading: Criterios de evaluación
+          items:
+            - 'Funciona desde el teléfono de un desconocido (30 puntos): responde en un tiempo razonable, se mantiene coherente y gestiona un mensaje para el que no fue diseñado.'
+            - 'Más que un wrapper (30 puntos): quita la memoria, las herramientas, el flujo o la programación — ¿se derrumba el producto?'
+            - 'Alguien lo conservaría (20 puntos): un usuario claro y un problema claro. ¿Dejaría el juez el bot en sus contactos?'
+            - 'Cuidado (20 puntos): instrucciones del agente legibles, esquemas de herramientas con sentido y un README que funcione.'
+            - 'Desempate: el bot que siga respondiendo cuando el juez vuelva a comprobarlo a las 17:00.'
+        - heading: Recursos
+          items:
+            - 'Quickstart: ejecuta npm create mastra@latest'
+            - '[Documentación](https://mastra.ai/docs)'
+            - '[Channels](https://mastra.ai/docs/channels)'
+            - '[Configurar Telegram](https://mastra.ai/integrations/channels/telegram)'
+            - '[Configurar Discord](https://mastra.ai/integrations/channels/discord)'
+            - '[Memoria](https://mastra.ai/docs/memory)'
+            - '[Harness (programaciones, tareas en segundo plano, agentes durables)](https://mastra.ai/docs/harness/overview)'
+            - '[Plantillas](https://mastra.ai/templates)'
+            - '[GitHub](https://github.com/mastra-ai/mastra)'
+      prize: €250 para el equipo ganador
 prizes:
   en:
     - place: First place
