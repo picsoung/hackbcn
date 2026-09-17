@@ -1,6 +1,6 @@
 // Server- and client-safe. Adds standard UTM params to an outbound URL.
-// Used at every outbound-link render site to give sponsors HackBarna attribution
-// in their own analytics (GA, Mixpanel, Plausible, Amplitude all recognise UTMs).
+// Existing UTM values are preserved so a partner-specific campaign is never
+// silently replaced by the site-wide defaults.
 //
 // Convention:
 //   utm_source   = 'hackbarna' (override per-call if needed)
@@ -23,10 +23,18 @@ export function withUtm(url: string, ctx: UtmContext): string {
   if (!/^https?:\/\//i.test(url)) return url
   try {
     const u = new URL(url)
-    u.searchParams.set('utm_source', ctx.source ?? 'hackbarna')
-    u.searchParams.set('utm_medium', ctx.medium)
-    u.searchParams.set('utm_campaign', ctx.campaign)
-    if (ctx.content) u.searchParams.set('utm_content', ctx.content)
+    if (!u.searchParams.has('utm_source')) {
+      u.searchParams.set('utm_source', ctx.source ?? 'hackbarna')
+    }
+    if (!u.searchParams.has('utm_medium')) {
+      u.searchParams.set('utm_medium', ctx.medium)
+    }
+    if (!u.searchParams.has('utm_campaign')) {
+      u.searchParams.set('utm_campaign', ctx.campaign)
+    }
+    if (ctx.content && !u.searchParams.has('utm_content')) {
+      u.searchParams.set('utm_content', ctx.content)
+    }
     return u.toString()
   } catch {
     // Malformed URL — better to ship a working un-UTM'd link than crash the render.
