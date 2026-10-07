@@ -15,7 +15,9 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 function formatEventDate(startDate: string, endDate: string) {
   const start = new Date(startDate)
   const end = new Date(endDate)
-  return `${MONTHS[start.getUTCMonth()]} ${start.getUTCDate()}-${end.getUTCDate()}, ${end.getUTCFullYear()}`
+  const sameDay = start.getUTCMonth() === end.getUTCMonth() && start.getUTCDate() === end.getUTCDate()
+  const days = sameDay ? `${start.getUTCDate()}` : `${start.getUTCDate()}-${end.getUTCDate()}`
+  return `${MONTHS[start.getUTCMonth()]} ${days}, ${end.getUTCFullYear()}`
 }
 
 // The featured ribbon is the next upcoming event. Parent pages (which can read

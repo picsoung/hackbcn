@@ -202,6 +202,63 @@ export const hackNights: HackNight[] = [
     ],
     past: false,
   },
+  {
+    id: 'hn-2026-10',
+    slug: 'netlify-barcelona-2026',
+    name: 'Netlify @ Barcelona',
+    date: '2026-10-07T18:30:00+02:00',
+    endDate: '2026-10-07T20:30:00+02:00',
+    location: 'La Fabrica & Co, Barcelona',
+    topic: 'Where the web goes next, with the Netlify team',
+    description: {
+      en: 'The Netlify leadership team is in town to meet Barcelona’s AI builders and developers. A live Agent Runners demo from PM Vanessa Ramos, a fireside chat with CTO Dana Lawson and CPO Wade Wegner on where the web goes next when agents do the building, then drinks and a mixer with the whole Netlify crew in Poblenou.',
+      es: 'El equipo directivo de Netlify viene a Barcelona para conocer a los builders y developers de IA de la ciudad. Una demo en directo de Agent Runners con la PM Vanessa Ramos, una charla con el CTO Dana Lawson y el CPO Wade Wegner sobre hacia dónde va la web cuando los agentes construyen, y después bebidas y networking con todo el equipo de Netlify en Poblenou.',
+    },
+    registrationUrl: 'https://luma.com/3xawjg1c',
+    imageUrl: 'https://images.lumacdn.com/uploads/km/0d75868a-833c-4dce-98eb-b43627d4a6a0.png',
+    sponsor: 'Netlify',
+    schedule: {
+      en: [
+        {
+          title: 'October 7 · 18:30–20:30',
+          sections: [
+            {
+              name: 'Agenda',
+              items: [
+                '18:30 — Doors and welcome',
+                '18:45 — Agent Runners live demo with Vanessa Ramos',
+                '19:15 — Fireside chat with Dana Lawson (CTO) and Wade Wegner (CPO)',
+                '19:45 — Mixer: snacks, drinks, and the Netlify crew',
+                '20:30 — Wrap-up',
+              ],
+            },
+          ],
+        },
+      ],
+      es: [
+        {
+          title: '7 de octubre · 18:30–20:30',
+          sections: [
+            {
+              name: 'Agenda',
+              items: [
+                '18:30 — Apertura de puertas y bienvenida',
+                '18:45 — Demo en directo de Agent Runners con Vanessa Ramos',
+                '19:15 — Charla con Dana Lawson (CTO) y Wade Wegner (CPO)',
+                '19:45 — Networking: snacks, bebidas y el equipo de Netlify',
+                '20:30 — Cierre',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    partners: [
+      { name: 'Netlify', role: 'Host', url: 'https://www.netlify.com/', logo: '/logos/netlify.svg' },
+      { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators.png' },
+    ],
+    past: false,
+  },
 ]
 
 export const getUpcomingHackNights = () => {
