@@ -21,7 +21,7 @@ Editions before aisummit26 (v1-2024, aisummit25) live in `lib/events.ts` and `da
 
 ## Adding community posts and testimonials
 
-Add public LinkedIn or X posts to `data/testimonials.ts`. Each entry needs the source URL, author, platform (`linkedin` or `x`), and the event's exact `slug`. Add a brief summary in `excerpt`; a local `image` under `public/testimonials/` is optional. The post then appears on both the main testimonials page and the matching event page. If this is the first post for an event, add its name and date to `testimonialEvents` in the same file so the main page can group it.
+Add public LinkedIn or X posts to `data/testimonials.ts`. Each entry needs the source URL, author, platform (`linkedin` or `x`), and the event's exact `slug`. Add a brief summary in `excerpt`; use `position` and a small local `avatar` under `public/testimonials/avatars/` to show the author beside it. For company accounts, set `avatarKind: 'logo'` to display a wider logo. Use `image` under `public/testimonials/` only for a screenshot of the full post. The post then appears on both the main testimonials page and the matching event page. If this is the first post for an event, add its name and date to `testimonialEvents` in the same file so the main page can group it.
 
 Set `featuredOnHome: true` on up to three posts to feature them on the landing page.
 
