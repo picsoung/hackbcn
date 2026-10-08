@@ -2,15 +2,14 @@
 
 import { useIntl } from '../Intl'
 
-const stats = [
-  { key: 'home.stats.hackers', value: '400+', highlight: true },
-  { key: 'home.stats.projects', value: '200+', highlight: false },
-  { key: 'home.stats.events', value: '6', highlight: true },
-  { key: 'home.stats.sponsors', value: '15+', highlight: false },
-]
-
-export default function StatsBar() {
+export default function StatsBar({ eventCount }: { eventCount: number }) {
   const intl = useIntl()
+  const stats = [
+    { key: 'home.stats.hackers', value: '400+', highlight: true },
+    { key: 'home.stats.projects', value: '200+', highlight: false },
+    { key: 'home.stats.events', value: String(eventCount), highlight: true },
+    { key: 'home.stats.sponsors', value: '15+', highlight: false },
+  ]
 
   return (
     <section className="bg-band-4 py-16 sm:py-20">

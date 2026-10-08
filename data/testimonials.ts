@@ -6,8 +6,12 @@ export type Testimonial = {
   platform: 'linkedin' | 'x' | 'press'
   url: string
   author: string
+  position?: string
+  avatar?: string
+  avatarKind?: 'person' | 'logo'
   excerpt?: string
   image?: string
+  featuredOnHome?: boolean
 }
 
 export const testimonialEvents = [
@@ -23,6 +27,9 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'netlify-barcelona-2026',
     platform: 'linkedin',
     author: 'Matt Roberts',
+    position: 'Co-Founder, Happy Operators',
+    avatar: '/testimonials/avatars/matt-roberts.jpg',
+    featuredOnHome: true,
     excerpt: 'Netlify’s CTO and CPO spent Wednesday night with Barcelona’s AI builders. It was a blast.',
     url: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7513907220582162432/',
   },
@@ -30,6 +37,9 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'aisummit26',
     platform: 'linkedin',
     author: 'Anisa Frasheri',
+    position: 'Founder, Rekly',
+    avatar: '/testimonials/avatars/anisa-frasheri.jpg',
+    featuredOnHome: true,
     excerpt: 'I had been waiting a long time for this weekend, and the experience was even better than I expected.',
     url: 'https://www.linkedin.com/posts/anisa-frasheri_hackbarna-aisummitbarcelona-aisb26-activity-7508084190093975552-DEiX',
   },
@@ -37,6 +47,8 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'aisummit26',
     platform: 'linkedin',
     author: 'Miguel Sureda',
+    position: 'Founder, anlak',
+    avatar: '/testimonials/avatars/miguel-sureda.jpg',
     excerpt: 'I was impressed by the talent, creative ideas, and people willing to spend a weekend building together.',
     url: 'https://es.linkedin.com/posts/miguelsureda_este-finde-hackathon-en-hackbarna-como-warm-up-activity-7507681637732757505-Z7xp',
   },
@@ -44,6 +56,9 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'hacknight-june-2026',
     platform: 'linkedin',
     author: 'Netlify',
+    position: 'Build with Netlify event partner',
+    avatar: '/logos/netlify.svg',
+    avatarKind: 'logo',
     excerpt: 'Builders filled the room, deployed live sites, and spent open hack time bringing their ideas to life.',
     url: 'https://www.linkedin.com/posts/netlify_we-built-and-shipped-at-build-with-netlify-activity-7478484962858426368-zHSN',
   },
@@ -51,6 +66,9 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'aisummit25',
     platform: 'linkedin',
     author: 'Lilibeth Bustos Linares',
+    position: 'CEO & Co-Founder, SOMA AI',
+    avatar: '/judges/lilibethbustos.jpeg',
+    featuredOnHome: true,
     excerpt: 'I had never joined a hackathon before. This time I decided to go all in and build something meaningful.',
     url: 'https://www.linkedin.com/pulse/how-weekend-hackathon-changed-everything-story-behind-bustos-linares-vftme',
   },
