@@ -19,6 +19,22 @@ MDX files can hold structured frontmatter and optional rich-content body. Today 
 
 Editions before aisummit26 (v1-2024, aisummit25) live in `lib/events.ts` and `data/*.ts` and stay there — they're shipped artifacts. Their canonical URLs remain `/<locale>/<slug>` (not `/events/<slug>`). Any new event you add goes through this MDX flow and lives at `/<locale>/events/<slug>`.
 
+## Adding community posts and testimonials
+
+Add public LinkedIn or X posts to `data/testimonials.ts`. Each entry needs the source URL, author, platform (`linkedin` or `x`), and the event's exact `slug`. Add a brief summary in `excerpt`; a local `image` under `public/testimonials/` is optional. The post then appears on both the main testimonials page and the matching event page. If this is the first post for an event, add its name and date to `testimonialEvents` in the same file so the main page can group it.
+
+```ts
+{
+  eventSlug: 'netlify-barcelona-2026',
+  platform: 'x',
+  author: 'Example attendee',
+  excerpt: 'A short summary of their post.',
+  url: 'https://x.com/example/status/123456789',
+}
+```
+
+Use the original public post URL so readers can verify the source. The site shows a local card and opens the post when clicked; it does not depend on third-party embed scripts to render the page.
+
 ## Sponsor / judge / mentor frontmatter shape
 
 ```yaml

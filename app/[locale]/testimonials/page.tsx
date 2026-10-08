@@ -1,141 +1,51 @@
-'use client'
+import Link from 'next/link'
+import OrgNavbar from '@/app/components/home/OrgNavbar'
+import OrgFooter from '@/app/components/home/OrgFooter'
+import TestimonialGrid from '@/app/components/testimonials/TestimonialGrid'
+import { testimonials, testimonialEvents } from '@/data/testimonials'
+import { getFeaturedUpcomingEvent } from '@/lib/events-server'
 
-import React, { useEffect, useState } from 'react'
-import { useIntl } from '../../components/Intl'
-import dynamic from 'next/dynamic'
-import Linkedin from '@/app/components/mdx/Linkedin'
+export const metadata = {
+  title: 'Community voices — HackBarna',
+  description: 'Public posts from HackBarna hackathons and hack nights in Barcelona.',
+}
 
-export default function Page(props: { params: { locale: string } }) {
-  const intl = useIntl()
-
-  // const TestimonialContent = dynamic(() => import('@/content/testimonials.mdx'))
-
-  const linkedinPosts = [
-    {
-      img: '/testimonials/alberto_linkedin.png',
-      link: 'https://www.linkedin.com/posts/albertolabarga_ai-hackathon-barcelona-activity-7213455842057023488-csBw',
-    },
-    {
-      img: '/testimonials/alex_linkedin.png',
-      link: 'https://www.linkedin.com/posts/alexpalazon_we-spent-this-weekend-at-hackbcn24-and-built-activity-7213876927835566080-7I7z',
-    },
-    {
-      img: '/testimonials/arnau_linkedin.png',
-      link: 'https://www.linkedin.com/posts/arnau-soler-recasens_hackbcn-ai-artificialintelligence-activity-7213489033279119361-mlRe',
-    },
-    {
-      img: '/testimonials/eyuel_linkedin.png',
-      link: 'https://www.linkedin.com/posts/eyuel-muse-woldesembet_big-thank-you-to-everyone-involved-in-the-activity-7213407210981208065-NIkJ',
-    },
-    {
-      img: '/testimonials/gabriele_linkedin.png',
-      link: 'https://www.linkedin.com/posts/gabriele-raffaelli-67779576_hackbcn-ai-hackathon-activity-7207761310208389120-IYMv',
-    },
-    {
-      img: '/testimonials/jessica_linkedin.png',
-      link: 'https://www.linkedin.com/posts/jessica-arroyo-lebr%C3%B3n_hackbcn-hackathon-lewagon-activity-7213265618735681536-sIDu',
-    },
-    {
-      img: '/testimonials/joan_linkedin.png',
-      link: 'https://www.linkedin.com/posts/joanbr4_despu%C3%A9s-de-la-gran-experiencia-creo-que-activity-7210744680899108865-ijW3',
-    },
-    {
-      img: '/testimonials/kristian_linkedin.png',
-      link: 'https://www.linkedin.com/posts/kristian-gosvig_techlife-impostersyndrome-techconfidence-activity-7213604247806877696-1K_r',
-    },
-    {
-      img: '/testimonials/lewagon_linkeidn.png',
-      link: 'https://www.linkedin.com/posts/le-wagon-spain_hackbcn-lewagonspain-hackathon-activity-7213830417311830016-wb8y',
-    },
-    {
-      img: '/testimonials/luken_linkedin.png',
-      link: 'https://www.linkedin.com/posts/lukeniquintana_el-fin-de-semana-tuve-la-maravillosa-oportunidad-activity-7214212504313352194--RJW',
-    },
-    {
-      img: '/testimonials/matias_linkedin.png',
-      link: 'https://www.linkedin.com/posts/matiassebastianmartinez_during-the-last-weekend-i-participated-in-activity-7213465366092517376-cXw5',
-    },
-    {
-      img: '/testimonials/pau_linkedin.png',
-      link: 'https://www.linkedin.com/posts/paugarcia32_este-fin-de-semana-he-estado-junto-a-jose-activity-7213496788249436161-_3Sc',
-    },
-    {
-      img: '/testimonials/pavel_linkeidn.png',
-      link: 'https://www.linkedin.com/posts/akpratyush_ai-genai-ai-activity-7213620069900177409-G4h_',
-    },
-    {
-      img: '/testimonials/rebeca_linkedin.png',
-      link: 'https://www.linkedin.com/posts/rebeca-garcia-58149061_ya-descansada-puedo-contarles-un-poco-de-activity-7213663887844376577-oXt2',
-    },
-    {
-      img: '/testimonials/romina_linkedin.png',
-      link: 'https://www.linkedin.com/posts/mendezromina_ai-hackathon-barcelona-activity-7213464034547830785-Vxa5',
-    },
-    {
-      img: '/testimonials/stefania_linkedin.png',
-      link: 'https://www.linkedin.com/posts/stefania-georgescu-x_ai-activity-7213095112170434561-_3Rd',
-    },
-    {
-      img: '/testimonials/tanya_linkedin.png',
-      link: 'https://www.linkedin.com/posts/tanyavangastel_barcelonas-first-ai-hackathon-is-this-week-activity-7212055785965514752-eowb',
-    },
-    {
-      img: '/testimonials/thetechnation_linkedin.png',
-      link: 'https://www.linkedin.com/posts/the-technation_today-was-a-bit-of-a-milestone-for-the-tech-activity-7213289596493656064-tPRp',
-    },
-    {
-      img: '/testimonials/valentina_linkedin.png',
-      link: 'https://www.linkedin.com/posts/valentinatoni_hackathon-airquality-techforgood-activity-7213585380573376514-2Z8D',
-    },
-    {
-      img: '/testimonials/vero_linkedin.png',
-      link: 'https://www.linkedin.com/posts/veroagnolutto_ai-hackathon-barcelona-activity-7213530083985166336-pFyj',
-    },
-  ]
-
-  const pressPosts = [
-    {
-      img: '/testimonials/parentesis_press.png',
-      link: 'https://www.parentesis.media/programar-una-ia-en-24-horas-asi-sera-el-hackaton-de-barcelona/',
-    },
-  ]
-
+export default function TestimonialsPage({ params }: { params: { locale: string } }) {
   return (
-    <div
-      id="testimonials"
-      className="flex min-h-screen flex-col bg-white py-10 sm:py-10"
-    >
-      <div className="mx-auto w-full px-4 lg:px-8">
-        <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-          {intl.t('testimonials.title')}
-        </h2>
-        <div className="max-w-full w-full">
-          <div className="flex flex-col gap-4">
-            <h3 className="m-2 text-2xl">{intl.t('testimonials.press')}</h3>
-            <div className="masonry sm:masonry-sm md:masonry-md gap-4">
-              {pressPosts.map((post, index) => (
-                <Linkedin
-                  key={index}
-                  title={`${index}`}
-                  imgSrc={post.img}
-                  link={post.link}
-                />
-              ))}
-            </div>
-            <h3 className="m-2 text-2xl">{intl.t('testimonials.linkedin_posts')}</h3>
-            <div className="masonry sm:masonry-sm md:masonry-md gap-4">
-              {linkedinPosts.map((post, index) => (
-                <Linkedin
-                  key={index}
-                  title={`${index}`}
-                  imgSrc={post.img}
-                  link={post.link}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div data-register="night" className="min-h-screen bg-ground text-ink">
+      <OrgNavbar featuredEvent={getFeaturedUpcomingEvent()} />
+      <main className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">Community voices</p>
+        <h1 className="mb-4 text-4xl font-semibold sm:text-5xl">What builders are saying</h1>
+        <p className="mb-12 max-w-2xl text-ink-dim">
+          Highlights from public posts about HackBarna events. Open a card to read the original.
+        </p>
+
+        {testimonialEvents.map((event) => {
+          const posts = testimonials.filter((post) => post.eventSlug === event.slug)
+          if (posts.length === 0) return null
+          return (
+            <section id={event.slug} key={event.slug} className="mb-14 scroll-mt-8 border-t border-band-2 pt-8">
+              <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <p className="mb-1 font-mono text-xs uppercase tracking-wide text-ink-dim">{event.date}</p>
+                  <h2 className="text-2xl font-semibold sm:text-3xl">{event.name}</h2>
+                </div>
+                <Link
+                  href={event.slug === 'v1-2024' || event.slug === 'aisummit25'
+                    ? `/${params.locale}/${event.slug}`
+                    : `/${params.locale}/events/${event.slug}`}
+                  className="text-sm font-semibold text-accent hover:underline"
+                >
+                  View event ↗
+                </Link>
+              </div>
+              <TestimonialGrid posts={posts} />
+            </section>
+          )
+        })}
+      </main>
+      <OrgFooter />
     </div>
   )
 }
