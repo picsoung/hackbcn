@@ -580,9 +580,9 @@ export default function EventDetail({
                     className="object-contain"
                   />
                 ) : (
-                  <span className="text-lg font-semibold text-ink">{p.name}</span>
+                  <span className="text-lg font-semibold text-ground">{p.name}</span>
                 )
-                const cardClass = `hb-px hb-px-sm flex h-24 w-48 items-center justify-center px-4 py-3 ${p.logoSurface === 'dark' || !p.logo ? 'bg-band-3' : 'bg-paper'}`
+                const cardClass = 'hb-px hb-px-sm flex h-24 w-48 items-center justify-center bg-paper px-4 py-3'
                 return (
                   <div key={p.name} className="flex flex-col gap-2">
                     {p.url ? (

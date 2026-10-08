@@ -198,7 +198,7 @@ export const hackNights: HackNight[] = [
     partners: [
       { name: 'Netlify', role: 'Main sponsor', url: 'https://www.netlify.com/', logo: '/logos/netlify.svg', logoHeight: 48 },
       { name: 'Itnig', role: 'Venue', url: 'https://itnig.net/', logo: '/logos/itnig.svg' },
-      { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators-white.svg', logoHeight: 60, logoSurface: 'dark' },
+      { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators-dark.svg', logoHeight: 60 },
     ],
     past: false,
   },
@@ -255,7 +255,7 @@ export const hackNights: HackNight[] = [
     },
     partners: [
       { name: 'Netlify', role: 'Host', url: 'https://www.netlify.com/', logo: '/logos/netlify.svg', logoHeight: 48 },
-      { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators-white.svg', logoHeight: 60, logoSurface: 'dark' },
+      { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators-dark.svg', logoHeight: 60 },
     ],
     past: false,
   },
