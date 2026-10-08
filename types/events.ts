@@ -60,6 +60,7 @@ export type Partner = {
   role: string
   url?: string
   logo?: string
+  logoHeight?: number
 }
 
 // A sponsored challenge/track. `sponsor` matches a Sponsor.name in the same
