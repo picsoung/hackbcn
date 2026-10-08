@@ -792,16 +792,23 @@ export default function EventDetail({
         {isHackNight && event.gallery && event.gallery.length > 0 && (
           <section className="py-10 border-b border-band-2">
             <h2 className="text-xl font-semibold text-ink mb-6">Gallery</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {event.gallery.map((src, i) => (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  className="hb-px w-full aspect-square object-cover"
-                  loading="lazy"
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {event.gallery.map((photo) => (
+                <a
+                  key={photo.src}
+                  href={photo.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hb-px relative block aspect-[16/9] overflow-hidden bg-band-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </a>
               ))}
             </div>
           </section>

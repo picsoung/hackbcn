@@ -6,7 +6,7 @@ One MDX file per HackBarna event. Frontmatter holds all structured data; the bod
 
 1. Create `events/<slug>.mdx`. The slug is what shows up in the URL: `/events/<slug>`.
 2. Fill in the frontmatter. Required fields: `slug`, `name`, `year`, `active`, `eventType` (`hackathon` or `hacknight`), `startDate`, `endDate`, `location`.
-3. Optional fields: `registrationUrl`, `imageUrl`, `timeZone`, `description.{en,es,...}`, `schedule.{en,es,...}`, `topic` (hacknight tagline), `sponsor` (hacknight "presented by"), `capacity`, `gallery` (hacknight photos), `projectLinks` (hacknight recap links).
+3. Optional fields: `registrationUrl`, `imageUrl`, `timeZone`, `description.{en,es,...}`, `schedule.{en,es,...}`, `topic` (hacknight tagline), `sponsor` (hacknight "presented by"), `capacity`, `gallery` (hacknight photos as `{ src, alt }` entries), `projectLinks` (hacknight recap links).
 4. Sponsor / judge / mentor / community sponsor lists go directly in the frontmatter as arrays. Empty arrays render a quiet "first call — pitch us" prompt on the event page for future events.
 
 That's it. The build picks the file up automatically: no edits to `lib/events.ts`, no separate data files.

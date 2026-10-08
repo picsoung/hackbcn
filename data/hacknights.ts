@@ -1,4 +1,4 @@
-import type { ScheduleItem, Partner } from '@/types/events'
+import type { ScheduleItem, Partner, GalleryPhoto } from '@/types/events'
 
 export type HackNight = {
   id: string
@@ -11,7 +11,7 @@ export type HackNight = {
   description: { [locale: string]: string }
   registrationUrl?: string
   imageUrl?: string
-  gallery?: string[]
+  gallery?: GalleryPhoto[]
   projectLinks?: string[]
   sponsor?: string
   capacity?: number
@@ -216,6 +216,13 @@ export const hackNights: HackNight[] = [
     },
     registrationUrl: 'https://luma.com/3xawjg1c',
     imageUrl: 'https://images.lumacdn.com/uploads/km/0d75868a-833c-4dce-98eb-b43627d4a6a0.png',
+    gallery: [
+      { src: '/events/netlify-barcelona-2026/group.jpg', alt: 'Attendees and the Netlify team posing together at the event' },
+      { src: '/events/netlify-barcelona-2026/fireside-chat.jpg', alt: 'Speakers discussing building with Netlify on stage' },
+      { src: '/events/netlify-barcelona-2026/agent-runners-demo.jpg', alt: 'Vanessa Ramos demonstrating Netlify Agent Runners' },
+      { src: '/events/netlify-barcelona-2026/audience.jpg', alt: 'Attendees listening to a talk at Netlify Barcelona' },
+      { src: '/events/netlify-barcelona-2026/welcome.jpg', alt: 'Two hosts welcoming attendees to Netlify Barcelona' },
+    ],
     sponsor: 'Netlify',
     schedule: {
       en: [
@@ -257,7 +264,7 @@ export const hackNights: HackNight[] = [
       { name: 'Netlify', role: 'Host', url: 'https://www.netlify.com/', logo: '/logos/netlify.svg', logoHeight: 48 },
       { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators-dark.svg', logoHeight: 60 },
     ],
-    past: false,
+    past: true,
   },
 ]
 
