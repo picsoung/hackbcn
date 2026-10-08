@@ -6,7 +6,7 @@ One MDX file per HackBarna event. Frontmatter holds all structured data; the bod
 
 1. Create `events/<slug>.mdx`. The slug is what shows up in the URL: `/events/<slug>`.
 2. Fill in the frontmatter. Required fields: `slug`, `name`, `year`, `active`, `eventType` (`hackathon` or `hacknight`), `startDate`, `endDate`, `location`.
-3. Optional fields: `registrationUrl`, `imageUrl`, `timeZone`, `description.{en,es,...}`, `schedule.{en,es,...}`, `topic` (hacknight tagline), `sponsor` (hacknight "presented by"), `capacity`, `gallery` (hacknight photos), `projectLinks` (hacknight recap links).
+3. Optional fields: `registrationUrl`, `imageUrl`, `timeZone`, `description.{en,es,...}`, `schedule.{en,es,...}`, `topic` (hacknight tagline), `sponsor` (hacknight "presented by"), `capacity`, `gallery` (hacknight photos as `{ src, alt }` entries), `projectLinks` (hacknight recap links).
 4. Sponsor / judge / mentor / community sponsor lists go directly in the frontmatter as arrays. Empty arrays render a quiet "first call — pitch us" prompt on the event page for future events.
 
 That's it. The build picks the file up automatically: no edits to `lib/events.ts`, no separate data files.
@@ -18,6 +18,22 @@ MDX files can hold structured frontmatter and optional rich-content body. Today 
 ## Past events
 
 Editions before aisummit26 (v1-2024, aisummit25) live in `lib/events.ts` and `data/*.ts` and stay there — they're shipped artifacts. Their canonical URLs remain `/<locale>/<slug>` (not `/events/<slug>`). Any new event you add goes through this MDX flow and lives at `/<locale>/events/<slug>`.
+
+## Adding community posts and testimonials
+
+Add public LinkedIn or X posts to `data/testimonials.ts`. Each entry needs the source URL, author, platform (`linkedin` or `x`), and the event's exact `slug`. Add a brief summary in `excerpt`; a local `image` under `public/testimonials/` is optional. The post then appears on both the main testimonials page and the matching event page. If this is the first post for an event, add its name and date to `testimonialEvents` in the same file so the main page can group it.
+
+```ts
+{
+  eventSlug: 'netlify-barcelona-2026',
+  platform: 'x',
+  author: 'Example attendee',
+  excerpt: 'A short summary of their post.',
+  url: 'https://x.com/example/status/123456789',
+}
+```
+
+Use the original public post URL so readers can verify the source. The site shows a local card and opens the post when clicked; it does not depend on third-party embed scripts to render the page.
 
 ## Sponsor / judge / mentor frontmatter shape
 

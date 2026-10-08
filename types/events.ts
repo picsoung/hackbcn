@@ -11,6 +11,11 @@ export type ScheduleItem = {
 
 export type EventType = 'hackathon' | 'hacknight'
 
+export type GalleryPhoto = {
+  src: string
+  alt: string
+}
+
 export type Event = {
   id: string
   slug: string
@@ -32,7 +37,7 @@ export type Event = {
   topic?: string
   sponsor?: string // "presented by" pill (hacknight)
   capacity?: number
-  gallery?: string[]
+  gallery?: GalleryPhoto[]
   projectLinks?: string[]
   past?: boolean // optional override; usually computed from endDate
   // Recap video
@@ -60,6 +65,7 @@ export type Partner = {
   role: string
   url?: string
   logo?: string
+  logoHeight?: number
 }
 
 // A sponsored challenge/track. `sponsor` matches a Sponsor.name in the same

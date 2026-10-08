@@ -16,6 +16,8 @@ import {
 } from '@heroicons/react/24/outline'
 import Polaroid from '../Polaroid'
 import RecapVideo from './RecapVideo'
+import TestimonialGrid from '../testimonials/TestimonialGrid'
+import { getTestimonialsForEvent } from '@/data/testimonials'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
 
@@ -425,6 +427,7 @@ export default function EventDetail({
   const description = event.description?.[intl.locale] || event.description?.en || ''
   const isPast = event.past ?? new Date(event.endDate) < new Date()
   const isHackNight = event.eventType === 'hacknight'
+  const eventTestimonials = getTestimonialsForEvent(event.slug)
   const schedule = event.schedule?.[intl.locale] || event.schedule?.en || []
   const challenges = event.challenges?.[intl.locale] || event.challenges?.en || []
   const prizes = event.prizes?.[intl.locale] || event.prizes?.en || []
@@ -576,12 +579,13 @@ export default function EventDetail({
                   <img
                     src={p.logo}
                     alt={p.name}
-                    style={{ height: 36, maxWidth: 160, width: 'auto' }}
+                    style={{ height: p.logoHeight ?? 36, maxWidth: 160, width: 'auto' }}
                     className="object-contain"
                   />
                 ) : (
-                  <span className="text-lg font-semibold text-ink">{p.name}</span>
+                  <span className="text-lg font-semibold text-ground">{p.name}</span>
                 )
+                const cardClass = 'hb-px hb-px-sm flex h-24 w-48 items-center justify-center bg-paper px-4 py-3'
                 return (
                   <div key={p.name} className="flex flex-col gap-2">
                     {p.url ? (
@@ -598,12 +602,12 @@ export default function EventDetail({
                             source: 'event_detail_partners',
                           })
                         }
-                        className="hb-px hb-px-sm block bg-paper px-4 py-3 transition-transform hover:-rotate-1 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground motion-reduce:transition-none motion-reduce:hover:rotate-0"
+                        className={`${cardClass} transition-transform hover:-rotate-1 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground motion-reduce:transition-none motion-reduce:hover:rotate-0`}
                       >
                         {inner}
                       </a>
                     ) : (
-                      <div>{inner}</div>
+                      <div className={cardClass}>{inner}</div>
                     )}
                     <span className="font-mono text-xs uppercase tracking-[0.18em] text-ink-dim">
                       {p.role}
@@ -791,18 +795,40 @@ export default function EventDetail({
         {isHackNight && event.gallery && event.gallery.length > 0 && (
           <section className="py-10 border-b border-band-2">
             <h2 className="text-xl font-semibold text-ink mb-6">Gallery</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {event.gallery.map((src, i) => (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  key={i}
-                  src={src}
-                  alt=""
-                  className="hb-px w-full aspect-square object-cover"
-                  loading="lazy"
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {event.gallery.map((photo) => (
+                <a
+                  key={photo.src}
+                  href={photo.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hb-px relative block aspect-[16/9] overflow-hidden bg-band-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </a>
               ))}
             </div>
+          </section>
+        )}
+
+        {eventTestimonials.length > 0 && (
+          <section id="testimonials" className="border-b border-band-2 py-10">
+            <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="mb-1 font-mono text-xs uppercase tracking-wide text-ink-dim">Community voices</p>
+                <h2 className="text-xl font-semibold text-ink">What people are saying</h2>
+              </div>
+              <Link href={`/${locale}/testimonials#${event.slug}`} className="text-sm font-semibold text-accent hover:underline">
+                All community posts ↗
+              </Link>
+            </div>
+            <TestimonialGrid posts={eventTestimonials.slice(0, 3)} />
           </section>
         )}
 
