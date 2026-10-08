@@ -8,6 +8,7 @@ export type Testimonial = {
   author: string
   excerpt?: string
   image?: string
+  featuredOnHome?: boolean
 }
 
 export const testimonialEvents = [
@@ -23,6 +24,7 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'netlify-barcelona-2026',
     platform: 'linkedin',
     author: 'Matt Roberts',
+    featuredOnHome: true,
     excerpt: 'Netlify’s CTO and CPO spent Wednesday night with Barcelona’s AI builders. It was a blast.',
     url: 'https://www.linkedin.com/feed/update/urn:li:ugcPost:7513907220582162432/',
   },
@@ -30,6 +32,7 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'aisummit26',
     platform: 'linkedin',
     author: 'Anisa Frasheri',
+    featuredOnHome: true,
     excerpt: 'I had been waiting a long time for this weekend, and the experience was even better than I expected.',
     url: 'https://www.linkedin.com/posts/anisa-frasheri_hackbarna-aisummitbarcelona-aisb26-activity-7508084190093975552-DEiX',
   },
@@ -51,6 +54,7 @@ export const testimonials: Testimonial[] = [
     eventSlug: 'aisummit25',
     platform: 'linkedin',
     author: 'Lilibeth Bustos Linares',
+    featuredOnHome: true,
     excerpt: 'I had never joined a hackathon before. This time I decided to go all in and build something meaningful.',
     url: 'https://www.linkedin.com/pulse/how-weekend-hackathon-changed-everything-story-behind-bustos-linares-vftme',
   },

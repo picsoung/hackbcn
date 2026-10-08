@@ -4,6 +4,7 @@ import PartnersBar from '@/app/components/home/PartnersBar'
 import UpcomingEvents from '@/app/components/home/UpcomingEvents'
 import StatsBar from '@/app/components/home/StatsBar'
 import PastEvents from '@/app/components/home/PastEvents'
+import HomeTestimonials from '@/app/components/home/HomeTestimonials'
 import OrgFooter from '@/app/components/home/OrgFooter'
 import {
   getFeaturedUpcomingEvent,
@@ -22,6 +23,8 @@ export default function HomePage() {
     ...getAllCommunitySponsorsAcrossEvents(),
   ]
   const upcoming = getAllUpcoming().slice(0, 3)
+  // Keep the landing page to six event cards total; the archive shows the rest.
+  const pastPreviewLimit = 6 - upcoming.length
   const pastHackathons = getUnifiedPastEvents()
   const pastHackNights = getPastHackNights()
   const heroShorts = getRecentShorts(8)
@@ -34,11 +37,13 @@ export default function HomePage() {
         <OrgHero shorts={heroShorts} upcoming={featured} />
         <PartnersBar logos={partnerLogos} />
         <UpcomingEvents events={upcoming} />
-        <StatsBar />
+        <StatsBar eventCount={pastHackathons.length + pastHackNights.length} />
         <PastEvents
           pastHackathons={pastHackathons}
           pastHackNights={pastHackNights}
+          limit={pastPreviewLimit}
         />
+        <HomeTestimonials />
       </main>
       <OrgFooter />
     </div>

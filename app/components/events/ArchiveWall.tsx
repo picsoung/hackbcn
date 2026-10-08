@@ -45,7 +45,7 @@ export default function ArchiveWall({ items }: { items: ArchiveItem[] }) {
   }
 
   return (
-    <section className="bg-band-2 border-y border-band-3">
+    <section id="past" className="bg-band-2 border-y border-band-3 scroll-mt-8">
       <div className="mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
         <p className="font-mono text-xs uppercase tracking-[0.32em] text-accent mb-3">
           / archive

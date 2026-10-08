@@ -23,6 +23,8 @@ Editions before aisummit26 (v1-2024, aisummit25) live in `lib/events.ts` and `da
 
 Add public LinkedIn or X posts to `data/testimonials.ts`. Each entry needs the source URL, author, platform (`linkedin` or `x`), and the event's exact `slug`. Add a brief summary in `excerpt`; a local `image` under `public/testimonials/` is optional. The post then appears on both the main testimonials page and the matching event page. If this is the first post for an event, add its name and date to `testimonialEvents` in the same file so the main page can group it.
 
+Set `featuredOnHome: true` on up to three posts to feature them on the landing page.
+
 ```ts
 {
   eventSlug: 'netlify-barcelona-2026',
