@@ -61,6 +61,7 @@ export type Partner = {
   url?: string
   logo?: string
   logoHeight?: number
+  logoSurface?: 'paper' | 'dark'
 }
 
 // A sponsored challenge/track. `sponsor` matches a Sponsor.name in the same

@@ -582,31 +582,30 @@ export default function EventDetail({
                 ) : (
                   <span className="text-lg font-semibold text-ink">{p.name}</span>
                 )
+                const cardClass = `hb-px hb-px-sm flex h-24 w-48 items-center justify-center px-4 py-3 ${p.logoSurface === 'dark' || !p.logo ? 'bg-band-3' : 'bg-paper'}`
                 return (
                   <div key={p.name} className="flex flex-col gap-2">
-                    <div className="flex h-20 items-center">
-                      {p.url ? (
-                        <a
-                          href={withUtm(p.url, { medium: 'partner', campaign: `hackbarna-${event.slug}`, content: p.role })}
-                          target="_blank"
-                          rel="noopener"
-                          aria-label={p.name}
-                          onClick={() =>
-                            trackOutbound('sponsor_click', {
-                              sponsor: p.name,
-                              tier: p.role,
-                              event_slug: event.slug,
-                              source: 'event_detail_partners',
-                            })
-                          }
-                          className="hb-px hb-px-sm block bg-paper px-4 py-3 transition-transform hover:-rotate-1 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground motion-reduce:transition-none motion-reduce:hover:rotate-0"
-                        >
-                          {inner}
-                        </a>
-                      ) : (
-                        <div>{inner}</div>
-                      )}
-                    </div>
+                    {p.url ? (
+                      <a
+                        href={withUtm(p.url, { medium: 'partner', campaign: `hackbarna-${event.slug}`, content: p.role })}
+                        target="_blank"
+                        rel="noopener"
+                        aria-label={p.name}
+                        onClick={() =>
+                          trackOutbound('sponsor_click', {
+                            sponsor: p.name,
+                            tier: p.role,
+                            event_slug: event.slug,
+                            source: 'event_detail_partners',
+                          })
+                        }
+                        className={`${cardClass} transition-transform hover:-rotate-1 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground motion-reduce:transition-none motion-reduce:hover:rotate-0`}
+                      >
+                        {inner}
+                      </a>
+                    ) : (
+                      <div className={cardClass}>{inner}</div>
+                    )}
                     <span className="font-mono text-xs uppercase tracking-[0.18em] text-ink-dim">
                       {p.role}
                     </span>
