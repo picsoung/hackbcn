@@ -1,6 +1,7 @@
 'use client'
 
 import { useIntl } from '../Intl'
+import Image from 'next/image'
 import type { Sponsor } from '@/data/sponsors'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
@@ -67,11 +68,13 @@ export default function PartnersBar({ logos }: { logos: Sponsor[] }) {
               className="flex-shrink-0 mx-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ground-raised"
             >
               <span className="hb-px hb-px-sm block bg-paper px-4 py-3 transition-transform hover:-rotate-1 motion-reduce:transition-none motion-reduce:hover:rotate-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={sponsor.logo}
                   alt={sponsor.name}
-                  className="h-8 w-auto max-w-[120px] object-contain"
+                  width={120}
+                  height={32}
+                  sizes="120px"
+                  className="h-8 w-[120px] object-contain"
                 />
               </span>
             </a>

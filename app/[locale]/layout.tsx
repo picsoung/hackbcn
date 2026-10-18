@@ -106,7 +106,7 @@ export default async function HomeLayout({
   return (
     <IntlProvider locale={params.locale} data={localeData} locales={allLocales}>
       {/* <ThemeProvider eventSlug="aisummit25"> */}
-        <html>
+        <html lang={params.locale}>
           <body className={inter.className}>
             {children}
             <Analytics />

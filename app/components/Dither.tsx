@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 /**
  * A photograph, quantized.
  *
@@ -21,6 +23,7 @@ type DitherProps = {
   /** Extra classes for the <img> itself, e.g. an aspect ratio or object-position. */
   imgClassName?: string
   loading?: 'lazy' | 'eager'
+  sizes?: string
 }
 
 export default function Dither({
@@ -29,16 +32,18 @@ export default function Dither({
   className = '',
   imgClassName = '',
   loading = 'lazy',
+  sizes = '(min-width: 1024px) 450px, (min-width: 640px) 50vw, 90vw',
 }: DitherProps) {
   // A <span> rather than a <div>: Polaroid nests this inside an <a> and a
   // <button>, and a button may only contain phrasing content.
   return (
     <span className={`hb-dither block ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={src}
         alt={alt}
         loading={loading}
+        fill
+        sizes={sizes}
         className={`hb-dither-img ${imgClassName}`}
       />
       <span aria-hidden="true" className="hb-dither-tex" />

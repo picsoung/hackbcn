@@ -29,7 +29,6 @@ export default function TestimonialCard({
       href={post.url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Read ${post.author}'s ${label} post`}
       className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
     >
       <div className={`hb-px hb-px-shadow h-full overflow-hidden ${

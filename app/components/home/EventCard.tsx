@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useIntl } from '../Intl'
 import { CalendarIcon, MapPinIcon } from '@heroicons/react/24/outline'
 
@@ -68,10 +69,12 @@ export default function EventCard({
       <div className="hb-px bg-ground-raised">
         {imageUrl && (
           <div className="hb-dither aspect-[2/1] overflow-hidden bg-band-2">
-            <img
+            <Image
               src={imageUrl}
               alt={name}
-              className="hb-dither-img w-full h-full"
+              fill
+              sizes="(min-width: 1280px) 390px, (min-width: 1024px) 31vw, (min-width: 768px) 47vw, 92vw"
+              className="hb-dither-img"
             />
             <span aria-hidden="true" className="hb-dither-tex" />
           </div>

@@ -111,7 +111,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                     )}
 
                     <Menu as="div" className="relative">
-                      <Menu.Button className="inline-flex items-center p-1.5 rounded-pixel text-ink-dim hover:text-ink hover:bg-band-2 transition-colors">
+                      <Menu.Button aria-label={intl.t('home.navbar.language')} className="inline-flex items-center p-1.5 rounded-pixel text-ink-dim hover:text-ink hover:bg-band-2 transition-colors">
                         <GlobeAltIcon className="h-5 w-5" />
                         <ChevronDownIcon className="h-3.5 w-3.5 ml-0.5" />
                       </Menu.Button>
