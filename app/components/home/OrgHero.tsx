@@ -81,7 +81,7 @@ export default function OrgHero({
       <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h1 className="hb-reveal text-4xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight leading-[1.15]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight leading-[1.15]">
               {intl.t('home.hero.headline.1')}{' '}
               <span className="text-accent">{intl.t('home.hero.headline.2')}</span>{' '}
               {intl.t('home.hero.headline.3')}{' '}

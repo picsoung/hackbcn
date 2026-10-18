@@ -1,0 +1,33 @@
+# HackBarna
+
+HackBarna is a Barcelona community for people who build with AI and technology. We organize in-person hackathons, hack nights, workshops, demos, and community meetups. Our event archive covers events we organized; the separate Barcelona Event Digest also lists events from other communities.
+
+## Events we have organized
+
+- [HackBarna v1 (June 2024)](https://www.hackbarna.com/en/v1-2024): Our first hackathon at Le Wagon Barcelona brought together more than 50 hackers to explore GPT, Llama, and retrieval-augmented generation, then present their projects.
+- [Hack Night at eDreams ODIGEO (September 2024)](https://www.hackbarna.com/en/events/hacknight-edreams-2024): An evening of lightning talks, open hacking, networking, and demos at the eDreams ODIGEO office.
+- [HackBarna AI Summit 25 (October 2025)](https://www.hackbarna.com/en/aisummit25): A two-day AI hackathon at Glovo Yellow Park with team building, technical workshops, project demos, and awards.
+- [Vibecode Hack Night (February 2026)](https://www.hackbarna.com/en/events/vibecode-hacknight-2026): Rapid prototyping with the Brandfetch API and Lovable at Le Wagon Barcelona.
+- [Skill-a-thon HackNight (March 2026)](https://www.hackbarna.com/en/events/skillathon-hacknight-2026): Builders created and demoed reusable AI agent skills at Itnig, with Happy Operators.
+- [HackNight #3 with Linkup (April 2026)](https://www.hackbarna.com/en/events/hacknight-3-linkup-2026): An evening building apps and agents with Linkup's real-time data API at Itnig.
+- [HackNight #4 with Netlify (June 2026)](https://www.hackbarna.com/en/events/hacknight-june-2026): A workshop on building and deploying full-stack apps, followed by open hacking and demos at Itnig.
+- [HackBarna AI Summit 26 (September 2026)](https://www.hackbarna.com/en/events/aisummit26): A two-day hackathon at Norrsken House Barcelona, co-organized with AI Summit Barcelona 2026, with workshops, hacking, demos, judging, and awards.
+- [Netlify at Barcelona (October 2026)](https://www.hackbarna.com/en/events/netlify-barcelona-2026): A Netlify Agent Runners demo, a conversation with Netlify's CTO and CPO, and a community mixer at La Fabrica & Co.
+
+## Companies and collaborators
+
+- Hosts and venues across these events include Le Wagon Barcelona, eDreams ODIGEO, Glovo Yellow Park, Itnig, Norrsken House Barcelona, and La Fabrica & Co.
+- Sponsors and build or workshop collaborators named in our event records include Mistral AI, Hugging Face, Algolia, Amazon Developer, Vonage, Brandfetch, Lovable, Linkup, Netlify, Preply, Mastra, Nebius, Cognition, and fal.ai.
+- AI Summit Barcelona 2026 co-organized HackBarna AI Summit 26. Happy Operators co-organized the Netlify hack night and Netlify at Barcelona. Our event pages identify each organization's specific role.
+
+## Barcelona Event Digest
+
+The [Barcelona Event Digest](https://digest.hackbarna.com/en) helps people discover Barcelona's wider tech and startup scene. Its [events calendar](https://digest.hackbarna.com/en/events) includes meetups, hackathons, conferences, workshops, and networking events from many organizers. It also has a [community directory](https://digest.hackbarna.com/en/communities) and a weekly email digest of events, community updates, and startup news. The digest is available in [English](https://digest.hackbarna.com/en), [Spanish](https://digest.hackbarna.com/es), and [Catalan](https://digest.hackbarna.com/ca).
+
+## Explore
+
+- [Home](https://www.hackbarna.com/en): Upcoming events and community overview.
+- [Events](https://www.hackbarna.com/en/events): Upcoming and past hackathons and hack nights.
+- [Projects](https://www.hackbarna.com/en/projects): Projects built at HackBarna events.
+- [Community stories](https://www.hackbarna.com/en/testimonials): Participant stories and testimonials.
+- [Code of conduct](https://www.hackbarna.com/en/conduct): Community participation guidelines.

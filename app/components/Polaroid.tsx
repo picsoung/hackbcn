@@ -79,7 +79,12 @@ export default function Polaroid({
       )}
       <span className={PAPER_CLASS}>
         {/* Dithered at rest, developing on the frame's own hover/focus. */}
-        <Dither src={src} alt={alt} className="hb-px block w-full aspect-square" />
+        <Dither
+          src={src}
+          alt={alt}
+          className="hb-px block w-full aspect-square"
+          sizes="(min-width: 640px) 320px, 176px"
+        />
         <span className="block text-center text-xs text-ground/70 mt-2 font-medium px-1 truncate">
           {label}
         </span>
