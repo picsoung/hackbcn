@@ -124,9 +124,9 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
             <a
               target="_blank"
               rel="noopener"
-              href="/sponsorship.pdf"
+              href={`/${intl.locale}/sponsor`}
               onClick={() =>
-                trackOutbound('sponsorship_deck_click', {
+                trackOutbound('sponsorship_page_click', {
                   event_slug: currentEventSlug ?? 'legacy',
                   source: 'legacy-event-sponsor-block',
                 })

@@ -1,0 +1,27 @@
+{
+  "audience": [
+    {
+      "metric": "technical share",
+      "suggestedPercent": 70,
+      "status": "needs-confirmation",
+      "source": null,
+      "cohort": null,
+      "definition": null
+    },
+    {
+      "metric": "women across previous HackBarna events",
+      "suggestedPercent": 30,
+      "status": "organizer-confirmed",
+      "source": "Organizer confirmation on 8 November 2026",
+      "cohort": "Previous HackBarna events",
+      "definition": "Share of women, as reported by the organizer. Not a v3-specific figure."
+    }
+  ],
+  "normaUsage": {
+    "suggestedClaim": "More than 50% of projects used Norma",
+    "status": "needs-confirmation",
+    "numerator": null,
+    "denominator": null,
+    "note": "The public Quality Clouds post and official recap confirm live use, but do not quantify project adoption."
+  }
+}

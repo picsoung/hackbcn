@@ -20,6 +20,7 @@ import TestimonialGrid from '../testimonials/TestimonialGrid'
 import { getTestimonialsForEvent } from '@/data/testimonials'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
+import { sponsorBookingUrl } from '@/lib/sponsorship'
 
 // Render a small subset of markdown — inline [label](url) links — inside
 // otherwise plain event copy (perks, challenge descriptions). Anything that
@@ -139,6 +140,7 @@ function SponsorBlock({
   eventSlug: string
   eventName: string
 }) {
+  const intl = useIntl()
   const campaign = `hackbarna-${eventSlug}`
   const deckCampaign = `hackbarna-${eventSlug}-deck`
   // Hack nights surface their "presented by" sponsor in the hero pill; no logo block.
@@ -156,18 +158,18 @@ function SponsorBlock({
         <p className="text-sm text-ink-dim">
           No sponsors yet. Want to be the first?{' '}
           <a
-            href="/sponsorship.pdf"
+            href={`/${intl.locale}/sponsor`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() =>
-              trackOutbound('sponsorship_deck_click', {
+              trackOutbound('sponsorship_page_click', {
                 event_slug: eventSlug,
                 source: 'empty-state',
               })
             }
             className="font-semibold text-accent hover:text-inversion underline underline-offset-2"
           >
-            View the deck →
+            {intl.t('partner.nav')}
           </a>
         </p>
       </section>
@@ -318,33 +320,32 @@ function SponsorBlock({
               </div>
               <div className="flex flex-wrap items-center gap-4 sm:flex-shrink-0">
                 <a
-                  href="/sponsorship.pdf"
+                  href={`/${intl.locale}/sponsor`}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() =>
-                    trackOutbound('sponsorship_deck_click', {
+                    trackOutbound('sponsorship_page_click', {
                       event_slug: eventSlug,
                       source: 'sponsor-block',
                     })
                   }
                   className="hb-px inline-flex items-center gap-2 bg-accent-alt px-5 py-2.5 text-sm font-semibold text-ground transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
                 >
-                  Sponsorship deck
-                  <span aria-hidden="true">→</span>
+                  {intl.t('partner.nav')}
                 </a>
                 <a
-                  href={`mailto:team@hackbarna.com?subject=${encodeURIComponent(
-                    `Sponsoring ${eventName}`
-                  )}`}
+                  href={sponsorBookingUrl(`event-${eventSlug}`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() =>
-                    trackOutbound('sponsor_contact_click', {
+                    trackOutbound('sponsor_booking_click', {
                       event_slug: eventSlug,
                       source: 'sponsor-block',
                     })
                   }
                   className="text-sm font-semibold text-ink-dim underline underline-offset-4 transition-colors hover:text-ink"
                 >
-                  Talk to us
+                  {intl.t('partner.book')}
                 </a>
               </div>
             </div>

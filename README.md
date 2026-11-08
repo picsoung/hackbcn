@@ -45,3 +45,77 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Sponsorship page and prospectus
+
+The partner page is available at `/{locale}/sponsor` in English, Spanish,
+Catalan, and French. Booking links use the personal calendar configured in
+`data/sponsorship.json`. The English draft PDF uses the same offers, evidence,
+and English translations as the page. Both historical PDFs remain available.
+
+Edit partnership options, community figures, and source links in
+`data/sponsorship.json`, and copy in the `partner.*` keys in
+`i18n/{locale}.json`. The page and prospectus show two partnership options
+without public prices, plus a separate invitation for venue hosts. Do not promote
+event capacities as attendance or event-wide project totals as product usage.
+
+Regenerate the draft PDF after changing shared content:
+
+```bash
+python3 -m venv .venv-sponsorship
+.venv-sponsorship/bin/pip install -r scripts/requirements-sponsorship.txt
+npm run sponsorship:pdf
+```
+
+The generator uses local Arial when available, or ReportLab's bundled Vera.
+Set `SPONSORSHIP_FONT_DIR` to use another installation of Arial. Inspect the
+rendered pages after regeneration; the PDF includes draft labels, source links,
+and clickable meeting links. Its output is `public/sponsorship-2026-27-draft.pdf`.
+
+The web page and four-page prospectus follow four sections: invitation with
+audience figures, partner outcomes and event history, two partnership options,
+and venue hosting. Each option has three practical benefits. Formats and optional
+video production share one short note rather than separate sections. Booking and download labels do not add decorative
+arrows. Audience percentages are rendered only from approved `audienceMetrics`
+entries with a source and a localized cohort/definition (`basisKey`). Unconfirmed
+audience and product-usage suggestions stay in the internal
+`scripts/sponsorship-claims-review.json` until their scope and evidence are clear.
+
+### Package review
+
+The November 2026 package review compared [Junction](https://www.hackjunction.com/partners),
+[Tech: Europe](https://partner.techeurope.io/distribution/),
+[ETHGlobal Mumbai](https://ethglobal.com/events/mumbai/sponsor), and
+[HackUPC](https://hackupc.com/). The public presentation offers two choices: support an event, or build an
+activation around a partner's technology. Hack Nights and the flagship weekend
+are formats for either conversation, rather than additional tiers. Venue hosts
+have their own invitation and booking action. Booking is available in the hero
+and each partnership option, without a second set of format-specific actions.
+
+Professional filming and editing can be scoped into either partnership. The
+production brief and budget are agreed with the partner; no fixed video inclusion
+or price is promised publicly. Published competitor pages do not establish a
+universal video tariff.
+
+### Internal Hack Night budget
+
+```bash
+npm run sponsorship:budget -- --package presenting
+npm run sponsorship:budget -- --pass four --basis-confirmed
+npm run sponsorship:budget -- --revenue 4000 --collected 4000 --cost 2995.03 --extra-cost 200 --basis-confirmed
+npm run sponsorship:test
+```
+
+The calculator reads historical draft scenarios from
+`scripts/sponsorship-pricing.json`, not the public partnership options. Those
+figures are internal planning inputs, not current sales commitments.
+
+Use `--help` for all inputs. Amounts are euros; cost adjustments are per night,
+while contracted and collected revenue are totals. The calculator keeps integer
+cents, checks each night against the greater of €3,500 or cost plus €500, and
+requires confirmation that all inputs share the same reconciled VAT basis.
+The default historical budget assumes no inventory reuse. In-kind support only
+reduces costs by the documented cash expense it avoids. Pass revenue is allocated
+equally by night; calculate materially different nights separately. This is a
+contribution forecast, not accounting net profit. Cost data stays in `scripts/`
+and is never imported by the website.

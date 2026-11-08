@@ -11,7 +11,10 @@
     "start": "next start",
     "lint": "next lint",
     "format": "npx prettier --write .",
-    "format:check": "npx prettier --check ."
+    "format:check": "npx prettier --check .",
+    "sponsorship:budget": "node scripts/sponsorship-budget.mjs",
+    "sponsorship:test": "node --test scripts/sponsorship-budget.test.mjs",
+    "sponsorship:pdf": ".venv-sponsorship/bin/python scripts/build-sponsorship-pdf.py"
   },
   "dependencies": {
     "@formatjs/intl": "^2.10.2",

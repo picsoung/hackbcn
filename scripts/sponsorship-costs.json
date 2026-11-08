@@ -1,0 +1,33 @@
+{
+  "description": "Historical full-production Hack Night baseline; invoice VAT basis is unconfirmed. Costs are per night. No inventory reuse is assumed.",
+  "costs": [
+    {
+      "item": "Venue and drinks",
+      "cents": 89600
+    },
+    {
+      "item": "Swag",
+      "cents": 66700
+    },
+    {
+      "item": "Two roll-up banners",
+      "cents": 11858
+    },
+    {
+      "item": "Pizza",
+      "cents": 28280
+    },
+    {
+      "item": "Photography and video",
+      "cents": 75000
+    },
+    {
+      "item": "Coordination and hosting",
+      "cents": 28065
+    }
+  ],
+  "minimumContractedPerNightCents": 350000,
+  "contributionFloorPerNightCents": 50000,
+  "recommendedRevenuePerNightCents": 400000,
+  "mediaScopeNote": "The historical 75000-cent line combines photography and video; it is not a standalone video tariff. Professional production is scoped and quoted separately for either partnership option. Record any amount above the baseline through extra-cost; retain the contribution floor."
+}
