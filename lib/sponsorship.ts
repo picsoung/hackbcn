@@ -26,5 +26,8 @@ export function sponsorBookingUrl(source: string) {
   url.searchParams.set('utm_medium', 'partnership')
   url.searchParams.set('utm_campaign', 'sponsorship-2026-27')
   url.searchParams.set('utm_content', source)
+  const notes =
+    sponsorship.bookingTopics[source as keyof typeof sponsorship.bookingTopics]
+  if (notes) url.searchParams.set('notes', notes)
   return url.toString()
 }

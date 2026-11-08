@@ -106,5 +106,75 @@
       "id": "technology",
       "features": ["activation", "engineers", "feedback"]
     }
-  ]
+  ],
+  "pastPartners": [
+    {
+      "name": "Vonage",
+      "logo": "/logos/vonage.svg",
+      "eventPath": "/aisummit25",
+      "eventName": "HackBarna v2 · AI Summit 25"
+    },
+    {
+      "name": "Linkup",
+      "logo": "/logos/linkup.svg",
+      "eventPath": "/events/hacknight-3-linkup-2026",
+      "eventName": "HackNight #3 · Powered by Linkup"
+    },
+    {
+      "name": "Lovable",
+      "logo": "/logos/lovable-dark.png",
+      "eventPath": "/events/vibecode-hacknight-2026",
+      "eventName": "Vibecode Hack Night"
+    },
+    {
+      "name": "Hugging Face",
+      "logo": "/logos/hf.png",
+      "eventPath": "/v1-2024",
+      "eventName": "HackBarna v1"
+    },
+    {
+      "name": "Mistral AI",
+      "logo": "/logos/mistral.svg",
+      "eventPath": "/v1-2024",
+      "eventName": "HackBarna v1"
+    },
+    {
+      "name": "Algolia",
+      "logo": "/logos/algolia.png",
+      "eventPath": "/v1-2024",
+      "eventName": "HackBarna v1"
+    }
+  ],
+  "pastHosts": [
+    {
+      "name": "Itnig",
+      "logo": "/logos/itnig.svg",
+      "eventPath": "/events/hacknight-june-2026",
+      "eventName": "HackNight #4 · Build with Netlify"
+    },
+    {
+      "name": "Le Wagon",
+      "logo": "/logos/lewagon.png",
+      "eventPath": "/v1-2024",
+      "eventName": "HackBarna v1"
+    },
+    {
+      "name": "Glovo",
+      "logo": "/logos/glovo.svg",
+      "eventPath": "/aisummit25",
+      "eventName": "HackBarna v2 · AI Summit 25"
+    },
+    {
+      "name": "Norrsken",
+      "logo": "/logos/norrsken.svg",
+      "eventPath": "/events/aisummit26",
+      "eventName": "HackBarna v3 · AI Summit 2026"
+    }
+  ],
+  "bookingTopics": {
+    "option-support": "HackBarna enquiry: Community support (sponsoring an event).",
+    "option-technology": "HackBarna enquiry: Technology partnership (workshop or challenge).",
+    "managed-hackathon": "HackBarna enquiry: Hackathon in a box (full event organisation).",
+    "host-venue": "HackBarna enquiry: Offering a venue in Barcelona."
+  }
 }

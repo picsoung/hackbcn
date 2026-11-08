@@ -74,9 +74,10 @@ and clickable meeting links. Its output is `public/sponsorship-2026-27-draft.pdf
 
 The web page and four-page prospectus follow four sections: invitation with
 audience figures, partner outcomes and event history, two partnership options,
-and venue hosting. Each option has three practical benefits. Formats and optional
-video production share one short note rather than separate sections. Booking and download labels do not add decorative
-arrows. Audience percentages are rendered only from approved `audienceMetrics`
+and venue hosting. Each option has three practical benefits. A separate
+Hackathon in a box callout offers full event organisation without adding a tier.
+Formats and optional video production share one short note rather than separate
+sections. Booking and download labels do not add decorative arrows. Audience percentages are rendered only from approved `audienceMetrics`
 entries with a source and a localized cohort/definition (`basisKey`). Unconfirmed
 audience and product-usage suggestions stay in the internal
 `scripts/sponsorship-claims-review.json` until their scope and evidence are clear.
@@ -91,6 +92,12 @@ activation around a partner's technology. Hack Nights and the flagship weekend
 are formats for either conversation, rather than additional tiers. Venue hosts
 have their own invitation and booking action. Booking is available in the hero
 and each partnership option, without a second set of format-specific actions.
+The managed-hackathon and venue actions have their own booking context.
+`bookingTopics` in `data/sponsorship.json` maps these selections to editable
+Cal.com `notes` prefills. Standard UTM tags retain the source button, including
+for general and event-page bookings. No custom Cal fields are required. See
+[Cal.com prefilling](https://cal.com/help/bookings/prefill-fields) and
+[UTM tracking](https://cal.com/help/bookings/utm-tracking).
 
 Professional filming and editing can be scoped into either partnership. The
 production brief and budget are agreed with the partner; no fixed video inclusion

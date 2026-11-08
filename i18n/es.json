@@ -212,5 +212,10 @@
   "partner.venue.cta": "Ofrece un espacio",
   "partner.case.netlify.summary": "Los participantes desplegaron aplicaciones con Netlify durante un taller práctico. Más adelante, Netlify volvió para un encuentro de la comunidad con su equipo directivo.",
   "partner.case.quality.summary": "Quality Clouds llevó su herramienta de revisión de código Norma al reto Production Ready. Los equipos la usaron con su código generado por IA, y la empresa destacó el talento técnico y ver Norma en acción.",
-  "partner.packages.details": "Para Hack Nights y nuestro hackathon principal. La producción profesional de vídeo se ofrece por separado."
+  "partner.packages.details": "Para Hack Nights y nuestro hackathon principal. La producción profesional de vídeo se ofrece por separado.",
+  "partner.logos.partners": "Más colaboradores anteriores",
+  "partner.logos.hosts": "Espacios que nos han acogido",
+  "partner.managed.title": "Tu hackathon, de principio a fin",
+  "partner.managed.body": "Tu idea, nuestra organización. Nos encargamos del formato, el espacio, las inscripciones, la comida y la coordinación del evento. Tú traes a tu equipo o tu reto; nosotros nos ocupamos del resto.",
+  "partner.managed.cta": "Organiza mi hackathon"
 }

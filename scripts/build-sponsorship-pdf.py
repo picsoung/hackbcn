@@ -10,6 +10,7 @@ import os
 import re
 from html import escape
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from xml.etree import ElementTree
 
 from reportlab.lib.colors import HexColor
@@ -104,11 +105,19 @@ def photo(src, x, top, width, height):
     c.drawImage(image, x+(width-iw*scale)/2, H-top-ih*scale, width=iw*scale, height=ih*scale, mask='auto')
     c.restoreState()
 
-def booking(x=42, top=480, title=None):
+def booking_url(source):
+    parts=urlsplit(DATA['bookingUrl'])
+    query=dict(parse_qsl(parts.query))
+    query.update(utm_source='hackbarna',utm_medium='prospectus',utm_campaign='sponsorship-2026-27',utm_content=source)
+    notes=DATA['bookingTopics'].get(source)
+    if notes: query['notes']=notes
+    return urlunsplit((parts.scheme,parts.netloc,parts.path,urlencode(query),parts.fragment))
+
+def booking(x=42, top=480, title=None, source='prospectus'):
     width=186; height=34
     c.setFillColor(HexColor(PINK)); c.rect(x, H-top-height, width, height, fill=1, stroke=0)
     paragraph(title or text('book'), x+14, top+8, width-28, 11, INK, True)
-    c.linkURL(DATA['bookingUrl'], (x, H-top-height, x+width, H-top), relative=0)
+    c.linkURL(booking_url(source), (x, H-top-height, x+width, H-top), relative=0)
 
 def finish(): c.showPage()
 
@@ -157,20 +166,24 @@ for i,option in enumerate(DATA['partnershipOptions']):
     x=42+i*392; width=355
     rule(160,x,width,PINK if option['id']=='technology' else DIM)
     paragraph(text(f"option.{option['id']}.name"),x,182,width,25,WHITE,True,30)
-    top=270
+    top=240
     for feature in option['features']:
         top=paragraph('+ '+text(f"option.{option['id']}.{feature}"),x,top,width,12,DIM)+15
-    booking(x=x,top=413,title=text(f"option.{option['id']}.cta"))
-paragraph(text('packages.details'),42,480,750,11,DIM)
+    booking(x=x,top=350,title=text(f"option.{option['id']}.cta"),source=f"option-{option['id']}")
+paragraph(text('packages.details'),42,403,750,9,DIM)
+rule(433)
+paragraph(text('managed.title'),42,449,750,18,WHITE,True)
+paragraph(text('managed.body'),42,485,505,10,DIM)
+booking(x=600,top=490,title=text('managed.cta'),source='managed-hackathon')
 finish()
 
 # 4 / Venue hosts
 page(4,RAISED)
 paragraph(text('venue.title'),42,105,750,34,WHITE,True)
 paragraph(text('venue.body'),42,179,680,14,DIM)
-booking(top=267,title=text('venue.cta'))
+booking(top=267,title=text('venue.cta'),source='host-venue')
 paragraph(DATA['bookingUrl'].removeprefix('https://'),250,276,450,12,WHITE)
-c.linkURL(DATA['bookingUrl'],(250,H-295,750,H-270),relative=0)
+c.linkURL(booking_url('host-venue'),(250,H-295,750,H-270),relative=0)
 photo(DATA['photos']['hero'],42,341,758,173)
 paragraph(text('hero.caption'),42,525,750,8,DIM)
 finish()

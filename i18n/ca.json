@@ -212,5 +212,10 @@
   "partner.venue.cta": "Ofereix un espai",
   "partner.case.netlify.summary": "Els participants van desplegar aplicacions amb Netlify durant un taller pràctic. Més endavant, Netlify va tornar per a una trobada de la comunitat amb el seu equip directiu.",
   "partner.case.quality.summary": "Quality Clouds va portar la seva eina de revisió de codi Norma al repte Production Ready. Els equips la van fer servir amb el seu codi generat per IA, i l’empresa va destacar el talent tècnic i veure Norma en acció.",
-  "partner.packages.details": "Per a Hack Nights i el nostre hackathon principal. La producció professional de vídeo s’ofereix per separat."
+  "partner.packages.details": "Per a Hack Nights i el nostre hackathon principal. La producció professional de vídeo s’ofereix per separat.",
+  "partner.logos.partners": "Més col·laboradors anteriors",
+  "partner.logos.hosts": "Espais que ens han acollit",
+  "partner.managed.title": "El teu hackathon, de principi a fi",
+  "partner.managed.body": "La teva idea, la nostra organització. Ens encarreguem del format, l’espai, les inscripcions, el menjar i la coordinació de l’esdeveniment. Tu hi portes el teu equip o repte; nosaltres ens ocupem de la resta.",
+  "partner.managed.cta": "Organitza el meu hackathon"
 }
