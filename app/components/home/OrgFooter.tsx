@@ -20,6 +20,9 @@ export default function OrgFooter() {
             <Link href={`/${intl.locale}/events`} className="hover:text-ground transition-colors rounded-pixel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ground focus-visible:ring-offset-2 focus-visible:ring-offset-inversion">
               {intl.t('events.title')}
             </Link>
+            <Link href={`/${intl.locale}/sponsor`} className="hover:text-ground transition-colors rounded-pixel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ground focus-visible:ring-offset-2 focus-visible:ring-offset-inversion">
+              {intl.t('partner.nav')}
+            </Link>
             <a href={getDigestHref(intl.locale)} className="hover:text-ground transition-colors rounded-pixel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ground focus-visible:ring-offset-2 focus-visible:ring-offset-inversion">
               {intl.t('home.navbar.digest')}
             </a>

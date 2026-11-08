@@ -1,0 +1,58 @@
+{
+  "status": "historical-draft-scenarios-not-public",
+  "currency": "EUR",
+  "vatBasis": "excluding-vat",
+  "nightPackages": [
+    {
+      "id": "community",
+      "priceCents": 100000,
+      "benefits": ["brand", "places", "swag", "report"]
+    },
+    {
+      "id": "build",
+      "priceCents": 200000,
+      "benefits": ["community", "workshop", "mentors", "feedback"]
+    },
+    {
+      "id": "presenting",
+      "priceCents": 400000,
+      "benefits": [
+        "naming",
+        "activation",
+        "fourPlaces",
+        "introductions",
+        "recap",
+        "video",
+        "report"
+      ],
+      "videoIncluded": true
+    }
+  ],
+  "passes": [
+    {
+      "id": "two",
+      "nights": 2,
+      "priceCents": 760000
+    },
+    {
+      "id": "four",
+      "nights": 4,
+      "priceCents": 1480000
+    }
+  ],
+  "hackathonPackages": [
+    {
+      "id": "community",
+      "priceCents": 250000
+    },
+    {
+      "id": "challenge",
+      "priceCents": 500000
+    },
+    {
+      "id": "flagship",
+      "priceCents": 1000000,
+      "videoIncluded": true
+    }
+  ]
+}

@@ -46,6 +46,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     })
 
+    // Partnership page
+    out.push({
+      url: `${SITE}/${locale}/sponsor`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    })
+
     // Past editions on legacy URL (canonical)
     for (const slug of PAST_LEGACY_SLUGS) {
       out.push({

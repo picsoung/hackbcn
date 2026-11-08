@@ -28,6 +28,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
 
   const navigation = [
     { name: intl.t('home.navbar.events'), href: `/${intl.locale}/events` },
+    { name: intl.t('partner.nav'), href: `/${intl.locale}/sponsor` },
     { name: intl.t('navbar.testimonials'), href: `/${intl.locale}/testimonials` },
     { name: intl.t('home.navbar.digest'), href: getDigestHref(intl.locale), external: true },
   ]
@@ -85,7 +86,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                     </Link>
                   </div>
 
-                  <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-6">
+                  <div className="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-6">
                     {navigation.map((item) =>
                       item.external ? (
                         <a
@@ -152,8 +153,8 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                     </Menu>
                   </div>
 
-                  <div className="-mr-2 flex items-center sm:hidden">
-                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-pixel text-ink-dim hover:text-ink hover:bg-band-2">
+                  <div className="-mr-2 flex items-center lg:hidden">
+                    <Disclosure.Button aria-label={intl.t('home.navbar.menu')} className="inline-flex items-center justify-center p-2 rounded-pixel text-ink-dim hover:text-ink hover:bg-band-2">
                       {open ? (
                         <XMarkIcon className="block h-6 w-6" />
                       ) : (
@@ -164,7 +165,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                 </div>
               </div>
 
-              <Disclosure.Panel className="sm:hidden border-t border-band-2">
+              <Disclosure.Panel className="lg:hidden border-t border-band-2">
                 <div className="space-y-1 pb-3 pt-2">
                   {navigation.map((item) =>
                     item.external ? (

@@ -1,0 +1,110 @@
+{
+  "status": "draft",
+  "edition": "2026–27",
+  "bookingUrl": "https://cal.com/picsoung/hackbarna",
+  "prospectusUrl": "/sponsorship-2026-27-draft.pdf",
+  "evidence": [
+    {
+      "id": "v1",
+      "year": "2024",
+      "hackers": 60,
+      "outputCount": 18,
+      "outputUnit": "projects",
+      "status": "reported",
+      "source": "/sponsorship25.pdf#page=3",
+      "eventPath": "/v1-2024"
+    },
+    {
+      "id": "v2",
+      "year": "2025",
+      "hackers": 150,
+      "outputCount": 40,
+      "outputUnit": "teams",
+      "status": "reported",
+      "source": "/sponsorship.pdf#page=2",
+      "eventPath": "/aisummit25"
+    },
+    {
+      "id": "v3",
+      "year": "2026",
+      "hackers": 150,
+      "outputCount": 68,
+      "outputUnit": "projects",
+      "status": "reported",
+      "source": "https://www.linkedin.com/posts/hackathon-aisummit-generativeai-ugcPost-7508902184709775360-uCPG/",
+      "eventPath": "/events/aisummit26"
+    }
+  ],
+  "cases": [
+    {
+      "id": "netlify",
+      "partner": "Netlify",
+      "logo": "/logos/netlify.svg",
+      "eventPath": "/events/hacknight-june-2026",
+      "source": "https://www.linkedin.com/posts/netlify_we-built-and-shipped-at-build-with-netlify-activity-7478484962858426368-zHSN",
+      "events": [
+        {
+          "name": "HackNight #4: Build with Netlify",
+          "date": "2026-06-30",
+          "path": "/events/hacknight-june-2026"
+        },
+        {
+          "name": "Netlify @ Barcelona",
+          "date": "2026-10-07",
+          "path": "/events/netlify-barcelona-2026"
+        }
+      ],
+      "sentimentBasis": "Paraphrase of the linked public partner recap; not a direct quotation."
+    },
+    {
+      "id": "quality",
+      "partner": "Quality Clouds",
+      "logo": "/logos/qualityclouds.svg",
+      "eventPath": "/events/aisummit26",
+      "source": "https://www.linkedin.com/posts/hackathon-aisummit-generativeai-ugcPost-7508902184709775360-uCPG/",
+      "events": [
+        {
+          "name": "HackBarna v3 · AI Summit 2026",
+          "date": "2026-09-19",
+          "path": "/events/aisummit26"
+        }
+      ],
+      "additionalSource": "https://qualityclouds.ai/events/hackbarna-ai-summit-barcelona-2026",
+      "sentimentBasis": "Paraphrase of the linked public partner recap; not a direct quotation."
+    }
+  ],
+  "photos": {
+    "hero": "/events/netlify-barcelona-2026/group.jpg",
+    "demo": "/events/netlify-barcelona-2026/agent-runners-demo.jpg"
+  },
+  "audienceMetrics": [
+    {
+      "id": "women",
+      "value": 30,
+      "labelKey": "audience.women",
+      "basisKey": "audience.women.basis",
+      "status": "approved",
+      "source": "Organizer confirmation on 8 November 2026: 30% women across previous HackBarna events."
+    }
+  ],
+  "videoProduction": {
+    "availability": "either-option",
+    "scope": "quoted-separately"
+  },
+  "communityStats": {
+    "hackNightAverageBuilders": 70,
+    "mailingListSubscribers": 1000,
+    "mailingListQualifier": "+",
+    "source": "Organizer confirmation on 8 November 2026"
+  },
+  "partnershipOptions": [
+    {
+      "id": "support",
+      "features": ["food", "people", "presence"]
+    },
+    {
+      "id": "technology",
+      "features": ["activation", "engineers", "feedback"]
+    }
+  ]
+}

@@ -157,11 +157,11 @@ export default function Hero() {
                 <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:gap-x-6">
                   <ApplyButton />
                   <Link
-                    href="/sponsorship.pdf"
+                    href={`/${intl.locale}/sponsor`}
                     target="_blank"
                     rel="noopener"
                     onClick={() =>
-                      trackOutbound('sponsorship_deck_click', {
+                      trackOutbound('sponsorship_page_click', {
                         event_slug: currentEventSlug ?? 'legacy',
                         source: 'hero',
                       })
