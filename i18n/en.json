@@ -213,5 +213,10 @@
   "partner.venue.cta": "Offer a venue",
   "partner.case.netlify.summary": "Builders deployed live apps with Netlify during a hands-on workshop. Netlify later returned for a community evening with its leadership team.",
   "partner.case.quality.summary": "Quality Clouds brought its Norma code-review tool to the Production Ready challenge. Teams used it on their AI-generated code, and the partner praised the technical talent and seeing Norma used live.",
-  "partner.packages.details": "Available for Hack Nights and our flagship hackathon. Professional video production is available separately."
+  "partner.packages.details": "Available for Hack Nights and our flagship hackathon. Professional video production is available separately.",
+  "partner.logos.partners": "More past partners",
+  "partner.logos.hosts": "Previous hosts",
+  "partner.managed.title": "Hackathon in a box",
+  "partner.managed.body": "Your idea, our organisation. We handle the format, venue, registrations, food, and running the day. You bring your team or challenge; we take care of the rest.",
+  "partner.managed.cta": "Plan my hackathon"
 }

@@ -176,6 +176,47 @@
   align-items: center;
   min-height: 44px;
 }
+.sponsor-logo-group {
+  margin-top: 1.5rem;
+}
+.sponsor-logo-group h3 {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: rgb(var(--ink-dim));
+  font-weight: 550;
+}
+.sponsor-logo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+.sponsor-logo-link {
+  display: block;
+  width: 140px;
+  height: 64px;
+}
+.sponsor-logo-link:focus-visible {
+  outline: 2px solid rgb(var(--accent-alt));
+  outline-offset: 4px;
+}
+.sponsor-logo-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem;
+  background: rgb(var(--paper, 239 234 223));
+}
+.sponsor-logo-plate img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.sponsor-logo-link:hover .sponsor-logo-plate {
+  background: rgb(var(--ink));
+}
 .sponsor-options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -216,6 +257,31 @@
 .sponsor-option > a {
   margin-top: auto;
 }
+.sponsor-managed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  margin-top: 1.5rem;
+  padding-block: 1.5rem;
+  border-block: 1px solid rgb(var(--ink) / 0.15);
+}
+.sponsor-managed h3 {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+.sponsor-managed p {
+  max-width: 60ch;
+  margin-top: 0.6rem;
+  color: rgb(var(--ink-dim));
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.sponsor-managed > a {
+  flex-shrink: 0;
+}
 .sponsor-package-details {
   max-width: 75ch;
   margin-top: 1.25rem;
@@ -253,8 +319,10 @@
     flex-direction: column;
     gap: 0.15rem;
   }
+  .sponsor-managed,
   .sponsor-venue {
     flex-direction: column;
+    align-items: start;
     gap: 1rem;
   }
 }

@@ -211,5 +211,10 @@
   "partner.venue.cta": "Proposer un lieu",
   "partner.case.netlify.summary": "Les participants ont déployé des applications avec Netlify lors d’un atelier pratique. Netlify est ensuite revenu pour une soirée communautaire avec son équipe de direction.",
   "partner.case.quality.summary": "Quality Clouds a proposé son outil de revue de code Norma pour le défi Production Ready. Les équipes l’ont utilisé sur leur code généré par IA. Le partenaire a salué le niveau technique et l’utilisation de Norma en direct.",
-  "partner.packages.details": "Pour les Hack Nights et notre hackathon phare. La production vidéo professionnelle est proposée séparément."
+  "partner.packages.details": "Pour les Hack Nights et notre hackathon phare. La production vidéo professionnelle est proposée séparément.",
+  "partner.logos.partners": "D’autres partenaires",
+  "partner.logos.hosts": "Lieux qui nous ont accueillis",
+  "partner.managed.title": "Votre hackathon clé en main",
+  "partner.managed.body": "Votre idée, notre organisation. Nous gérons le format, le lieu, les inscriptions, les repas et le déroulement de l’événement. Vous apportez votre équipe ou votre défi ; nous nous occupons du reste.",
+  "partner.managed.cta": "Organiser mon hackathon"
 }

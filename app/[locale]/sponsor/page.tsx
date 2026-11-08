@@ -5,6 +5,7 @@ import OrgNavbar from '@/app/components/home/OrgNavbar'
 import OrgFooter from '@/app/components/home/OrgFooter'
 import Dither from '@/app/components/Dither'
 import SponsorAction from '@/app/components/sponsorship/SponsorAction'
+import SponsorLogos from '@/app/components/sponsorship/SponsorLogos'
 import { getFeaturedUpcomingEvent } from '@/lib/events-server'
 import { sponsorship, getPublishedAudienceMetrics } from '@/lib/sponsorship'
 import i18nConfig from '@/i18n.json'
@@ -193,6 +194,12 @@ export default async function SponsorPage({
               {latest.outputCount} {t('audience.projects')}
             </Link>
           </p>
+          <SponsorLogos
+            id="past-partners-title"
+            title={t('logos.partners')}
+            logos={sponsorship.pastPartners}
+            locale={params.locale}
+          />
         </section>
 
         <section
@@ -223,6 +230,15 @@ export default async function SponsorPage({
             ))}
           </div>
           <p className="sponsor-package-details">{t('packages.details')}</p>
+          <aside className="sponsor-managed" aria-labelledby="managed-title">
+            <div>
+              <h3 id="managed-title">{t('managed.title')}</h3>
+              <p>{t('managed.body')}</p>
+            </div>
+            <SponsorAction source="managed-hackathon" className={button}>
+              {t('managed.cta')}
+            </SponsorAction>
+          </aside>
         </section>
 
         <section
@@ -233,6 +249,12 @@ export default async function SponsorPage({
           <div>
             <h2 id="venue-title">{t('venue.title')}</h2>
             <p className="sponsor-intro">{t('venue.body')}</p>
+            <SponsorLogos
+              id="past-hosts-title"
+              title={t('logos.hosts')}
+              logos={sponsorship.pastHosts}
+              locale={params.locale}
+            />
           </div>
           <div className="sponsor-venue-actions">
             <SponsorAction source="host-venue" className={button}>
