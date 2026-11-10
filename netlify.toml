@@ -1,7 +1,11 @@
-# Netlify automatically installs and updates its Next.js adapter.
+# Enable the Next.js runtime for both GitHub builds and local CLI deployments.
+# Leave the adapter version unpinned so Netlify manages updates.
 [build]
   command = "npm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "24"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
