@@ -127,28 +127,28 @@ export function getAllUnifiedEvents(): Event[] {
 export function getUnifiedUpcomingEvents(): Event[] {
   const now = Date.now()
   return getAllUnifiedEvents()
-    .filter((e) => new Date(e.startDate).getTime() > now)
+    .filter((e) => new Date(e.endDate).getTime() > now)
     .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
 export function getUnifiedPastEvents(): Event[] {
   const now = Date.now()
   return getAllUnifiedEvents()
-    .filter((e) => new Date(e.endDate).getTime() < now)
+    .filter((e) => new Date(e.endDate).getTime() <= now)
     .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
 }
 
-// All upcoming events (hackathons + hack nights), soonest first.
+// Upcoming and ongoing events (hackathons + hack nights), soonest first.
 export function getAllUpcoming(): Event[] {
   const now = Date.now()
   const allEvents = getAllUnifiedEvents()
   const hackNightsAsEvents = hackNights.map(hackNightToEvent)
   return [...allEvents, ...hackNightsAsEvents]
-    .filter((e) => new Date(e.startDate).getTime() > now)
+    .filter((e) => new Date(e.endDate).getTime() > now)
     .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
-// Featured: next upcoming hackathon-or-hacknight by start date.
+// Featured: current or next hackathon-or-hacknight by start date.
 export function getFeaturedUpcomingEvent(): Event | null {
   return getAllUpcoming()[0] ?? null
 }
