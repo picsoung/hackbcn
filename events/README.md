@@ -11,6 +11,10 @@ One MDX file per HackBarna event. Frontmatter holds all structured data; the bod
 
 That's it. The build picks the file up automatically: no edits to `lib/events.ts`, no separate data files.
 
+Events stay in the current list while they are running and move to the archive
+at `endDate`. Check the date transitions for both MDX and legacy hack nights
+with `node --test tests/event-listing.test.cjs`.
+
 ## Why MDX (and not plain JSON or YAML)
 
 MDX files can hold structured frontmatter and optional rich-content body. Today we only parse frontmatter, but the extension means future event-specific recap content (paragraphs, photo essays, embedded videos) drops in without changing the file format. Same pattern as `legal/code-of-conduct/*.mdx` and `projects/*.md`.

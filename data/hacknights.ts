@@ -271,14 +271,14 @@ export const hackNights: HackNight[] = [
 export const getUpcomingHackNights = () => {
   const now = new Date()
   return hackNights
-    .filter(hn => new Date(hn.date) > now)
+    .filter(hn => new Date(hn.endDate) > now)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 }
 
 export const getPastHackNights = () => {
   const now = new Date()
   return hackNights
-    .filter(hn => new Date(hn.endDate) < now)
+    .filter(hn => new Date(hn.endDate) <= now)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
