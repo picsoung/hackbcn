@@ -21,6 +21,7 @@ import { getTestimonialsForEvent } from '@/data/testimonials'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
 import { sponsorBookingUrl } from '@/lib/sponsorship'
+import { getLiveEvent } from '@/lib/live/config'
 
 // Render a small subset of markdown — inline [label](url) links — inside
 // otherwise plain event copy (perks, challenge descriptions). Anything that
@@ -428,6 +429,7 @@ export default function EventDetail({
   const description = event.description?.[intl.locale] || event.description?.en || ''
   const isPast = event.past ?? new Date(event.endDate) < new Date()
   const isHackNight = event.eventType === 'hacknight'
+  const liveEvent = getLiveEvent(event.slug)
   const eventTestimonials = getTestimonialsForEvent(event.slug)
   const schedule = event.schedule?.[intl.locale] || event.schedule?.en || []
   const challenges = event.challenges?.[intl.locale] || event.challenges?.en || []
@@ -519,26 +521,36 @@ export default function EventDetail({
                 <p className="text-lg text-ink-dim leading-relaxed mb-8">{description}</p>
               )}
 
-              {event.registrationUrl && !isPast && (
-                <a
-                  href={withUtm(event.registrationUrl, {
-                    medium: 'cta',
-                    campaign: `hackbarna-${event.slug}`,
-                    content: 'register-hero',
-                  })}
-                  target="_blank"
-                  rel="noopener"
-                  onClick={() =>
-                    trackOutbound('registration_click', {
-                      event_slug: event.slug,
-                      source: 'register-hero',
-                    })
-                  }
-                  className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
-                >
-                  {intl.t('events.register')} →
-                </a>
-              )}
+              <div className="flex flex-wrap gap-3">
+                {event.registrationUrl && !isPast && (
+                  <a
+                    href={withUtm(event.registrationUrl, {
+                      medium: 'cta',
+                      campaign: `hackbarna-${event.slug}`,
+                      content: 'register-hero',
+                    })}
+                    target="_blank"
+                    rel="noopener"
+                    onClick={() =>
+                      trackOutbound('registration_click', {
+                        event_slug: event.slug,
+                        source: 'register-hero',
+                      })
+                    }
+                    className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
+                  >
+                    {intl.t('events.register')} →
+                  </a>
+                )}
+                {liveEvent && (
+                  <Link
+                    href={`/${locale}/events/${event.slug}/wall`}
+                    className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-band-2 text-ink hover:bg-band-3 transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ink"
+                  >
+                    {intl.t('events.viewProjects')}
+                  </Link>
+                )}
+              </div>
             </div>
 
             {event.imageUrl && (

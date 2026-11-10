@@ -1,0 +1,178 @@
+import 'server-only'
+import { choice, noul, score, TypeSafeClient } from '@typesafe-ai/sdk'
+
+// Credentials come from Netlify AI Gateway (TYPESAFE_API_KEY / TYPESAFE_BASE_URL are injected at runtime).
+function getTypeSafe() {
+  return new TypeSafeClient({ timeout: 6000, retry: { maxRetries: 1 } })
+}
+
+export const JEV_MODEL = 'jev-latest'
+
+/** The categories every project is sorted into. Order is the display order. */
+export const CATEGORIES = {
+  moderation: {
+    label: 'Content moderation',
+    description:
+      'Flagging, filtering or reviewing user content, comments, images or listings',
+  },
+  lead_scoring: {
+    label: 'Lead scoring',
+    description:
+      'Qualifying, ranking or prioritising leads, customers, candidates or deals',
+  },
+  routing: {
+    label: 'Request routing',
+    description:
+      'Triaging tickets, emails, messages or requests and sending them to the right place',
+  },
+  handoff: {
+    label: 'Agent handoffs',
+    description:
+      'Deciding when an AI agent should act, ask, or escalate to a human',
+  },
+  personal: {
+    label: 'Recommendations',
+    description:
+      'Picking, matching or personalising things for a person: food, music, events, people',
+  },
+  devtools: {
+    label: 'Dev tools',
+    description:
+      'Tools for developers: testing, code review, evals, monitoring, CI',
+  },
+  playful: {
+    label: 'Playful',
+    description: 'Games, art, music, jokes and creative experiments',
+  },
+  other: { label: 'Something else', description: null },
+} as const
+
+export type CategoryKey = keyof typeof CATEGORIES
+
+const categoryCriteria = Object.fromEntries(
+  Object.entries(CATEGORIES).map(([k, v]) => [k, v.description]),
+) as { [K in CategoryKey]: string | null }
+
+/** Questions asked about every submitted project. Batched into one call. */
+function projectQuestions() {
+  return {
+    category: choice(
+      'What kind of decision does this hackathon project make?',
+      categoryCriteria,
+    ),
+    decisionPowered: noul(
+      'Does this app rely on an AI model to make a decision or a judgement call?',
+    ),
+  }
+}
+
+/** Extra questions used only on the public Jev playground. */
+function playgroundQuestions() {
+  return {
+    ...projectQuestions(),
+    needsHuman: noul(
+      "Would a human need to review this app's decisions before they take effect?",
+    ),
+    scope: score(
+      'How big is the scope of this idea for a four-hour hack night?',
+      [
+        'Tiny: a single prompt or a toy demo',
+        'Focused: one clear workflow that works end to end',
+        'Ambitious: several moving parts, integrations or users',
+        'Moonshot: a whole product that would take weeks',
+      ],
+    ),
+  }
+}
+
+export interface ProjectJevResult {
+  category: CategoryKey
+  confidence: number
+  probabilities: Record<string, number>
+  decisionPowered: number
+  model: string
+}
+
+function projectState(p: { name: string; tagline: string; url?: string }) {
+  return {
+    project_name: p.name,
+    pitch: p.tagline,
+    ...(p.url ? { link: p.url } : {}),
+  }
+}
+
+export async function categorizeProject(p: {
+  name: string
+  tagline: string
+  url?: string
+}): Promise<ProjectJevResult> {
+  const { answers, model } = await getTypeSafe().systemOne({
+    model: JEV_MODEL,
+    state: projectState(p),
+    questions: projectQuestions(),
+  })
+  return {
+    category: answers.category.choice,
+    confidence: answers.category.confidence,
+    probabilities: { ...answers.category.probabilities },
+    decisionPowered: answers.decisionPowered.noul,
+    model,
+  }
+}
+
+export async function playground(input: { name: string; tagline: string }) {
+  const started = Date.now()
+  const { answers, model, usage } = await getTypeSafe().systemOne({
+    model: JEV_MODEL,
+    state: projectState(input),
+    questions: playgroundQuestions(),
+  })
+  return {
+    model,
+    latencyMs: Date.now() - started,
+    usage,
+    category: {
+      choice: answers.category.choice,
+      confidence: answers.category.confidence,
+      probabilities: answers.category.probabilities,
+    },
+    decisionPowered: answers.decisionPowered.noul,
+    needsHuman: answers.needsHuman.noul,
+    scope: {
+      score: answers.scope.score,
+      confidence: answers.scope.confidence,
+      legend: answers.scope.legend,
+      probabilities: answers.scope.probabilities,
+    },
+  }
+}
+
+/** The snippet shown on the playground page, kept next to the real code so they don't drift. */
+export const PLAYGROUND_SNIPPET = `import "server-only";
+import { choice, noul, score, TypeSafeClient } from "@typesafe-ai/sdk";
+
+const typesafe = new TypeSafeClient(); // keys injected by Netlify AI Gateway
+
+const { answers } = await typesafe.systemOne({
+  model: "jev-latest",
+  state: { project_name, pitch },
+  questions: {
+    category: choice("What kind of decision does this hackathon project make?", {
+      moderation: "Flagging, filtering or reviewing user content…",
+      lead_scoring: "Qualifying, ranking or prioritising leads…",
+      routing: "Triaging tickets, emails or requests…",
+      handoff: "Deciding when an AI agent should escalate to a human",
+      // …
+      other: null,
+    }),
+    decisionPowered: noul("Does this app rely on an AI model to make a decision?"),
+    needsHuman: noul("Would a human need to review this app's decisions?"),
+    scope: score("How big is the scope of this idea for a hack night?", [
+      "Tiny", "Focused", "Ambitious", "Moonshot",
+    ]),
+  },
+});
+
+answers.category.choice;        // "routing"
+answers.category.probabilities; // { routing: 0.81, handoff: 0.09, … }
+answers.decisionPowered.noul;   // 0.94`
