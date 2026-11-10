@@ -10,14 +10,7 @@ import i18nConfig from '../../i18n.json'
 const inter = Inter({ subsets: ['latin'] })
 
 function getMetadataBase() {
-  if (
-    (process.env.CONTEXT === 'deploy-preview' ||
-      process.env.CONTEXT === 'branch-deploy') &&
-    process.env.DEPLOY_PRIME_URL
-  ) {
-    return new URL(process.env.DEPLOY_PRIME_URL)
-  }
-  return new URL('https://hackbarna.com')
+  return new URL(process.env.SITE_ORIGIN || 'https://hackbarna.com')
 }
 
 export async function generateMetadata(args: any) {
