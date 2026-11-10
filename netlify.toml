@@ -1,0 +1,7 @@
+# Netlify automatically installs and updates its Next.js adapter.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "24"
