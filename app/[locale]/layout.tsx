@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './../globals.css'
-import { Analytics } from '@vercel/analytics/react'
 import { IntlProvider } from '@/app/components/Intl'
 import { ThemeProvider } from '@/app/contexts/ThemeContext'
 import { getFeaturedUpcomingEvent } from '@/lib/events-server'
@@ -11,10 +10,7 @@ import i18nConfig from '../../i18n.json'
 const inter = Inter({ subsets: ['latin'] })
 
 function getMetadataBase() {
-  if (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL) {
-    return new URL(`https://${process.env.VERCEL_URL}`)
-  }
-  return new URL('https://hackbarna.com')
+  return new URL(process.env.SITE_ORIGIN || 'https://hackbarna.com')
 }
 
 export async function generateMetadata(args: any) {
@@ -109,7 +105,6 @@ export default async function HomeLayout({
         <html lang={params.locale}>
           <body className={inter.className}>
             {children}
-            <Analytics />
           </body>
         </html>
       {/* </ThemeProvider> */}

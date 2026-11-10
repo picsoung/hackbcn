@@ -40,11 +40,44 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy on Netlify
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The [hackbarna Netlify project](https://app.netlify.com/projects/hackbarna) is
+connected to `picsoung/hackbcn`, with `main` as the production branch. The root
+`netlify.toml` sets Node 24, `npm run build`, the `.next` publish directory, and
+explicitly enables Netlify's automatically updated
+[Next.js adapter](https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview/),
+which handles server rendering, middleware, image optimization, and API routes.
+Keep the standard Next.js build; the Open Graph and event routes need a server.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The existing public PostHog settings are configured in Netlify's project
+environment settings. See `.env.example` for the variable names. Set new or
+changed variables for production and any
+preview contexts that need them; public Next.js values are embedded at build
+time, so changes require a rebuild. Vercel Analytics has been removed; PostHog
+continues to provide application analytics.
+
+Deploy Previews and branch deploys use Netlify's `CONTEXT` and
+`DEPLOY_PRIME_URL` for metadata and Open Graph URLs. Production metadata keeps
+`https://hackbarna.com` as its base.
+
+To finish the hosting migration:
+
+1. Deploy and check the Netlify URL: `/` redirects to `/en`, all four locales
+   render, `/en/sponsor` loads, `/_next/image` serves optimized images, and
+   `/api/og?title=HackBarna` returns a PNG. If shared accounts are enabled, test
+   auth after adding the preview callback URL to the Auth redirect allowlist.
+2. Both custom domains are assigned to the Netlify project, with
+   `www.hackbarna.com` as primary. In Cloudflare, change the apex `A` record
+   from `76.76.21.21` to `75.2.60.5`, and change the `www` CNAME from
+   `cname.vercel-dns.com` to `hackbarna.netlify.app`. Follow
+   [Netlify's external DNS guidance](https://docs.netlify.com/manage/domains/configure-domains/configure-external-dns/).
+   Preserve the Digest subdomain and email records.
+3. Wait for HTTPS, then verify redirects, analytics, and any enabled auth flows
+   on the custom domain. Disable Vercel deployments and
+   remove the old domain assignment after Netlify is serving correctly.
+
+The previous, separate Netlify app is now named `hackbarna-netlify-hacknight`.
 
 ## Sponsorship page and prospectus
 

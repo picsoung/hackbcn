@@ -10,7 +10,7 @@ const ASSET_ORIGIN = 'https://hackbarna.com'
 function safeImageUrl(raw: string | null) {
   if (!raw) return undefined
   try {
-    // Vercel preview deployments can be protected, so an Edge function cannot
+    // Preview deployments can be protected, so a server function cannot
     // reliably fetch its own preview-origin public assets. Resolve local event
     // artwork against the stable public production origin instead.
     const url = new URL(raw, ASSET_ORIGIN)
