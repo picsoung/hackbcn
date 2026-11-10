@@ -3,7 +3,12 @@ import { choice, noul, score, TypeSafeClient } from '@typesafe-ai/sdk'
 
 // Credentials come from Netlify AI Gateway (TYPESAFE_API_KEY / TYPESAFE_BASE_URL are injected at runtime).
 function getTypeSafe() {
-  return new TypeSafeClient({ timeout: 6000, retry: { maxRetries: 1 } })
+  return new TypeSafeClient({
+    timeout: 6000,
+    retry: { maxRetries: 1 },
+    // Node 24 enables the SDK's zstd bodies, which AI Gateway currently rejects.
+    compression: false,
+  })
 }
 
 export const JEV_MODEL = 'jev-latest'
@@ -151,7 +156,8 @@ export async function playground(input: { name: string; tagline: string }) {
 export const PLAYGROUND_SNIPPET = `import "server-only";
 import { choice, noul, score, TypeSafeClient } from "@typesafe-ai/sdk";
 
-const typesafe = new TypeSafeClient(); // keys injected by Netlify AI Gateway
+// Credentials come from Netlify AI Gateway; send plain JSON through the proxy.
+const typesafe = new TypeSafeClient({ compression: false });
 
 const { answers } = await typesafe.systemOne({
   model: "jev-latest",
