@@ -416,6 +416,7 @@ export default function EventDetail({
   mentors,
   locale,
   projectCount = 0,
+  projectsSection,
 }: {
   event: Event
   sponsors: Sponsor[]
@@ -424,6 +425,7 @@ export default function EventDetail({
   mentors: Person[]
   locale: string
   projectCount?: number
+  projectsSection?: React.ReactNode
 }) {
   const intl = useIntl()
   const description = event.description?.[intl.locale] || event.description?.en || ''
@@ -542,9 +544,9 @@ export default function EventDetail({
                     {intl.t('events.register')} →
                   </a>
                 )}
-                {liveEvent && (
+                {(liveEvent || projectCount > 0) && (
                   <Link
-                    href={`/${locale}/events/${event.slug}/projects`}
+                    href="#projects"
                     className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-band-2 text-ink hover:bg-band-3 transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ink"
                   >
                     {intl.t('events.viewProjects')}
@@ -572,6 +574,11 @@ export default function EventDetail({
         </div>
       </div>
 
+      {projectsSection && (
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          {projectsSection}
+        </div>
+      )}
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
         {/* Relive this edition — long-form recap or vertical Shorts (self-hides if none) */}
         <RecapVideo
@@ -946,23 +953,6 @@ export default function EventDetail({
               ))}
             </div>
           </Section>
-        )}
-
-        {/* Projects shipped — only for past events with projects */}
-        {isPast && (projectCount > 0 || liveEvent) && (
-          <section className="py-10 border-b border-band-2">
-            <h2 className="text-xl font-semibold text-ink mb-3">Projects shipped this edition</h2>
-            <p className="text-ink-dim mb-5">
-              {projectCount > 0 ? `${projectCount} projects from ${event.name}, from team formation to final demo.` : `Explore what the community built at ${event.name}.`}
-            </p>
-            <Link
-              href={`/${locale}/events/${event.slug}/projects`}
-              className="hb-px inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
-            >
-              {projectCount > 0 ? `View all ${projectCount} projects` : 'View projects'}
-              <span aria-hidden="true">→</span>
-            </Link>
-          </section>
         )}
 
         {/* Bottom CTA — repeat register button when future + has registration link */}

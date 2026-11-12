@@ -20,10 +20,10 @@ import { getSponsorsByEvent } from '@/data/sponsors'
 import { getCommunitySponsorsByEvent } from '@/data/communitySponsors'
 import { getEventDataBySlug } from '@/lib/events-server'
 import { getEventBySlug } from '@/lib/events'
-import { getProjectsByEvent } from '@/app/helpers/projects'
+import { getEventProjectCards } from '@/lib/project-catalog'
+import EventProjectsSection from '@/app/components/projects/EventProjectsSection'
 import RecapVideo from '@/app/components/events/RecapVideo'
 import { permanentRedirect, notFound } from 'next/navigation'
-import Link from 'next/link'
 
 // Past events keep this legacy URL as their canonical address (indexed, externally linked).
 // Anything else here (new MDX events, hack nights) gets a 308 to /events/<slug>.
@@ -36,7 +36,7 @@ export async function generateStaticParams() {
   return Array.from(PAST_LEGACY_SLUGS).map((slug) => ({ eventSlug: slug }))
 }
 
-export default function EventPage({
+export default async function EventPage({
   params,
 }: {
   params: { locale: string; eventSlug: string }
@@ -56,7 +56,7 @@ export default function EventPage({
   const { mentors } = getMentorsByEvent(eventSlug)
   const { sponsors } = getSponsorsByEvent(eventSlug)
   const { communitySponsors } = getCommunitySponsorsByEvent(eventSlug)
-  const projectCount = getProjectsByEvent(eventSlug).length
+  const projects = await getEventProjectCards(locale, eventSlug)
   const legacyEvent = getEventBySlug(eventSlug)
 
   return (
@@ -64,19 +64,20 @@ export default function EventPage({
       <ClientNavbar />
       <main className="flex min-h-screen flex-col">
         <Hero />
-        {legacyEvent && (legacyEvent.recapVideoUrl || legacyEvent.shorts?.length) && (
-          <div className="bg-white">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <RecapVideo
-                recapVideoUrl={legacyEvent.recapVideoUrl}
-                shorts={legacyEvent.shorts}
-                eventName={legacyEvent.name}
-              />
+        {legacyEvent &&
+          (legacyEvent.recapVideoUrl || legacyEvent.shorts?.length) && (
+            <div className="bg-white">
+              <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <RecapVideo
+                  recapVideoUrl={legacyEvent.recapVideoUrl}
+                  shorts={legacyEvent.shorts}
+                  eventName={legacyEvent.name}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
         <Sponsors sponsors={sponsors} />
-        <CommunitySponsors communitySponsors={communitySponsors}/>
+        <CommunitySponsors communitySponsors={communitySponsors} />
         <Judges judges={judges} />
         <Mentors mentors={mentors} />
         <WhyJoin />
@@ -84,24 +85,18 @@ export default function EventPage({
         <Schedule />
         <SignupCTA />
         <FAQ />
-        {projectCount > 0 && (
-          <section className="bg-white py-12">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-              <h2 className="text-3xl sm:text-4xl font-cal font-semibold text-slate-900 mb-3">
-                Projects shipped this edition
-              </h2>
-              <p className="text-slate-600 mb-6">
-                {projectCount} {projectCount === 1 ? 'project' : 'projects'} from team formation to final demo.
-              </p>
-              <Link
-                href={`/${locale}/events/${eventSlug}/projects`}
-                className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold rounded-lg bg-slate-900 text-white hover:bg-slate-700 transition-colors"
-              >
-                View all {projectCount} {projectCount === 1 ? 'project' : 'projects'}
-                <span aria-hidden="true">→</span>
-              </Link>
+        {projects.length > 0 && (
+          <div className="bg-white">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <EventProjectsSection
+                locale={locale}
+                eventSlug={eventSlug}
+                eventName={legacyEvent?.name ?? eventSlug}
+                projects={projects}
+                tone="light"
+              />
             </div>
-          </section>
+          </div>
         )}
         <Team />
         <Footer />

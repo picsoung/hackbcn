@@ -14,6 +14,10 @@ const project = {
 
 test('only configured events have live walls, including prototype-like slugs', () => {
   assert.equal(
+    wallPath('en', 'hacknight-5-jevathon-2026'),
+    '/en/events/hacknight-5-jevathon-2026#projects',
+  )
+  assert.equal(
     getLiveEvent('hacknight-5-jevathon-2026')?.slug,
     'hacknight-5-jevathon-2026',
   )

@@ -1,15 +1,23 @@
 # Event project lists
 
-Project lists live at `/[locale]/events/[slug]/projects`, with each database
-project at `/projects/<project>` under that event. The earlier `/wall` paths
-permanently redirect to those URLs. Existing Markdown projects retain their
-original URLs and event lists; the global project archive links to database
-collections as well.
+Each event shows its projects in a grid at `/[locale]/events/[slug]#projects`.
+The two legacy events retain `/[locale]/<event>#projects`. The main
+`/[locale]/projects` archive lists individual projects from every event,
+grouped by event with the newest first. Both grids combine database submissions
+and published Markdown projects.
+
+Database project details remain at
+`/[locale]/events/[slug]/projects/<project>`. Markdown projects retain their
+original detail URLs. Earlier event-list and `/wall` paths permanently redirect
+to the event's project section; individual `/wall/<project>` links redirect to
+the corresponding project detail.
 
 Pages render their content and project links on the server, before JavaScript
-runs. Each list and detail has a specific canonical URL, description, social
-metadata and JSON-LD. The dynamic sitemap includes both database and Markdown
-projects. Submission forms and the projector leaderboard are excluded from
+runs. The archive and detail pages have canonical URLs, descriptions, social
+metadata and JSON-LD. Event grids include an ItemList in their event page's
+HTML. The dynamic sitemap includes the archive, events, and both database and
+Markdown project details; redirected list URLs and fragments are omitted.
+Submission forms and the projector leaderboard are excluded from
 indexing. Search engines decide when to crawl and index published pages.
 
 ## Events and storage
@@ -96,6 +104,6 @@ npm run build
 Check the deployed HTML without executing JavaScript: all project names and
 links must be present, canonical and Open Graph URLs must match the page,
 JSON-LD must parse, and the sitemap must include every project. Verify redirects,
-unknown project 404s, archived-write rejection, category filters, mobile and
+unknown project 404s, archived-write rejection, event grouping, mobile and
 desktop layouts, and email redaction. The live-wall copy is currently English;
 locale prefixes are preserved.

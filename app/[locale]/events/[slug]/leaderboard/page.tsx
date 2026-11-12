@@ -4,7 +4,7 @@ import LiveBoard from '@/app/components/live/LiveBoard'
 import LiveShell from '@/app/components/live/LiveShell'
 import { kicker } from '@/app/components/live/ui'
 import { getLiveEvent } from '@/lib/live/config'
-import { projectMetadata } from '@/lib/project-seo'
+import { projectListPath, projectMetadata } from '@/lib/project-seo'
 
 export const dynamic = 'force-dynamic'
 
@@ -51,10 +51,12 @@ export default function LeaderboardPage({
             </h1>
           </div>
           <div className="text-right">
-            <p className="font-mono text-screen-dim">Vote at</p>
+            <p className="font-mono text-screen-dim">
+              {event.open ? 'Vote at' : 'Projects at'}
+            </p>
             <p className="break-all font-mono text-xl font-bold text-neon-cyan sm:text-2xl">
               {host}
-              {base}/projects
+              {projectListPath(params.locale, event.slug)}
             </p>
           </div>
         </div>

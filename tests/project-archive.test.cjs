@@ -10,6 +10,12 @@ require('ts-node').register({
   },
 })
 const { getProjects } = require('../app/helpers/projects.ts')
+const {
+  archivedProjectCard,
+  submittedProjectCard,
+  groupProjectCards,
+} = require('../lib/project-cards.ts')
+const { projectListPath } = require('../lib/project-seo.ts')
 
 test('existing Markdown publication dates remain valid for sitemap generation', () => {
   const projects = getProjects()
@@ -24,5 +30,91 @@ test('existing Markdown publication dates remain valid for sitemap generation', 
         Number.isFinite(project.data.modifiedDate.getTime()),
         project.slug,
       )
+  }
+})
+
+test('event lists resolve to embedded grids while detail links remain stable', () => {
+  assert.equal(
+    projectListPath('es', 'hacknight-5-jevathon-2026'),
+    '/es/events/hacknight-5-jevathon-2026#projects',
+  )
+  assert.equal(projectListPath('en', 'aisummit25'), '/en/aisummit25#projects')
+  assert.equal(projectListPath('en', 'v1-2024'), '/en/v1-2024#projects')
+  assert.equal(
+    projectListPath('ca', 'hacknight-5-jevathon-2026', 'cafe-router'),
+    '/ca/events/hacknight-5-jevathon-2026/projects/cafe-router',
+  )
+})
+
+const submitted = {
+  id: 1,
+  eventSlug: 'hacknight-5-jevathon-2026',
+  slug: 'cafe-router',
+  name: 'Café Router',
+  tagline: 'Route community questions to the right volunteer.',
+  creatorName: 'Preview Builder',
+  creatorEmail: 'private@example.test',
+  voterIds: ['private-voter'],
+  createdAt: new Date('2026-11-10T18:00:00Z'),
+  voteCount: 12,
+  judgeScore: 82,
+  screenshotKey: 'event/preview.png',
+  videoUrl: 'https://youtu.be/abc123',
+}
+const event = { name: 'Jev-a-thon', startDate: '2026-11-10T18:00:00Z' }
+
+test('public cards preserve media, results and detail discovery without private fields', () => {
+  const card = submittedProjectCard(submitted, 'en', event, {
+    category: 'Community',
+  })
+  assert.equal(card.creator, 'Preview Builder')
+  assert.equal(card.voteCount, 12)
+  assert.equal(card.judgeScore, 82)
+  assert.match(
+    card.image,
+    /^\/api\/live\/hacknight-5-jevathon-2026\/projects\/cafe-router\/screenshot\?v=event%2Fpreview.png$/,
+  )
+  assert.equal(card.voting, undefined, 'closed events cannot vote inline')
+  assert.doesNotMatch(
+    JSON.stringify(card),
+    /private@example|private-voter|creatorEmail|voterIds/,
+  )
+  const open = submittedProjectCard(submitted, 'en', event, {
+    open: true,
+    voted: true,
+  })
+  assert.deepEqual(open.voting, {
+    eventSlug: submitted.eventSlug,
+    slug: submitted.slug,
+    voted: true,
+  })
+  assert.match(
+    submittedProjectCard({ ...submitted, screenshotKey: null }, 'en', event)
+      .image,
+    /i.ytimg.com\/vi\/abc123\//,
+  )
+})
+
+test('the archive groups every project by event, newest first, without conflating repeated slugs', () => {
+  const archived = getProjects().map((project) =>
+    archivedProjectCard(project, 'en'),
+  )
+  const recent = submittedProjectCard(submitted, 'en', event)
+  const older = submittedProjectCard(
+    { ...submitted, eventSlug: 'earlier-night' },
+    'en',
+    { name: 'Earlier night', startDate: '2025-01-01' },
+  )
+  const cards = [...archived, older, recent]
+  const groups = groupProjectCards(cards)
+  assert.equal(groups[0].key, submitted.eventSlug)
+  assert.equal(groups.flatMap((group) => group.projects).length, cards.length)
+  assert.equal(new Set(cards.map((card) => card.key)).size, cards.length)
+  assert.notEqual(recent.href, older.href)
+  for (const card of archived) {
+    assert.ok(
+      card.href.startsWith('/en/projects/'),
+      'Markdown URLs stay stable',
+    )
   }
 })

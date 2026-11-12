@@ -3,6 +3,7 @@ import LiveShell from '@/app/components/live/LiveShell'
 import SubmitForm from '@/app/components/live/SubmitForm'
 import { kicker } from '@/app/components/live/ui'
 import { getLiveEvent } from '@/lib/live/config'
+import { projectListPath } from '@/lib/project-seo'
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const event = getLiveEvent(params.slug)
@@ -22,7 +23,7 @@ export default function SubmitPage({
   const event = getLiveEvent(params.slug)
   if (!event) notFound()
   const wallBase = `/${params.locale}/events/${event.slug}/projects`
-  if (!event.open) redirect(wallBase)
+  if (!event.open) redirect(projectListPath(params.locale, event.slug))
 
   const steps = [
     "Submit what you built, even if it's held together with tape.",

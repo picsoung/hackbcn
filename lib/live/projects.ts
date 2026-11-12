@@ -1,9 +1,10 @@
 import 'server-only'
-import { and, desc, eq, isNull, sql } from 'drizzle-orm'
+import { and, desc, eq, inArray, isNull, sql } from 'drizzle-orm'
 import { getDb } from '@/db'
 import { liveProjects as projects, liveVotes as votes } from '@/db/schema'
 import { CATEGORIES, categorizeProject } from './jev'
 import { slugify, type ProjectInput } from './validate'
+import { LIVE_EVENTS } from './config'
 
 /** Public shape of a project. Email is deliberately left out. */
 const publicColumns = {
@@ -77,6 +78,16 @@ export async function listProjects(
       desc(projects.shareCount),
       projects.createdAt,
     )
+}
+
+export async function listAllProjects(): Promise<PublicProject[]> {
+  const events = Object.keys(LIVE_EVENTS)
+  if (!events.length) return []
+  return getDb()
+    .select(publicColumns)
+    .from(projects)
+    .where(inArray(projects.eventSlug, events))
+    .orderBy(desc(projects.createdAt), projects.name)
 }
 
 /** Small public query for crawler discovery, without cookies or private contact data. */
