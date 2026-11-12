@@ -158,7 +158,7 @@ test('public cards preserve media and discovery without voting metrics or privat
   assert.equal(card.creator, 'Alex, Sam')
   assert.equal(card.award, 'Community prize')
   assert.equal(card.voteCount, undefined)
-  assert.equal(card.judgeScore, 82)
+  assert.equal(card.judgeScore, undefined)
   assert.match(
     card.image,
     /^\/api\/live\/hacknight-5-jevathon-2026\/projects\/cafe-router\/screenshot\?v=event%2Fpreview.png$/,

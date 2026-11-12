@@ -6,6 +6,7 @@ The two legacy events retain `/[locale]/<event>#projects`. The main
 grouped by event with the newest first. Both grids combine database submissions
 and published Markdown projects.
 
+Shared cards omit event-specific judging scores, including Jev scores.
 Cards and detail pages have no voting controls or vote totals, and detail pages
 have no share-kit section. Existing vote records remain available for the event
 leaderboard. An optional `award` displays a prize badge on cards and details;

@@ -104,13 +104,6 @@ export default function ProjectGrid({
                       ))}
                     </ul>
                   )}
-                  {project.judgeScore != null && (
-                    <p
-                      className={`mt-auto pt-5 text-xs tabular-nums ${styles.muted}`}
-                    >
-                      Jev {project.judgeScore.toFixed(1)}/100
-                    </p>
-                  )}
                 </div>
               </div>
             </Link>

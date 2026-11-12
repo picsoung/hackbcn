@@ -19,7 +19,6 @@ export type ProjectCard = {
   eventDate: number
   tags: string[]
   award?: string
-  judgeScore?: number | null
 }
 
 function videoThumbnail(url: string | null) {
@@ -71,7 +70,6 @@ export function submittedProjectCard(
       0,
     tags: options.category ? [options.category] : [],
     award: project.award ?? undefined,
-    judgeScore: project.judgeScore,
   }
 }
 
