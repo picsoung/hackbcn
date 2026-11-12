@@ -48,7 +48,8 @@
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "replexica": "^0.22.0",
-    "server-only": "^0.0.1"
+    "server-only": "^0.0.1",
+    "@netlify/blobs": "^11.1.9"
   },
   "devDependencies": {
     "@testing-library/react": "^16.0.0",
