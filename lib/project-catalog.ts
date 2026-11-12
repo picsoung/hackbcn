@@ -6,9 +6,7 @@ import {
   categoryLabel,
   listAllProjects,
   listProjects,
-  votedProjectIds,
 } from '@/lib/live/projects'
-import { readVoterId } from '@/lib/live/voter'
 import { archivedProjectCard, submittedProjectCard } from './project-cards'
 
 export async function getEventProjectCards(locale: string, eventSlug: string) {
@@ -18,18 +16,11 @@ export async function getEventProjectCards(locale: string, eventSlug: string) {
     archivedProjectCard(project, locale, event),
   )
   if (!live) return archived
-  const [submitted, voted] = await Promise.all([
-    listProjects(eventSlug),
-    live.open
-      ? votedProjectIds(readVoterId())
-      : Promise.resolve(new Set<number>()),
-  ])
+  const submitted = await listProjects(eventSlug)
   return [
     ...submitted.map((project) =>
       submittedProjectCard(project, locale, event ?? live, {
         category: categoryLabel(project.category),
-        open: live.open,
-        voted: voted.has(project.id),
       }),
     ),
     ...archived,

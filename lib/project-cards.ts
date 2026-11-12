@@ -1,6 +1,7 @@
 import type { Project } from '../app/helpers/projects'
 import type { PublicProject } from './live/projects'
 import { projectListPath } from './project-seo'
+import { projectHackers } from './live/validate'
 
 /** Explicit public fields shared by the event grid and the community archive. */
 export type ProjectCard = {
@@ -16,9 +17,7 @@ export type ProjectCard = {
   eventDate: number
   tags: string[]
   award?: string
-  voteCount?: number
   judgeScore?: number | null
-  voting?: { eventSlug: string; slug: string; voted: boolean }
 }
 
 function videoThumbnail(url: string | null) {
@@ -47,7 +46,7 @@ export function submittedProjectCard(
   project: PublicProject,
   locale: string,
   event: EventInfo,
-  options: { category?: string | null; open?: boolean; voted?: boolean } = {},
+  options: { category?: string | null } = {},
 ): ProjectCard {
   return {
     key: `submitted:${project.eventSlug}:${project.slug}`,
@@ -57,7 +56,9 @@ export function submittedProjectCard(
     image: project.screenshotKey
       ? `/api/live/${encodeURIComponent(project.eventSlug)}/projects/${encodeURIComponent(project.slug)}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
       : videoThumbnail(project.videoUrl),
-    creator: project.creatorName,
+    creator: projectHackers(project)
+      .map((hacker) => hacker.name)
+      .join(', '),
     eventSlug: project.eventSlug,
     eventName: event.name,
     eventHref: projectListPath(locale, project.eventSlug),
@@ -66,15 +67,8 @@ export function submittedProjectCard(
       new Date(project.createdAt).getTime() ||
       0,
     tags: options.category ? [options.category] : [],
-    voteCount: project.voteCount,
+    award: project.award ?? undefined,
     judgeScore: project.judgeScore,
-    voting: options.open
-      ? {
-          eventSlug: project.eventSlug,
-          slug: project.slug,
-          voted: options.voted ?? false,
-        }
-      : undefined,
   }
 }
 

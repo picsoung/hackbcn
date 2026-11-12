@@ -6,6 +6,19 @@ The two legacy events retain `/[locale]/<event>#projects`. The main
 grouped by event with the newest first. Both grids combine database submissions
 and published Markdown projects.
 
+Cards and detail pages have no voting controls or vote totals, and detail pages
+have no share-kit section. Existing vote records remain available for the event
+leaderboard. An optional `award` displays a prize badge on cards and details;
+awards are assigned by organisers, never inferred from votes or Jev scores.
+
+Database projects store a `hackers` array of public names and optional LinkedIn
+profile URLs. Submission forms accept multiple hackers, and detail pages link
+each name to its profile and expose every hacker as a JSON-LD author. A single
+private organiser contact email remains separate. Older imported projects fall
+back to their original creator credit until a roster is recorded; combined
+names are not split or assigned guessed profiles. Replaying the standalone
+import preserves destination rosters and awards.
+
 Database project details remain at
 `/[locale]/events/[slug]/projects/<project>`. Markdown projects retain their
 original detail URLs. Earlier event-list and `/wall` paths permanently redirect

@@ -63,12 +63,25 @@ const submitted = {
 }
 const event = { name: 'Jev-a-thon', startDate: '2026-11-10T18:00:00Z' }
 
-test('public cards preserve media, results and detail discovery without private fields', () => {
-  const card = submittedProjectCard(submitted, 'en', event, {
-    category: 'Community',
-  })
-  assert.equal(card.creator, 'Preview Builder')
-  assert.equal(card.voteCount, 12)
+test('public cards preserve media and discovery without voting metrics or private fields', () => {
+  const card = submittedProjectCard(
+    {
+      ...submitted,
+      award: 'Community prize',
+      hackers: [
+        { name: 'Alex', linkedinUrl: null },
+        { name: 'Sam', linkedinUrl: null },
+      ],
+    },
+    'en',
+    event,
+    {
+      category: 'Community',
+    },
+  )
+  assert.equal(card.creator, 'Alex, Sam')
+  assert.equal(card.award, 'Community prize')
+  assert.equal(card.voteCount, undefined)
   assert.equal(card.judgeScore, 82)
   assert.match(
     card.image,
@@ -79,15 +92,6 @@ test('public cards preserve media, results and detail discovery without private 
     JSON.stringify(card),
     /private@example|private-voter|creatorEmail|voterIds/,
   )
-  const open = submittedProjectCard(submitted, 'en', event, {
-    open: true,
-    voted: true,
-  })
-  assert.deepEqual(open.voting, {
-    eventSlug: submitted.eventSlug,
-    slug: submitted.slug,
-    voted: true,
-  })
   assert.match(
     submittedProjectCard({ ...submitted, screenshotKey: null }, 'en', event)
       .image,

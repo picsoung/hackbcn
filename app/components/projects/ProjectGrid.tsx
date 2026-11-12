@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { TrophyIcon } from '@heroicons/react/24/outline'
 import type { ProjectCard } from '@/lib/project-cards'
-import VoteButton from '@/app/components/live/VoteButton'
 import ProjectPreview from './ProjectPreview'
 
 export default function ProjectGrid({
@@ -98,36 +97,16 @@ export default function ProjectGrid({
                       ))}
                     </ul>
                   )}
-                  {((!project.voting && project.voteCount != null) ||
-                    project.judgeScore != null) && (
+                  {project.judgeScore != null && (
                     <p
-                      className={`mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-5 text-xs tabular-nums ${styles.muted}`}
+                      className={`mt-auto pt-5 text-xs tabular-nums ${styles.muted}`}
                     >
-                      {!project.voting && project.voteCount != null && (
-                        <span>
-                          {project.voteCount}{' '}
-                          {project.voteCount === 1 ? 'vote' : 'votes'}
-                        </span>
-                      )}
-                      {project.judgeScore != null && (
-                        <span>Jev {project.judgeScore.toFixed(1)}/100</span>
-                      )}
+                      Jev {project.judgeScore.toFixed(1)}/100
                     </p>
                   )}
                 </div>
               </div>
             </Link>
-            {project.voting && (
-              <div className="pt-3">
-                <VoteButton
-                  eventSlug={project.voting.eventSlug}
-                  slug={project.voting.slug}
-                  name={project.name}
-                  initialCount={project.voteCount ?? 0}
-                  initialVoted={project.voting.voted}
-                />
-              </div>
-            )}
           </article>
         </li>
       ))}

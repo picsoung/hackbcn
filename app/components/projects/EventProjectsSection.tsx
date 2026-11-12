@@ -7,7 +7,6 @@ import {
   serializeJsonLd,
 } from '@/lib/project-seo'
 import ProjectGrid from './ProjectGrid'
-import Toaster from '@/app/components/live/Toaster'
 
 export default function EventProjectsSection({
   locale,
@@ -33,7 +32,6 @@ export default function EventProjectsSection({
       aria-labelledby="event-projects-heading"
       className={`scroll-mt-8 py-12 ${light ? '' : 'border-b border-band-2'}`}
     >
-      {live?.open && <Toaster />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

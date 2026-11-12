@@ -3,7 +3,12 @@ import { and, desc, eq, inArray, isNull, sql } from 'drizzle-orm'
 import { getDb } from '@/db'
 import { liveProjects as projects, liveVotes as votes } from '@/db/schema'
 import { CATEGORIES, categorizeProject } from './jev'
-import { slugify, type ProjectInput } from './validate'
+import {
+  projectHackers,
+  slugify,
+  type ProjectHacker,
+  type ProjectInput,
+} from './validate'
 import { LIVE_EVENTS } from './config'
 
 /** Public shape of a project. Email is deliberately left out. */
@@ -18,6 +23,8 @@ const publicColumns = {
   screenshotKey: projects.screenshotKey,
   creatorName: projects.creatorName,
   linkedinUrl: projects.linkedinUrl,
+  hackers: projects.hackers,
+  award: projects.award,
   shareConsent: projects.shareConsent,
   usedLovable: projects.usedLovable,
   jevUsage: projects.jevUsage,
@@ -43,6 +50,8 @@ export type PublicProject = {
   screenshotKey: string | null
   creatorName: string
   linkedinUrl: string
+  hackers: ProjectHacker[]
+  award: string | null
   shareConsent: boolean
   usedLovable: boolean
   jevUsage: string | null
@@ -78,6 +87,9 @@ export async function listProjects(
       desc(projects.shareCount),
       projects.createdAt,
     )
+    .then((rows) =>
+      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+    )
 }
 
 export async function listAllProjects(): Promise<PublicProject[]> {
@@ -88,6 +100,9 @@ export async function listAllProjects(): Promise<PublicProject[]> {
     .from(projects)
     .where(inArray(projects.eventSlug, events))
     .orderBy(desc(projects.createdAt), projects.name)
+    .then((rows) =>
+      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+    )
 }
 
 /** Small public query for crawler discovery, without cookies or private contact data. */
@@ -109,7 +124,7 @@ export async function getPublicProject(eventSlug: string, slug: string) {
     .from(projects)
     .where(and(eq(projects.eventSlug, eventSlug), eq(projects.slug, slug)))
     .limit(1)
-  return project ?? null
+  return project ? { ...project, hackers: projectHackers(project) } : null
 }
 
 export async function getJevAnswers(id: number) {
@@ -270,6 +285,8 @@ export async function exportShareable(eventSlug: string) {
       judgeScore: projects.judgeScore,
       creatorName: projects.creatorName,
       linkedinUrl: projects.linkedinUrl,
+      hackers: projects.hackers,
+      award: projects.award,
       category: projects.category,
       voteCount: projects.voteCount,
       createdAt: projects.createdAt,
@@ -279,4 +296,7 @@ export async function exportShareable(eventSlug: string) {
       and(eq(projects.eventSlug, eventSlug), eq(projects.shareConsent, true)),
     )
     .orderBy(desc(projects.voteCount))
+    .then((rows) =>
+      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+    )
 }

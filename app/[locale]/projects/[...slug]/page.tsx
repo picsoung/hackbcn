@@ -145,9 +145,7 @@ export default function ProjectBySlug({
 
         <div>
           <h2>Team</h2>
-          <div
-            className={`grid max-w-xl grid-cols-${Math.min(project.data.hackers.length, 4)} gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-${Math.min(project.data.hackers.length, 4)}`}
-          >
+          <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:max-w-none lg:grid-cols-4">
             {project.data.hackers.map((hacker: Person, index: number) => (
               <Avatar key={index} person={hacker} />
             ))}
