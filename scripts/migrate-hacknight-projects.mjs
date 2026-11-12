@@ -406,6 +406,15 @@ async function main() {
       )
       return
     }
+    const access = (
+      await target.query(`SELECT
+      has_table_privilege(current_user, 'live_projects', 'INSERT') AND has_table_privilege(current_user, 'live_projects', 'UPDATE') AS project_write,
+      has_table_privilege(current_user, 'live_votes', 'INSERT') AS vote_write`)
+    ).rows[0]
+    assert.ok(
+      access.project_write && access.vote_write,
+      'Destination is read-only. Production writes require Netlify owner approval; no data was imported.',
+    )
     const backupDir = path.resolve(values['backup-dir'])
     assert.ok(
       !backupDir.startsWith(`${process.cwd()}${path.sep}`),

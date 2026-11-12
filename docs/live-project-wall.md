@@ -59,6 +59,7 @@ node scripts/migrate-hacknight-projects.mjs --target-branch codex/import-hacknig
 node scripts/migrate-hacknight-projects.mjs --target-branch codex/import-hacknight-project-wall --apply
 
 # Once the production deploy has applied the schema, import fresh source data.
+# This requires owner-approved production write access; see below.
 node scripts/migrate-hacknight-projects.mjs --target-branch production --apply
 ```
 
@@ -66,6 +67,15 @@ Use `--snapshot /absolute/private/snapshot.json` to replay an exact backup.
 The backup location and SHA-256 digest are printed, without private contents.
 Screenshot backups sit beside the JSON backup in a `-screenshots` directory.
 Keep the source database and Blobs store intact for recovery.
+
+Netlify gives personal access tokens and the CLI read-only production access
+by default. The script checks permissions before making backups or copying
+data and stops if writes are unavailable. The database dashboard's
+"Allow personal access tokens full access to the production database" control
+can grant write access to connected tools. Changing it requires the owner's
+explicit approval. For a one-off import, restore the read-only setting
+immediately afterwards and close the import's database connections. Do not
+save database credentials in backups or source files.
 
 Only after verifying the production list, detail pages, sitemap and counts,
 cut over `hacknight-projects.netlify.app` using the redirect bundle in
