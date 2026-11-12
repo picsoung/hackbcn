@@ -544,7 +544,7 @@ export default function EventDetail({
                 )}
                 {liveEvent && (
                   <Link
-                    href={`/${locale}/events/${event.slug}/wall`}
+                    href={`/${locale}/events/${event.slug}/projects`}
                     className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-band-2 text-ink hover:bg-band-3 transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ink"
                   >
                     {intl.t('events.viewProjects')}
@@ -949,17 +949,17 @@ export default function EventDetail({
         )}
 
         {/* Projects shipped — only for past events with projects */}
-        {isPast && projectCount > 0 && (
+        {isPast && (projectCount > 0 || liveEvent) && (
           <section className="py-10 border-b border-band-2">
             <h2 className="text-xl font-semibold text-ink mb-3">Projects shipped this edition</h2>
             <p className="text-ink-dim mb-5">
-              {projectCount} {projectCount === 1 ? 'project' : 'projects'} from {event.name}, from team formation to final demo.
+              {projectCount > 0 ? `${projectCount} projects from ${event.name}, from team formation to final demo.` : `Explore what the community built at ${event.name}.`}
             </p>
             <Link
               href={`/${locale}/events/${event.slug}/projects`}
               className="hb-px inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
             >
-              View all {projectCount} {projectCount === 1 ? 'project' : 'projects'}
+              {projectCount > 0 ? `View all ${projectCount} projects` : 'View projects'}
               <span aria-hidden="true">→</span>
             </Link>
           </section>

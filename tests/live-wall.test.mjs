@@ -22,7 +22,7 @@ test('only configured events have live walls, including prototype-like slugs', (
   }
   assert.equal(
     wallPath('es', 'hacknight-5-jevathon-2026', 'cafe-router'),
-    '/es/events/hacknight-5-jevathon-2026/wall/cafe-router',
+    '/es/events/hacknight-5-jevathon-2026/projects/cafe-router',
   )
 })
 

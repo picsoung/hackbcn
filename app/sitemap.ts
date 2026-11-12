@@ -5,13 +5,18 @@ import {
 } from '@/lib/events-server'
 import { hackNights } from '@/data/hacknights'
 import i18nConfig from '../i18n.json'
+import { getProjects } from '@/app/helpers/projects'
+import { LIVE_EVENTS } from '@/lib/live/config'
+import { listProjectSitemapEntries } from '@/lib/live/projects'
+import { projectListPath, siteOrigin } from '@/lib/project-seo'
 
-const SITE = 'https://hackbarna.com'
+export const dynamic = 'force-dynamic'
 
 // Past events keep their legacy URL as canonical. Newer events live at /events/<slug>.
 const PAST_LEGACY_SLUGS = ['v1-2024', 'aisummit25']
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const SITE = siteOrigin()
   const locales = [i18nConfig.locale.source, ...i18nConfig.locale.targets]
   const featured = getFeaturedUpcomingEvent()
   const allEvents = getAllUnifiedEvents()
@@ -19,6 +24,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .map((e) => e.slug)
     .filter((s) => !PAST_LEGACY_SLUGS.includes(s))
   const hackNightSlugs = hackNights.map((hn) => hn.slug)
+  const archivedProjects = getProjects()
+  const liveProjects = (await listProjectSitemapEntries()).filter((p) =>
+    Object.hasOwn(LIVE_EVENTS, p.eventSlug),
+  )
+  const projectEvents = new Set([
+    ...Object.keys(LIVE_EVENTS),
+    ...archivedProjects
+      .map((p) => p.data.event)
+      .filter((slug): slug is string => Boolean(slug)),
+  ])
 
   const now = new Date()
 
@@ -85,7 +100,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.4,
       })
     }
+
+    out.push({
+      url: `${SITE}/${locale}/projects`,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    })
+    for (const slug of Array.from(projectEvents)) {
+      out.push({
+        url: `${SITE}${projectListPath(locale, slug)}`,
+        changeFrequency: LIVE_EVENTS[slug]?.open ? 'daily' : 'monthly',
+        priority: 0.7,
+      })
+    }
+    for (const project of liveProjects) {
+      out.push({
+        url: `${SITE}${projectListPath(locale, project.eventSlug, project.slug)}`,
+        lastModified: project.createdAt,
+        changeFrequency: LIVE_EVENTS[project.eventSlug].open
+          ? 'daily'
+          : 'monthly',
+        priority: 0.6,
+      })
+    }
+    for (const project of archivedProjects) {
+      out.push({
+        url: `${SITE}/${locale}/projects/${project.slug}`,
+        lastModified: project.data.modifiedDate ?? project.data.publishedDate,
+        changeFrequency: 'yearly',
+        priority: 0.5,
+      })
+    }
   }
 
-  return out
+  return Array.from(new Map(out.map((entry) => [entry.url, entry])).values())
 }

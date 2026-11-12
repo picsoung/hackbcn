@@ -65,6 +65,19 @@ export async function listProjects(
     )
 }
 
+/** Small public query for crawler discovery, without cookies or private contact data. */
+export async function listProjectSitemapEntries() {
+  return getDb()
+    .select({
+      eventSlug: projects.eventSlug,
+      slug: projects.slug,
+      name: projects.name,
+      createdAt: projects.createdAt,
+    })
+    .from(projects)
+    .orderBy(projects.eventSlug, projects.slug)
+}
+
 export async function getJevAnswers(id: number) {
   const [row] = await getDb()
     .select({ jevAnswers: projects.jevAnswers })

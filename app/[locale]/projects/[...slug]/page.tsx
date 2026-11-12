@@ -1,4 +1,6 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
+import { projectMetadata } from '@/lib/project-seo'
 
 import { getFilenames, getProject, Person } from '@/app/helpers/projects'
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -8,6 +10,23 @@ import Avatar from '@/app/components/Avatar'
 import LinkIcon from '@/app/components/LinkIcon'
 
 import { FaTrophy } from 'react-icons/fa6'
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string[]; locale: string }
+}) {
+  try {
+    const project = getProject(params.slug)
+    return projectMetadata(
+      `/${params.locale}/projects/${params.slug.map(encodeURIComponent).join('/')}`,
+      project.data.title,
+      project.data.description,
+    )
+  } catch {
+    return {}
+  }
+}
 
 export async function generateStaticParams() {
   const filenames = getFilenames()
@@ -140,13 +159,8 @@ export default function ProjectBySlug({
         </div>
       </>
     )
-  } catch (e) {
-    console.log('error', e)
-    content = (
-      <>
-        <h1>Project Not found</h1>
-      </>
-    )
+  } catch {
+    notFound()
   }
   return (
     <div id="project" className="flex min-h-screen bg-white py-10 sm:py-10">

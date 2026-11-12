@@ -7,7 +7,10 @@ import { getLiveEvent } from '@/lib/live/config'
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const event = getLiveEvent(params.slug)
   return event
-    ? { title: `Submit your project · ${event.name} · HackBarna` }
+    ? {
+        title: `Submit your project · ${event.name} · HackBarna`,
+        robots: { index: false, follow: true },
+      }
     : {}
 }
 
@@ -18,7 +21,7 @@ export default function SubmitPage({
 }) {
   const event = getLiveEvent(params.slug)
   if (!event) notFound()
-  const wallBase = `/${params.locale}/events/${event.slug}/wall`
+  const wallBase = `/${params.locale}/events/${event.slug}/projects`
   if (!event.open) redirect(wallBase)
 
   const steps = [

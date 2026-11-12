@@ -9,8 +9,13 @@ export async function POST(
   _req: Request,
   { params }: { params: { event: string; project: string } },
 ) {
-  if (!getLiveEvent(params.event))
-    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  const event = getLiveEvent(params.event)
+  if (!event) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  if (!event.open)
+    return NextResponse.json(
+      { error: 'Event results are closed.' },
+      { status: 403 },
+    )
   const result = await addShare(params.event, params.project)
   if (!result)
     return NextResponse.json({ error: 'Project not found' }, { status: 404 })

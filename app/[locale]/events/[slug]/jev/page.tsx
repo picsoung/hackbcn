@@ -4,10 +4,21 @@ import LiveShell from '@/app/components/live/LiveShell'
 import { kicker } from '@/app/components/live/ui'
 import { getLiveEvent } from '@/lib/live/config'
 import { PLAYGROUND_SNIPPET } from '@/lib/live/jev'
+import { projectMetadata } from '@/lib/project-seo'
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
+export function generateMetadata({
+  params,
+}: {
+  params: { locale: string; slug: string }
+}) {
   const event = getLiveEvent(params.slug)
-  return event ? { title: `Jev lab · ${event.name} · HackBarna` } : {}
+  return event
+    ? projectMetadata(
+        `/${params.locale}/events/${event.slug}/jev`,
+        `Jev lab · ${event.name}`,
+        'Try the decision model that categorizes projects from the HackBarna community.',
+      )
+    : {}
 }
 
 export default function JevPage({

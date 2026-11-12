@@ -1,0 +1,6 @@
+/p/:slug https://www.hackbarna.com/en/events/hacknight-5-jevathon-2026/projects/:slug 301!
+/leaderboard https://www.hackbarna.com/en/events/hacknight-5-jevathon-2026/leaderboard 301!
+/jev https://www.hackbarna.com/en/events/hacknight-5-jevathon-2026/jev 301!
+/api/jev/classify https://www.hackbarna.com/api/live/jev 307!
+/api/* https://www.hackbarna.com/api/live/hacknight-5-jevathon-2026/:splat 307!
+/* https://www.hackbarna.com/en/events/hacknight-5-jevathon-2026/projects 301!

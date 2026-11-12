@@ -27,7 +27,7 @@ export const LIVE_EVENTS: Record<string, LiveEvent> = {
     image:
       'https://images.lumacdn.com/uploads/dt/b80574ad-a7fa-468e-b802-c1da23ea9c47.jpg',
     hashtag: 'HackNightBCN',
-    open: true,
+    open: false,
   },
 }
 
@@ -36,5 +36,5 @@ export function getLiveEvent(slug: string): LiveEvent | null {
 }
 
 export function wallPath(locale: string, eventSlug: string, project?: string) {
-  return `/${locale}/events/${eventSlug}/wall${project ? `/${project}` : ''}`
+  return `/${locale}/events/${eventSlug}/projects${project ? `/${project}` : ''}`
 }

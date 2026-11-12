@@ -64,7 +64,7 @@ export default function LiveShell({
           aria-label="Project wall"
           className="mx-auto flex max-w-6xl flex-wrap items-center gap-6 px-6 py-4"
         >
-          {tab('wall', `${base}/wall`, 'Projects')}
+          {tab('wall', `${base}/projects`, 'Projects')}
           {tab('leaderboard', `${base}/leaderboard`, 'Leaderboard')}
           {tab('jev', `${base}/jev`, 'Jev lab')}
           {event.open && (
