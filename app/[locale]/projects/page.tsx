@@ -3,15 +3,35 @@ import { getProjects } from '@/app/helpers/projects'
 import Link from 'next/link'
 
 import { FaTrophy } from 'react-icons/fa6'
+import { LIVE_EVENTS } from '@/lib/live/config'
+import { listProjectSitemapEntries } from '@/lib/live/projects'
+import { projectListPath, projectMetadata } from '@/lib/project-seo'
+
+export const dynamic = 'force-dynamic'
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return projectMetadata(
+    `/${params.locale}/projects`,
+    'Community projects',
+    'Explore projects built at HackBarna hack nights and hackathons in Barcelona, with demos and builder profiles.',
+  )
+}
 
 async function getProjectArchiveTitle(locale: string) {
-  const localeData = await import(`@/i18n/${locale}.json`).catch(() => import('@/i18n/en.json'))
+  const localeData = await import(`@/i18n/${locale}.json`).catch(
+    () => import('@/i18n/en.json'),
+  )
   return localeData.default['projects.title'] ?? 'Project Archive'
 }
 
 export default async function Page(props: { params: { locale: string } }) {
   const title = await getProjectArchiveTitle(props.params.locale)
   const projects = getProjects()
+  const submitted = await listProjectSitemapEntries()
+  const collections = Object.values(LIVE_EVENTS).map((event) => ({
+    event,
+    count: submitted.filter((p) => p.eventSlug === event.slug).length,
+  }))
   const allTags: string[] = []
   projects.forEach((project) => {
     allTags.push(...project.data.techStack)
@@ -56,6 +76,33 @@ export default async function Page(props: { params: { locale: string } }) {
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
           {title}
         </h2>
+        {collections.length > 0 && (
+          <section className="my-10" aria-labelledby="event-projects-title">
+            <h2
+              id="event-projects-title"
+              className="text-2xl font-semibold text-slate-900"
+            >
+              Projects by event
+            </h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {collections.map(({ event, count }) => (
+                <Link
+                  key={event.slug}
+                  href={projectListPath(props.params.locale, event.slug)}
+                  className="block border border-slate-200 p-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600"
+                >
+                  <h3 className="text-xl font-semibold text-indigo-600">
+                    {event.name}
+                  </h3>
+                  <p className="mt-2 text-slate-600">
+                    {count} {count === 1 ? 'project' : 'projects'} · Explore the
+                    demos →
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
         <div className="mx-auto max-w-7xl px-4 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {' '}
           {projects.map((project) => (

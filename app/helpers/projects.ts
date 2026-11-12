@@ -76,8 +76,11 @@ export function getProject(slugOrFilePath: string[]): Project {
   const { data, content } = matter(markdownWithMeta)
 
   const projectData: ProjectData = {
-    publishedDate: new Date(data.date),
-    modifiedDate: data.modified ? new Date(data.modified) : undefined,
+    publishedDate: new Date(data.publishedDate ?? data.date),
+    modifiedDate:
+      data.modifiedDate || data.modified
+        ? new Date(data.modifiedDate ?? data.modified)
+        : undefined,
     title: data.title,
     description: data.description,
     tags: data.tags,
@@ -126,6 +129,8 @@ export function getProjectsByEvent(eventSlug: string): Project[] {
       const aWinner = a.data.winner ? 0 : 1
       const bWinner = b.data.winner ? 0 : 1
       if (aWinner !== bWinner) return aWinner - bWinner
-      return a.data.title.toLowerCase().localeCompare(b.data.title.toLowerCase())
+      return a.data.title
+        .toLowerCase()
+        .localeCompare(b.data.title.toLowerCase())
     })
 }

@@ -21,6 +21,7 @@ import { getTestimonialsForEvent } from '@/data/testimonials'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
 import { sponsorBookingUrl } from '@/lib/sponsorship'
+import { getLiveEvent } from '@/lib/live/config'
 
 // Render a small subset of markdown — inline [label](url) links — inside
 // otherwise plain event copy (perks, challenge descriptions). Anything that
@@ -428,6 +429,7 @@ export default function EventDetail({
   const description = event.description?.[intl.locale] || event.description?.en || ''
   const isPast = event.past ?? new Date(event.endDate) < new Date()
   const isHackNight = event.eventType === 'hacknight'
+  const liveEvent = getLiveEvent(event.slug)
   const eventTestimonials = getTestimonialsForEvent(event.slug)
   const schedule = event.schedule?.[intl.locale] || event.schedule?.en || []
   const challenges = event.challenges?.[intl.locale] || event.challenges?.en || []
@@ -519,26 +521,36 @@ export default function EventDetail({
                 <p className="text-lg text-ink-dim leading-relaxed mb-8">{description}</p>
               )}
 
-              {event.registrationUrl && !isPast && (
-                <a
-                  href={withUtm(event.registrationUrl, {
-                    medium: 'cta',
-                    campaign: `hackbarna-${event.slug}`,
-                    content: 'register-hero',
-                  })}
-                  target="_blank"
-                  rel="noopener"
-                  onClick={() =>
-                    trackOutbound('registration_click', {
-                      event_slug: event.slug,
-                      source: 'register-hero',
-                    })
-                  }
-                  className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
-                >
-                  {intl.t('events.register')} →
-                </a>
-              )}
+              <div className="flex flex-wrap gap-3">
+                {event.registrationUrl && !isPast && (
+                  <a
+                    href={withUtm(event.registrationUrl, {
+                      medium: 'cta',
+                      campaign: `hackbarna-${event.slug}`,
+                      content: 'register-hero',
+                    })}
+                    target="_blank"
+                    rel="noopener"
+                    onClick={() =>
+                      trackOutbound('registration_click', {
+                        event_slug: event.slug,
+                        source: 'register-hero',
+                      })
+                    }
+                    className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
+                  >
+                    {intl.t('events.register')} →
+                  </a>
+                )}
+                {liveEvent && (
+                  <Link
+                    href={`/${locale}/events/${event.slug}/projects`}
+                    className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-band-2 text-ink hover:bg-band-3 transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ink"
+                  >
+                    {intl.t('events.viewProjects')}
+                  </Link>
+                )}
+              </div>
             </div>
 
             {event.imageUrl && (
@@ -937,17 +949,17 @@ export default function EventDetail({
         )}
 
         {/* Projects shipped — only for past events with projects */}
-        {isPast && projectCount > 0 && (
+        {isPast && (projectCount > 0 || liveEvent) && (
           <section className="py-10 border-b border-band-2">
             <h2 className="text-xl font-semibold text-ink mb-3">Projects shipped this edition</h2>
             <p className="text-ink-dim mb-5">
-              {projectCount} {projectCount === 1 ? 'project' : 'projects'} from {event.name}, from team formation to final demo.
+              {projectCount > 0 ? `${projectCount} projects from ${event.name}, from team formation to final demo.` : `Explore what the community built at ${event.name}.`}
             </p>
             <Link
               href={`/${locale}/events/${event.slug}/projects`}
               className="hb-px inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
             >
-              View all {projectCount} {projectCount === 1 ? 'project' : 'projects'}
+              {projectCount > 0 ? `View all ${projectCount} projects` : 'View projects'}
               <span aria-hidden="true">→</span>
             </Link>
           </section>
