@@ -14,8 +14,12 @@ export function projectListPath(
   event: string,
   project?: string,
 ) {
-  const base = `/${locale}/events/${encodeURIComponent(event)}/projects`
-  return project ? `${base}/${encodeURIComponent(project)}` : base
+  if (project)
+    return `/${locale}/events/${encodeURIComponent(event)}/projects/${encodeURIComponent(project)}`
+  const eventPath = ['v1-2024', 'aisummit25'].includes(event)
+    ? `/${locale}/${encodeURIComponent(event)}`
+    : `/${locale}/events/${encodeURIComponent(event)}`
+  return `${eventPath}#projects`
 }
 
 export function projectMetadata(

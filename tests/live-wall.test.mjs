@@ -1,7 +1,12 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { getLiveEvent, wallPath } from '../lib/live/config.ts'
-import { slugify, validateProject, videoEmbed } from '../lib/live/validate.ts'
+import {
+  projectHackers,
+  slugify,
+  validateProject,
+  videoEmbed,
+} from '../lib/live/validate.ts'
 
 const project = {
   name: 'Café Router',
@@ -13,6 +18,10 @@ const project = {
 }
 
 test('only configured events have live walls, including prototype-like slugs', () => {
+  assert.equal(
+    wallPath('en', 'hacknight-5-jevathon-2026'),
+    '/en/events/hacknight-5-jevathon-2026#projects',
+  )
   assert.equal(
     getLiveEvent('hacknight-5-jevathon-2026')?.slug,
     'hacknight-5-jevathon-2026',
@@ -91,4 +100,65 @@ test('project slugs are normalized and video embeds accept only the supported ho
   assert.equal(videoEmbed('https://youtube.com.evil.test/watch?v=abc123'), null)
   assert.equal(videoEmbed('https://example.com/video'), null)
   assert.equal(videoEmbed(null), null)
+})
+
+test('team submissions credit every hacker with optional profiles and strip private extras', () => {
+  const result = validateProject({
+    ...project,
+    hackers: [
+      {
+        name: ' Alex Rivera ',
+        linkedinUrl: 'linkedin.com/in/alex-preview',
+        email: 'private@example.test',
+      },
+      { name: 'Sam Costa', linkedinUrl: '' },
+    ],
+  })
+  assert.equal(result.ok, true)
+  assert.deepEqual(result.value.hackers, [
+    {
+      name: 'Alex Rivera',
+      linkedinUrl: 'https://linkedin.com/in/alex-preview',
+    },
+    { name: 'Sam Costa', linkedinUrl: null },
+  ])
+  assert.equal(result.value.creatorName, 'Alex Rivera')
+  assert.equal(
+    result.value.creatorEmail,
+    'builder@example.test',
+    'one private organiser contact is retained',
+  )
+  assert.doesNotMatch(
+    JSON.stringify(result.value.hackers),
+    /email|private@example/,
+  )
+  assert.deepEqual(projectHackers({ ...project, hackers: [] }), [
+    { name: project.creatorName, linkedinUrl: project.linkedinUrl },
+  ])
+})
+
+test('team validation rejects empty, oversized and malformed rosters and unsafe profile links', () => {
+  for (const hackers of [
+    [],
+    'Alex',
+    Array.from({ length: 21 }, () => ({ name: 'Alex' })),
+    [null],
+    [{ name: 'x' }],
+    [{ name: 'x'.repeat(81) }],
+    [{ name: 'Alex', linkedinUrl: 'https://linkedin.com.evil.test/in/alex' }],
+    [{ name: 'Alex', linkedinUrl: 'javascript:alert(1)' }],
+  ]) {
+    assert.equal(validateProject({ ...project, hackers }).ok, false)
+  }
+  const publicHackers = projectHackers({
+    ...project,
+    hackers: [
+      {
+        name: 'Alex',
+        linkedinUrl: 'https://evil.test',
+        email: 'secret@example.test',
+      },
+    ],
+  })
+  assert.deepEqual(publicHackers, [{ name: 'Alex', linkedinUrl: null }])
 })

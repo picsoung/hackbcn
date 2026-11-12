@@ -8,6 +8,7 @@ import { useIntl } from './Intl'
 import { usePathname } from 'next/navigation'
 import { useTheme } from '@/app/contexts/ThemeContext'
 import { getDigestHref } from '@/app/helpers/digest'
+import { projectListPath } from '@/lib/project-seo'
 interface NavbarProps {
   mobileMenuOpen: boolean
   setMobileMenuOpen: Dispatch<SetStateAction<boolean>>
@@ -37,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({
     { name: intl.t('navbar.testimonials'), href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/testimonials` : `/${intl.locale}/testimonials` },
     {
       name: currentEventSlug ? intl.t('navbar.projects') : intl.t('projects.title'),
-      href: currentEventSlug ? `/${intl.locale}/${currentEventSlug}/projects` : `/${intl.locale}/projects`,
+      href: currentEventSlug ? projectListPath(intl.locale, currentEventSlug) : `/${intl.locale}/projects`,
     },
     { name: intl.t('home.navbar.digest'), href: getDigestHref(intl.locale), external: true },
   ]

@@ -36,5 +36,7 @@ export function getLiveEvent(slug: string): LiveEvent | null {
 }
 
 export function wallPath(locale: string, eventSlug: string, project?: string) {
-  return `/${locale}/events/${eventSlug}/projects${project ? `/${project}` : ''}`
+  return project
+    ? `/${locale}/events/${eventSlug}/projects/${project}`
+    : `/${locale}/events/${eventSlug}#projects`
 }

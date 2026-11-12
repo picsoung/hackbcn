@@ -1,15 +1,45 @@
 # Event project lists
 
-Project lists live at `/[locale]/events/[slug]/projects`, with each database
-project at `/projects/<project>` under that event. The earlier `/wall` paths
-permanently redirect to those URLs. Existing Markdown projects retain their
-original URLs and event lists; the global project archive links to database
-collections as well.
+Each event shows its projects in a grid at `/[locale]/events/[slug]#projects`.
+The two legacy events retain `/[locale]/<event>#projects`. The main
+`/[locale]/projects` archive lists individual projects from every event,
+grouped by event with the newest first. Both grids combine database submissions
+and published Markdown projects.
+
+Shared cards omit event-specific judging scores, including Jev scores.
+Cards and detail pages have no voting controls or vote totals, and detail pages
+have no share-kit section. Existing vote records remain available for the event
+leaderboard. An optional `award` displays a prize badge on cards and details;
+awards are assigned by organisers, never inferred from votes or Jev scores.
+
+Project details use the homepage navigation and footer, without the wall's
+event ribbon, leaderboard tabs or Jev-lab links. Breadcrumbs lead back to the
+archive and event. Server-rendered recommendations show up to three other
+projects from the event and up to three from the builders, including Markdown
+archives. Builder identity uses a matching LinkedIn profile, never a shared
+display name; tracking parameters and trailing slashes do not affect matching.
+Empty sections, the current project and duplicate suggestions are omitted.
+
+Database projects store a `hackers` array of public names and optional LinkedIn
+profile URLs. Submission forms accept multiple hackers, and detail pages link
+each name to its profile and expose every hacker as a JSON-LD author. A single
+private organiser contact email remains separate. Older imported projects fall
+back to their original creator credit until a roster is recorded; combined
+names are not split or assigned guessed profiles. Replaying the standalone
+import preserves destination rosters and awards.
+
+Database project details remain at
+`/[locale]/events/[slug]/projects/<project>`. Markdown projects retain their
+original detail URLs. Earlier event-list and `/wall` paths permanently redirect
+to the event's project section; individual `/wall/<project>` links redirect to
+the corresponding project detail.
 
 Pages render their content and project links on the server, before JavaScript
-runs. Each list and detail has a specific canonical URL, description, social
-metadata and JSON-LD. The dynamic sitemap includes both database and Markdown
-projects. Submission forms and the projector leaderboard are excluded from
+runs. The archive and detail pages have canonical URLs, descriptions, social
+metadata and JSON-LD. Event grids include an ItemList in their event page's
+HTML. The dynamic sitemap includes the archive, events, and both database and
+Markdown project details; redirected list URLs and fragments are omitted.
+Submission forms and the projector leaderboard are excluded from
 indexing. Search engines decide when to crawl and index published pages.
 
 ## Events and storage
@@ -96,6 +126,6 @@ npm run build
 Check the deployed HTML without executing JavaScript: all project names and
 links must be present, canonical and Open Graph URLs must match the page,
 JSON-LD must parse, and the sitemap must include every project. Verify redirects,
-unknown project 404s, archived-write rejection, category filters, mobile and
+unknown project 404s, archived-write rejection, event grouping, mobile and
 desktop layouts, and email redaction. The live-wall copy is currently English;
 locale prefixes are preserved.

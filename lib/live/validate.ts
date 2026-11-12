@@ -1,3 +1,5 @@
+export type ProjectHacker = { name: string; linkedinUrl: string | null }
+
 export interface ProjectInput {
   name: string
   tagline: string
@@ -6,6 +8,7 @@ export interface ProjectInput {
   creatorName: string
   creatorEmail: string
   linkedinUrl: string
+  hackers: ProjectHacker[]
   shareConsent: boolean
 }
 
@@ -23,6 +26,48 @@ function httpUrl(v: string): string | null {
   } catch {
     return null
   }
+}
+
+function linkedinProfile(value: string): string | null {
+  const url = httpUrl(value)
+  if (!url) return null
+  const parsed = new URL(url)
+  return /(^|\.)linkedin\.com$/i.test(parsed.hostname) &&
+    !parsed.username &&
+    !parsed.password
+    ? url
+    : null
+}
+
+/** Public team members only. Keep legacy credits intact rather than guessing how to split names. */
+export function projectHackers(project: {
+  hackers?: unknown
+  creatorName: string
+  linkedinUrl: string
+}): ProjectHacker[] {
+  const hackers = Array.isArray(project.hackers)
+    ? project.hackers.flatMap((value) => {
+        if (!value || typeof value !== 'object' || !str(value.name)) return []
+        return [
+          {
+            name: str(value.name),
+            linkedinUrl: str(value.linkedinUrl)
+              ? linkedinProfile(str(value.linkedinUrl))
+              : null,
+          },
+        ]
+      })
+    : []
+  return hackers.length
+    ? hackers
+    : [
+        {
+          name: project.creatorName,
+          linkedinUrl: project.linkedinUrl
+            ? linkedinProfile(project.linkedinUrl)
+            : null,
+        },
+      ]
 }
 
 export function validateProject(
@@ -52,10 +97,48 @@ export function validateProject(
     if (!videoUrl) errors.videoUrl = "That video link doesn't look right."
   }
 
-  const creatorName = str(body.creatorName)
-  if (creatorName.length < 2) errors.creatorName = 'Who built it?'
-  else if (creatorName.length > 80)
-    errors.creatorName = 'Keep it under 80 characters.'
+  let hackers: ProjectHacker[] = []
+  if (body.hackers !== undefined) {
+    if (
+      !Array.isArray(body.hackers) ||
+      body.hackers.length < 1 ||
+      body.hackers.length > 20
+    ) {
+      errors.hackers = 'Add between 1 and 20 hackers.'
+    } else {
+      hackers = body.hackers.map((value, index) => {
+        const member =
+          value && typeof value === 'object' && !Array.isArray(value)
+            ? value
+            : {}
+        const name = str(member.name)
+        if (name.length < 2 || name.length > 80)
+          errors[`hackers.${index}.name`] =
+            'Use a name between 2 and 80 characters.'
+        const raw = str(member.linkedinUrl)
+        const linkedinUrl =
+          raw && raw.length <= 500 ? linkedinProfile(raw) : null
+        if (raw && !linkedinUrl)
+          errors[`hackers.${index}.linkedinUrl`] =
+            'Use a linkedin.com profile link or leave this blank.'
+        return { name, linkedinUrl }
+      })
+    }
+  } else {
+    // Compatibility for the standalone import and older API clients.
+    const name = str(body.creatorName)
+    if (name.length < 2) errors.creatorName = 'Who built it?'
+    else if (name.length > 80)
+      errors.creatorName = 'Keep it under 80 characters.'
+    const raw = str(body.linkedinUrl)
+    const linkedinUrl = raw && raw.length <= 500 ? linkedinProfile(raw) : null
+    if (!raw) errors.linkedinUrl = 'Add your LinkedIn profile.'
+    else if (!linkedinUrl)
+      errors.linkedinUrl = 'Use your linkedin.com profile link.'
+    hackers = [{ name, linkedinUrl }]
+  }
+  const creatorName = hackers[0]?.name ?? ''
+  const linkedinUrl = hackers[0]?.linkedinUrl ?? ''
 
   const creatorEmail = str(body.creatorEmail).toLowerCase()
   if (
@@ -63,15 +146,6 @@ export function validateProject(
     creatorEmail.length > 200
   )
     errors.creatorEmail = 'We need a valid email to reach you.'
-
-  const linkedinRaw = str(body.linkedinUrl)
-  const linkedinUrl = httpUrl(linkedinRaw)
-  if (!linkedinRaw) errors.linkedinUrl = 'Add your LinkedIn profile.'
-  else if (
-    !linkedinUrl ||
-    !/(^|\.)linkedin\.com$/i.test(new URL(linkedinUrl).hostname)
-  )
-    errors.linkedinUrl = 'Use your linkedin.com profile link.'
 
   const shareConsent =
     body.shareConsent === true ||
@@ -88,7 +162,8 @@ export function validateProject(
       videoUrl,
       creatorName,
       creatorEmail,
-      linkedinUrl: linkedinUrl!,
+      linkedinUrl,
+      hackers,
       shareConsent,
     },
   }

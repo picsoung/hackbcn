@@ -32,12 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const liveProjects = (await listProjectSitemapEntries()).filter((p) =>
     Object.hasOwn(LIVE_EVENTS, p.eventSlug),
   )
-  const projectEvents = new Set([
-    ...Object.keys(LIVE_EVENTS),
-    ...archivedProjects
-      .map((p) => p.data.event)
-      .filter((slug): slug is string => Boolean(slug)),
-  ])
 
   const now = new Date()
 
@@ -110,13 +104,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.7,
     })
-    for (const slug of Array.from(projectEvents)) {
-      out.push({
-        url: `${SITE}${projectListPath(locale, slug)}`,
-        changeFrequency: LIVE_EVENTS[slug]?.open ? 'daily' : 'monthly',
-        priority: 0.7,
-      })
-    }
     for (const project of liveProjects) {
       out.push({
         url: `${SITE}${projectListPath(locale, project.eventSlug, project.slug)}`,
