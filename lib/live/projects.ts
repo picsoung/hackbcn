@@ -14,9 +14,16 @@ const publicColumns = {
   tagline: projects.tagline,
   url: projects.url,
   videoUrl: projects.videoUrl,
+  screenshotKey: projects.screenshotKey,
   creatorName: projects.creatorName,
   linkedinUrl: projects.linkedinUrl,
   shareConsent: projects.shareConsent,
+  usedLovable: projects.usedLovable,
+  jevUsage: projects.jevUsage,
+  judgeImpact: projects.judgeImpact,
+  judgeCreativity: projects.judgeCreativity,
+  judgeJevUse: projects.judgeJevUse,
+  judgeScore: projects.judgeScore,
   category: projects.category,
   categoryConfidence: projects.categoryConfidence,
   voteCount: projects.voteCount,
@@ -32,9 +39,16 @@ export type PublicProject = {
   tagline: string
   url: string
   videoUrl: string | null
+  screenshotKey: string | null
   creatorName: string
   linkedinUrl: string
   shareConsent: boolean
+  usedLovable: boolean
+  jevUsage: string | null
+  judgeImpact: number | null
+  judgeCreativity: number | null
+  judgeJevUse: number | null
+  judgeScore: number | null
   category: string | null
   categoryConfidence: number | null
   voteCount: number
@@ -76,6 +90,15 @@ export async function listProjectSitemapEntries() {
     })
     .from(projects)
     .orderBy(projects.eventSlug, projects.slug)
+}
+
+export async function getPublicProject(eventSlug: string, slug: string) {
+  const [project] = await getDb()
+    .select(publicColumns)
+    .from(projects)
+    .where(and(eq(projects.eventSlug, eventSlug), eq(projects.slug, slug)))
+    .limit(1)
+  return project ?? null
 }
 
 export async function getJevAnswers(id: number) {
@@ -230,6 +253,10 @@ export async function exportShareable(eventSlug: string) {
       tagline: projects.tagline,
       url: projects.url,
       videoUrl: projects.videoUrl,
+      screenshotKey: projects.screenshotKey,
+      usedLovable: projects.usedLovable,
+      jevUsage: projects.jevUsage,
+      judgeScore: projects.judgeScore,
       creatorName: projects.creatorName,
       linkedinUrl: projects.linkedinUrl,
       category: projects.category,

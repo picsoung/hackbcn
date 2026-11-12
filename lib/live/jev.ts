@@ -15,40 +15,18 @@ export const JEV_MODEL = 'jev-latest'
 
 /** The categories every project is sorted into. Order is the display order. */
 export const CATEGORIES = {
-  moderation: {
-    label: 'Content moderation',
-    description:
-      'Flagging, filtering or reviewing user content, comments, images or listings',
-  },
-  lead_scoring: {
-    label: 'Lead scoring',
-    description:
-      'Qualifying, ranking or prioritising leads, customers, candidates or deals',
-  },
-  routing: {
-    label: 'Request routing',
-    description:
-      'Triaging tickets, emails, messages or requests and sending them to the right place',
-  },
-  handoff: {
-    label: 'Agent handoffs',
-    description:
-      'Deciding when an AI agent should act, ask, or escalate to a human',
-  },
-  personal: {
-    label: 'Recommendations',
-    description:
-      'Picking, matching or personalising things for a person: food, music, events, people',
-  },
-  devtools: {
-    label: 'Dev tools',
-    description:
-      'Tools for developers: testing, code review, evals, monitoring, CI',
-  },
-  playful: {
-    label: 'Playful',
-    description: 'Games, art, music, jokes and creative experiments',
-  },
+  moderation: { label: 'Trust & safety', description: 'Trust and safety' },
+  lead_scoring: { label: 'Sales & growth', description: 'Sales and growth' },
+  routing: { label: 'Support & ops', description: 'Support and ops' },
+  handoff: { label: 'Agents', description: 'AI agents' },
+  personal: { label: 'Recommendations', description: 'Recommendations' },
+  health: { label: 'Health & wellbeing', description: 'Health and wellbeing' },
+  learning: { label: 'Learning', description: 'Learning and education' },
+  money: { label: 'Money', description: 'Money and finance' },
+  civic: { label: 'Social good', description: 'Social good and climate' },
+  devtools: { label: 'Dev tools', description: 'Developer tools' },
+  creative: { label: 'Creative', description: 'Art, music and media' },
+  playful: { label: 'Games & fun', description: 'Games and fun' },
   other: { label: 'Something else', description: null },
 } as const
 

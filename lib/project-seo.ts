@@ -44,6 +44,12 @@ export function serializeJsonLd(value: unknown) {
   return JSON.stringify(value).replace(/</g, '\\u003c')
 }
 
+export function validProjectDate(value: unknown): Date | undefined {
+  if (value == null) return undefined
+  const date = value instanceof Date ? value : new Date(value as string)
+  return Number.isFinite(date.getTime()) ? date : undefined
+}
+
 export function projectListSchema(
   name: string,
   path: string,

@@ -7,6 +7,8 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { parseArgs, promisify } from 'node:util'
 import { getDatabase } from '@netlify/database'
+import { getStore } from '@netlify/blobs'
+import { imageType } from '../lib/live/media.ts'
 
 export const SOURCE_SITE = '3efab2ea-1013-48d7-afd5-be2dc6c4589d'
 export const TARGET_SITE = '6aa92ad5-7af3-45a6-bcba-7baac9377886'
@@ -18,14 +20,21 @@ const columns = [
   'tagline',
   'url',
   'video_url',
+  'screenshot_key',
   'creator_name',
   'creator_email',
   'linkedin_url',
   'share_consent',
+  'used_lovable',
+  'jev_usage',
   'category',
   'category_confidence',
   'jev_answers',
   'jev_model',
+  'judge_impact',
+  'judge_creativity',
+  'judge_jev_use',
+  'judge_score',
   'share_count',
   'created_at',
 ]
@@ -42,6 +51,12 @@ export function validateSnapshot(snapshot) {
   const projects = new Map()
   const slugs = new Set()
   for (const p of snapshot.projects) {
+    const knownColumns = new Set(['id', 'vote_count', ...columns])
+    assert.ok(
+      Object.keys(p).every((key) => knownColumns.has(key)),
+      'Source schema has unhandled project columns',
+    )
+    if (p.screenshot_key) importedScreenshotKey(p.screenshot_key)
     assert.ok(
       Number.isSafeInteger(p.id) && p.id > 0 && !projects.has(p.id),
       'Invalid or repeated project ID',
@@ -108,6 +123,91 @@ export function validateSnapshot(snapshot) {
   return { projects: projects.size, votes: seenVotes.size }
 }
 
+export function importedScreenshotKey(key) {
+  assert.ok(
+    typeof key === 'string' && /^[a-z0-9-]{1,200}$/.test(key),
+    'Invalid screenshot key',
+  )
+  return `${EVENT}/${key}`
+}
+
+async function netlifyToken() {
+  if (process.env.NETLIFY_AUTH_TOKEN) return process.env.NETLIFY_AUTH_TOKEN
+  const configFile =
+    process.platform === 'darwin'
+      ? path.join(homedir(), 'Library/Preferences/netlify/config.json')
+      : path.join(
+          process.env.XDG_CONFIG_HOME || path.join(homedir(), '.config'),
+          'netlify/config.json',
+        )
+  const config = JSON.parse(await readFile(configFile, 'utf8'))
+  const token = config.users?.[config.userId]?.auth?.token
+  assert.ok(token, 'Log into Netlify CLI or set NETLIFY_AUTH_TOKEN')
+  return token
+}
+
+async function copyScreenshots(snapshot, backup, originalBackup) {
+  const keys = [
+    ...new Set(snapshot.projects.map((p) => p.screenshot_key).filter(Boolean)),
+  ]
+  if (!keys.length) return 0
+  const token = await netlifyToken()
+  const source = getStore('screenshots', {
+    siteID: SOURCE_SITE,
+    token,
+    consistency: 'strong',
+  })
+  const target = getStore('project-screenshots', {
+    siteID: TARGET_SITE,
+    token,
+    consistency: 'strong',
+  })
+  const imageDir = backup.replace(/\.json$/, '-screenshots')
+  await mkdir(imageDir, { recursive: true, mode: 0o700 })
+  for (const key of keys) {
+    const targetKey = importedScreenshotKey(key)
+    let data
+    if (originalBackup) {
+      try {
+        data = await readFile(
+          path.join(originalBackup.replace(/\.json$/, '-screenshots'), key),
+        )
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error
+      }
+    }
+    if (!data) data = await source.get(key, { type: 'arrayBuffer' })
+    assert.ok(data, 'Source screenshot is missing')
+    const bytes = new Uint8Array(data)
+    const contentType = imageType(bytes)
+    assert.ok(contentType, 'Source screenshot has an unsupported format')
+    await writeFile(path.join(imageDir, key), bytes, {
+      mode: 0o600,
+      flag: 'wx',
+    })
+    const sha256 = createHash('sha256').update(bytes).digest('hex')
+    const existing = await target.get(targetKey, { type: 'arrayBuffer' })
+    if (existing)
+      assert.equal(
+        createHash('sha256').update(new Uint8Array(existing)).digest('hex'),
+        sha256,
+        'Destination screenshot differs from source',
+      )
+    else
+      await target.set(targetKey, bytes.slice().buffer, {
+        metadata: { contentType, sha256 },
+      })
+    const copied = await target.get(targetKey, { type: 'arrayBuffer' })
+    assert.ok(copied, 'Copied screenshot is missing')
+    assert.equal(
+      createHash('sha256').update(new Uint8Array(copied)).digest('hex'),
+      sha256,
+      'Screenshot checksum differs after copying',
+    )
+  }
+  return keys.length
+}
+
 async function connection(site, branch) {
   // Credentials stay in the child-process pipe and memory, never logs or files.
   const { stdout } = await run(
@@ -172,7 +272,18 @@ export async function importSnapshot(client, snapshot) {
         'A destination slug belongs to a different project',
       )
     }
-    const values = [EVENT, ...columns.map((key) => project[key])]
+    const values = [
+      EVENT,
+      ...columns.map((key) =>
+        key === 'screenshot_key'
+          ? project[key]
+            ? importedScreenshotKey(project[key])
+            : null
+          : key === 'used_lovable'
+            ? (project[key] ?? false)
+            : project[key],
+      ),
+    ]
     const placeholders = values.map((_, i) => `$${i + 1}`).join(', ')
     const updates = columns
       .filter((key) => key !== 'slug')
@@ -211,6 +322,42 @@ export async function importSnapshot(client, snapshot) {
       project.vote_count,
       'Destination vote total differs from source',
     )
+  }
+  const copied = (
+    await client.query(
+      `SELECT ${columns.join(', ')} FROM live_projects WHERE event_slug = $1 AND slug = ANY($2::text[])`,
+      [EVENT, snapshot.projects.map((p) => p.slug)],
+    )
+  ).rows
+  assert.equal(
+    copied.length,
+    snapshot.projects.length,
+    'Destination project total differs from source',
+  )
+  for (const project of snapshot.projects) {
+    const row = copied.find((p) => p.slug === project.slug)
+    for (const key of columns) {
+      const expectedValue =
+        key === 'screenshot_key'
+          ? project[key]
+            ? importedScreenshotKey(project[key])
+            : null
+          : key === 'used_lovable'
+            ? (project[key] ?? false)
+            : (project[key] ?? null)
+      if (key === 'created_at')
+        assert.equal(
+          new Date(row[key]).getTime(),
+          new Date(expectedValue).getTime(),
+          'Project date differs after copying',
+        )
+      else
+        assert.deepEqual(
+          row[key],
+          expectedValue,
+          `Copied project field differs (${key})`,
+        )
+    }
   }
   return expected
 }
@@ -271,6 +418,7 @@ async function main() {
     )
     const contents = JSON.stringify(snapshot)
     await writeFile(backup, contents, { mode: 0o600, flag: 'wx' })
+    const screenshots = await copyScreenshots(snapshot, backup, values.snapshot)
     const client = await target.connect()
     try {
       await client.query('BEGIN')
@@ -281,6 +429,7 @@ async function main() {
           mode: 'applied',
           targetBranch: values['target-branch'],
           imported,
+          screenshots,
           backup,
           sha256: createHash('sha256').update(contents).digest('hex'),
         }),

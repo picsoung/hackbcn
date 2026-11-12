@@ -143,6 +143,7 @@ export default async function WallPage({
                 category: p.category,
                 categoryConfidence: p.categoryConfidence,
                 voteCount: p.voteCount,
+                judgeScore: p.judgeScore,
                 shareCount: p.shareCount,
                 hasVideo: Boolean(p.videoUrl),
                 voted: voted.has(p.id),

@@ -8,7 +8,11 @@ import i18nConfig from '../i18n.json'
 import { getProjects } from '@/app/helpers/projects'
 import { LIVE_EVENTS } from '@/lib/live/config'
 import { listProjectSitemapEntries } from '@/lib/live/projects'
-import { projectListPath, siteOrigin } from '@/lib/project-seo'
+import {
+  projectListPath,
+  siteOrigin,
+  validProjectDate,
+} from '@/lib/project-seo'
 
 export const dynamic = 'force-dynamic'
 
@@ -126,7 +130,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const project of archivedProjects) {
       out.push({
         url: `${SITE}/${locale}/projects/${project.slug}`,
-        lastModified: project.data.modifiedDate ?? project.data.publishedDate,
+        lastModified:
+          validProjectDate(project.data.modifiedDate) ??
+          validProjectDate(project.data.publishedDate),
         changeFrequency: 'yearly',
         priority: 0.5,
       })

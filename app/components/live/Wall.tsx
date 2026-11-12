@@ -17,6 +17,7 @@ export type WallProject = {
   shareCount: number
   hasVideo: boolean
   voted: boolean
+  judgeScore?: number | null
 }
 
 export default function Wall({
@@ -94,6 +95,9 @@ export default function Wall({
               </h3>
               <p className="mt-1 text-screen-dim">{p.tagline}</p>
               <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-screen-dim">
+                {p.judgeScore != null && (
+                  <span>Jev score {p.judgeScore.toFixed(1)}/100</span>
+                )}
                 {p.category ? (
                   <span
                     className={chip}

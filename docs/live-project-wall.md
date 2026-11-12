@@ -14,7 +14,8 @@ indexing. Search engines decide when to crawl and index published pages.
 
 ## Events and storage
 
-The wall kit was imported from `hacknight-projects` at source commit `ed1b130`.
+The wall kit was imported from `hacknight-projects` at source commit `ed1b130`,
+with media and judging fields brought over from production commit `83a6176`.
 Enable a submission event in `lib/live/config.ts`. All projects are keyed by
 `event_slug`, and uniqueness is scoped to that event. Setting `open: false`
 closes submissions, votes and ranking-related share counts while preserving
@@ -23,7 +24,11 @@ project pages and final results. Share links still work.
 Jev-a-thon (November 10, 2026) is closed. Its 22 projects and 296 vote records
 are being migrated from the standalone app, superseding the earlier empty
 production database plan. Project slugs, creator contact details, consent,
-Jev answers, creation dates, shares and vote records are preserved. Emails
+Jev answers, judging scores, usage notes, Lovable attribution, creation dates,
+shares and vote records are preserved. All 17 referenced screenshots are copied
+from the source's `screenshots` Blobs store to the destination's
+`project-screenshots` store, with event-prefixed keys and SHA-256 verification.
+Emails
 and voter IDs never appear in public HTML, JSON or the sitemap. Exports
 include only projects with explicit feature consent.
 
@@ -42,8 +47,9 @@ The migration script fixes the source and destination Netlify project IDs.
 It reads the source in a consistent, read-only transaction, validates every
 project and vote, and defaults to a dry run. Credentials remain in memory.
 Applying first saves a private snapshot outside the repository with mode 0600,
-then imports in one transaction, remaps project IDs, deduplicates votes, and
-verifies each vote total before committing. Replaying the same snapshot is
+then backs up and copies the screenshots, imports in one transaction, remaps
+project IDs, deduplicates votes, and verifies every project field and vote total
+before committing. Replaying the same snapshot is
 idempotent. Conflicting destination projects or inconsistent votes abort the
 transaction. Do not commit database snapshots or copy them into public assets.
 
@@ -58,7 +64,8 @@ node scripts/migrate-hacknight-projects.mjs --target-branch production --apply
 
 Use `--snapshot /absolute/private/snapshot.json` to replay an exact backup.
 The backup location and SHA-256 digest are printed, without private contents.
-Keep the source database intact for recovery.
+Screenshot backups sit beside the JSON backup in a `-screenshots` directory.
+Keep the source database and Blobs store intact for recovery.
 
 Only after verifying the production list, detail pages, sitemap and counts,
 cut over `hacknight-projects.netlify.app` using the redirect bundle in
@@ -72,7 +79,7 @@ after the redirect to detect any activity during the cutover.
 
 ```bash
 node --experimental-strip-types --test tests/live-wall.test.mjs tests/project-migration.test.mjs
-node --test tests/event-listing.test.cjs
+node --test tests/event-listing.test.cjs tests/project-archive.test.cjs
 npm run build
 ```
 

@@ -22,16 +22,23 @@ export const liveProjects = pgTable(
     tagline: text().notNull(),
     url: text().notNull(),
     videoUrl: text('video_url'),
+    screenshotKey: text('screenshot_key'),
     creatorName: text('creator_name').notNull(),
     // Private: never returned by public routes.
     creatorEmail: text('creator_email').notNull(),
     linkedinUrl: text('linkedin_url').notNull(),
     shareConsent: boolean('share_consent').notNull().default(false),
+    usedLovable: boolean('used_lovable').notNull().default(false),
+    jevUsage: text('jev_usage'),
     // Jev categorization
     category: text(),
     categoryConfidence: real('category_confidence'),
     jevAnswers: jsonb('jev_answers'),
     jevModel: text('jev_model'),
+    judgeImpact: real('judge_impact'),
+    judgeCreativity: real('judge_creativity'),
+    judgeJevUse: real('judge_jev_use'),
+    judgeScore: real('judge_score'),
     voteCount: integer('vote_count').notNull().default(0),
     shareCount: integer('share_count').notNull().default(0),
     createdAt: timestamp('created_at', { withTimezone: true })

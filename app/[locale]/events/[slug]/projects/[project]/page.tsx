@@ -70,6 +70,9 @@ export default async function ProjectPage({ params, searchParams }: Params) {
 
   const link = `${siteOrigin()}${projectListPath(params.locale, event.slug, p.slug)}`
   const embed = videoEmbed(p.videoUrl)
+  const screenshot = p.screenshotKey
+    ? `/api/live/${event.slug}/projects/${p.slug}/screenshot?v=${encodeURIComponent(p.screenshotKey)}`
+    : null
   const top = jev?.probabilities
     ? Object.entries(jev.probabilities)
         .sort((a, b) => b[1] - a[1])
@@ -87,6 +90,7 @@ export default async function ProjectPage({ params, searchParams }: Params) {
             name: p.name,
             description: p.tagline,
             url: link,
+            image: screenshot ? `${siteOrigin()}${screenshot}` : undefined,
             datePublished: p.createdAt.toISOString(),
             author: {
               '@type': 'Person',
@@ -159,6 +163,16 @@ export default async function ProjectPage({ params, searchParams }: Params) {
               Open project ↗
             </a>
           </div>
+          {screenshot && !embed && (
+            <figure className="mt-10">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={screenshot}
+                alt={`${p.name} project screenshot`}
+                className="hb-px w-full bg-night-raised"
+              />
+            </figure>
+          )}
           {embed ? (
             <div className="hb-px hb-px-lg mt-10 aspect-video bg-night-raised">
               <iframe
@@ -184,6 +198,22 @@ export default async function ProjectPage({ params, searchParams }: Params) {
               </p>
             )
           )}
+          {screenshot && embed && (
+            <a
+              href={screenshot}
+              className="mt-4 inline-block text-neon-cyan underline underline-offset-4"
+            >
+              View project screenshot
+            </a>
+          )}
+          {p.jevUsage && (
+            <section className="mt-10">
+              <h2 className="text-2xl font-semibold">How it uses Jev</h2>
+              <p className="mt-3 whitespace-pre-wrap text-screen-dim">
+                {p.jevUsage}
+              </p>
+            </section>
+          )}
         </div>
         <aside className="space-y-6">
           <div className={card}>
@@ -206,6 +236,39 @@ export default async function ProjectPage({ params, searchParams }: Params) {
           </div>
           <div className={card}>
             <h2 className="mb-3 text-xl font-semibold">What Jev thinks</h2>
+            {p.judgeScore != null && (
+              <div className="mb-5">
+                <p className="text-3xl font-bold text-neon-cyan">
+                  {p.judgeScore.toFixed(1)}
+                  <span className="text-sm text-screen-dim">
+                    {' '}
+                    / 100 Jev score
+                  </span>
+                </p>
+                <dl className="mt-3 space-y-1 text-sm text-screen-dim">
+                  {(
+                    [
+                      ['Impact', p.judgeImpact],
+                      ['Creativity', p.judgeCreativity],
+                      ['Use of Jev', p.judgeJevUse],
+                    ] as const
+                  ).map(
+                    ([label, value]) =>
+                      value != null && (
+                        <div key={label} className="flex justify-between gap-4">
+                          <dt>{label}</dt>
+                          <dd>{Math.round(value * 100)}%</dd>
+                        </div>
+                      ),
+                  )}
+                </dl>
+                {p.usedLovable && (
+                  <p className="mt-2 text-sm text-screen-dim">
+                    Built with Lovable
+                  </p>
+                )}
+              </div>
+            )}
             {p.category ? (
               <>
                 <p>
