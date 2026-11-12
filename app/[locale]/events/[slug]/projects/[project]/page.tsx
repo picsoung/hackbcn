@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import LiveShell from '@/app/components/live/LiveShell'
+import ProjectPageShell from '@/app/components/projects/ProjectPageShell'
+import ProjectRecommendations from '@/app/components/projects/ProjectRecommendations'
+import { submittedProjectCard } from '@/lib/project-cards'
+import { getRelatedProjectCards } from '@/lib/project-catalog'
 import { TrophyIcon } from '@heroicons/react/24/outline'
 import {
   btnPrimary,
@@ -56,7 +59,11 @@ export default async function ProjectPage({ params, searchParams }: Params) {
     p = (await getPublicProject(event.slug, params.project)) ?? p
   }
   const hackers = projectHackers(p)
-  const jev = await getJevAnswers(p.id)
+  const current = submittedProjectCard(p, params.locale, event)
+  const [jev, related] = await Promise.all([
+    getJevAnswers(p.id),
+    getRelatedProjectCards(current, params.locale),
+  ])
 
   const link = `${siteOrigin()}${projectListPath(params.locale, event.slug, p.slug)}`
   const embed = videoEmbed(p.videoUrl)
@@ -70,7 +77,7 @@ export default async function ProjectPage({ params, searchParams }: Params) {
     : []
 
   return (
-    <LiveShell locale={params.locale} event={event} active="wall">
+    <ProjectPageShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -96,6 +103,26 @@ export default async function ProjectPage({ params, searchParams }: Params) {
           }),
         }}
       />
+      <nav
+        aria-label="Breadcrumb"
+        className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-2 px-6 pt-8 text-sm lg:px-8"
+      >
+        <Link
+          href={`/${params.locale}/projects`}
+          className="text-ink-dim underline underline-offset-4 hover:text-ink"
+        >
+          All projects
+        </Link>
+        <span aria-hidden="true" className="text-ink-dim">
+          /
+        </span>
+        <Link
+          href={projectListPath(params.locale, event.slug)}
+          className="text-ink-dim underline underline-offset-4 hover:text-ink"
+        >
+          {event.name}
+        </Link>
+      </nav>
       {event.open && searchParams.new === '1' && (
         <section className="bg-neon-pink text-night-ink">
           <div className="mx-auto max-w-6xl px-6 py-10">
@@ -108,7 +135,7 @@ export default async function ProjectPage({ params, searchParams }: Params) {
           </div>
         </section>
       )}
-      <section className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1fr_24rem]">
+      <section className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-8 lg:grid-cols-[1fr_24rem]">
         <div className="min-w-0">
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
             {p.name}
@@ -282,15 +309,10 @@ export default async function ProjectPage({ params, searchParams }: Params) {
                 Jev hasn&apos;t sorted this one yet. Refresh in a moment.
               </p>
             )}
-            <Link
-              href={`/${params.locale}/events/${event.slug}/jev`}
-              className="mt-3 inline-block text-sm text-neon-cyan underline underline-offset-4"
-            >
-              How this works
-            </Link>
           </div>
         </aside>
       </section>
-    </LiveShell>
+      <ProjectRecommendations current={current} related={related} />
+    </ProjectPageShell>
   )
 }

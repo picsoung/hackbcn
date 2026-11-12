@@ -6,9 +6,11 @@ import ProjectPreview from './ProjectPreview'
 export default function ProjectGrid({
   projects,
   tone = 'night',
+  showEvent = false,
 }: {
   projects: ProjectCard[]
   tone?: 'night' | 'light'
+  showEvent?: boolean
 }) {
   const night = tone === 'night'
   const styles = night
@@ -69,6 +71,11 @@ export default function ProjectGrid({
                       className={`mt-4 line-clamp-2 text-xs leading-relaxed ${styles.muted}`}
                     >
                       By {project.creator}
+                    </p>
+                  )}
+                  {showEvent && (
+                    <p className={`mt-2 text-xs ${styles.muted}`}>
+                      {project.eventName}
                     </p>
                   )}
                   {project.award && (

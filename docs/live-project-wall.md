@@ -11,6 +11,14 @@ have no share-kit section. Existing vote records remain available for the event
 leaderboard. An optional `award` displays a prize badge on cards and details;
 awards are assigned by organisers, never inferred from votes or Jev scores.
 
+Project details use the homepage navigation and footer, without the wall's
+event ribbon, leaderboard tabs or Jev-lab links. Breadcrumbs lead back to the
+archive and event. Server-rendered recommendations show up to three other
+projects from the event and up to three from the builders, including Markdown
+archives. Builder identity uses a matching LinkedIn profile, never a shared
+display name; tracking parameters and trailing slashes do not affect matching.
+Empty sections, the current project and duplicate suggestions are omitted.
+
 Database projects store a `hackers` array of public names and optional LinkedIn
 profile URLs. Submission forms accept multiple hackers, and detail pages link
 each name to its profile and expose every hacker as a JSON-LD author. A single

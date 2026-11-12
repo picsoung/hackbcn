@@ -2,9 +2,12 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import { projectMetadata } from '@/lib/project-seo'
 
-import { getFilenames, getProject, Person } from '@/app/helpers/projects'
+import { getProject, Person } from '@/app/helpers/projects'
+import { archivedProjectCard, type ProjectCard } from '@/lib/project-cards'
+import { getRelatedProjectCards } from '@/lib/project-catalog'
+import { getEventDataBySlug } from '@/lib/events-server'
+import ProjectRecommendations from '@/app/components/projects/ProjectRecommendations'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import path from 'path'
 import YouTube from '@/app/components/mdx/Youtube'
 import Avatar from '@/app/components/Avatar'
 import LinkIcon from '@/app/components/LinkIcon'
@@ -28,21 +31,15 @@ export function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  const filenames = getFilenames()
-  // This regex will match either .md or .mdx, producing a valid URL from either.
-  const markdownRegex = /\.md(x)?$/
-  return filenames.map((filename) => ({
-    slug: filename.replace(markdownRegex, '').split(path.sep),
-  }))
-}
+export const dynamic = 'force-dynamic'
 
-export default function ProjectBySlug({
+export default async function ProjectBySlug({
   params,
 }: {
   params: { slug: string[]; locale: string }
 }) {
   let content
+  let current: ProjectCard
 
   const tagColors = [
     'bg-indigo-100 text-indigo-700',
@@ -71,6 +68,13 @@ export default function ProjectBySlug({
 
   try {
     const project = getProject(params.slug)
+    current = archivedProjectCard(
+      project,
+      params.locale,
+      project.data.event
+        ? getEventDataBySlug(project.data.event)?.event
+        : undefined,
+    )
 
     const getTagColor = (tag: string) => {
       const index = project.data.techStack.indexOf(tag)
@@ -160,8 +164,9 @@ export default function ProjectBySlug({
   } catch {
     notFound()
   }
+  const related = await getRelatedProjectCards(current, params.locale)
   return (
-    <div id="project" className="flex min-h-screen bg-white py-10 sm:py-10">
+    <div id="project" className="min-h-screen bg-white py-10 sm:py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
           Project
@@ -170,6 +175,11 @@ export default function ProjectBySlug({
           {content}
         </article>
       </div>
+      <ProjectRecommendations
+        current={current}
+        related={related}
+        tone="light"
+      />
     </div>
   )
 }

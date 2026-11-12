@@ -7,7 +7,12 @@ import {
   listAllProjects,
   listProjects,
 } from '@/lib/live/projects'
-import { archivedProjectCard, submittedProjectCard } from './project-cards'
+import {
+  archivedProjectCard,
+  relatedProjectCards,
+  submittedProjectCard,
+  type ProjectCard,
+} from './project-cards'
 
 export async function getEventProjectCards(locale: string, eventSlug: string) {
   const event = getEventDataBySlug(eventSlug)?.event
@@ -47,4 +52,11 @@ export async function getProjectCatalog(locale: string) {
       ),
     ),
   ]
+}
+
+export async function getRelatedProjectCards(
+  current: ProjectCard,
+  locale: string,
+) {
+  return relatedProjectCards(current, await getProjectCatalog(locale))
 }

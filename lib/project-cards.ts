@@ -2,6 +2,7 @@ import type { Project } from '../app/helpers/projects'
 import type { PublicProject } from './live/projects'
 import { projectListPath } from './project-seo'
 import { projectHackers } from './live/validate'
+import type { ProjectHacker } from './live/validate'
 
 /** Explicit public fields shared by the event grid and the community archive. */
 export type ProjectCard = {
@@ -11,6 +12,7 @@ export type ProjectCard = {
   href: string
   image?: string
   creator: string
+  hackers: ProjectHacker[]
   eventSlug?: string
   eventName: string
   eventHref?: string
@@ -59,6 +61,7 @@ export function submittedProjectCard(
     creator: projectHackers(project)
       .map((hacker) => hacker.name)
       .join(', '),
+    hackers: projectHackers(project),
     eventSlug: project.eventSlug,
     eventName: event.name,
     eventHref: projectListPath(locale, project.eventSlug),
@@ -85,6 +88,14 @@ export function archivedProjectCard(
     image: project.data.thumbnailUrl || undefined,
     creator:
       project.data.hackers?.map((person) => person.name).join(', ') ?? '',
+    hackers: projectHackers({
+      hackers: project.data.hackers?.map((person) => ({
+        name: person.name,
+        linkedinUrl: person.links?.linkedin,
+      })),
+      creatorName: '',
+      linkedinUrl: '',
+    }).filter((person) => person.name),
     eventSlug: project.data.event,
     eventName: event?.name ?? 'Community projects',
     eventHref: project.data.event
@@ -126,4 +137,58 @@ export function groupProjectCards(projects: ProjectCard[]) {
   return Array.from(groups.values()).sort(
     (a, b) => b.date - a.date || a.name.localeCompare(b.name),
   )
+}
+
+/** Profile identity ignores tracking parameters, host variants and a trailing slash. */
+function builderProfile(url: string | null) {
+  if (!url) return null
+  try {
+    const parsed = new URL(url)
+    if (
+      !['http:', 'https:'].includes(parsed.protocol) ||
+      !/(^|\.)linkedin\.com$/i.test(parsed.hostname)
+    )
+      return null
+    const match = parsed.pathname.match(/^\/in\/([^/]+)\/?$/i)
+    return match ? decodeURIComponent(match[1]).toLowerCase() : null
+  } catch {
+    return null
+  }
+}
+
+export function relatedProjectCards(
+  current: ProjectCard,
+  catalog: ProjectCard[],
+  limit = 3,
+) {
+  const profiles = new Set(
+    current.hackers
+      .map((hacker) => builderProfile(hacker.linkedinUrl))
+      .filter(Boolean),
+  )
+  const seen = new Set([current.href])
+  const candidates = catalog.filter((project) => {
+    if (project.key === current.key || seen.has(project.href)) return false
+    seen.add(project.href)
+    return true
+  })
+  const byBuilder = candidates
+    .filter((project) =>
+      project.hackers.some((hacker) => {
+        const profile = builderProfile(hacker.linkedinUrl)
+        return profile != null && profiles.has(profile)
+      }),
+    )
+    .slice(0, limit)
+  const builderLinks = new Set(byBuilder.map((project) => project.href))
+  const byEvent = current.eventSlug
+    ? candidates
+        .filter(
+          (project) =>
+            project.eventSlug === current.eventSlug &&
+            !builderLinks.has(project.href),
+        )
+        .slice(0, limit)
+    : []
+  return { byBuilder, byEvent }
 }
