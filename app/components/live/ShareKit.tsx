@@ -12,6 +12,7 @@ export default function ShareKit({
   name,
   tagline,
   link,
+  open = true,
 }: {
   eventSlug: string
   eventName: string
@@ -20,6 +21,7 @@ export default function ShareKit({
   name: string
   tagline: string
   link: string
+  open?: boolean
 }) {
   const [canNativeShare, setCanNativeShare] = useState(false)
   useEffect(
@@ -28,7 +30,7 @@ export default function ShareKit({
     [],
   )
 
-  const text = `I built "${name}" at ${eventName} by @HackBarna. ${tagline} Vote for it here:`
+  const text = `I built "${name}" at ${eventName} by @HackBarna. ${tagline} ${open ? 'Vote for it here:' : 'Explore it here:'}`
   const post = `${text} ${link} #${hashtag}`
   const enc = encodeURIComponent
   const channels = [
@@ -55,6 +57,7 @@ export default function ShareKit({
   ]
 
   function track(channel: string) {
+    if (!open) return
     const url = `/api/live/${eventSlug}/projects/${encodeURIComponent(slug)}/share`
     const body = JSON.stringify({ channel })
     if (navigator.sendBeacon)

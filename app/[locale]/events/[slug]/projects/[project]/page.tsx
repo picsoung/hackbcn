@@ -222,7 +222,8 @@ export default async function ProjectPage({ params, searchParams }: Params) {
             </h2>
             <p className="text-sm text-screen-dim">
               {p.voteCount} {p.voteCount === 1 ? 'vote' : 'votes'} ·{' '}
-              {p.shareCount} {p.shareCount === 1 ? 'share' : 'shares'} so far
+              {p.shareCount} {p.shareCount === 1 ? 'share' : 'shares'}{' '}
+              {event.open ? 'so far' : 'at the event'}
             </p>
             <ShareKit
               eventSlug={event.slug}
@@ -232,6 +233,7 @@ export default async function ProjectPage({ params, searchParams }: Params) {
               name={p.name}
               tagline={p.tagline}
               link={link}
+              open={event.open}
             />
           </div>
           <div className={card}>
