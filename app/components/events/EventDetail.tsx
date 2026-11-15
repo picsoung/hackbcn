@@ -813,8 +813,32 @@ export default function EventDetail({
 
         {/* Hack-night gallery */}
         {isHackNight && event.gallery && event.gallery.length > 0 && (
-          <section className="py-10 border-b border-band-2">
-            <h2 className="text-xl font-semibold text-ink mb-6">Gallery</h2>
+          <section
+            id="gallery"
+            aria-labelledby="event-gallery-heading"
+            className="scroll-mt-8 py-10 border-b border-band-2"
+          >
+            <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+              <h2
+                id="event-gallery-heading"
+                className="text-xl font-semibold text-ink"
+              >
+                Gallery
+              </h2>
+              {event.galleryCredit && (
+                <p className="text-sm text-dim">
+                  Photos by{' '}
+                  <a
+                    href={event.galleryCredit.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center text-ink underline decoration-accent/50 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  >
+                    {event.galleryCredit.name}
+                  </a>
+                </p>
+              )}
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {event.gallery.map((photo) => (
                 <a
@@ -822,18 +846,30 @@ export default function EventDetail({
                   href={photo.src}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hb-px relative block aspect-[16/9] overflow-hidden bg-band-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-ground"
                 >
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover"
-                  />
+                  <span className="hb-px relative block aspect-[3/2] overflow-hidden bg-band-2">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 512px"
+                      className="object-cover"
+                    />
+                  </span>
                 </a>
               ))}
             </div>
+            {event.galleryUrl && (
+              <a
+                href={event.galleryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center text-sm text-ink underline decoration-accent/50 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                View full album
+              </a>
+            )}
           </section>
         )}
 
