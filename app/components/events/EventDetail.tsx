@@ -16,7 +16,7 @@ import {
 } from '@heroicons/react/24/outline'
 import Polaroid from '../Polaroid'
 import RecapVideo from './RecapVideo'
-import TestimonialGrid from '../testimonials/TestimonialGrid'
+import EventTestimonialsSection from '../testimonials/EventTestimonialsSection'
 import { getTestimonialsForEvent } from '@/data/testimonials'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
@@ -837,21 +837,6 @@ export default function EventDetail({
           </section>
         )}
 
-        {eventTestimonials.length > 0 && (
-          <section id="testimonials" className="border-b border-band-2 py-10">
-            <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <p className="mb-1 font-mono text-xs uppercase tracking-wide text-ink-dim">Community voices</p>
-                <h2 className="text-xl font-semibold text-ink">What people are saying</h2>
-              </div>
-              <Link href={`/${locale}/testimonials#${event.slug}`} className="text-sm font-semibold text-accent hover:underline">
-                All community posts ↗
-              </Link>
-            </div>
-            <TestimonialGrid posts={eventTestimonials.slice(0, 3)} />
-          </section>
-        )}
-
         {/* Hack-night project links */}
         {isHackNight && event.projectLinks && event.projectLinks.length > 0 && (
           <section className="py-10 border-b border-band-2">
@@ -978,6 +963,13 @@ export default function EventDetail({
               {intl.t('events.register')} →
             </a>
           </div>
+        )}
+        {eventTestimonials.length > 0 && (
+          <EventTestimonialsSection
+            posts={eventTestimonials}
+            locale={locale}
+            eventSlug={event.slug}
+          />
         )}
         {projectsSection}
       </div>
