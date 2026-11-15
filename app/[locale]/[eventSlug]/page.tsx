@@ -85,6 +85,7 @@ export default async function EventPage({
         <Schedule />
         <SignupCTA />
         <FAQ />
+        <Team />
         {projects.length > 0 && (
           <div className="bg-white">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -98,7 +99,6 @@ export default async function EventPage({
             </div>
           </div>
         )}
-        <Team />
         <Footer />
       </main>
     </div>

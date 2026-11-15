@@ -1,6 +1,9 @@
 # Event project lists
 
 Each event shows its projects in a grid at `/[locale]/events/[slug]#projects`.
+The grid sits after all event information in a Projects toggle, collapsed by
+default. Project anchor links open it automatically. The cards and JSON-LD
+remain in the server-rendered HTML while the toggle is closed.
 The two legacy events retain `/[locale]/<event>#projects`. The main
 `/[locale]/projects` archive lists individual projects from every event,
 grouped by event with the newest first. Both grids combine database submissions

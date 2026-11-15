@@ -574,11 +574,6 @@ export default function EventDetail({
         </div>
       </div>
 
-      {projectsSection && (
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          {projectsSection}
-        </div>
-      )}
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
         {/* Relive this edition — long-form recap or vertical Shorts (self-hides if none) */}
         <RecapVideo
@@ -979,6 +974,7 @@ export default function EventDetail({
             </a>
           </div>
         )}
+        {projectsSection}
       </div>
     </div>
   )
