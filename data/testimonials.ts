@@ -10,11 +10,13 @@ export type Testimonial = {
   avatar?: string
   avatarKind?: 'person' | 'logo'
   excerpt?: string
+  excerptLang?: string
   image?: string
   featuredOnHome?: boolean
 }
 
 export const testimonialEvents = [
+  { slug: 'hacknight-5-jevathon-2026', name: 'HackNight #5: Jev-a-thon', date: 'November 2026' },
   { slug: 'netlify-barcelona-2026', name: 'Netlify @ Barcelona', date: 'October 2026' },
   { slug: 'aisummit26', name: 'HackBarna × AI Summit 2026', date: 'September 2026' },
   { slug: 'hacknight-june-2026', name: 'HackNight #4: Build with Netlify', date: 'June 2026' },
@@ -23,6 +25,23 @@ export const testimonialEvents = [
 ] as const
 
 export const testimonials: Testimonial[] = [
+  // Verbatim attendee excerpts, kept in the original Spanish.
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Gisela Lardin Morales',
+    excerpt: 'Lo que más me ha impresionado es lo rápido que se pasa de idea a app funcionando…',
+    excerptLang: 'es',
+    url: 'https://es.linkedin.com/posts/gisela-lardin-morales_deducible-autonomos-ia-activity-7526361520063127552-ypb0',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'María Fernanda Marió',
+    excerpt: 'Lo pasé muy bien, fue un antes y un después poder crear una app en pocas horas…',
+    excerptLang: 'es',
+    url: 'https://es.linkedin.com/posts/mariafermar_gracias-happy-operators-y-hackbarna-por-la-activity-7526033230773444608-6Wjs',
+  },
   {
     eventSlug: 'netlify-barcelona-2026',
     platform: 'linkedin',

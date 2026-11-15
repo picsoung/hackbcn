@@ -44,7 +44,7 @@ export default function TestimonialCard({
           />
         ) : (
           <div className="flex h-full min-h-48 flex-col justify-between gap-8 p-5 sm:p-6">
-            <p className="text-lg leading-relaxed">{post.excerpt}</p>
+            <p lang={post.excerptLang} className="text-lg leading-relaxed">{post.excerpt}</p>
             <div className={`flex items-center gap-3 border-t pt-4 text-sm ${
               light ? 'border-slate-200 text-slate-600' : 'border-band-2 text-ink-dim'
             }`}>
