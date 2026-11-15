@@ -30,6 +30,8 @@ export type Event = {
   description?: { [locale: string]: string }
   registrationUrl?: string
   imageUrl?: string
+  imageWidth?: number
+  imageHeight?: number
   schedule?: {
     [locale: string]: ScheduleItem[]
   }

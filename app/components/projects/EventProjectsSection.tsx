@@ -60,7 +60,7 @@ export default function EventProjectsSection({
             {live?.open && (
               <Link
                 href={`/${locale}/events/${eventSlug}/submit`}
-                className={`${link} underline underline-offset-4`}
+                className={`inline-flex min-h-11 items-center ${link} underline underline-offset-4`}
               >
                 Submit a project
               </Link>
@@ -68,14 +68,14 @@ export default function EventProjectsSection({
             {live && projects.length > 0 && (
               <Link
                 href={`/${locale}/events/${eventSlug}/leaderboard`}
-                className={`${link} underline underline-offset-4`}
+                className={`inline-flex min-h-11 items-center ${link} underline underline-offset-4`}
               >
                 Leaderboard
               </Link>
             )}
             <Link
               href={`/${locale}/projects`}
-              className={`${link} underline underline-offset-4`}
+              className={`inline-flex min-h-11 items-center ${link} underline underline-offset-4`}
             >
               All community projects
             </Link>

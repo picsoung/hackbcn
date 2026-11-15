@@ -456,114 +456,119 @@ export default function EventDetail({
     <div className="bg-ground">
       {/* Hero */}
       <div className={isHackNight ? 'bg-ground border-b border-band-2' : 'bg-ground-raised'}>
-        <div className="mx-auto max-w-4xl px-6 py-12 sm:py-16 lg:px-8">
+        <div className="mx-auto max-w-4xl px-6 py-8 sm:py-16 lg:px-8">
           <Link
             href={`/${locale}/events`}
-            className="inline-flex items-center text-sm text-ink-dim hover:text-ink mb-8 transition-colors"
+            className="mb-4 inline-flex min-h-11 items-center text-sm text-ink-dim transition-colors hover:text-ink sm:mb-8"
           >
             <ArrowLeftIcon className="h-4 w-4 mr-1" />
             {intl.t('events.backToEvents')}
           </Link>
 
-          <div className="grid lg:grid-cols-[1fr_280px] gap-10 items-start">
-            <div>
-              <div className="flex items-center gap-2 mb-4 flex-wrap">
-                <span
-                  className={`hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${
-                    isHackNight ? 'bg-band-2 text-ink' : 'bg-accent/15 text-accent'
-                  }`}
-                >
-                  {isHackNight ? intl.t('events.hacknight') : intl.t('events.hackathon')}
-                </span>
-                {isHackNight && event.sponsor && (
-                  <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-accent/15 text-accent">
-                    presented by {event.sponsor}
+          <div className="grid items-start gap-6 lg:grid-cols-[1fr_280px] lg:gap-10">
+            <div className="contents lg:block lg:min-w-0">
+              <div className="order-1 min-w-0">
+                <div className="flex items-center gap-2 mb-4 flex-wrap">
+                  <span
+                    className={`hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium ${
+                      isHackNight ? 'bg-band-2 text-ink' : 'bg-accent/15 text-accent'
+                    }`}
+                  >
+                    {isHackNight ? intl.t('events.hacknight') : intl.t('events.hackathon')}
                   </span>
-                )}
-                {isPast && (
-                  <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-band-2 text-ink-dim">
-                    {intl.t('events.past.label')}
-                  </span>
-                )}
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl font-bold text-ink mb-2">
-                {event.name}
-              </h1>
-              {isHackNight && event.topic && (
-                <p className="text-lg text-ink-dim mb-6">{event.topic}</p>
-              )}
-              {!isHackNight && <div className="mb-6" />}
-
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center text-ink-dim">
-                  <CalendarIcon className="h-5 w-5 mr-3 text-ink-dim" />
-                  <span>
-                    {formatDateRange(event.startDate, event.endDate)}
-                    {isHackNight && (
-                      <span className="ml-2 text-ink-dim">
-                        · {formatTimeRange(event.startDate, event.endDate)}
-                      </span>
-                    )}
-                  </span>
+                  {isHackNight && event.sponsor && (
+                    <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-accent/15 text-accent">
+                      presented by {event.sponsor}
+                    </span>
+                  )}
+                  {isPast && (
+                    <span className="hb-px hb-px-sm inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-band-2 text-ink-dim">
+                      {intl.t('events.past.label')}
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center text-ink-dim">
-                  <MapPinIcon className="h-5 w-5 mr-3 text-ink-dim" />
-                  <span>{event.location}</span>
-                </div>
-                {event.capacity && (
-                  <div className="flex items-center text-ink-dim">
-                    <UserGroupIcon className="h-5 w-5 mr-3 text-ink-dim" />
-                    <span>up to {event.capacity}</span>
+
+                <h1 className="mb-2 break-words text-3xl font-bold text-ink sm:text-4xl">
+                  {event.name}
+                </h1>
+                {isHackNight && event.topic && (
+                  <p className="mb-6 text-base text-ink-dim sm:text-lg">{event.topic}</p>
+                )}
+                {!isHackNight && <div className="mb-6" />}
+
+                <div className="space-y-3 lg:mb-6 lg:space-y-2">
+                  <div className="flex items-start gap-3 text-ink-dim">
+                    <CalendarIcon className="mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="min-w-0">
+                      {formatDateRange(event.startDate, event.endDate)}
+                      {isHackNight && (
+                        <span className="mt-1 block sm:ml-2 sm:mt-0 sm:inline">
+                          <span className="hidden sm:inline">· </span>{formatTimeRange(event.startDate, event.endDate)}
+                        </span>
+                      )}
+                    </span>
                   </div>
-                )}
+                  <div className="flex items-start gap-3 text-ink-dim">
+                    <MapPinIcon className="mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="min-w-0 break-words">{event.location}</span>
+                  </div>
+                  {event.capacity && (
+                    <div className="flex items-start gap-3 text-ink-dim">
+                      <UserGroupIcon className="mt-0.5 h-5 w-5 shrink-0" />
+                      <span>up to {event.capacity}</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {description && (
-                <p className="text-lg text-ink-dim leading-relaxed mb-8">{description}</p>
-              )}
+              <div className="order-3 min-w-0">
+                {description && (
+                  <p className="mb-6 break-words text-base leading-relaxed text-ink-dim sm:mb-8 sm:text-lg">{description}</p>
+                )}
 
-              <div className="flex flex-wrap gap-3">
-                {event.registrationUrl && !isPast && (
-                  <a
-                    href={withUtm(event.registrationUrl, {
-                      medium: 'cta',
-                      campaign: `hackbarna-${event.slug}`,
-                      content: 'register-hero',
-                    })}
-                    target="_blank"
-                    rel="noopener"
-                    onClick={() =>
-                      trackOutbound('registration_click', {
-                        event_slug: event.slug,
-                        source: 'register-hero',
-                      })
-                    }
-                    className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
-                  >
-                    {intl.t('events.register')} →
-                  </a>
-                )}
-                {(liveEvent || projectCount > 0) && (
-                  <Link
-                    href="#projects"
-                    className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-band-2 text-ink hover:bg-band-3 transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ink"
-                  >
-                    {intl.t('events.viewProjects')}
-                  </Link>
-                )}
+                <div className="flex flex-wrap gap-3">
+                  {event.registrationUrl && !isPast && (
+                    <a
+                      href={withUtm(event.registrationUrl, {
+                        medium: 'cta',
+                        campaign: `hackbarna-${event.slug}`,
+                        content: 'register-hero',
+                      })}
+                      target="_blank"
+                      rel="noopener"
+                      onClick={() =>
+                        trackOutbound('registration_click', {
+                          event_slug: event.slug,
+                          source: 'register-hero',
+                        })
+                      }
+                      className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
+                    >
+                      {intl.t('events.register')} →
+                    </a>
+                  )}
+                  {(liveEvent || projectCount > 0) && (
+                    <Link
+                      href="#projects"
+                      className="hb-px inline-flex items-center px-6 py-3 text-base font-semibold bg-band-2 text-ink hover:bg-band-3 transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ink"
+                    >
+                      {intl.t('events.viewProjects')}
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
 
             {event.imageUrl && (
-              <div className="lg:sticky lg:top-8">
+              <div className="order-2 min-w-0 lg:sticky lg:top-8">
                 <div className="hb-dither hb-px hb-px-shadow">
                   <Image
                     src={event.imageUrl}
                     alt={event.name}
-                    width={1200}
-                    height={630}
+                    width={event.imageWidth ?? 1200}
+                    height={event.imageHeight ?? 630}
                     priority
+                    sizes="(min-width: 1024px) 280px, calc(100vw - 48px)"
                     className="hb-dither-img w-full h-auto"
                   />
                   <span aria-hidden="true" className="hb-dither-tex" />
@@ -587,22 +592,22 @@ export default function EventDetail({
         {event.partners && event.partners.length > 0 && (
           <section className="py-10 border-b border-band-2">
             <h2 className="text-xl font-semibold text-ink mb-6">Partners</h2>
-            <div className="flex flex-wrap items-start gap-x-12 gap-y-8">
+            <div className="grid grid-cols-2 items-start gap-x-4 gap-y-6 sm:flex sm:flex-wrap sm:gap-x-12 sm:gap-y-8">
               {event.partners.map((p) => {
                 const inner = p.logo ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={p.logo}
                     alt={p.name}
-                    style={{ height: p.logoHeight ?? 36, maxWidth: 160, width: 'auto' }}
+                    style={{ height: p.logoHeight ?? 36, maxWidth: '100%', width: 'auto' }}
                     className="object-contain"
                   />
                 ) : (
                   <span className="text-lg font-semibold text-ground">{p.name}</span>
                 )
-                const cardClass = 'hb-px hb-px-sm flex h-24 w-48 items-center justify-center bg-paper px-4 py-3'
+                const cardClass = 'hb-px hb-px-sm flex h-20 w-full items-center justify-center bg-paper px-3 py-3 sm:h-24 sm:w-48 sm:px-4'
                 return (
-                  <div key={p.name} className="flex flex-col gap-2">
+                  <div key={p.name} className="flex min-w-0 flex-col gap-2">
                     {p.url ? (
                       <a
                         href={withUtm(p.url, { medium: 'partner', campaign: `hackbarna-${event.slug}`, content: p.role })}
@@ -624,7 +629,7 @@ export default function EventDetail({
                     ) : (
                       <div className={cardClass}>{inner}</div>
                     )}
-                    <span className="font-mono text-xs uppercase tracking-[0.18em] text-ink-dim">
+                    <span className="break-words font-mono text-xs uppercase tracking-[0.12em] text-ink-dim sm:tracking-[0.18em]">
                       {p.role}
                     </span>
                   </div>

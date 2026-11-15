@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { getLiveEvent, wallPath } from '../lib/live/config.ts'
+import { getLiveEvent, isHiddenProject, wallPath } from '../lib/live/config.ts'
 import {
   projectHackers,
   slugify,
@@ -16,6 +16,12 @@ const project = {
   creatorEmail: 'BUILDER@example.test',
   linkedinUrl: 'https://www.linkedin.com/in/preview-builder',
 }
+
+test('the removed Kiki test project is hidden only for its event', () => {
+  assert.equal(isHiddenProject('hacknight-5-jevathon-2026', 'kiki'), true)
+  assert.equal(isHiddenProject('hacknight-5-jevathon-2026', 'homecrush'), false)
+  assert.equal(isHiddenProject('another-event', 'kiki'), false)
+})
 
 test('only configured events have live walls, including prototype-like slugs', () => {
   assert.equal(

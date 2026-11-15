@@ -9,6 +9,11 @@ The two legacy events retain `/[locale]/<event>#projects`. The main
 grouped by event with the newest first. Both grids combine database submissions
 and published Markdown projects.
 
+Removed test entries are listed in each live event's `hiddenProjectSlugs`.
+Public queries, details, media routes, exports and the sitemap exclude them,
+so replaying an import cannot publish the test again. The Jev-a-thon `kiki`
+entry is excluded at the organiser's request.
+
 Shared cards omit event-specific judging scores, including Jev scores.
 Cards and detail pages have no voting controls or vote totals, and detail pages
 have no share-kit section. Existing vote records remain available for the event

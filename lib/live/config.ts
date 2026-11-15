@@ -15,6 +15,8 @@ export type LiveEvent = {
   hashtag: string
   /** Set to false after the event to freeze the wall: no new submissions or votes. */
   open: boolean
+  /** Removed test entries stay out of public pages, including after an import replay. */
+  hiddenProjectSlugs?: string[]
 }
 
 export const LIVE_EVENTS: Record<string, LiveEvent> = {
@@ -28,11 +30,18 @@ export const LIVE_EVENTS: Record<string, LiveEvent> = {
       'https://images.lumacdn.com/uploads/dt/b80574ad-a7fa-468e-b802-c1da23ea9c47.jpg',
     hashtag: 'HackNightBCN',
     open: false,
+    hiddenProjectSlugs: ['kiki'],
   },
 }
 
 export function getLiveEvent(slug: string): LiveEvent | null {
   return Object.hasOwn(LIVE_EVENTS, slug) ? LIVE_EVENTS[slug] : null
+}
+
+export function isHiddenProject(eventSlug: string, projectSlug: string) {
+  return (
+    getLiveEvent(eventSlug)?.hiddenProjectSlugs?.includes(projectSlug) ?? false
+  )
 }
 
 export function wallPath(locale: string, eventSlug: string, project?: string) {

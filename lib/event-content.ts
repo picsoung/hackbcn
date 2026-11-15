@@ -61,6 +61,8 @@ export function readMdxEvent(slug: string): MdxEventContent | null {
     description: data.description,
     registrationUrl: data.registrationUrl,
     imageUrl: data.imageUrl,
+    imageWidth: data.imageWidth,
+    imageHeight: data.imageHeight,
     schedule: data.schedule,
     topic: data.topic,
     sponsor: data.sponsor,
