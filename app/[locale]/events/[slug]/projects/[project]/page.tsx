@@ -1,14 +1,15 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import LiveShell from '@/app/components/live/LiveShell'
-import ShareKit from '@/app/components/live/ShareKit'
-import VoteButton from '@/app/components/live/VoteButton'
+import ProjectPageShell from '@/app/components/projects/ProjectPageShell'
+import ProjectRecommendations from '@/app/components/projects/ProjectRecommendations'
+import { submittedProjectCard } from '@/lib/project-cards'
+import { getRelatedProjectCards } from '@/lib/project-catalog'
+import { TrophyIcon } from '@heroicons/react/24/outline'
 import {
   btnPrimary,
   btnSecondary,
   card,
   chip,
-  kicker,
   pct,
 } from '@/app/components/live/ui'
 import { getLiveEvent } from '@/lib/live/config'
@@ -16,11 +17,10 @@ import {
   backfill,
   categoryLabel,
   getJevAnswers,
-  listProjects,
-  votedProjectIds,
+  getPublicProject,
 } from '@/lib/live/projects'
 import { videoEmbed } from '@/lib/live/validate'
-import { readVoterId } from '@/lib/live/voter'
+import { projectHackers } from '@/lib/live/validate'
 import {
   projectListPath,
   projectMetadata,
@@ -35,20 +35,16 @@ type Params = {
   searchParams: { new?: string }
 }
 
-async function load(eventSlug: string, project: string) {
-  const list = await listProjects(eventSlug)
-  const index = list.findIndex((p) => p.slug === project)
-  return index === -1 ? null : { list, index, p: list[index] }
-}
-
 export async function generateMetadata({ params }: Params) {
   const event = getLiveEvent(params.slug)
-  const found = event && (await load(event.slug, params.project))
-  if (!event || !found) return {}
-  const description = `${found.p.tagline} Built by ${found.p.creatorName} at ${event.name}.`
+  const project = event && (await getPublicProject(event.slug, params.project))
+  if (!event || !project) return {}
+  const description = `${project.tagline} Built by ${projectHackers(project)
+    .map((hacker) => hacker.name)
+    .join(', ')} at ${event.name}.`
   return projectMetadata(
-    projectListPath(params.locale, event.slug, found.p.slug),
-    `${event.open ? 'Vote for ' : ''}${found.p.name} · ${event.name}`,
+    projectListPath(params.locale, event.slug, project.slug),
+    `${project.name} · ${event.name}`,
     description,
   )
 }
@@ -56,16 +52,17 @@ export async function generateMetadata({ params }: Params) {
 export default async function ProjectPage({ params, searchParams }: Params) {
   const event = getLiveEvent(params.slug)
   if (!event) notFound()
-  let found = await load(event.slug, params.project)
-  if (!found) notFound()
-  if (!found.p.category) {
-    await backfill([found.p], 2000)
-    found = (await load(event.slug, params.project)) ?? found
+  let p = await getPublicProject(event.slug, params.project)
+  if (!p) notFound()
+  if (event.open && !p.category) {
+    await backfill([p], 2000)
+    p = (await getPublicProject(event.slug, params.project)) ?? p
   }
-  const { p, index, list } = found
-  const [voted, jev] = await Promise.all([
-    votedProjectIds(readVoterId()),
+  const hackers = projectHackers(p)
+  const current = submittedProjectCard(p, params.locale, event)
+  const [jev, related] = await Promise.all([
     getJevAnswers(p.id),
+    getRelatedProjectCards(current, params.locale),
   ])
 
   const link = `${siteOrigin()}${projectListPath(params.locale, event.slug, p.slug)}`
@@ -80,7 +77,7 @@ export default async function ProjectPage({ params, searchParams }: Params) {
     : []
 
   return (
-    <LiveShell locale={params.locale} event={event} active="wall">
+    <ProjectPageShell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -92,11 +89,12 @@ export default async function ProjectPage({ params, searchParams }: Params) {
             url: link,
             image: screenshot ? `${siteOrigin()}${screenshot}` : undefined,
             datePublished: p.createdAt.toISOString(),
-            author: {
+            author: hackers.map((hacker) => ({
               '@type': 'Person',
-              name: p.creatorName,
-              url: p.linkedinUrl,
-            },
+              name: hacker.name,
+              url: hacker.linkedinUrl ?? undefined,
+            })),
+            award: p.award ?? undefined,
             isPartOf: {
               '@type': 'CollectionPage',
               name: `Projects from ${event.name}`,
@@ -105,55 +103,77 @@ export default async function ProjectPage({ params, searchParams }: Params) {
           }),
         }}
       />
+      <nav
+        aria-label="Breadcrumb"
+        className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-2 px-6 pt-8 text-sm lg:px-8"
+      >
+        <Link
+          href={`/${params.locale}/projects`}
+          className="text-ink-dim underline underline-offset-4 hover:text-ink"
+        >
+          All projects
+        </Link>
+        <span aria-hidden="true" className="text-ink-dim">
+          /
+        </span>
+        <Link
+          href={projectListPath(params.locale, event.slug)}
+          className="text-ink-dim underline underline-offset-4 hover:text-ink"
+        >
+          {event.name}
+        </Link>
+      </nav>
       {event.open && searchParams.new === '1' && (
         <section className="bg-neon-pink text-night-ink">
           <div className="mx-auto max-w-6xl px-6 py-10">
             <p className="text-3xl font-bold tracking-tight sm:text-4xl">
-              You&apos;re live. Now go get votes.
+              Your project is published.
             </p>
             <p className="mt-2 max-w-[70ch]">
-              Your project is on the wall at rank #{index + 1}. Post the link
-              below in at least two places before demos start. Projects with a
-              video and a LinkedIn post climb fastest.
+              Your demo and team are now part of the event’s project collection.
             </p>
           </div>
         </section>
       )}
-      <section className="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1fr_24rem]">
+      <section className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-8 lg:grid-cols-[1fr_24rem]">
         <div className="min-w-0">
-          <p className={kicker}>
-            / project · rank #{index + 1} of {list.length}
-          </p>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
             {p.name}
           </h1>
           <p className="mt-5 max-w-[60ch] text-lg text-screen-dim">
             {p.tagline}
           </p>
-          <p className="mt-4">
-            by{' '}
-            <a
-              href={p.linkedinUrl}
-              target="_blank"
-              rel="noopener"
-              className="text-neon-cyan underline underline-offset-4"
+          {p.award && (
+            <p className="mt-5 flex items-center gap-2 font-semibold text-neon-pink">
+              <TrophyIcon className="h-5 w-5 shrink-0" aria-hidden="true" />
+              {p.award}
+            </p>
+          )}
+          <div className="mt-5">
+            <p className="mb-2 text-sm text-screen-dim">Built by</p>
+            <ul
+              aria-label="Project hackers"
+              className="flex flex-wrap gap-x-5 gap-y-2"
             >
-              {p.creatorName}
-            </a>{' '}
-            <span className="font-mono text-sm text-screen-dim">
-              · LinkedIn ↗
-            </span>
-          </p>
+              {hackers.map((hacker, index) => (
+                <li key={`${hacker.name}-${index}`}>
+                  {hacker.linkedinUrl ? (
+                    <a
+                      href={hacker.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-neon-cyan underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+                    >
+                      {hacker.name}
+                    </a>
+                  ) : (
+                    <span>{hacker.name}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <VoteButton
-              eventSlug={event.slug}
-              slug={p.slug}
-              name={p.name}
-              initialCount={p.voteCount}
-              initialVoted={voted.has(p.id)}
-              size="lg"
-              disabled={!event.open}
-            />
             <a
               href={p.url}
               target="_blank"
@@ -216,26 +236,6 @@ export default async function ProjectPage({ params, searchParams }: Params) {
           )}
         </div>
         <aside className="space-y-6">
-          <div className={card}>
-            <h2 className="text-xl font-semibold">
-              {event.open ? 'Share it, climb it' : 'Share this project'}
-            </h2>
-            <p className="text-sm text-screen-dim">
-              {p.voteCount} {p.voteCount === 1 ? 'vote' : 'votes'} ·{' '}
-              {p.shareCount} {p.shareCount === 1 ? 'share' : 'shares'}{' '}
-              {event.open ? 'so far' : 'at the event'}
-            </p>
-            <ShareKit
-              eventSlug={event.slug}
-              eventName={event.name}
-              hashtag={event.hashtag}
-              slug={p.slug}
-              name={p.name}
-              tagline={p.tagline}
-              link={link}
-              open={event.open}
-            />
-          </div>
           <div className={card}>
             <h2 className="mb-3 text-xl font-semibold">What Jev thinks</h2>
             {p.judgeScore != null && (
@@ -309,15 +309,10 @@ export default async function ProjectPage({ params, searchParams }: Params) {
                 Jev hasn&apos;t sorted this one yet. Refresh in a moment.
               </p>
             )}
-            <Link
-              href={`/${params.locale}/events/${event.slug}/jev`}
-              className="mt-3 inline-block text-sm text-neon-cyan underline underline-offset-4"
-            >
-              How this works
-            </Link>
           </div>
         </aside>
       </section>
-    </LiveShell>
+      <ProjectRecommendations current={current} related={related} />
+    </ProjectPageShell>
   )
 }

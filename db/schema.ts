@@ -10,6 +10,7 @@ import {
   timestamp,
   uniqueIndex,
 } from 'drizzle-orm/pg-core'
+import type { ProjectHacker } from '../lib/live/validate'
 
 /** Projects submitted live during an event. One table for every event, keyed by event_slug. */
 export const liveProjects = pgTable(
@@ -27,6 +28,8 @@ export const liveProjects = pgTable(
     // Private: never returned by public routes.
     creatorEmail: text('creator_email').notNull(),
     linkedinUrl: text('linkedin_url').notNull(),
+    hackers: jsonb().$type<ProjectHacker[]>().notNull().default([]),
+    award: text(),
     shareConsent: boolean('share_consent').notNull().default(false),
     usedLovable: boolean('used_lovable').notNull().default(false),
     jevUsage: text('jev_usage'),

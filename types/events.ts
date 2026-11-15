@@ -30,6 +30,8 @@ export type Event = {
   description?: { [locale: string]: string }
   registrationUrl?: string
   imageUrl?: string
+  imageWidth?: number
+  imageHeight?: number
   schedule?: {
     [locale: string]: ScheduleItem[]
   }
@@ -38,6 +40,8 @@ export type Event = {
   sponsor?: string // "presented by" pill (hacknight)
   capacity?: number
   gallery?: GalleryPhoto[]
+  galleryCredit?: { name: string; url: string }
+  galleryUrl?: string
   projectLinks?: string[]
   past?: boolean // optional override; usually computed from endDate
   // Recap video

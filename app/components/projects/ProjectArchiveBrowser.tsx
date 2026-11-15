@@ -1,0 +1,220 @@
+'use client'
+
+import { useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
+import {
+  ArrowUpRightIcon,
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline'
+import {
+  groupProjectCards,
+  searchProjectCards,
+  type ProjectCard,
+} from '@/lib/project-cards'
+import ProjectGrid from './ProjectGrid'
+
+export default function ProjectArchiveBrowser({
+  projects,
+  locale,
+}: {
+  projects: ProjectCard[]
+  locale: string
+}) {
+  const groups = useMemo(() => groupProjectCards(projects), [projects])
+  const [query, setQuery] = useState('')
+  const [browseExpanded, setBrowseExpanded] = useState(
+    () => new Set(groups.slice(0, 1).map((group) => group.key)),
+  )
+  const [searchExpanded, setSearchExpanded] = useState(new Set<string>())
+  const input = useRef<HTMLInputElement>(null)
+  const searching = query.trim().length > 0
+  const matches = useMemo(
+    () => searchProjectCards(projects, query),
+    [projects, query],
+  )
+  const visibleGroups = useMemo(() => groupProjectCards(matches), [matches])
+  const expanded = searching ? searchExpanded : browseExpanded
+  const setExpanded = searching ? setSearchExpanded : setBrowseExpanded
+  const allExpanded = visibleGroups.every((group) => expanded.has(group.key))
+  const dateFormat = new Intl.DateTimeFormat(
+    ['en', 'es', 'ca', 'fr'].includes(locale) ? locale : 'en',
+    { month: 'short', year: 'numeric', timeZone: 'UTC' },
+  )
+
+  function updateQuery(value: string) {
+    setQuery(value)
+    setSearchExpanded(
+      new Set(
+        groupProjectCards(searchProjectCards(projects, value)).map(
+          (group) => group.key,
+        ),
+      ),
+    )
+  }
+
+  function clearSearch() {
+    updateQuery('')
+    input.current?.focus()
+  }
+
+  return (
+    <div>
+      <form role="search" onSubmit={(event) => event.preventDefault()}>
+        <label
+          htmlFor="project-search"
+          className="mb-3 block text-base font-semibold text-ink"
+        >
+          Search projects
+        </label>
+        <div className="focus-within:outline focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent">
+          <div className="hb-px flex items-center gap-3 bg-band-2 px-4 sm:px-5">
+            <MagnifyingGlassIcon
+              className="h-6 w-6 shrink-0 text-accent"
+              aria-hidden="true"
+            />
+            <input
+              ref={input}
+              id="project-search"
+              type="search"
+              value={query}
+              onChange={(event) => updateQuery(event.target.value)}
+              aria-describedby="project-search-help"
+              placeholder="What are you looking for?"
+              autoComplete="off"
+              className="min-w-0 flex-1 appearance-none bg-transparent py-5 text-base text-ink caret-accent outline-none placeholder:text-ink-dim sm:text-lg [&::-webkit-search-cancel-button]:appearance-none"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={clearSearch}
+                aria-label="Clear search"
+                className="flex h-11 w-11 shrink-0 items-center justify-center text-ink-dim hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-accent"
+              >
+                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
+          </div>
+        </div>
+        <p id="project-search-help" className="mt-3 text-sm text-ink-dim">
+          Search by project name, description, event or maker.
+        </p>
+      </form>
+
+      <div className="mb-2 mt-10 flex min-h-11 flex-wrap items-center justify-between gap-x-6 gap-y-1">
+        <p role="status" aria-atomic="true" className="text-sm text-ink-dim">
+          {matches.length} {matches.length === 1 ? 'project' : 'projects'}
+          {' across '}
+          {visibleGroups.length}{' '}
+          {visibleGroups.length === 1 ? 'event' : 'events'}
+          {searching ? ' found' : ''}
+        </p>
+        {visibleGroups.length > 0 && (
+          <button
+            type="button"
+            onClick={() =>
+              setExpanded(
+                new Set(
+                  allExpanded ? [] : visibleGroups.map((group) => group.key),
+                ),
+              )
+            }
+            className="min-h-11 text-sm font-semibold text-ink underline decoration-ink-dim/50 underline-offset-4 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          >
+            {allExpanded ? 'Collapse all events' : 'Expand all events'}
+          </button>
+        )}
+      </div>
+
+      <div className="divide-y divide-ink-dim/25 border-y border-ink-dim/25">
+        {visibleGroups.map((group) => (
+          <details
+            key={group.key}
+            data-project-event={group.key}
+            open={expanded.has(group.key)}
+            className="group/event"
+          >
+            <summary
+              onClick={(event) => {
+                // Keep native disclosure semantics without feeding programmatic
+                // toggle events back into the saved browse/search states.
+                event.preventDefault()
+                setExpanded((current) => {
+                  const next = new Set(current)
+                  if (next.has(group.key)) next.delete(group.key)
+                  else next.add(group.key)
+                  return next
+                })
+              }}
+              className="flex cursor-pointer list-none items-center gap-4 py-6 text-ink hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:gap-6 sm:py-8 [&::-webkit-details-marker]:hidden"
+            >
+              <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
+                {group.date > 0 && (
+                  <time
+                    dateTime={new Date(group.date).toISOString()}
+                    className="shrink-0 text-sm tabular-nums text-ink-dim sm:w-24"
+                  >
+                    {dateFormat.format(new Date(group.date))}
+                  </time>
+                )}
+                <div className="min-w-0 flex-1">
+                  <h2 className="break-words text-xl font-semibold leading-snug sm:text-2xl">
+                    {group.name}
+                  </h2>
+                  <p className="mt-1 text-sm font-normal text-ink-dim">
+                    {group.projects.length}{' '}
+                    {group.projects.length === 1 ? 'project' : 'projects'}
+                  </p>
+                </div>
+              </div>
+              <span className="hb-px flex h-11 w-11 shrink-0 items-center justify-center bg-band-2 text-accent group-hover/event:bg-accent group-hover/event:text-ground">
+                <ChevronDownIcon
+                  className="h-5 w-5 group-open/event:rotate-180"
+                  aria-hidden="true"
+                />
+              </span>
+            </summary>
+            <div className="pb-10 sm:pb-12">
+              {group.href && (
+                <div className="mb-6 flex justify-end">
+                  <Link
+                    href={group.href}
+                    className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                  >
+                    View event
+                    <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </div>
+              )}
+              <ProjectGrid projects={group.projects} />
+            </div>
+          </details>
+        ))}
+      </div>
+
+      {matches.length === 0 && (
+        <div className="py-16 sm:py-20">
+          <h2 className="text-2xl font-semibold text-ink">
+            {searching ? 'No projects found' : 'No projects published yet'}
+          </h2>
+          {searching && (
+            <>
+              <p className="mt-3 max-w-lg text-base leading-relaxed text-ink-dim">
+                Try a different project name, event or maker, or clear your
+                search to see everything.
+              </p>
+              <button
+                type="button"
+                onClick={clearSearch}
+                className="mt-5 min-h-11 font-semibold text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              >
+                Clear search
+              </button>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}

@@ -1,9 +1,40 @@
 import 'server-only'
-import { and, desc, eq, isNull, sql } from 'drizzle-orm'
+import {
+  and,
+  desc,
+  eq,
+  inArray,
+  isNull,
+  ne,
+  notInArray,
+  or,
+  sql,
+} from 'drizzle-orm'
 import { getDb } from '@/db'
 import { liveProjects as projects, liveVotes as votes } from '@/db/schema'
 import { CATEGORIES, categorizeProject } from './jev'
-import { slugify, type ProjectInput } from './validate'
+import {
+  projectHackers,
+  slugify,
+  type ProjectHacker,
+  type ProjectInput,
+} from './validate'
+import { isHiddenProject, LIVE_EVENTS } from './config'
+
+function publicProjectVisibility() {
+  return and(
+    ...Object.values(LIVE_EVENTS).flatMap((event) =>
+      event.hiddenProjectSlugs?.length
+        ? [
+            or(
+              ne(projects.eventSlug, event.slug),
+              notInArray(projects.slug, event.hiddenProjectSlugs),
+            ),
+          ]
+        : [],
+    ),
+  )
+}
 
 /** Public shape of a project. Email is deliberately left out. */
 const publicColumns = {
@@ -17,6 +48,8 @@ const publicColumns = {
   screenshotKey: projects.screenshotKey,
   creatorName: projects.creatorName,
   linkedinUrl: projects.linkedinUrl,
+  hackers: projects.hackers,
+  award: projects.award,
   shareConsent: projects.shareConsent,
   usedLovable: projects.usedLovable,
   jevUsage: projects.jevUsage,
@@ -42,6 +75,8 @@ export type PublicProject = {
   screenshotKey: string | null
   creatorName: string
   linkedinUrl: string
+  hackers: ProjectHacker[]
+  award: string | null
   shareConsent: boolean
   usedLovable: boolean
   jevUsage: string | null
@@ -71,11 +106,27 @@ export async function listProjects(
   return getDb()
     .select(publicColumns)
     .from(projects)
-    .where(eq(projects.eventSlug, eventSlug))
+    .where(and(eq(projects.eventSlug, eventSlug), publicProjectVisibility()))
     .orderBy(
       desc(projects.voteCount),
       desc(projects.shareCount),
       projects.createdAt,
+    )
+    .then((rows) =>
+      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+    )
+}
+
+export async function listAllProjects(): Promise<PublicProject[]> {
+  const events = Object.keys(LIVE_EVENTS)
+  if (!events.length) return []
+  return getDb()
+    .select(publicColumns)
+    .from(projects)
+    .where(and(inArray(projects.eventSlug, events), publicProjectVisibility()))
+    .orderBy(desc(projects.createdAt), projects.name)
+    .then((rows) =>
+      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
     )
 }
 
@@ -89,16 +140,18 @@ export async function listProjectSitemapEntries() {
       createdAt: projects.createdAt,
     })
     .from(projects)
+    .where(publicProjectVisibility())
     .orderBy(projects.eventSlug, projects.slug)
 }
 
 export async function getPublicProject(eventSlug: string, slug: string) {
+  if (isHiddenProject(eventSlug, slug)) return null
   const [project] = await getDb()
     .select(publicColumns)
     .from(projects)
     .where(and(eq(projects.eventSlug, eventSlug), eq(projects.slug, slug)))
     .limit(1)
-  return project ?? null
+  return project ? { ...project, hackers: projectHackers(project) } : null
 }
 
 export async function getJevAnswers(id: number) {
@@ -220,6 +273,7 @@ export async function setVote(
   voterId: string,
   on: boolean,
 ) {
+  if (isHiddenProject(eventSlug, slug)) return null
   const id = await findId(eventSlug, slug)
   if (!id) return null
   if (on) {
@@ -236,6 +290,7 @@ export async function setVote(
 }
 
 export async function addShare(eventSlug: string, slug: string) {
+  if (isHiddenProject(eventSlug, slug)) return null
   const [row] = await getDb()
     .update(projects)
     .set({ shareCount: sql`${projects.shareCount} + 1` })
@@ -259,13 +314,22 @@ export async function exportShareable(eventSlug: string) {
       judgeScore: projects.judgeScore,
       creatorName: projects.creatorName,
       linkedinUrl: projects.linkedinUrl,
+      hackers: projects.hackers,
+      award: projects.award,
       category: projects.category,
       voteCount: projects.voteCount,
       createdAt: projects.createdAt,
     })
     .from(projects)
     .where(
-      and(eq(projects.eventSlug, eventSlug), eq(projects.shareConsent, true)),
+      and(
+        eq(projects.eventSlug, eventSlug),
+        eq(projects.shareConsent, true),
+        publicProjectVisibility(),
+      ),
     )
     .orderBy(desc(projects.voteCount))
+    .then((rows) =>
+      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+    )
 }

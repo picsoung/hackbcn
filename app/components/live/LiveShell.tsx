@@ -2,6 +2,7 @@ import Link from 'next/link'
 import OrgNavbar from '@/app/components/home/OrgNavbar'
 import OrgFooter from '@/app/components/home/OrgFooter'
 import type { LiveEvent } from '@/lib/live/config'
+import { projectListPath } from '@/lib/project-seo'
 import Toaster from './Toaster'
 import { btnPrimary, btnSm } from './ui'
 
@@ -64,7 +65,7 @@ export default function LiveShell({
           aria-label="Project wall"
           className="mx-auto flex max-w-6xl flex-wrap items-center gap-6 px-6 py-4"
         >
-          {tab('wall', `${base}/projects`, 'Projects')}
+          {tab('wall', projectListPath(locale, event.slug), 'Projects')}
           {tab('leaderboard', `${base}/leaderboard`, 'Leaderboard')}
           {tab('jev', `${base}/jev`, 'Jev lab')}
           {event.open && (

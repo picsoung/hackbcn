@@ -1,12 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import {
-  FaSquareXTwitter,
-  FaLinkedin,
-  FaLink,
-  FaMedium,
-  FaGithub,
-} from 'react-icons/fa6'
+import { FaSquareXTwitter, FaLink, FaMedium, FaGithub } from 'react-icons/fa6'
 import { Person } from '../helpers/projects'
 
 type AvatarProps = {
@@ -41,7 +35,18 @@ const Avatar: React.FC<AvatarProps> = ({ person }) => {
         </div>
       )}
 
-      <span className="text-base font-medium leading-tight">{person.name}</span>
+      {person.links?.linkedin ? (
+        <Link
+          href={person.links.linkedin}
+          className="text-base font-medium leading-tight underline underline-offset-4"
+        >
+          {person.name}
+        </Link>
+      ) : (
+        <span className="text-base font-medium leading-tight">
+          {person.name}
+        </span>
+      )}
       {person.description && (
         <span className="text-neutral-500 dark:text-neutral-400">
           {person.description}
@@ -52,14 +57,11 @@ const Avatar: React.FC<AvatarProps> = ({ person }) => {
           Object.keys(person.links).map((linkType: string, id) => {
             const linkURL =
               person.links?.[linkType as keyof typeof person.links] ?? ''
-            if (linkURL) {
+            if (linkURL && linkType !== 'linkedin') {
               return (
                 <Link key={id} href={linkURL}>
                   {linkType === 'twitter' && (
                     <FaSquareXTwitter className="text-3xl" />
-                  )}
-                  {linkType === 'linkedin' && (
-                    <FaLinkedin className="text-3xl" />
                   )}
                   {linkType === 'website' && <FaLink className="text-3xl" />}
                   {linkType === 'github' && <FaGithub className="text-3xl" />}

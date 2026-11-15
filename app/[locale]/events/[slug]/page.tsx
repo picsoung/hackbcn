@@ -4,16 +4,15 @@ import OrgFooter from '@/app/components/home/OrgFooter'
 import EventDetail from '@/app/components/events/EventDetail'
 import {
   getEventDataBySlug,
-  getAllUnifiedEventSlugs,
   getFeaturedUpcomingEvent,
 } from '@/lib/events-server'
 import { buildOgImagePath, formatOgDate } from '@/lib/og'
-import { getProjectsByEvent } from '@/app/helpers/projects'
+import { getEventProjectCards } from '@/lib/project-catalog'
+import { getLiveEvent } from '@/lib/live/config'
+import EventProjectsSection from '@/app/components/projects/EventProjectsSection'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
-  return getAllUnifiedEventSlugs().map((slug) => ({ slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export function generateMetadata({
   params,
@@ -70,7 +69,7 @@ export function generateMetadata({
   }
 }
 
-export default function EventDetailPage({
+export default async function EventDetailPage({
   params,
 }: {
   params: { locale: string; slug: string }
@@ -80,7 +79,7 @@ export default function EventDetailPage({
     notFound()
   }
   const featured = getFeaturedUpcomingEvent()
-  const projectCount = getProjectsByEvent(params.slug).length
+  const projects = await getEventProjectCards(params.locale, params.slug)
 
   return (
     <div
@@ -96,7 +95,17 @@ export default function EventDetailPage({
           judges={data.judges}
           mentors={data.mentors}
           locale={params.locale}
-          projectCount={projectCount}
+          projectCount={projects.length}
+          projectsSection={
+            projects.length > 0 || getLiveEvent(params.slug) ? (
+              <EventProjectsSection
+                locale={params.locale}
+                eventSlug={params.slug}
+                eventName={data.event.name}
+                projects={projects}
+              />
+            ) : undefined
+          }
         />
       </main>
       <OrgFooter />

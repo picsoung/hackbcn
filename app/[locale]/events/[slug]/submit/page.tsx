@@ -3,6 +3,7 @@ import LiveShell from '@/app/components/live/LiveShell'
 import SubmitForm from '@/app/components/live/SubmitForm'
 import { kicker } from '@/app/components/live/ui'
 import { getLiveEvent } from '@/lib/live/config'
+import { projectListPath } from '@/lib/project-seo'
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const event = getLiveEvent(params.slug)
@@ -22,12 +23,12 @@ export default function SubmitPage({
   const event = getLiveEvent(params.slug)
   if (!event) notFound()
   const wallBase = `/${params.locale}/events/${event.slug}/projects`
-  if (!event.open) redirect(wallBase)
+  if (!event.open) redirect(projectListPath(params.locale, event.slug))
 
   const steps = [
     "Submit what you built, even if it's held together with tape.",
     'Jev reads your pitch and sorts it into a category.',
-    'Share your link. Votes follow shares.',
+    'Your project and all its hackers get a page in the event collection.',
   ]
   return (
     <LiveShell locale={params.locale} event={event} active="submit">
@@ -38,8 +39,8 @@ export default function SubmitPage({
             Put your project on the wall.
           </h1>
           <p className="mt-5 max-w-[60ch] text-lg text-screen-dim">
-            Takes a minute. You get a page with your own link, a share kit, and
-            a spot on the live leaderboard.
+            Add your demo and credit your team. Your project gets its own page
+            in the event collection.
           </p>
           <ol className="mt-8 space-y-4">
             {steps.map((s, i) => (
