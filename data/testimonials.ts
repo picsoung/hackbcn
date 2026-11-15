@@ -5,7 +5,10 @@ export type Testimonial = {
   eventSlug: (typeof testimonialEvents)[number]['slug']
   platform: 'linkedin' | 'x' | 'press'
   url: string
+  sourceUrl?: string
+  publishedAt?: string
   author: string
+  authorUrl?: string
   position?: string
   avatar?: string
   avatarKind?: 'person' | 'logo'
@@ -25,11 +28,36 @@ export const testimonialEvents = [
 ] as const
 
 export const testimonials: Testimonial[] = [
-  // Verbatim attendee excerpts, kept in the original Spanish.
+  // Jev-a-thon posts: verified public metadata and short verbatim excerpts.
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Mike Ochoa',
+    authorUrl: 'https://es.linkedin.com/in/mike-ochoa',
+    publishedAt: '2026-11-14T10:16:18.918Z',
+    sourceUrl: 'https://lnkd.in/p/eCV6yGXi',
+    excerpt: 'Pero bueno, más allá de la tecnología, lo mejor fue conocer gente, compartir ideas y ver lo que estaba construyendo cada uno.',
+    excerptLang: 'es',
+    url: 'https://es.linkedin.com/posts/mike-ochoa_mi-primer-hackathon-en-bcn-el-martes-estuve-activity-7527313457298423808-Eayl',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Alejandro Rojas',
+    authorUrl: 'https://es.linkedin.com/in/alejandro-rojas-villanueva',
+    publishedAt: '2026-11-12T09:30:36.947Z',
+    sourceUrl: 'https://lnkd.in/p/epRK6WRw',
+    excerpt: 'Thanks for letting me borrow some of Barcelona’s AI builder community’s energy at HackBarna\'s HackNight#5: Jev-a-thon…',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/alejandro-rojas-villanueva_thats-me-right-at-the-epicenter-of-barcelona-activity-7526577180814843904-NSPq',
+  },
   {
     eventSlug: 'hacknight-5-jevathon-2026',
     platform: 'linkedin',
     author: 'Gisela Lardin Morales',
+    authorUrl: 'https://es.linkedin.com/in/gisela-lardin-morales/en',
+    publishedAt: '2026-11-11T19:13:39.417Z',
+    sourceUrl: 'https://lnkd.in/p/eG3jP8ji',
     excerpt: 'Lo que más me ha impresionado es lo rápido que se pasa de idea a app funcionando…',
     excerptLang: 'es',
     url: 'https://es.linkedin.com/posts/gisela-lardin-morales_deducible-autonomos-ia-activity-7526361520063127552-ypb0',
@@ -37,7 +65,87 @@ export const testimonials: Testimonial[] = [
   {
     eventSlug: 'hacknight-5-jevathon-2026',
     platform: 'linkedin',
+    author: 'Rafa Romero',
+    authorUrl: 'https://es.linkedin.com/in/rafaelromeromuela',
+    publishedAt: '2026-11-11T15:15:27.375Z',
+    sourceUrl: 'https://lnkd.in/p/e4qBPC3E',
+    excerpt: 'Yesterday I built GRIN at our Jev-a-thon…',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/rafaelromeromuela_yesterday-i-built-grin-at-our-jev-a-thon-activity-7526301574894231552-fFd-',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Arnab Dey, PhD',
+    authorUrl: 'https://es.linkedin.com/in/arnabdey0503',
+    publishedAt: '2026-11-11T14:17:11.312Z',
+    sourceUrl: 'https://lnkd.in/p/eDjrFB6z',
+    excerpt: 'Watching it play live was the interesting part for me. It reacts fast enough to keep up with a human…',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/arnabdey0503_physicalai-robotics-decisionmodels-activity-7526286911343259649-Q933',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Andres Sepulveda Morales 🇵🇷',
+    authorUrl: 'https://es.linkedin.com/in/andres-sepulveda-morales',
+    publishedAt: '2026-11-11T13:55:37.183Z',
+    sourceUrl: 'https://lnkd.in/p/eJqVm_HX',
+    excerpt: 'The goal? Faster judging, and everyone leaves on time with real feedback.',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/andres-sepulveda-morales_who-is-out-here-jevving-it-yesterday-at-activity-7526281483377029120-wuWV',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Deep Anmol Kaur',
+    authorUrl: 'https://es.linkedin.com/in/deep-anmol-kaur-06087421a',
+    publishedAt: '2026-11-11T13:27:44.036Z',
+    sourceUrl: 'https://lnkd.in/p/eVtr63xT',
+    excerpt: 'Thank you to organisers HackBarna and Happy Operators for the energy and to Lovable for making a solo build like this possible.',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/deep-anmol-kaur-06087421a_lovable-hackathon-productdesign-activity-7526274465685499905-C0sh',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Guido Vezzoni',
+    authorUrl: 'https://es.linkedin.com/in/guidovezzoni',
+    publishedAt: '2026-11-11T10:46:42.362Z',
+    sourceUrl: 'https://lnkd.in/p/e57RW5FH',
+    excerpt: 'Another great hacknight with HackBarna, Itnig - Startup Ecosystem and Lovable. Thanks Nicolas Grenié and Matt Roberts for hosting!',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/guidovezzoni_another-great-hacknight-with-hackbarna-itnig-activity-7526233941687574528-5v-s',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Michella Warren',
+    authorUrl: 'https://es.linkedin.com/in/michellavwarren',
+    publishedAt: '2026-11-11T07:32:21.268Z',
+    sourceUrl: 'https://lnkd.in/p/ewPn2xJj',
+    excerpt: 'For the Jev-a-thon I built Human, Please: a support chat where Jev scores your frustration live…',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/michellavwarren_jevathon-vonage-ai-activity-7526185031514546176-fMqx',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
+    author: 'Sabrina Rahali',
+    authorUrl: 'https://es.linkedin.com/in/sabrinarahali',
+    publishedAt: '2026-11-10T22:44:45.548Z',
+    sourceUrl: 'https://lnkd.in/p/eQeE9_Dq',
+    excerpt: 'I loved every minute of it! A great reminder that sometimes you just need to show up, be curious and give things a try.',
+    excerptLang: 'en',
+    url: 'https://www.linkedin.com/posts/sabrinarahali_i-joined-my-first-hackathon-today-hacknight-activity-7526052257805651969-gnTW',
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    platform: 'linkedin',
     author: 'María Fernanda Marió',
+    authorUrl: 'https://es.linkedin.com/in/mariafermar',
+    publishedAt: '2026-11-10T21:29:09.151Z',
+    sourceUrl: 'https://lnkd.in/p/ePQv925u',
     excerpt: 'Lo pasé muy bien, fue un antes y un después poder crear una app en pocas horas…',
     excerptLang: 'es',
     url: 'https://es.linkedin.com/posts/mariafermar_gracias-happy-operators-y-hackbarna-por-la-activity-7526033230773444608-6Wjs',
