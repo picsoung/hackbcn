@@ -1,12 +1,10 @@
-import Link from 'next/link'
 import { getProjectCatalog } from '@/lib/project-catalog'
-import { groupProjectCards } from '@/lib/project-cards'
 import {
   projectListSchema,
   projectMetadata,
   serializeJsonLd,
 } from '@/lib/project-seo'
-import ProjectGrid from '@/app/components/projects/ProjectGrid'
+import ProjectArchiveBrowser from '@/app/components/projects/ProjectArchiveBrowser'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,13 +26,11 @@ export default async function ProjectArchive({
   )
   const title = localeData.default['projects.title'] ?? 'Project Archive'
   const projects = await getProjectCatalog(params.locale)
-  const groups = groupProjectCards(projects)
-  const dateFormat = new Intl.DateTimeFormat(
-    ['en', 'es', 'ca', 'fr'].includes(params.locale) ? params.locale : 'en',
-    { month: 'long', year: 'numeric' },
-  )
   return (
-    <div id="projects" className="min-h-screen bg-white py-12 sm:py-16">
+    <div
+      id="projects"
+      className="bg-ground pb-20 pt-12 text-ink selection:bg-accent selection:text-ground sm:pb-28 sm:pt-20"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -51,65 +47,17 @@ export default async function ProjectArchive({
         }}
       />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <header className="mb-12">
-          <h1 className="text-3xl font-semibold text-indigo-600 sm:text-5xl">
+        <header className="mb-10 grid gap-5 sm:mb-14 lg:grid-cols-[1.2fr_1fr] lg:items-end lg:gap-16">
+          <h1 className="text-balance text-4xl font-bold leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-6xl">
             {title}
+            <span className="text-accent">.</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
-            {projects.length} community projects. Explore what people built at
-            HackBarna, from hack nights to weekend hackathons.
+          <p className="max-w-lg text-base leading-relaxed text-ink-dim sm:text-lg">
+            Built in Barcelona, by the HackBarna community. Explore the projects
+            and meet the makers behind them.
           </p>
         </header>
-        <div className="space-y-16">
-          {groups.map((group) => (
-            <section key={group.key} aria-labelledby={`projects-${group.key}`}>
-              <div className="mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 pb-5">
-                <div>
-                  <h2
-                    id={`projects-${group.key}`}
-                    className="text-2xl font-semibold text-slate-900"
-                  >
-                    {group.href ? (
-                      <Link
-                        href={group.href}
-                        className="underline decoration-slate-300 underline-offset-4 hover:decoration-slate-900"
-                      >
-                        {group.name}
-                      </Link>
-                    ) : (
-                      group.name
-                    )}
-                  </h2>
-                  <p className="mt-2 text-sm text-slate-600">
-                    {group.projects.length}{' '}
-                    {group.projects.length === 1 ? 'project' : 'projects'}
-                    {group.date > 0 && (
-                      <>
-                        {' '}
-                        ·{' '}
-                        <time dateTime={new Date(group.date).toISOString()}>
-                          {dateFormat.format(new Date(group.date))}
-                        </time>
-                      </>
-                    )}
-                  </p>
-                </div>
-                {group.href && (
-                  <Link
-                    href={group.href}
-                    className="py-2 text-sm font-semibold text-slate-900 underline underline-offset-4"
-                  >
-                    View event
-                  </Link>
-                )}
-              </div>
-              <ProjectGrid projects={group.projects} tone="light" />
-            </section>
-          ))}
-          {projects.length === 0 && (
-            <p className="text-slate-600">No projects published yet.</p>
-          )}
-        </div>
+        <ProjectArchiveBrowser projects={projects} locale={params.locale} />
       </div>
     </div>
   )

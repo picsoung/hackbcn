@@ -14,6 +14,7 @@ const {
   archivedProjectCard,
   submittedProjectCard,
   groupProjectCards,
+  searchProjectCards,
   relatedProjectCards,
 } = require('../lib/project-cards.ts')
 const { projectListPath } = require('../lib/project-seo.ts')
@@ -197,4 +198,67 @@ test('the archive groups every project by event, newest first, without conflatin
       'Markdown URLs stay stable',
     )
   }
+})
+
+test('archive search finds names, descriptions, events and every maker, ignoring case and accents', () => {
+  const card = submittedProjectCard(
+    {
+      ...submitted,
+      hackers: [
+        { name: 'Alex Garcia', linkedinUrl: null },
+        { name: 'Núria Solé', linkedinUrl: null },
+      ],
+    },
+    'en',
+    event,
+  )
+  for (const query of [
+    'CAFE',
+    'volunteer',
+    'Jev-a-thon',
+    'alex garcia',
+    'nuria sole',
+    '  café   NÚRIA  volunteer  ',
+    'jev nuria',
+  ]) {
+    assert.deepEqual(searchProjectCards([card], query), [card], query)
+  }
+  assert.deepEqual(searchProjectCards([card], 'cafe missing'), [])
+  assert.deepEqual(searchProjectCards([card], 'private@example.test'), [])
+  assert.deepEqual(searchProjectCards([card], 'private-voter'), [])
+})
+
+test('search keeps event order and matching counts, and clearing restores the full archive', () => {
+  const recent = submittedProjectCard(submitted, 'en', event)
+  const older = {
+    ...recent,
+    key: 'older',
+    name: 'Volunteer board',
+    eventSlug: 'earlier-night',
+    eventName: 'Earlier night',
+    eventDate: Date.parse('2025-01-01'),
+  }
+  const unrelated = {
+    ...older,
+    key: 'unrelated',
+    description: 'Unrelated',
+    name: 'Other',
+  }
+  const cards = [older, recent, unrelated]
+  assert.equal(searchProjectCards(cards, '  '), cards)
+  assert.equal(searchProjectCards(cards, ''), cards)
+  const groups = groupProjectCards(searchProjectCards(cards, 'volunteer'))
+  assert.deepEqual(
+    groups.map((group) => group.key),
+    [recent.eventSlug, older.eventSlug],
+  )
+  assert.deepEqual(
+    groups.map((group) => group.projects.length),
+    [1, 1],
+  )
+  assert.deepEqual(searchProjectCards(cards, 'earlier night'), [
+    older,
+    unrelated,
+  ])
+  assert.deepEqual(searchProjectCards([], 'anything'), [])
 })

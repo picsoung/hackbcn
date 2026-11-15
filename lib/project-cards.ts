@@ -137,6 +137,31 @@ export function groupProjectCards(projects: ProjectCard[]) {
   )
 }
 
+function searchText(value: string) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+}
+
+/** Every query word can match a different public field or team member. */
+export function searchProjectCards(projects: ProjectCard[], query: string) {
+  const words = searchText(query).trim().split(/\s+/).filter(Boolean)
+  if (!words.length) return projects
+  return projects.filter((project) => {
+    const text = searchText(
+      [
+        project.name,
+        project.description,
+        project.eventName,
+        project.creator,
+        ...project.hackers.map((hacker) => hacker.name),
+      ].join(' '),
+    )
+    return words.every((word) => text.includes(word))
+  })
+}
+
 /** Profile identity ignores tracking parameters, host variants and a trailing slash. */
 function builderProfile(url: string | null) {
   if (!url) return null
