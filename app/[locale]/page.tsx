@@ -38,10 +38,10 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           highlights={wall.featured}
         />
         <StatsBar eventCount={wall.total} />
+        <PartnersBar logos={partnerLogos} />
         {upcoming.length > 0 && <UpcomingEvents events={upcoming} />}
         <PastEvents featured={wall.featured} compact={wall.compact} />
         <HomeJoin />
-        <PartnersBar logos={partnerLogos} />
       </main>
       <OrgFooter />
     </div>
