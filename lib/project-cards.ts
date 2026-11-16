@@ -83,7 +83,8 @@ export function archivedProjectCard(
     name: project.data.title,
     description: project.data.description,
     href: `/${locale}/projects/${project.slug.split('/').map(encodeURIComponent).join('/')}`,
-    image: project.data.thumbnailUrl || undefined,
+    image:
+      project.data.thumbnailUrl || videoThumbnail(project.data.youtubeLink),
     creator:
       project.data.hackers?.map((person) => person.name).join(', ') ?? '',
     hackers: projectHackers({
