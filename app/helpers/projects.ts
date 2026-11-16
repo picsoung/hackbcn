@@ -35,6 +35,7 @@ export interface ProjectData {
   thumbnailUrl: string
   category: ProjectCategory
   status: 'draft' | 'published'
+  contentFormat?: 'markdown' | 'mdx'
   youtubeLink: string
   hackers: Person[]
   techStack: string[] // Array of technologies used in the project
@@ -87,11 +88,14 @@ export function getProject(slugOrFilePath: string[]): Project {
     thumbnailUrl: data.thumbnailUrl,
     category: data.category ?? 'Other',
     status: data.status ?? 'published',
+    contentFormat: data.contentFormat,
     youtubeLink: data.youtubeLink,
     hackers: data.hackers,
     techStack: data.techStack,
     winner: data.winner ?? false,
-    links: data.links ?? {},
+    links: Array.isArray(data.links)
+      ? Object.assign({}, ...data.links)
+      : (data.links ?? {}),
     event: data.event ?? undefined,
   }
 

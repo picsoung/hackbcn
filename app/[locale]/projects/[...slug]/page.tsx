@@ -8,6 +8,7 @@ import { getRelatedProjectCards } from '@/lib/project-catalog'
 import { getEventDataBySlug } from '@/lib/events-server'
 import ProjectRecommendations from '@/app/components/projects/ProjectRecommendations'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import ReactMarkdown from 'react-markdown'
 import YouTube from '@/app/components/mdx/Youtube'
 import Avatar from '@/app/components/Avatar'
 import LinkIcon from '@/app/components/LinkIcon'
@@ -85,7 +86,7 @@ export default async function ProjectBySlug({
     content = (
       <>
         <h1>{project.data.title}</h1>
-        <div className="flex flex-row gap-4 justify-between">
+        <div className="flex flex-col gap-6 sm:flex-row sm:justify-between">
           <div className="flex flex-col">
             {project.data.winner && (
               <div>
@@ -98,22 +99,24 @@ export default async function ProjectBySlug({
                 </div>
               </div>
             )}
-            <div>
-              <h2>Stack</h2>
-              <small className="text-gray-400">
-                {project.data.techStack.map((tag: string, index: number) => {
-                  const colorClass = getTagColor(tag)
-                  return (
-                    <span
-                      key={tag}
-                      className={`inline-block rounded-full px-2 py-1 mr-1 mb-1 ${colorClass}`}
-                    >
-                      {tag}
-                    </span>
-                  )
-                })}
-              </small>
-            </div>
+            {project.data.techStack.length > 0 && (
+              <div>
+                <h2>Stack</h2>
+                <small className="text-gray-400">
+                  {project.data.techStack.map((tag: string, index: number) => {
+                    const colorClass = getTagColor(tag)
+                    return (
+                      <span
+                        key={tag}
+                        className={`inline-block rounded-full px-2 py-1 mr-1 mb-1 ${colorClass}`}
+                      >
+                        {tag}
+                      </span>
+                    )
+                  })}
+                </small>
+              </div>
+            )}
           </div>
           <div className="flex flex-col">
             <div className="flex flex-col">
@@ -121,28 +124,26 @@ export default async function ProjectBySlug({
               <p className="text-gray-500">{project.data.description}</p>
             </div>
             <div className="flex flex-col">
-              {project.data.links && Number(project.data.links.length) > 0 && (
-                <>
-                  <h2>Links</h2>
-                  <div className="flex items-center gap-4">
-                    {' '}
-                    {Object.entries(project.data.links).map(
-                      ([type, linkObj]) => {
-                        if (!linkObj) return null
-                        const [[linkType, url]] = Object.entries(linkObj)
+              {project.data.links &&
+                Object.keys(project.data.links).length > 0 && (
+                  <>
+                    <h2>Links</h2>
+                    <div className="flex flex-wrap items-center gap-4">
+                      {' '}
+                      {Object.entries(project.data.links).map(([type, url]) => {
+                        if (!url) return null
                         return (
                           <LinkIcon
                             key={type}
-                            linkType={linkType}
+                            linkType={type}
                             linkURL={url}
                             showText={true}
                           />
                         )
-                      },
-                    )}
-                  </div>
-                </>
-              )}
+                      })}
+                    </div>
+                  </>
+                )}
             </div>
           </div>
         </div>
@@ -157,7 +158,11 @@ export default async function ProjectBySlug({
         </div>
         <div>
           <h2>Project details</h2>
-          <MDXRemote source={project.content} components={{ YouTube }} />
+          {project.data.contentFormat === 'markdown' ? (
+            <ReactMarkdown skipHtml>{project.content}</ReactMarkdown>
+          ) : (
+            <MDXRemote source={project.content} components={{ YouTube }} />
+          )}
         </div>
       </>
     )
@@ -171,7 +176,7 @@ export default async function ProjectBySlug({
         <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
           Project
         </h2>
-        <article className="prose mg:prose-lg max-w-4xl mx-auto">
+        <article className="prose mg:prose-lg max-w-4xl mx-auto [overflow-wrap:anywhere]">
           {content}
         </article>
       </div>

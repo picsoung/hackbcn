@@ -811,8 +811,8 @@ export default function EventDetail({
           </section>
         )}
 
-        {/* Hack-night gallery */}
-        {isHackNight && event.gallery && event.gallery.length > 0 && (
+        {/* Event gallery */}
+        {event.gallery && event.gallery.length > 0 && (
           <section
             id="gallery"
             aria-labelledby="event-gallery-heading"
@@ -826,7 +826,7 @@ export default function EventDetail({
                 Gallery
               </h2>
               {event.galleryCredit && (
-                <p className="text-sm text-dim">
+                <p className="text-sm text-ink-dim">
                   Photos by{' '}
                   <a
                     href={event.galleryCredit.url}
@@ -848,7 +848,14 @@ export default function EventDetail({
                   rel="noopener noreferrer"
                   className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-ground"
                 >
-                  <span className="hb-px relative block aspect-[3/2] overflow-hidden bg-band-2">
+                  <span
+                    className="hb-px relative block aspect-[3/2] overflow-hidden bg-band-2"
+                    style={
+                      photo.width && photo.height
+                        ? { aspectRatio: `${photo.width} / ${photo.height}` }
+                        : undefined
+                    }
+                  >
                     <Image
                       src={photo.src}
                       alt={photo.alt}

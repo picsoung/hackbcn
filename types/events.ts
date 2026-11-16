@@ -14,6 +14,8 @@ export type EventType = 'hackathon' | 'hacknight'
 export type GalleryPhoto = {
   src: string
   alt: string
+  width?: number
+  height?: number
 }
 
 export type Event = {
