@@ -93,7 +93,7 @@ export default function HomeJoin() {
               {copy.joinDescription}
             </p>
             <div className="mt-4">
-              <SubscribeForm title={copy.invitation} />
+              <SubscribeForm title={copy.stayInformed} />
             </div>
           </div>
         </div>

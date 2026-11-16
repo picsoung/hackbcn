@@ -7,8 +7,7 @@ const en = {
   watchYoutube: 'Watch on YouTube',
   allEvents: 'All past events',
   joinTitle: 'First hackathon? You’re in good company.',
-  joinDescription:
-    'Get an invitation when we announce our next event in Barcelona.',
+  joinDescription: 'Get updates about our next events in Barcelona.',
   signupTitle: 'Come build with us.',
   emailLabel: 'Your email address',
   allPosts: 'More from the community',
@@ -21,7 +20,7 @@ const en = {
   titleAccent: 'builds together.',
   intro:
     'Meet people, try new AI tools, and demo what you make at our hack nights and weekend hackathons.',
-  invitation: 'Get invited',
+  stayInformed: 'Stay informed',
   wallIntro:
     'Explore the evenings, weekends, projects and people that make this community.',
   latestNight: 'Latest hack night',
@@ -47,7 +46,7 @@ const translations: Record<string, HomeCopy> = {
     allEvents: 'Todos los eventos anteriores',
     joinTitle: '¿Tu primer hackathon? Estás en buena compañía.',
     joinDescription:
-      'Recibe una invitación cuando anunciemos nuestro próximo evento en Barcelona.',
+      'Recibe novedades sobre nuestros próximos eventos en Barcelona.',
     signupTitle: 'Ven a crear con nosotros.',
     emailLabel: 'Tu correo electrónico',
     allPosts: 'Más de la comunidad',
@@ -60,7 +59,7 @@ const translations: Record<string, HomeCopy> = {
     titleAccent: 'crea en comunidad.',
     intro:
       'Conoce gente, prueba nuevas herramientas de IA y presenta lo que creas en nuestras hack nights y hackathons de fin de semana.',
-    invitation: 'Recibe invitaciones',
+    stayInformed: 'Mantente al día',
     wallIntro:
       'Descubre las tardes, los fines de semana, los proyectos y las personas de esta comunidad.',
     latestNight: 'Última hack night',
@@ -80,8 +79,7 @@ const translations: Record<string, HomeCopy> = {
     watchYoutube: 'Mira’l a YouTube',
     allEvents: 'Tots els esdeveniments anteriors',
     joinTitle: 'El teu primer hackathon? Estàs en bona companyia.',
-    joinDescription:
-      'Rep una invitació quan anunciem el proper esdeveniment a Barcelona.',
+    joinDescription: 'Rep novetats dels propers esdeveniments a Barcelona.',
     signupTitle: 'Vine a crear amb nosaltres.',
     emailLabel: 'El teu correu electrònic',
     allPosts: 'Més de la comunitat',
@@ -94,7 +92,7 @@ const translations: Record<string, HomeCopy> = {
     titleAccent: 'crea en comunitat.',
     intro:
       'Coneix gent, prova eines noves d’IA i presenta el que crees a les nostres hack nights i hackathons de cap de setmana.',
-    invitation: 'Rep invitacions',
+    stayInformed: 'Estigues al dia',
     wallIntro:
       'Descobreix les tardes, els caps de setmana, els projectes i les persones d’aquesta comunitat.',
     latestNight: 'Última hack night',
@@ -115,7 +113,7 @@ const translations: Record<string, HomeCopy> = {
     allEvents: 'Tous les événements passés',
     joinTitle: 'Votre premier hackathon ? Vous êtes en bonne compagnie.',
     joinDescription:
-      'Recevez une invitation à l’annonce de notre prochain événement à Barcelone.',
+      'Recevez les actualités de nos prochains événements à Barcelone.',
     signupTitle: 'Venez créer avec nous.',
     emailLabel: 'Votre adresse e-mail',
     allPosts: 'Les récits de la communauté',
@@ -128,7 +126,7 @@ const translations: Record<string, HomeCopy> = {
     titleAccent: 'crée ensemble.',
     intro:
       'Rencontrez des gens, testez de nouveaux outils d’IA et présentez vos créations lors de nos hack nights et hackathons de week-end.',
-    invitation: 'Recevoir les invitations',
+    stayInformed: 'Restez au courant',
     wallIntro:
       'Découvrez les soirées, les week-ends, les projets et les personnes de cette communauté.',
     latestNight: 'Dernière hack night',
