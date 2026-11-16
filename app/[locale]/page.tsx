@@ -4,46 +4,40 @@ import PartnersBar from '@/app/components/home/PartnersBar'
 import UpcomingEvents from '@/app/components/home/UpcomingEvents'
 import StatsBar from '@/app/components/home/StatsBar'
 import PastEvents from '@/app/components/home/PastEvents'
-import HomeTestimonials from '@/app/components/home/HomeTestimonials'
+import HomeJoin from '@/app/components/home/HomeJoin'
 import OrgFooter from '@/app/components/home/OrgFooter'
+import { getHomepageEvents, toHomeEvent } from '@/lib/homepage'
 import {
   getFeaturedUpcomingEvent,
   getAllSponsorsAcrossEvents,
   getAllCommunitySponsorsAcrossEvents,
   getAllUpcoming,
-  getUnifiedPastEvents,
-  getPastHackNights,
-  getRecentShorts,
 } from '@/lib/events-server'
 
-export default function HomePage() {
+export default function HomePage({ params }: { params: { locale: string } }) {
   const featured = getFeaturedUpcomingEvent()
   const partnerLogos = [
     ...getAllSponsorsAcrossEvents(),
     ...getAllCommunitySponsorsAcrossEvents(),
   ]
-  const upcoming = getAllUpcoming().slice(0, 3)
-  // Keep the landing page to six event cards total; the archive shows the rest.
-  const pastPreviewLimit = 6 - upcoming.length
-  const pastHackathons = getUnifiedPastEvents()
-  const pastHackNights = getPastHackNights()
-  const heroShorts = getRecentShorts(8)
+  const upcoming = getAllUpcoming()
+    .slice(0, 3)
+    .map((event) => toHomeEvent(event, params.locale))
+  const wall = getHomepageEvents(params.locale)
 
   return (
     <div data-register="night" className="min-h-screen bg-ground">
       <OrgNavbar featuredEvent={featured} />
       <main>
-        {/* Same value the ribbon uses — computed once, not fetched twice. */}
-        <OrgHero shorts={heroShorts} upcoming={featured} />
-        <PartnersBar logos={partnerLogos} />
-        <UpcomingEvents events={upcoming} />
-        <StatsBar eventCount={pastHackathons.length + pastHackNights.length} />
-        <PastEvents
-          pastHackathons={pastHackathons}
-          pastHackNights={pastHackNights}
-          limit={pastPreviewLimit}
+        <OrgHero
+          upcoming={featured ? toHomeEvent(featured, params.locale) : null}
+          recap={wall.recap}
         />
-        <HomeTestimonials />
+        <StatsBar eventCount={wall.total} />
+        <PartnersBar logos={partnerLogos} />
+        {upcoming.length > 0 && <UpcomingEvents events={upcoming} />}
+        <PastEvents events={wall.events} />
+        <HomeJoin />
       </main>
       <OrgFooter />
     </div>

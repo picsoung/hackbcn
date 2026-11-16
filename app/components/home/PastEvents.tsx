@@ -1,85 +1,51 @@
 'use client'
 
-import { useIntl } from '../Intl'
-import type { Event } from '@/types/events'
-import type { HackNight } from '@/data/hacknights'
-import EventCard from './EventCard'
 import Link from 'next/link'
+import type { HomeEvent } from '@/lib/homepage'
+import { homeCopy } from '@/data/homepage'
+import { useIntl } from '../Intl'
+import HomeEventCard from './HomeEventCard'
 
-export default function PastEvents({
-  pastHackathons,
-  pastHackNights,
-  limit,
-}: {
-  pastHackathons: Event[]
-  pastHackNights: HackNight[]
-  limit: number
-}) {
+export default function PastEvents({ events }: { events: HomeEvent[] }) {
   const intl = useIntl()
-
-  const allPast = [
-    ...pastHackathons.map(e => ({
-      key: e.slug,
-      name: e.name,
-      href: `/${intl.locale}/events/${e.slug}`,
-      startDate: e.startDate,
-      endDate: e.endDate,
-      location: e.location,
-      description: e.description?.[intl.locale] || e.description?.en,
-      eventType: 'hackathon' as const,
-      imageUrl: e.imageUrl,
-      ctaLabel: intl.t('events.viewProjects'),
-    })),
-    ...pastHackNights.map(hn => ({
-      key: hn.slug,
-      name: hn.name,
-      href: `/${intl.locale}/events/${hn.slug}`,
-      startDate: hn.date,
-      endDate: hn.endDate,
-      location: hn.location,
-      description: hn.description[intl.locale] || hn.description.en,
-      eventType: 'hacknight' as const,
-      imageUrl: hn.imageUrl,
-      sponsor: hn.sponsor,
-      ctaLabel: intl.t('events.viewDetails'),
-    })),
-  ].sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime())
-    .slice(0, limit)
-
-  if (allPast.length === 0) return null
+  const copy = homeCopy(intl.locale)
+  if (!events.length) return null
+  const archiveHref = `/${intl.locale}/events#past`
+  const archiveClass =
+    'inline-flex min-h-11 items-center text-sm font-semibold text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent'
 
   return (
-    <section className="bg-band-3 py-16 sm:py-24">
+    <section
+      id="past-events"
+      aria-labelledby="home-events-title"
+      className="scroll-mt-6 bg-band-3 py-12 sm:py-16"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-2 flex flex-wrap items-end justify-between gap-3">
-          <h2 className="text-3xl font-bold text-ink">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <h2
+            id="home-events-title"
+            className="text-3xl font-bold tracking-tight text-ink sm:text-4xl"
+          >
             {intl.t('home.past.title')}
           </h2>
-          <Link
-            href={`/${intl.locale}/events#past`}
-            className="text-sm font-medium text-accent hover:text-ink transition-colors"
-          >
-            {intl.t('home.hacknights.seeAll')} &rarr;
+          <Link href={archiveHref} className={archiveClass}>
+            {copy.allEvents}
           </Link>
         </div>
-        <div aria-hidden="true" className="hb-rule w-16 text-ink/70 mb-10" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allPast.map((event) => (
-            <EventCard
-              key={event.key}
-              name={event.name}
-              href={event.href}
-              startDate={event.startDate}
-              endDate={event.endDate}
-              location={event.location}
-              description={event.description}
-              eventType={event.eventType}
-              imageUrl={event.imageUrl}
-              sponsor={'sponsor' in event ? event.sponsor : undefined}
-              ctaLabel={event.ctaLabel}
-            />
+        <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6">
+          {events.map((event) => (
+            <li key={event.slug} className="min-w-0">
+              <HomeEventCard event={event} />
+            </li>
           ))}
+        </ul>
+        <div className="mt-8 flex justify-center">
+          <Link
+            href={archiveHref}
+            className="hb-px inline-flex min-h-11 items-center justify-center bg-band-2 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-accent hover:text-ground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ink"
+          >
+            {copy.allEvents}
+          </Link>
         </div>
       </div>
     </section>

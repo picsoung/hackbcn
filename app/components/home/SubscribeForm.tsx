@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useIntl } from '../Intl'
+import { homeCopy } from '@/data/homepage'
 
 const EMAIL_REGEX = /^[\w.+-]+@[a-zA-Z\d-]+\.[a-zA-Z]{2,}$/
 
-export default function SubscribeForm() {
+export default function SubscribeForm({ title }: { title?: string }) {
   const intl = useIntl()
+  const inputId = useId()
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
 
@@ -22,13 +24,23 @@ export default function SubscribeForm() {
 
   return (
     <div>
-      <p className="text-sm text-ink-dim mb-2">{intl.t('applybutton.dontmiss')}</p>
+      <p className="text-sm text-ink-dim mb-2">
+        {title ?? intl.t('applybutton.dontmiss')}
+      </p>
       <form onSubmit={handleSubmit} className="hb-px hb-px-sm flex">
+        <label className="sr-only" htmlFor={inputId}>
+          {homeCopy(intl.locale).emailLabel}
+        </label>
         <input
+          id={inputId}
           type="email"
+          autoComplete="email"
+          required
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? `${inputId}-error` : undefined}
           /* Inset, like the button: the pair is clipped as one unit, so an
              outward ring would lose its corners to the staircase. */
-          className="flex-1 h-10 px-3 text-sm text-ink bg-ground-raised placeholder:text-ink-dim border border-band-2 border-r-0 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:border-accent"
+          className="min-w-0 flex-1 h-11 px-3 text-sm text-ink bg-ground-raised placeholder:text-ink-dim border border-band-2 border-r-0 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:border-accent"
           placeholder="you@example.com"
           value={email}
           onChange={(e) => {
@@ -38,12 +50,20 @@ export default function SubscribeForm() {
         />
         <button
           type="submit"
-          className="h-10 px-5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
+          className="h-11 px-5 text-sm font-semibold bg-accent text-ground hover:bg-inversion transition-colors focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
         >
           {intl.t('applybutton.subscribe')}
         </button>
       </form>
-      {error && <p className="text-inversion text-xs mt-1">{error}</p>}
+      {error && (
+        <p
+          id={`${inputId}-error`}
+          role="alert"
+          className="text-inversion text-xs mt-1"
+        >
+          {error}
+        </p>
+      )}
     </div>
   )
 }
