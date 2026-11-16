@@ -81,23 +81,27 @@ function formatTimeRange(startDate: string, endDate: string) {
 function Section({
   title,
   defaultOpen = false,
+  keepMounted = false,
   children,
 }: {
   title: string
   defaultOpen?: boolean
+  keepMounted?: boolean
   children: React.ReactNode
 }) {
   return (
     <Disclosure defaultOpen={defaultOpen}>
       {({ open }) => (
         <div className="border-b border-band-2">
-          <Disclosure.Button className="flex w-full items-center justify-between py-5 text-left">
+          <Disclosure.Button className="flex w-full items-center justify-between gap-4 py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
             <h2 className="text-xl font-semibold text-ink">{title}</h2>
             <ChevronDownIcon
               className={`h-5 w-5 text-ink-dim transition-transform ${open ? 'rotate-180' : ''}`}
             />
           </Disclosure.Button>
-          <Disclosure.Panel className="pb-8">{children}</Disclosure.Panel>
+          <Disclosure.Panel className="pb-8" unmount={!keepMounted}>
+            {children}
+          </Disclosure.Panel>
         </div>
       )}
     </Disclosure>
@@ -653,8 +657,7 @@ export default function EventDetail({
         {/* Challenges — sponsored problem statements (hackathon only). Shown while
             upcoming even if empty ("announced soon"); hidden when empty + past. */}
         {!isHackNight && (challenges.length > 0 || !isPast) && (
-          <section className="py-10 border-b border-band-2">
-            <h2 className="text-xl font-semibold text-ink mb-6">{intl.t('challenges.title')}</h2>
+          <Section title={intl.t('challenges.title')} keepMounted>
             {challenges.length === 0 ? (
               <p className="text-sm text-ink-dim italic">Challenges announced soon.</p>
             ) : (
@@ -737,7 +740,7 @@ export default function EventDetail({
                 })}
               </div>
             )}
-          </section>
+          </Section>
         )}
 
         {/* Top prizes — overall awards, distinct from per-challenge prizes. */}

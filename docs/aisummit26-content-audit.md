@@ -9,6 +9,8 @@ Reviewed 16 November 2026. Scope: AI Summit 2026 only. Other editions will be re
 | Gallery            | No gallery; renderer limited to hack nights       | Four event photos, credited to Keig Studio, including portrait framing             |
 | Event introduction | Invitation to a future event                      | Past-event recap in English and Spanish                                            |
 
+Challenges is closed by default, with a keyboard-accessible toggle. All eleven challenges remain mounted in the server HTML for discovery while collapsed.
+
 ## Project provenance and exclusions
 
 Source: [organiser submission workbook](https://docs.google.com/spreadsheets/d/1iuQEeDBq-1PO6nsZ_yVuc1epTUQ06mzHhyYWmiGNRzU/edit), tab `HackBarna AI Summit 26 — Project Submission`.
