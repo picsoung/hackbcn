@@ -68,6 +68,7 @@ export default function PastEvents({
                         title={event.name}
                         announce={copy.watchFilm}
                         poster="maxresdefault"
+                        params="playsinline=1&rel=0"
                       />
                     </div>
                   ) : event.photo ? (
