@@ -18,6 +18,58 @@ const {
   relatedProjectCards,
 } = require('../lib/project-cards.ts')
 const { projectListPath } = require('../lib/project-seo.ts')
+const {
+  archivedProjectDemo,
+  archivedProjectUrl,
+} = require('../lib/archived-project.ts')
+
+test('archived demo links preserve every first-edition video and its recorded start time', () => {
+  const projects = getProjects().filter(
+    (project) => project.data.event === 'v1-2024',
+  )
+  assert.equal(projects.length, 18)
+  for (const project of projects) {
+    const embedded = project.content.match(
+      /<YouTube id="([^"]+)" timestamp="(\d+)"/,
+    )
+    assert.ok(embedded, project.slug)
+    assert.deepEqual(
+      archivedProjectDemo(project.data.youtubeLink),
+      {
+        id: embedded[1],
+        timestamp: embedded[2],
+      },
+      project.slug,
+    )
+  }
+  assert.deepEqual(
+    archivedProjectDemo('https://youtu.be/JZzgPRxKiFM?t=1h2m3s'),
+    {
+      id: 'JZzgPRxKiFM',
+      timestamp: '3723',
+    },
+  )
+  assert.equal(
+    archivedProjectDemo('https://example.com/watch?v=JZzgPRxKiFM'),
+    undefined,
+  )
+})
+
+test('older builder links without a protocol remain external profile links', () => {
+  const anne = getProjects()
+    .find((project) => project.slug === 'candit')
+    .data.hackers.find((hacker) => hacker.name === 'Anne Pehse')
+  assert.equal(
+    archivedProjectUrl(anne.links.linkedin),
+    'https://www.linkedin.com/in/anne-pehse',
+  )
+  assert.equal(
+    archivedProjectUrl(anne.links.github),
+    'https://github.com/anninape',
+  )
+  assert.equal(archivedProjectUrl('javascript:alert(1)'), undefined)
+  assert.equal(archivedProjectUrl(''), undefined)
+})
 
 test('existing Markdown publication dates remain valid for sitemap generation', () => {
   const projects = getProjects()

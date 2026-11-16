@@ -12,6 +12,7 @@ export type ProjectCategory =
 export interface Person {
   name: string
   description: string
+  job?: string
   image: {
     src: string
   }
