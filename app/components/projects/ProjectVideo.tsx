@@ -3,7 +3,7 @@
 import LiteYouTubeEmbed from 'react-lite-youtube-embed'
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
-export type ArchivedProjectDemoProps = {
+export type ProjectVideoProps = {
   id: string
   timestamp?: string
   title: string
@@ -11,16 +11,16 @@ export type ArchivedProjectDemoProps = {
   announce: string
 }
 
-export default function ArchivedProjectDemo({
+export default function ProjectVideo({
   id,
   timestamp = '0',
   title,
   thumbnail,
   announce,
-}: ArchivedProjectDemoProps) {
+}: ProjectVideoProps) {
   const start = /^\d+$/.test(timestamp) ? timestamp : '0'
   return (
-    <div className="not-prose my-8 hb-px hb-px-lg bg-paper p-2 sm:p-3">
+    <div className="not-prose hb-px hb-px-lg bg-paper p-2 sm:p-3">
       <div className="hb-px overflow-hidden [&_.lty-playbtn]:!rounded-none [&_.lty-playbtn]:!bg-accent [&_.lty-playbtn]:before:!border-l-ground [&_.yt-lite:hover_.lty-playbtn]:!bg-inversion [&_.lty-playbtn]:focus-visible:outline [&_.lty-playbtn]:focus-visible:outline-2 [&_.lty-playbtn]:focus-visible:outline-offset-4 [&_.lty-playbtn]:focus-visible:outline-paper">
         <LiteYouTubeEmbed
           id={id}

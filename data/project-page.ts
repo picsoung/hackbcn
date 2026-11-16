@@ -7,6 +7,17 @@ const en = {
   openProject: 'Open project',
   watchDemo: 'Watch demo',
   slides: 'Slides',
+  website: 'Website',
+  preview: 'Project preview',
+  viewScreenshot: 'View screenshot',
+  jevUsage: 'How it uses Jev',
+  publishedTitle: 'Your project is published.',
+  publishedDescription:
+    'Your demo and team are now part of the event’s project collection.',
+  moreBy: 'More by {name}',
+  moreBuilders: 'More from the builders',
+  moreEvent: 'More from this event',
+  allEventProjects: 'View all event projects',
 }
 
 type ProjectPageCopy = { [K in keyof typeof en]: string }
@@ -22,6 +33,17 @@ const translations: Record<string, ProjectPageCopy> = {
     openProject: 'Abrir proyecto',
     watchDemo: 'Ver demo',
     slides: 'Presentación',
+    website: 'Sitio web',
+    preview: 'Vista previa del proyecto',
+    viewScreenshot: 'Ver captura',
+    jevUsage: 'Cómo utiliza Jev',
+    publishedTitle: 'Tu proyecto está publicado.',
+    publishedDescription:
+      'Tu demo y tu equipo ya forman parte de los proyectos del evento.',
+    moreBy: 'Más de {name}',
+    moreBuilders: 'Más de sus creadores',
+    moreEvent: 'Más de este evento',
+    allEventProjects: 'Ver todos los proyectos del evento',
   },
   ca: {
     allProjects: 'Tots els projectes',
@@ -32,6 +54,17 @@ const translations: Record<string, ProjectPageCopy> = {
     openProject: 'Obre el projecte',
     watchDemo: 'Mira la demo',
     slides: 'Presentació',
+    website: 'Lloc web',
+    preview: 'Vista prèvia del projecte',
+    viewScreenshot: 'Veure la captura',
+    jevUsage: 'Com utilitza Jev',
+    publishedTitle: 'El teu projecte està publicat.',
+    publishedDescription:
+      'La teva demo i el teu equip ja formen part dels projectes de l’esdeveniment.',
+    moreBy: 'Més de {name}',
+    moreBuilders: 'Més dels seus creadors',
+    moreEvent: 'Més d’aquest esdeveniment',
+    allEventProjects: 'Veure tots els projectes de l’esdeveniment',
   },
   fr: {
     allProjects: 'Tous les projets',
@@ -42,6 +75,17 @@ const translations: Record<string, ProjectPageCopy> = {
     openProject: 'Ouvrir le projet',
     watchDemo: 'Voir la démo',
     slides: 'Présentation',
+    website: 'Site web',
+    preview: 'Aperçu du projet',
+    viewScreenshot: 'Voir la capture',
+    jevUsage: 'Comment le projet utilise Jev',
+    publishedTitle: 'Votre projet est publié.',
+    publishedDescription:
+      'Votre démo et votre équipe font désormais partie des projets de l’événement.',
+    moreBy: 'Autres projets de {name}',
+    moreBuilders: 'Autres projets de ces créateurs',
+    moreEvent: 'Autres projets de cet événement',
+    allEventProjects: 'Voir tous les projets de l’événement',
   },
 }
 

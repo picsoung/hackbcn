@@ -22,6 +22,12 @@ const {
   archivedProjectDemo,
   archivedProjectUrl,
 } = require('../lib/archived-project.ts')
+const {
+  archivedProjectContent,
+  projectBuilder,
+  projectLinks,
+  projectVideo,
+} = require('../lib/project-detail.ts')
 
 test('archived demo links preserve every first-edition video and its recorded start time', () => {
   const projects = getProjects().filter(
@@ -41,6 +47,11 @@ test('archived demo links preserve every first-edition video and its recorded st
       },
       project.slug,
     )
+    const prepared = archivedProjectContent(project)
+    assert.equal(prepared.media.type, 'youtube', project.slug)
+    assert.equal(prepared.media.id, embedded[1], project.slug)
+    assert.equal(prepared.media.timestamp, embedded[2], project.slug)
+    assert.ok(!prepared.content.includes('<YouTube'), project.slug)
   }
   assert.deepEqual(
     archivedProjectDemo('https://youtu.be/JZzgPRxKiFM?t=1h2m3s'),
@@ -51,6 +62,91 @@ test('archived demo links preserve every first-edition video and its recorded st
   )
   assert.equal(
     archivedProjectDemo('https://example.com/watch?v=JZzgPRxKiFM'),
+    undefined,
+  )
+})
+
+test('shared builder credits retain photos, roles and social links without private fields', () => {
+  const builder = projectBuilder({
+    name: ' Example Builder ',
+    job: 'Developer',
+    image: { src: '/hackers/example.jpg' },
+    links: {
+      linkedin: 'linkedin.com/in/example',
+      github: 'github.com/example',
+      twitter: 'twitter.com/example',
+      email: 'https://private.example.test',
+    },
+    creatorEmail: 'private@example.test',
+  })
+  assert.deepEqual(builder, {
+    name: 'Example Builder',
+    role: 'Developer',
+    image: '/hackers/example.jpg',
+    links: {
+      linkedin: 'https://linkedin.com/in/example',
+      github: 'https://github.com/example',
+      twitter: 'https://twitter.com/example',
+    },
+  })
+  assert.doesNotMatch(JSON.stringify(builder), /private|creatorEmail/)
+  assert.deepEqual(
+    projectBuilder({
+      name: 'Submitted Builder',
+      linkedinUrl: 'https://linkedin.com/in/submitted',
+    }).links,
+    { linkedin: 'https://linkedin.com/in/submitted' },
+  )
+})
+
+test('the primary media moves out of MDX while additional demos and text remain', () => {
+  const project = getProjects().find((project) => project.slug === 'AQ-App')
+  const original = project.content
+  const extra = '<YouTube id="Z3qFd-oT8Xo" timestamp="0" />'
+  const prepared = archivedProjectContent({
+    ...project,
+    content: `${original}\nExtra context.\n${extra}`,
+  })
+  assert.equal(prepared.media.timestamp, '4800')
+  assert.ok(
+    prepared.content.includes(
+      'We aim to raise awareness about the dangers of air pollution',
+    ),
+  )
+  assert.ok(prepared.content.includes('Extra context.'))
+  assert.ok(prepared.content.includes(extra))
+  const markdown = getProjects().find(
+    (project) => project.slug === 'aisummit26/ai-meeting-moderator',
+  )
+  assert.equal(archivedProjectContent(markdown).content, markdown.content)
+  assert.equal(archivedProjectContent(markdown).media.id, 'LT4t5-4Rzak')
+})
+
+test('shared actions deduplicate URLs while preserving distinct demos and image links', () => {
+  assert.deepEqual(
+    projectLinks([
+      ['video', 'https://example.com/first'],
+      ['video', 'https://example.com/second'],
+      ['github', 'https://example.com/first'],
+      ['screenshot', '/api/project/screenshot'],
+      ['website', 'javascript:alert(1)'],
+    ]),
+    [
+      { type: 'github', href: 'https://example.com/first' },
+      { type: 'video', href: 'https://example.com/second' },
+      { type: 'screenshot', href: '/api/project/screenshot' },
+    ],
+  )
+  assert.deepEqual(projectVideo('https://www.loom.com/share/abc123'), {
+    type: 'embed',
+    src: 'https://www.loom.com/embed/abc123',
+  })
+  assert.deepEqual(projectVideo('https://vimeo.com/123456'), {
+    type: 'embed',
+    src: 'https://player.vimeo.com/video/123456',
+  })
+  assert.equal(
+    projectVideo('https://example.com/watch?v=JZzgPRxKiFM'),
     undefined,
   )
 })

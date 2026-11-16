@@ -1,16 +1,20 @@
 import Link from 'next/link'
 import type { ProjectCard, relatedProjectCards } from '@/lib/project-cards'
+import { projectPageCopy } from '@/data/project-page'
 import ProjectGrid from './ProjectGrid'
 
 export default function ProjectRecommendations({
   current,
   related,
   tone = 'night',
+  locale = 'en',
 }: {
   current: ProjectCard
   related: ReturnType<typeof relatedProjectCards>
   tone?: 'night' | 'light'
+  locale?: string
 }) {
+  const copy = projectPageCopy(locale)
   if (!related.byBuilder.length && !related.byEvent.length) return null
   const ink = tone === 'light' ? 'text-slate-900' : 'text-ink'
   const muted = tone === 'light' ? 'text-slate-600' : 'text-ink-dim'
@@ -28,8 +32,8 @@ export default function ProjectRecommendations({
             className={`mb-8 break-words text-2xl font-semibold sm:text-3xl ${ink}`}
           >
             {current.hackers.length === 1
-              ? `More by ${current.hackers[0].name}`
-              : 'More from the builders'}
+              ? copy.moreBy.replace('{name}', () => current.hackers[0].name)
+              : copy.moreBuilders}
           </h2>
           <ProjectGrid projects={related.byBuilder} tone={tone} showEvent />
         </section>
@@ -45,7 +49,7 @@ export default function ProjectRecommendations({
                 id="related-event-heading"
                 className={`text-2xl font-semibold sm:text-3xl ${ink}`}
               >
-                More from this event
+                {copy.moreEvent}
               </h2>
               <p className={`mt-2 text-sm ${muted}`}>{current.eventName}</p>
             </div>
@@ -54,7 +58,7 @@ export default function ProjectRecommendations({
                 href={current.eventHref}
                 className={`py-2 text-sm font-semibold underline underline-offset-4 ${link}`}
               >
-                View all event projects
+                {copy.allEventProjects}
               </Link>
             )}
           </div>
