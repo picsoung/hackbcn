@@ -6,7 +6,7 @@ import StatsBar from '@/app/components/home/StatsBar'
 import PastEvents from '@/app/components/home/PastEvents'
 import HomeJoin from '@/app/components/home/HomeJoin'
 import OrgFooter from '@/app/components/home/OrgFooter'
-import { formatHomeDate, getHomepageEvents } from '@/lib/homepage'
+import { getHomepageEvents, toHomeEvent } from '@/lib/homepage'
 import {
   getFeaturedUpcomingEvent,
   getAllSponsorsAcrossEvents,
@@ -21,26 +21,22 @@ export default function HomePage({ params }: { params: { locale: string } }) {
     ...getAllCommunitySponsorsAcrossEvents(),
   ]
   const upcoming = getAllUpcoming()
-    .filter((event) => event.slug !== featured?.slug)
     .slice(0, 3)
+    .map((event) => toHomeEvent(event, params.locale))
   const wall = getHomepageEvents(params.locale)
-  const upcomingDateLabel = featured
-    ? formatHomeDate(featured.startDate, featured.endDate, params.locale)
-    : undefined
 
   return (
     <div data-register="night" className="min-h-screen bg-ground">
       <OrgNavbar featuredEvent={featured} />
       <main>
         <OrgHero
-          upcoming={featured}
-          upcomingDateLabel={upcomingDateLabel}
-          highlights={wall.featured}
+          upcoming={featured ? toHomeEvent(featured, params.locale) : null}
+          recap={wall.recap}
         />
         <StatsBar eventCount={wall.total} />
         <PartnersBar logos={partnerLogos} />
         {upcoming.length > 0 && <UpcomingEvents events={upcoming} />}
-        <PastEvents featured={wall.featured} compact={wall.compact} />
+        <PastEvents events={wall.events} />
         <HomeJoin />
       </main>
       <OrgFooter />

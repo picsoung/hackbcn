@@ -26,7 +26,7 @@ const en = {
     'Explore the evenings, weekends, projects and people that make this community.',
   latestNight: 'Latest hack night',
   weekend: 'Weekend hackathon',
-  exploreEvent: 'Explore event',
+  exploreEvent: 'View event',
   communityLabel: 'Our community',
   communityPhotoAlt:
     'Two builders sharing ideas over their laptops at AI Summit 2026.',
@@ -65,7 +65,7 @@ const translations: Record<string, HomeCopy> = {
       'Descubre las tardes, los fines de semana, los proyectos y las personas de esta comunidad.',
     latestNight: 'Última hack night',
     weekend: 'Hackathon de fin de semana',
-    exploreEvent: 'Explorar el evento',
+    exploreEvent: 'Ver evento',
     communityLabel: 'Nuestra comunidad',
     communityPhotoAlt:
       'Dos builders compartiendo ideas con sus portátiles en AI Summit 2026.',
@@ -99,7 +99,7 @@ const translations: Record<string, HomeCopy> = {
       'Descobreix les tardes, els caps de setmana, els projectes i les persones d’aquesta comunitat.',
     latestNight: 'Última hack night',
     weekend: 'Hackathon de cap de setmana',
-    exploreEvent: 'Explora l’esdeveniment',
+    exploreEvent: 'Veure l’esdeveniment',
     communityLabel: 'La nostra comunitat',
     communityPhotoAlt:
       'Dues builders compartint idees amb els seus portàtils a AI Summit 2026.',
@@ -133,7 +133,7 @@ const translations: Record<string, HomeCopy> = {
       'Découvrez les soirées, les week-ends, les projets et les personnes de cette communauté.',
     latestNight: 'Dernière hack night',
     weekend: 'Hackathon de week-end',
-    exploreEvent: 'Explorer l’événement',
+    exploreEvent: 'Voir l’événement',
     communityLabel: 'Notre communauté',
     communityPhotoAlt:
       'Deux builders échangent des idées sur leurs ordinateurs à AI Summit 2026.',
