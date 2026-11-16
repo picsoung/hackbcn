@@ -28,7 +28,7 @@ hackers:
   - name: Michella Warren
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/michella-warren.jpg
     links: {}
 links:
   github: 'https://github.com/rht/wildfire'

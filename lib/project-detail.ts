@@ -1,6 +1,7 @@
 import type { Project } from '../app/helpers/projects'
 import { videoEmbed } from './live/validate'
 import { archivedProjectDemo, archivedProjectUrl } from './archived-project'
+import { makerAvatar } from './maker-avatar'
 
 export type ProjectBuilder = {
   name: string
@@ -51,7 +52,7 @@ export function projectBuilder(source: {
     image:
       photo?.startsWith('/') && !photo.startsWith('//')
         ? photo
-        : archivedProjectUrl(photo),
+        : archivedProjectUrl(photo) || makerAvatar(links),
     links,
   }
 }

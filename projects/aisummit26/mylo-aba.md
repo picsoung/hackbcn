@@ -21,7 +21,7 @@ hackers:
   - name: Guido Vezzoni
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/guido-vezzoni.jpg
     links: {}
 links:
   github: 'https://github.com/guidovezzoni/mylo-aba'

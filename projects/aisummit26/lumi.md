@@ -30,7 +30,7 @@ hackers:
   - name: Marta Conde
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/marta-conde.jpg
     links: {}
 links:
   github: 'https://github.com/valentinrobles/bam-hackers'

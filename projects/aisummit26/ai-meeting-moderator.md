@@ -26,7 +26,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      github: https://github.com/ashambalev
 links:
   github: 'https://github.com/bioztar/gavel'
   website: 'https://gavel.pro7ocol.com/console'

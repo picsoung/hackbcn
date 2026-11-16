@@ -18,7 +18,7 @@ hackers:
   - name: Mortaza Taghizadeh
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/mortaza-taghizadeh.jpg
     links: {}
 links:
   github: 'https://github.com/mrtztg/evac-caller'

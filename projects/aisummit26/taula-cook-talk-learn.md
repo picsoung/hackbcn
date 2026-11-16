@@ -24,7 +24,7 @@ hackers:
   - name: Romina Cialdella
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/romina-cialdella.jpg
     links: {}
 links:
   github: 'https://github.com/rocklet2/hackbarna'

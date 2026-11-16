@@ -26,7 +26,7 @@ hackers:
   - name: Ylenia Porras
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/ylenia-porras.jpg
     links: {}
   - name: Rubén Ausín Trujillo
     description: ''

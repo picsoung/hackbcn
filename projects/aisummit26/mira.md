@@ -26,7 +26,7 @@ hackers:
   - name: Arnab Dey
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/arnab-dey.jpg
     links: {}
   - name: Igor Kuzmin
     description: ''

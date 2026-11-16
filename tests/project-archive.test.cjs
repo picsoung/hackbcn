@@ -28,6 +28,78 @@ const {
   projectLinks,
   projectVideo,
 } = require('../lib/project-detail.ts')
+const { makerProfileKey } = require('../lib/maker-avatar.ts')
+
+test('maker portraits match verified profiles across locales and tracking parameters', () => {
+  assert.equal(
+    projectBuilder({
+      name: 'Guido',
+      linkedinUrl: 'https://www.linkedin.com/in/GuidoVezzoni/?utm_source=share',
+    }).image,
+    '/testimonials/avatars/guido-vezzoni.jpg',
+  )
+  assert.equal(
+    projectBuilder({
+      name: 'Francesc Brugarolas Padros',
+      links: { github: 'github.com/fcesc-code/' },
+    }).image,
+    '/makers/francesc-brugarolas.jpg',
+  )
+  assert.equal(
+    makerProfileKey('https://es.linkedin.com/in/gisela-lardin-morales/en'),
+    'linkedin:gisela-lardin-morales',
+  )
+  assert.equal(
+    makerProfileKey('https://www.linkedin.com/in/andr%C3%A9-barbosa/'),
+    'linkedin:andré-barbosa',
+  )
+})
+
+test('portrait enrichment keeps explicit images and never guesses from names or repository links', () => {
+  assert.equal(projectBuilder({ name: 'Guido Vezzoni' }).image, undefined)
+  assert.equal(
+    projectBuilder({
+      name: 'Another Guido',
+      linkedinUrl: 'https://linkedin.com/in/someone-else',
+    }).image,
+    undefined,
+  )
+  assert.equal(
+    projectBuilder({
+      name: 'Francesc',
+      image: { src: '/hackers/original.jpeg' },
+      links: { github: 'https://github.com/fcesc-code' },
+    }).image,
+    '/hackers/original.jpeg',
+  )
+  for (const url of [
+    'https://github.com/fcesc-code/project',
+    'https://linkedin.com.example.com/in/guidovezzoni',
+    'https://linkedin.com/company/guidovezzoni',
+    'https://other.example/in/guidovezzoni',
+    'https://linkedin.com/in/%invalid',
+    'https://example:password@linkedin.com/in/guidovezzoni',
+  ])
+    assert.equal(makerProfileKey(url), undefined, url)
+})
+
+test('every extracted maker avatar has a verified profile and a local image', () => {
+  const fs = require('node:fs')
+  const path = require('node:path')
+  const avatars = require('../data/maker-avatars.json')
+  const identities = new Set()
+  for (const avatar of avatars) {
+    const key = makerProfileKey(avatar.profileUrl)
+    assert.ok(key, avatar.profileUrl)
+    assert.ok(!identities.has(key), avatar.profileUrl)
+    identities.add(key)
+    assert.match(avatar.image, /^\/makers\/[\w-]+\.(jpg|png|webp)$/)
+    assert.ok(
+      fs.statSync(path.join(__dirname, '../public', avatar.image)).size > 0,
+    )
+    assert.ok(Number.isFinite(Date.parse(avatar.retrievedAt)))
+  }
+})
 
 test('archived demo links preserve every first-edition video and its recorded start time', () => {
   const projects = getProjects().filter(

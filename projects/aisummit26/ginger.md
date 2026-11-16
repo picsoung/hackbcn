@@ -19,7 +19,7 @@ hackers:
   - name: Yazide Arsalan
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/yazide-arsalan-chahim.jpg
     links: {}
   - name: Paula Martinez
     description: ''

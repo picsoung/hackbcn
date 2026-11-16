@@ -17,7 +17,7 @@ hackers:
   - name: Miguel Sureda
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/miguel-sureda.jpg
     links: {}
 links:
   github: 'https://github.com/miguelsuredasuau/promote'

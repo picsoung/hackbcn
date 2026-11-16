@@ -21,7 +21,7 @@ hackers:
   - name: Irina Ichim
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/irina-ichim.jpg
     links: {}
   - name: Elvia Benedith
     description: ''
@@ -36,7 +36,7 @@ hackers:
   - name: Ana Lucia Silva
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/ana-lucia-silva-cordoba.jpg
     links: {}
 links:
   github: 'https://github.com/ctrl-Ella/OffLoad'
