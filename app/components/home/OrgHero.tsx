@@ -61,11 +61,11 @@ export default function OrgHero({
                 }
                 className={primaryClass}
               >
-                {intl.t('events.register')} <span aria-hidden="true">↗</span>
+                {intl.t('events.register')}
               </a>
             ) : (
               <a href="#past-events" className={primaryClass}>
-                {copy.explore} <span aria-hidden="true">↓</span>
+                {copy.explore}
               </a>
             )}
             <a
@@ -128,17 +128,6 @@ export default function OrgHero({
                 />
               ))}
             </div>
-            {highlights[0]?.photo && highlights[0].galleryCredit && (
-              <figcaption className="mt-6 text-center text-xs text-ink-dim">
-                {eventLabel(highlights[0])} · {copy.photosBy}{' '}
-                <a
-                  href={highlights[0].galleryCredit.url}
-                  className="inline-flex min-h-6 items-center underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-                >
-                  {highlights[0].galleryCredit.name}
-                </a>
-              </figcaption>
-            )}
           </figure>
         )}
       </div>

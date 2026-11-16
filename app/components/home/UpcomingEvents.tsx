@@ -23,12 +23,14 @@ export default function UpcomingEvents({ events }: { events: Event[] }) {
             href={`/${intl.locale}/events`}
             className="text-sm font-medium text-accent hover:text-ink transition-colors hidden sm:block"
           >
-            {intl.t('home.hacknights.seeAll')} &rarr;
+            {intl.t('home.hacknights.seeAll')}
           </Link>
         </div>
 
         {!hasEvents ? (
-          <p className="text-ink-dim text-lg">{intl.t('home.upcoming.empty')}</p>
+          <p className="text-ink-dim text-lg">
+            {intl.t('home.upcoming.empty')}
+          </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => {
@@ -36,12 +38,18 @@ export default function UpcomingEvents({ events }: { events: Event[] }) {
               return (
                 <EventCard
                   key={event.slug}
-                  name={isHackNight && event.topic ? `${event.name} — ${event.topic}` : event.name}
+                  name={
+                    isHackNight && event.topic
+                      ? `${event.name} — ${event.topic}`
+                      : event.name
+                  }
                   href={`/${intl.locale}/events/${event.slug}`}
                   startDate={event.startDate}
                   endDate={event.endDate}
                   location={event.location}
-                  description={event.description?.[intl.locale] || event.description?.en}
+                  description={
+                    event.description?.[intl.locale] || event.description?.en
+                  }
                   eventType={event.eventType}
                   imageUrl={event.imageUrl}
                   sponsor={event.sponsor}
@@ -57,7 +65,7 @@ export default function UpcomingEvents({ events }: { events: Event[] }) {
             href={`/${intl.locale}/events`}
             className="text-sm font-medium text-accent hover:text-ink transition-colors"
           >
-            {intl.t('home.hacknights.seeAll')} &rarr;
+            {intl.t('home.hacknights.seeAll')}
           </Link>
         </div>
       </div>

@@ -15,8 +15,8 @@ const en = {
   readPost: 'Read Lilibeth’s story',
   projects: 'Projects',
   projectSingular: 'Project',
-  photos: 'Photos',
-  video: 'Video',
+  photos: 'View photos',
+  video: 'Watch recap',
   title: 'Barcelona',
   titleAccent: 'builds together.',
   intro:
@@ -54,8 +54,8 @@ const translations: Record<string, HomeCopy> = {
     readPost: 'Lee la historia de Lilibeth',
     projects: 'Proyectos',
     projectSingular: 'Proyecto',
-    photos: 'Fotos',
-    video: 'Vídeo',
+    photos: 'Ver las fotos',
+    video: 'Ver el vídeo',
     title: 'Barcelona',
     titleAccent: 'crea en comunidad.',
     intro:
@@ -88,8 +88,8 @@ const translations: Record<string, HomeCopy> = {
     readPost: 'Llegeix la història de la Lilibeth',
     projects: 'Projectes',
     projectSingular: 'Projecte',
-    photos: 'Fotos',
-    video: 'Vídeo',
+    photos: 'Mira les fotos',
+    video: 'Mira el vídeo',
     title: 'Barcelona',
     titleAccent: 'crea en comunitat.',
     intro:
@@ -122,8 +122,8 @@ const translations: Record<string, HomeCopy> = {
     readPost: 'Lire le récit de Lilibeth',
     projects: 'Projets',
     projectSingular: 'Projet',
-    photos: 'Photos',
-    video: 'Vidéo',
+    photos: 'Voir les photos',
+    video: 'Voir la vidéo',
     title: 'Barcelone',
     titleAccent: 'crée ensemble.',
     intro:

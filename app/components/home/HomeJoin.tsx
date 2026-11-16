@@ -38,15 +38,6 @@ export default function HomeJoin() {
               AI Summit 2026
             </figcaption>
           </div>
-          <p className="mt-3 text-xs text-ink-dim">
-            {copy.photosBy}{' '}
-            <a
-              href="https://keig-studio.com/"
-              className="inline-flex min-h-6 items-center underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-            >
-              Keig Studio
-            </a>
-          </p>
         </figure>
         <div>
           <h2
@@ -80,13 +71,13 @@ export default function HomeJoin() {
               </figcaption>
               <div className="mt-2 flex flex-wrap gap-x-5">
                 <a href={firstTimer.url} className={linkClass}>
-                  {copy.readPost} ↗
+                  {copy.readPost}
                 </a>
                 <Link
                   href={`/${intl.locale}/testimonials`}
                   className={linkClass}
                 >
-                  {copy.allPosts} ↗
+                  {copy.allPosts}
                 </Link>
               </div>
             </figure>
@@ -107,6 +98,22 @@ export default function HomeJoin() {
           </div>
         </div>
       </div>
+      <p className="mx-auto mt-10 max-w-7xl px-6 text-xs text-ink-dim lg:px-8">
+        {copy.photosBy}{' '}
+        <a
+          href="https://polducamp.com/"
+          className="inline-flex min-h-6 items-center underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+        >
+          Pol Ducamp
+        </a>
+        {' · '}
+        <a
+          href="https://keig-studio.com/"
+          className="inline-flex min-h-6 items-center underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+        >
+          Keig Studio
+        </a>
+      </p>
     </section>
   )
 }

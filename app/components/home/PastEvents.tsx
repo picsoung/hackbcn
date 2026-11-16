@@ -52,7 +52,7 @@ export default function PastEvents({
             href={`/${intl.locale}/events#past`}
             className="inline-flex min-h-11 items-center gap-3 text-sm font-semibold text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
-            {copy.allEvents} <span aria-hidden="true">↗</span>
+            {copy.allEvents}
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
@@ -98,24 +98,14 @@ export default function PastEvents({
                           ? copy.latestNight
                           : copy.weekend}
                       </span>
-                      {film ? (
+                      {film && (
                         <a
                           href={event.recapVideoUrl}
                           className="inline-flex min-h-6 items-center underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
                         >
                           {copy.watchFilm} · {copy.filmDuration}
                         </a>
-                      ) : event.photo && event.galleryCredit ? (
-                        <span>
-                          {copy.photosBy}{' '}
-                          <a
-                            href={event.galleryCredit.url}
-                            className="inline-flex min-h-6 items-center underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-                          >
-                            {event.galleryCredit.name}
-                          </a>
-                        </span>
-                      ) : null}
+                      )}
                     </div>
                     <div className="flex items-start gap-4">
                       {event.imageUrl && (
@@ -148,7 +138,7 @@ export default function PastEvents({
                     </div>
                     <div className="mt-auto flex flex-wrap items-center justify-between gap-x-5 pt-4">
                       <Link href={href(event)} className={textLink}>
-                        {copy.exploreEvent} <span aria-hidden="true">↗</span>
+                        {copy.exploreEvent}
                       </Link>
                       {event.hasProjects && (
                         <Link
@@ -198,7 +188,7 @@ export default function PastEvents({
                       <p className="mt-2 text-xs leading-relaxed text-ink-dim sm:text-sm">
                         {event.location}
                       </p>
-                      <p className="mt-auto flex items-center justify-between gap-2 pt-4 text-xs font-medium text-inversion sm:text-sm">
+                      <p className="mt-auto pt-4 text-xs font-medium text-inversion sm:text-sm">
                         <span>
                           {event.hasVideo
                             ? copy.video
@@ -206,7 +196,6 @@ export default function PastEvents({
                               ? copy.photos
                               : copy.exploreEvent}
                         </span>
-                        <span aria-hidden="true">↗</span>
                       </p>
                     </div>
                   </div>
