@@ -8,7 +8,7 @@ import Link from 'next/link'
 export default function UpcomingEvents({ events }: { events: Event[] }) {
   const intl = useIntl()
 
-  const hasEvents = events.length > 0
+  if (!events.length) return null
 
   return (
     <section className="bg-band-2 py-16 sm:py-24">
@@ -27,30 +27,32 @@ export default function UpcomingEvents({ events }: { events: Event[] }) {
           </Link>
         </div>
 
-        {!hasEvents ? (
-          <p className="text-ink-dim text-lg">{intl.t('home.upcoming.empty')}</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map((event) => {
-              const isHackNight = event.eventType === 'hacknight'
-              return (
-                <EventCard
-                  key={event.slug}
-                  name={isHackNight && event.topic ? `${event.name} — ${event.topic}` : event.name}
-                  href={`/${intl.locale}/events/${event.slug}`}
-                  startDate={event.startDate}
-                  endDate={event.endDate}
-                  location={event.location}
-                  description={event.description?.[intl.locale] || event.description?.en}
-                  eventType={event.eventType}
-                  imageUrl={event.imageUrl}
-                  sponsor={event.sponsor}
-                  featured={!isHackNight}
-                />
-              )
-            })}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {events.map((event) => {
+            const isHackNight = event.eventType === 'hacknight'
+            return (
+              <EventCard
+                key={event.slug}
+                name={
+                  isHackNight && event.topic
+                    ? `${event.name} — ${event.topic}`
+                    : event.name
+                }
+                href={`/${intl.locale}/events/${event.slug}`}
+                startDate={event.startDate}
+                endDate={event.endDate}
+                location={event.location}
+                description={
+                  event.description?.[intl.locale] || event.description?.en
+                }
+                eventType={event.eventType}
+                imageUrl={event.imageUrl}
+                sponsor={event.sponsor}
+                featured={!isHackNight}
+              />
+            )
+          })}
+        </div>
 
         <div className="mt-8 text-center sm:hidden">
           <Link

@@ -2,48 +2,51 @@ import OrgNavbar from '@/app/components/home/OrgNavbar'
 import OrgHero from '@/app/components/home/OrgHero'
 import PartnersBar from '@/app/components/home/PartnersBar'
 import UpcomingEvents from '@/app/components/home/UpcomingEvents'
-import StatsBar from '@/app/components/home/StatsBar'
 import PastEvents from '@/app/components/home/PastEvents'
-import HomeTestimonials from '@/app/components/home/HomeTestimonials'
+import HomeAftermovie from '@/app/components/home/HomeAftermovie'
+import HomeJoin from '@/app/components/home/HomeJoin'
 import OrgFooter from '@/app/components/home/OrgFooter'
+import { formatHomeEventDate, getHomePastEvents } from '@/lib/home-events'
 import {
   getFeaturedUpcomingEvent,
   getAllSponsorsAcrossEvents,
   getAllCommunitySponsorsAcrossEvents,
   getAllUpcoming,
-  getUnifiedPastEvents,
-  getPastHackNights,
-  getRecentShorts,
+  getEventDataBySlug,
 } from '@/lib/events-server'
 
-export default function HomePage() {
+export default function HomePage({ params }: { params: { locale: string } }) {
   const featured = getFeaturedUpcomingEvent()
   const partnerLogos = [
     ...getAllSponsorsAcrossEvents(),
     ...getAllCommunitySponsorsAcrossEvents(),
   ]
-  const upcoming = getAllUpcoming().slice(0, 3)
-  // Keep the landing page to six event cards total; the archive shows the rest.
-  const pastPreviewLimit = 6 - upcoming.length
-  const pastHackathons = getUnifiedPastEvents()
-  const pastHackNights = getPastHackNights()
-  const heroShorts = getRecentShorts(8)
+  const upcoming = getAllUpcoming()
+    .filter((event) => event.slug !== featured?.slug)
+    .slice(0, 3)
+  const pastEvents = getHomePastEvents(6, params.locale)
+  const upcomingDateLabel = featured
+    ? formatHomeEventDate(featured.startDate, featured.endDate, params.locale)
+    : undefined
+  const summit = getEventDataBySlug('aisummit26')?.event
+  const aftermovie = summit
+    ? {
+        slug: summit.slug,
+        name: summit.name,
+        recapVideoUrl: summit.recapVideoUrl,
+      }
+    : undefined
 
   return (
     <div data-register="night" className="min-h-screen bg-ground">
       <OrgNavbar featuredEvent={featured} />
       <main>
-        {/* Same value the ribbon uses — computed once, not fetched twice. */}
-        <OrgHero shorts={heroShorts} upcoming={featured} />
-        <PartnersBar logos={partnerLogos} />
+        <OrgHero upcoming={featured} upcomingDateLabel={upcomingDateLabel} />
         <UpcomingEvents events={upcoming} />
-        <StatsBar eventCount={pastHackathons.length + pastHackNights.length} />
-        <PastEvents
-          pastHackathons={pastHackathons}
-          pastHackNights={pastHackNights}
-          limit={pastPreviewLimit}
-        />
-        <HomeTestimonials />
+        <PastEvents events={pastEvents} />
+        <HomeAftermovie event={aftermovie} />
+        <PartnersBar logos={partnerLogos} />
+        <HomeJoin />
       </main>
       <OrgFooter />
     </div>
