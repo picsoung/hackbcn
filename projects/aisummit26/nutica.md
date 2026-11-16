@@ -16,7 +16,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/katerina-zarapina/'
+      github: 'https://github.com/katerinazarapina'
 links:
   github: 'https://github.com/katerinazarapina/sea-learn-yacht'
   website: 'https://sea-learn-yacht.lovable.app/'

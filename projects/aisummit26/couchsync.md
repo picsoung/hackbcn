@@ -21,17 +21,21 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/joana-gutierrez-geira-/'
+      github: 'https://github.com/JoanaG-8'
   - name: Tarik Benslaiman Chikhi
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/tarek-benslaiman-9b8532375/'
   - name: abdul rehman qureshi
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/abdul-rehman-qureshi/'
 links:
   github: 'https://github.com/Tarekkbc061/hackbarna26'
   video: 'https://youtu.be/urNKWHMp9Zg'

@@ -21,12 +21,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/daniela-trifu/'
+      github: 'https://github.com/superco-art'
   - name: Tamara de Carvalho
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/tamara-carvalho-91bb48144/'
 links:
   github: 'https://github.com/murathany7/RoadSavers'
   video: 'https://www.youtube.com/watch?v=DZfUuKYbAp0'

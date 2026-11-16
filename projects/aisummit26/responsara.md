@@ -19,17 +19,22 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/mirunadj/'
+      github: 'https://github.com/mirrdj'
   - name: Sable
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/publius-d-35812b202/'
   - name: Michella Warren
     description: ''
     image:
       src: /testimonials/avatars/michella-warren.jpg
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/michellavwarren/'
+      github: 'https://github.com/Michella-stack'
 links:
   github: 'https://github.com/rht/wildfire'
   website: 'https://fruits-computed-tub-parker.trycloudflare.com/#/onboarding'

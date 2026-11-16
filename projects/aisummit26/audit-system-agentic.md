@@ -16,12 +16,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sami-n-ais/'
   - name: Bastien Ramseyer
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/bastien-ramseyer-cyber/'
+      github: 'https://github.com/Tito-42'
 links:
   github: 'https://github.com/Tito-42/Hackbarna_Audit_Systeme_Agentic'
   video: 'https://youtu.be/z5Iy8HIldjk'

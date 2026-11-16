@@ -18,12 +18,14 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/anna-niub%C3%B3-mart%C3%AD/'
   - name: Sonia Niubó Martí
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sonianiubo/'
 links:
   github: 'https://github.com/anniumar/barcelona-home-compass'
   video: 'https://youtube.com/watch?v=rMs3RPxxDbQ&feature=youtu.be'

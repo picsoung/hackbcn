@@ -19,7 +19,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/alex-rodriguez-zafra/'
   - name: Alvaro Haoan Lamela
     description: ''
     image:

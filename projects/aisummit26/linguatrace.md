@@ -19,7 +19,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/husdev/'
+      github: 'https://github.com/HusDev'
 links:
   github: 'https://github.com/HusDev/LinguaTrace'
   website: 'https://linguatrace-e04587.fly.dev/'

@@ -19,17 +19,23 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/peterbderuiter/'
+      github: 'https://github.com/derui019'
   - name: Nil Macia Codera
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/nil-macia/'
+      github: 'https://github.com/nilmacia'
   - name: Simon escapa
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sescapa/'
+      github: 'https://github.com/sescapa'
 links:
   github: 'https://github.com/Hackbarna2026FireProtector/FireProtector'
   video: 'https://www.loom.com/share/a42174870ac7454cbb662cad3761ab76'

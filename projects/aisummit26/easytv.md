@@ -22,12 +22,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/drorasaf/'
+      github: 'https://github.com/drorasaf'
   - name: Marcos Lopez
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/marcos-lopez-profile/'
+      github: 'https://github.com/marcoslopez1'
 links:
   github: 'https://github.com/drorasaf4b/hackbarna2026'
   video: 'https://youtu.be/8EIhBiltnis'

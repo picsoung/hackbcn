@@ -20,12 +20,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/johncarlogarciano/'
+      github: 'https://github.com/JohnCarloCode'
   - name: Alejandro Lezcano Sirre
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/alejandro-lezcano-sirre-b82067242/'
 links:
   github: 'https://github.com/alezcanosirre/HACKBARNA-ControledFire'
   website: 'https://hackbarna-controlledfire.onrender.com/'

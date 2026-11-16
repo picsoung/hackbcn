@@ -21,17 +21,21 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sergi-villagrasa/'
+      github: 'https://github.com/villazzzz'
   - name: Albert Hendrych Saperas
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/albert-hendrych-saperas/'
   - name: Duna Febré Vila
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/duna-febr%C3%A9-vila-981448419/'
 links:
   github: 'https://github.com/SergiVillagrasa/HackBarna26'
   video: 'https://www.youtube.com/watch?v=gAZQerEeDBg'

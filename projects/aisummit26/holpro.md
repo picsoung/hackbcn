@@ -19,7 +19,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/gianfranco-bazzani-98b6b868/'
+      github: 'https://github.com/GianfrancoBazzani'
 links:
   github: 'https://github.com/gianfrancobazzani/holpro'
   website: 'https://holpro.health/'

@@ -17,17 +17,21 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/vssavosko/'
+      github: 'https://github.com/vssavosko'
   - name: rolf christian kirchhuebel
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/christian-kirchh%C3%BCbel-7775611/'
   - name: Abdullah Alsaidi
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/abdullah-alsaidi/'
 links:
   github: 'https://github.com/vssavosko/grootguard'
   website: 'https://grootguard.vercel.app/'

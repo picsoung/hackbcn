@@ -18,12 +18,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/damariscastro/'
+      github: 'https://github.com/damcb1'
   - name: Viviana Andrango
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/viviana-andrango/'
+      github: 'https://github.com/alvi103-png'
 links:
   github: 'https://github.com/Hackbarna-2026'
   website: 'https://www.tella.tv/video/thinking-thinky-daily-brain-workout-aeld'

@@ -22,7 +22,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/arikdutta/'
+      github: 'https://github.com/arikdutta'
   - name: Arnab Dey
     description: ''
     image:
@@ -32,7 +34,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/igor-kuzmin-tech/'
 links:
   github: 'https://github.com/arnabdeypolimi/hackbarna_2026'
   video: 'https://www.youtube.com/watch?v=wg9Ofn-OohA'

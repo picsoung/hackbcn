@@ -20,12 +20,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/marcus-rodrigues-a8a5b15a/'
+      github: 'https://github.com/Marcusrods'
   - name: Gerson Montesinos
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/gersonmontesinos/'
+      github: 'https://github.com/gmonteskeet'
 links:
   github: 'https://github.com/gmonteskeet/workflow-scout'
   website: 'https://workflow-scout.vercel.app/'

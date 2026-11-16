@@ -19,7 +19,9 @@ hackers:
     description: ''
     image:
       src: /testimonials/avatars/mortaza-taghizadeh.jpg
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/morteza-taghizadeh/'
+      github: 'https://github.com/mrtztg'
 links:
   github: 'https://github.com/mrtztg/evac-caller'
   video: 'https://www.youtube.com/watch?v=DmkUEfAZCzw'

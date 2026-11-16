@@ -27,12 +27,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/bryan-tito-farez-12020842b/'
+      github: 'https://github.com/bryan-brr'
   - name: Roger Tito Farez
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/roger-tito-farez-035ab626b/'
+      github: 'https://github.com/RogerTito455'
 links:
   github: 'https://github.com/RogerTito455/hackfire'
   website: 'https://frontend-production-ae2c.up.railway.app/'

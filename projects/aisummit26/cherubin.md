@@ -19,7 +19,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/allenabishek/'
+      github: 'https://github.com/allenabishekGithub'
   - name: Javier Jose Diaz Rivera
     description: ''
     image:

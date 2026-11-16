@@ -17,12 +17,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/candelafonte/'
   - name: Guido Vezzoni
     description: ''
     image:
       src: /testimonials/avatars/guido-vezzoni.jpg
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/guidovezzoni/'
+      github: 'https://github.com/guidovezzoni'
 links:
   github: 'https://github.com/guidovezzoni/mylo-aba'
   video: >-

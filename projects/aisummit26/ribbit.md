@@ -21,7 +21,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/an-kalashnikov/'
+      github: 'https://github.com/an2323'
 links:
   github: 'https://github.com/an2323/ribbit-reads/'
   website: 'https://ribbit-reads.vercel.app/'

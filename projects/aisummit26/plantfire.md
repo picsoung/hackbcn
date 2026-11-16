@@ -16,7 +16,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/alain-f-848119336/'
 links:
   github: 'https://github.com/aanetgeek/plantfire'
   website: 'https://github.com/aanetgeek/plantfire/blob/main/FIREHACK-EN.pdf'

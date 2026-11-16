@@ -21,7 +21,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/john-naylor/'
+      github: 'https://github.com/jonaylor89'
 links:
   github: 'https://github.com/jonaylor89/HackBarna'
   website: 'https://screen.studio/share/wh46P9Jh'

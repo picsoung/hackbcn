@@ -20,12 +20,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/valentin-ritzenthaler-990a8b16b/'
+      github: 'https://github.com/vritzenthaler'
   - name: Mortaza Taghiadeh
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/morteza-taghizadeh/'
+      github: 'https://github.com/mrtztg'
   - name: Andrii Bondar
     description: ''
     image:

@@ -21,12 +21,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/roc-cutal/'
+      github: 'https://github.com/RocoCroco'
   - name: Nicolò Giacomini
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/nicolo-giacomini/'
+      github: 'https://github.com/nicologiacomini'
 links:
   github: 'https://github.com/RocoCroco/barna_voice'
   video: 'https://youtu.be/rlqB8Z93MKo'

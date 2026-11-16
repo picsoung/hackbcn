@@ -20,12 +20,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/andrey-ryazanov/'
+      github: 'https://github.com/calledandrey'
   - name: Artemii Khovanskii
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/artkhov/'
+      github: 'https://github.com/artkhov'
 links:
   github: 'https://github.com/language-quest/quests'
   website: 'https://quests.artkhov.workers.dev/web/quests'

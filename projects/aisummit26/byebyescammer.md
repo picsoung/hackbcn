@@ -22,17 +22,22 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/jiantong-wei-70285b121/'
+      github: 'https://github.com/weijt606'
   - name: Francisco Ojeda
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/francisco-ojeda-0a6263205/'
+      github: 'https://github.com/franojeda0202'
   - name: Niko Miralles
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/niko-miralles-2a85a0421/'
 links:
   github: 'https://github.com/weijt606/ByeByeScammer'
   website: 'https://www.loom.com/share/ac0ec7b608b84463896757caf79b852a'

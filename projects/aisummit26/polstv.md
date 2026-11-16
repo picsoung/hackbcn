@@ -23,7 +23,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/joalavedra/'
+      github: 'https://github.com/joalavedra'
 links:
   github: 'https://github.com/joalavedra/polsTV'
   website: 'https://joalavedra.com/polstv'

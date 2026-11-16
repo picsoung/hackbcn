@@ -20,12 +20,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/mariana-marin-1b6268348/'
+      github: 'https://github.com/marianamarinflor622'
   - name: eva sisalli
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/eva-sisalli-guzman/'
+      github: 'https://github.com/miskybox'
 links:
   github: 'https://github.com/FH-Goalkeeper/fh-trainer-frontend.'
   website: 'https://github.com/FH-Goalkeeper/fh-trainer-backend'

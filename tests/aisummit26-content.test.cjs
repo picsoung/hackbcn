@@ -73,6 +73,51 @@ test('new archive cards use demo thumbnails and legacy link arrays still resolve
   )
 })
 
+test('AI Summit maker profiles expose only public URLs while preserving full team credits', () => {
+  const makers = projects.flatMap((project) => project.data.hackers)
+  assert.equal(makers.length, 144)
+  assert.equal(makers.filter((maker) => maker.links?.linkedin).length, 109)
+  assert.equal(makers.filter((maker) => maker.links?.github).length, 83)
+  for (const maker of makers) {
+    assert.doesNotMatch(
+      JSON.stringify(maker),
+      /email|guest_id|phone_number|approval_status|@/i,
+    )
+    for (const [service, url] of Object.entries(maker.links ?? {})) {
+      assert.ok(['linkedin', 'github'].includes(service))
+      const parsed = new URL(url)
+      assert.equal(parsed.protocol, 'https:')
+      assert.equal(parsed.search, '')
+      assert.equal(parsed.hash, '')
+      assert.equal(
+        parsed.hostname,
+        service === 'linkedin' ? 'www.linkedin.com' : 'github.com',
+      )
+    }
+  }
+  const meeting = projects.find((project) =>
+    project.slug.endsWith('/ai-meeting-moderator'),
+  )
+  assert.equal(meeting.data.hackers[0].name, 'Vitaly Alt')
+  assert.deepEqual(meeting.data.hackers[0].links, {})
+  assert.equal(
+    meeting.data.hackers[1].links.github,
+    'https://github.com/ashambalev',
+  )
+  assert.equal(
+    meeting.data.hackers[1].links.linkedin,
+    'https://www.linkedin.com/in/artem-shambalev/',
+  )
+  const ambiguous = projects.find((project) =>
+    project.slug.endsWith('/preply-project-learning'),
+  )
+  assert.ok(
+    ambiguous.data.hackers.every(
+      (maker) => Object.keys(maker.links).length === 0,
+    ),
+  )
+})
+
 test('AI Summit 2026 has a credited gallery and all thirteen sourced community posts', () => {
   const { event } = readMdxEvent('aisummit26')
   assert.equal(event.active, false)

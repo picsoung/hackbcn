@@ -17,7 +17,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/matiassebastianmartinez/'
+      github: 'https://github.com/martinezmatias'
 links:
   github: 'https://github.com/martinezmatias/poltv'
   video: 'https://youtu.be/U28XO5vJq8E'

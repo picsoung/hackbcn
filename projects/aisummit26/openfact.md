@@ -18,7 +18,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/yanianada/'
+      github: 'https://github.com/yania-n'
 links:
   github: 'https://github.com/yania-n/openfact'
   video: 'https://youtu.be/5GFzvoKuHUE'

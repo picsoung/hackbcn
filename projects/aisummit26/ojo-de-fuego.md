@@ -19,17 +19,23 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/magnus-jonsson-132330/'
+      github: 'https://github.com/magnusj'
   - name: Ola Hulleberg
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/ola-hulleberg/'
+      github: 'https://github.com/OlaHulleberg'
   - name: Daniel Bentes
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/danielbentes/'
+      github: 'https://github.com/danielbentes'
 links:
   github: 'https://github.com/eldtechnologies/hackbarna-wildfire/'
   video: 'https://youtu.be/uWhB8fQGJ3k'
