@@ -1,43 +1,32 @@
 'use client'
 
 import { useIntl } from '../Intl'
+import { homeCopy } from '@/data/homepage'
 
 export default function StatsBar({ eventCount }: { eventCount: number }) {
   const intl = useIntl()
   const stats = [
-    { key: 'home.stats.hackers', value: '400+', highlight: true },
-    { key: 'home.stats.projects', value: '200+', highlight: false },
-    { key: 'home.stats.events', value: String(eventCount), highlight: true },
-    { key: 'home.stats.sponsors', value: '15+', highlight: false },
+    { label: 'home.stats.hackers', value: '400+' },
+    { label: 'home.stats.projects', value: '200+' },
+    { label: 'home.stats.events', value: String(eventCount) },
   ]
-
   return (
-    <section className="bg-band-4 py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <p className="font-mono text-xs uppercase tracking-[0.32em] text-ground/80 mb-10 text-center">
-          / by the numbers
-        </p>
-
-        <dl className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
-          {stats.map((stat) => (
-            <div key={stat.key} className="text-center">
-              <dt className="sr-only">{intl.t(stat.key)}</dt>
-              <dd>
-                <p
-                  className={`text-4xl sm:text-5xl font-bold tracking-tight leading-none ${
-                    stat.highlight ? 'text-ground' : 'text-ground/85'
-                  }`}
-                >
-                  {stat.value}
-                </p>
-                <p className="mt-3 text-xs sm:text-sm uppercase tracking-[0.18em] text-ground font-semibold">
-                  {intl.t(stat.key)}
-                </p>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+    <section
+      aria-label={homeCopy(intl.locale).communityLabel}
+      className="bg-accent text-ground"
+    >
+      <dl className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-6 sm:py-7 lg:px-8">
+        {stats.map((stat) => (
+          <div key={stat.label} className="flex items-baseline gap-3">
+            <dt className="order-2 text-sm font-medium sm:text-base">
+              {intl.t(stat.label)}
+            </dt>
+            <dd className="order-1 text-2xl font-bold tracking-tight sm:text-3xl">
+              {stat.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </section>
   )
 }

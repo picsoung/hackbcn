@@ -1,202 +1,147 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import { useIntl } from '../Intl'
 import type { Event } from '@/types/events'
-import SubscribeForm from './SubscribeForm'
+import type { HomeEvent } from '@/lib/homepage'
+import { homeCopy } from '@/data/homepage'
 import Polaroid from '../Polaroid'
-import RecapLightbox from '../RecapLightbox'
 import { withUtm } from '../../helpers/utm'
 import { trackOutbound } from '../../helpers/track'
 
-type HeroPolaroid = {
-  src: string
-  label: string
-  slug: string
-  rotate: number
-  translateY: number
+function eventLabel(event: HomeEvent) {
+  return event.name
+    .replace(/^HackNight #\d+:\s*/, '')
+    .replace(/ powered by.*$/i, '')
+    .replace(/^HackBarna /, '')
 }
-
-type Short = { url: string; eventName: string; eventSlug: string }
-
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-function formatRange(start: string, end?: string) {
-  const s = new Date(start)
-  const head = `${MONTHS[s.getUTCMonth()]} ${s.getUTCDate()}`
-  if (!end) return `${head}, ${s.getUTCFullYear()}`
-  const e = new Date(end)
-  if (s.getUTCMonth() === e.getUTCMonth()) {
-    return s.getUTCDate() === e.getUTCDate()
-      ? `${head}, ${e.getUTCFullYear()}`
-      : `${head}–${e.getUTCDate()}, ${e.getUTCFullYear()}`
-  }
-  return `${head} – ${MONTHS[e.getUTCMonth()]} ${e.getUTCDate()}, ${e.getUTCFullYear()}`
-}
-
-const photos: HeroPolaroid[] = [
-  {
-    src: 'https://images.lumacdn.com/event-covers/41/f4b95409-4ae0-4c6d-8cc8-7ca32c4368fc',
-    label: 'Hack Night #1',
-    slug: 'hacknight-edreams-2024',
-    rotate: -6,
-    translateY: 0,
-  },
-  {
-    src: 'https://images.lumacdn.com/event-covers/ro/c43bde0a-23b8-4231-a81b-5f66a3f5efaa.png',
-    label: 'Skill-a-thon',
-    slug: 'skillathon-hacknight-2026',
-    rotate: 2,
-    translateY: -12,
-  },
-  {
-    src: 'https://images.lumacdn.com/event-covers/2s/47338d9f-91de-417d-b96b-6c78be64dc73.png',
-    label: 'HackNight #3',
-    slug: 'hacknight-3-linkup-2026',
-    rotate: -3,
-    translateY: 8,
-  },
-]
 
 export default function OrgHero({
-  shorts = [],
-  upcoming = null,
+  upcoming,
+  upcomingDateLabel,
+  highlights,
 }: {
-  shorts?: Short[]
-  upcoming?: Event | null
+  upcoming: Event | null
+  upcomingDateLabel?: string
+  highlights: HomeEvent[]
 }) {
   const intl = useIntl()
-  const [activeRecap, setActiveRecap] = useState<string | null>(null)
-
-  // Map event slug → its recap Short url, so a polaroid with a recap opens the lightbox.
-  const shortBySlug = new Map(shorts.map((s) => [s.eventSlug, s.url]))
+  const copy = homeCopy(intl.locale)
   const eventHref = upcoming ? `/${intl.locale}/events/${upcoming.slug}` : ''
+  const primaryClass =
+    'hb-px inline-flex min-h-11 items-center gap-3 bg-accent px-5 py-3 text-sm font-semibold text-ground transition-colors hover:bg-inversion focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ground'
 
   return (
-    /* Top of the ladder. No gradient stands in for the old cream wash: the
-       dithered polaroid stack is the imagery, and a plain ramp step behind it
-       is what the Sunset Ladder Rule asks for. */
-    <section className="relative overflow-hidden bg-ground">
-      <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-28">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight leading-[1.15]">
-              {intl.t('home.hero.headline.1')}{' '}
-              <span className="text-accent">{intl.t('home.hero.headline.2')}</span>{' '}
-              {intl.t('home.hero.headline.3')}{' '}
-              <span className="text-accent">{intl.t('home.hero.headline.4')}</span>
-            </h1>
-            <p className="mt-6 text-lg text-ink-dim leading-relaxed max-w-lg">
-              {intl.t('home.hero.description')}
-            </p>
-            <div className="mt-8 max-w-sm">
-              <SubscribeForm />
-            </div>
-          </div>
-
-          {/* PRODUCT.md principle 6: future surfaces before retrospective
-              ones. The visual slot goes to the next event; the past-polaroid
-              stack below is the fallback for when nothing is scheduled, so the
-              hero is never empty. */}
-          {upcoming ? (
-            <div className="relative flex flex-col items-center lg:items-start">
-              <Polaroid
-                src={upcoming.imageUrl || '/brand/signet-black.svg'}
-                alt={upcoming.name}
-                label={upcoming.name}
-                href={eventHref}
-                rotate={-3}
-                translateY={0}
-                width="w-72 sm:w-80"
-                tapeColor="accent"
-                overlayText="view event →"
-              />
-
-              <div className="mt-8 w-full max-w-sm">
-                <p className="font-mono text-xs uppercase tracking-[0.28em] text-accent">
-                  / next up
-                </p>
-                <p className="mt-3 font-mono text-sm uppercase tracking-[0.14em] text-ink">
-                  {formatRange(upcoming.startDate, upcoming.endDate)}
-                </p>
-                <p className="mt-1 text-sm text-ink-dim">{upcoming.location}</p>
-
-                <div className="mt-5 flex flex-wrap items-center gap-4">
-                  {/* The site's most prominent RSVP link, so it carries the
-                      same attribution as the two on the event page. withUtm
-                      passes internal hrefs through untouched, so the fallback
-                      to the event page stays clean. */}
-                  <a
-                    href={withUtm(upcoming.registrationUrl || eventHref, {
-                      medium: 'cta',
-                      campaign: `hackbarna-${upcoming.slug}`,
-                      content: 'register-home-hero',
-                    })}
-                    {...(upcoming.registrationUrl
-                      ? { target: '_blank', rel: 'noopener noreferrer' }
-                      : {})}
-                    onClick={() =>
-                      trackOutbound('registration_click', {
-                        event_slug: upcoming.slug,
-                        source: 'register-home-hero',
-                      })
-                    }
-                    className="hb-px inline-flex items-center gap-2 bg-accent px-5 py-2.5 text-sm font-semibold text-ground transition-colors hover:bg-inversion focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ground"
-                  >
-                    {intl.t('events.register')}
-                    <span aria-hidden="true">→</span>
-                  </a>
-                  <Link
-                    href={eventHref}
-                    className="text-sm font-semibold text-ink-dim underline underline-offset-4 transition-colors hover:text-ink"
-                  >
-                    {intl.t('events.viewDetails')}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ) : (
-          <div className="relative hidden lg:block">
-            <div className="flex gap-4 justify-center items-start">
-              {photos.map((photo) => {
-                const recapUrl = shortBySlug.get(photo.slug)
-                if (recapUrl) {
-                  // Polaroid with a recap → opens the fullscreen lightbox.
-                  return (
-                    <Polaroid
-                      key={photo.slug}
-                      src={photo.src}
-                      alt={photo.label}
-                      label={photo.label}
-                      onActivate={() => setActiveRecap(recapUrl)}
-                      rotate={photo.rotate}
-                      translateY={photo.translateY}
-                      overlayText="view recap →"
-                    />
-                  )
+    <section className="overflow-hidden bg-ground">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 px-6 py-10 sm:py-14 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-8">
+        <div>
+          <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-ink">
+            {copy.title} <br />
+            <span className="text-accent">{copy.titleAccent}</span>
+          </h1>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-dim sm:text-lg">
+            {copy.intro}
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+            {upcoming ? (
+              <a
+                href={withUtm(upcoming.registrationUrl || eventHref, {
+                  medium: 'cta',
+                  campaign: `hackbarna-${upcoming.slug}`,
+                  content: 'register-home-hero',
+                })}
+                {...(upcoming.registrationUrl
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                onClick={() =>
+                  trackOutbound('registration_click', {
+                    event_slug: upcoming.slug,
+                    source: 'register-home-hero',
+                  })
                 }
-                // No recap → links to the event detail page.
-                return (
-                  <Polaroid
-                    key={photo.slug}
-                    src={photo.src}
-                    alt={photo.label}
-                    label={photo.label}
-                    href={`/${intl.locale}/events/${photo.slug}`}
-                    rotate={photo.rotate}
-                    translateY={photo.translateY}
-                    overlayText="view event →"
-                  />
-                )
-              })}
+                className={primaryClass}
+              >
+                {intl.t('events.register')} <span aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <a href="#past-events" className={primaryClass}>
+                {copy.explore} <span aria-hidden="true">↓</span>
+              </a>
+            )}
+            <a
+              href="#join"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-ink underline underline-offset-4 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              {copy.invitation}
+            </a>
+          </div>
+        </div>
+        {upcoming ? (
+          <div className="mx-auto flex max-w-lg flex-col items-center gap-5 sm:flex-row">
+            <Polaroid
+              src={upcoming.imageUrl || '/brand/signet-black.svg'}
+              alt={upcoming.name}
+              label={upcoming.name}
+              href={eventHref}
+              rotate={-3}
+              width="w-44 shrink-0"
+              tapeColor="accent"
+              overlayText={copy.exploreEvent}
+            />
+            <div>
+              <p className="text-sm font-semibold text-inversion">
+                {copy.nextUp}
+              </p>
+              <h2 className="mt-2 text-xl font-semibold text-ink">
+                <Link
+                  href={eventHref}
+                  className="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                >
+                  {upcoming.name}
+                </Link>
+              </h2>
+              <p className="mt-3 text-sm text-ink-dim">{upcomingDateLabel}</p>
+              <p className="mt-1 text-sm text-ink-dim">{upcoming.location}</p>
             </div>
           </div>
-          )}
-        </div>
+        ) : (
+          <figure className="mx-auto pt-4 sm:pt-0">
+            <div className="flex items-center justify-center gap-4 sm:gap-6">
+              {highlights.map((event, index) => (
+                <Polaroid
+                  key={event.slug}
+                  src={
+                    (index === 0 ? event.photo?.src : undefined) ||
+                    event.imageUrl ||
+                    '/brand/signet-black.svg'
+                  }
+                  alt={
+                    index === 0 && event.photo ? event.photo.alt : event.name
+                  }
+                  label={eventLabel(event)}
+                  href={`/${intl.locale}/events/${event.slug}`}
+                  rotate={index === 0 ? -6 : 4}
+                  translateY={index === 0 ? 5 : -8}
+                  width="w-32 sm:w-44 lg:w-48"
+                  overlayText={copy.exploreEvent}
+                  ariaLabel={`${copy.exploreEvent}: ${event.name}`}
+                />
+              ))}
+            </div>
+            {highlights[0]?.photo && highlights[0].galleryCredit && (
+              <figcaption className="mt-6 text-center text-xs text-ink-dim">
+                {eventLabel(highlights[0])} · {copy.photosBy}{' '}
+                <a
+                  href={highlights[0].galleryCredit.url}
+                  className="inline-flex min-h-6 items-center underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                >
+                  {highlights[0].galleryCredit.name}
+                </a>
+              </figcaption>
+            )}
+          </figure>
+        )}
       </div>
-
-      <RecapLightbox url={activeRecap} title="Event recap" onClose={() => setActiveRecap(null)} />
     </section>
   )
 }
