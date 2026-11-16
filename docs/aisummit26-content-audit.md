@@ -11,6 +11,8 @@ Reviewed 16 November 2026. Scope: AI Summit 2026 only. Other editions will be re
 
 Challenges is closed by default, with a keyboard-accessible toggle. All eleven challenges remain mounted in the server HTML for discovery while collapsed.
 
+The [official aftermovie](https://youtu.be/Z3qFd-oT8Xo), titled “HackBarna AI Summit 2026 - After movie” on the HackBarna YouTube channel, is embedded in the event's recap section. Playback loads on demand, with a direct YouTube link in the server-rendered page.
+
 ## Project provenance and exclusions
 
 Source: [organiser submission workbook](https://docs.google.com/spreadsheets/d/1iuQEeDBq-1PO6nsZ_yVuc1epTUQ06mzHhyYWmiGNRzU/edit), tab `HackBarna AI Summit 26 — Project Submission`.

@@ -589,6 +589,7 @@ export default function EventDetail({
           recapVideoUrl={event.recapVideoUrl}
           shorts={event.shorts}
           eventName={event.name}
+          tone="night"
         />
 
         {/* Partners with roles (e.g. co-organizers) — surfaced above sponsors

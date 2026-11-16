@@ -112,6 +112,7 @@ export const hackNights: HackNight[] = [
     },
     registrationUrl: 'https://luma.com/37ddi2n0',
     imageUrl: '/netlify-hacknight.png',
+    shorts: ['https://www.youtube.com/shorts/crTTyIBlLjY'],
     sponsor: 'Netlify',
     schedule: {
       en: [
