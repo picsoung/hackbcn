@@ -112,6 +112,7 @@ export const hackNights: HackNight[] = [
     },
     registrationUrl: 'https://luma.com/37ddi2n0',
     imageUrl: '/netlify-hacknight.png',
+    shorts: ['https://www.youtube.com/shorts/crTTyIBlLjY'],
     sponsor: 'Netlify',
     schedule: {
       en: [
@@ -200,7 +201,7 @@ export const hackNights: HackNight[] = [
       { name: 'Itnig', role: 'Venue', url: 'https://itnig.net/', logo: '/logos/itnig.svg' },
       { name: 'Happy Operators', role: 'Co-organizer', logo: '/logos/happy-operators-dark.svg', logoHeight: 60 },
     ],
-    past: false,
+    past: true,
   },
   {
     id: 'hn-2026-10',
