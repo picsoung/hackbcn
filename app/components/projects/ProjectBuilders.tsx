@@ -1,6 +1,7 @@
 import type { ProjectBuilder } from '@/lib/project-detail'
 import { projectPageCopy } from '@/data/project-page'
 import ProjectBuilderAvatar from './ProjectBuilderAvatar'
+import { FaGithub } from 'react-icons/fa6'
 
 export default function ProjectBuilders({
   builders,
@@ -66,10 +67,19 @@ export default function ProjectBuilders({
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4 hover:text-inversion focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                      className={`inline-flex min-h-11 items-center text-sm text-accent hover:text-inversion focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
+                        type === 'github'
+                          ? 'min-w-11 justify-center'
+                          : 'underline underline-offset-4'
+                      }`}
                       aria-label={`${services[type] ?? type}: ${builder.name}`}
+                      title={`${services[type] ?? type}: ${builder.name}`}
                     >
-                      {services[type] ?? type}
+                      {type === 'github' ? (
+                        <FaGithub aria-hidden="true" className="h-5 w-5" />
+                      ) : (
+                        (services[type] ?? type)
+                      )}
                     </a>
                   ))}
               </div>
