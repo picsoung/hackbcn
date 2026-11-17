@@ -4,7 +4,7 @@ The June 30, 2026 gallery at [hackbarna-netlify-hacknight.netlify.app](https://h
 
 The read-only snapshot taken on November 17 contains 27 submissions. This archive publishes 25 distinct projects:
 
-- Source record 1 (`coolapp`, `cool stuff`, `cool desc`) is an apparent organiser test, excluded pending confirmation. The importer can include it with `--include-test-projects`.
+- Source record 1 (`coolapp`, `cool stuff`, `cool desc`) is an apparent organiser test, excluded as confirmed by the organiser. The importer can include it with `--include-test-projects`.
 - Records 22 and 23 are the same Salon Acquisition Fit Analyzer submission. The later record, 23, is retained.
 - CommunityOS's submitted image-host link returns 404. DentAI's screenshot URL serves HTML. These two projects use the shared image fallback; no replacement screenshot was invented.
 - The other 23 images are copied locally, with checksums in `data/netlify-hacknight-import.json`. RenovAI's animated GIF is preserved.
