@@ -17,7 +17,8 @@ hackers:
     description: Superco-art
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/daniela-trifu/'
 links:
   website: 'https://startling-bubblegum-1e4a12.netlify.app/'
 ---

@@ -136,16 +136,16 @@ test('23 source images are durable local copies, including the animated RenovAI 
   )
 })
 
-test('attendee enrichment adds 21 LinkedIn links while leaving six unresolved credits unlinked', () => {
+test('attendee enrichment adds 22 LinkedIn links while leaving five unresolved credits unlinked', () => {
   const linked = projects
     .flatMap((project) => project.data.hackers)
     .filter((maker) => maker.links.linkedin)
-  assert.equal(linked.length, 21)
+  assert.equal(linked.length, 22)
   assert.equal(
     projects.filter((project) =>
       project.data.hackers.some((maker) => maker.links.linkedin),
     ).length,
-    20,
+    21,
   )
   assert.deepEqual(
     projects
@@ -156,7 +156,6 @@ test('attendee enrichment adds 21 LinkedIn links while leaving six unresolved cr
     [
       'Alejandro Chávez',
       'Daniel',
-      'Daniela',
       'Hack Night 4',
       'Joseph',
       'mayantooth',

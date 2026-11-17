@@ -110,6 +110,51 @@ test('reviewed aliases require an attendee-supplied profile and evidence for a r
   )
 })
 
+test('a reviewed supplied profile fills a blank registration only for one exact full name', () => {
+  const row = attendee('Daniela Trifu', 'Daniela', 'Trifu', '')
+  const alias = {
+    maker: 'Daniela',
+    attendeeName: 'Daniela Trifu',
+    providedProfile: 'https://linkedin.com/in/daniela-trifu/',
+    reason: 'Supplied profile name and public event post reviewed.',
+    evidence: 'https://example.com/public-event-post',
+  }
+  assert.deepEqual(matchMaker({ name: 'Daniela' }, [row], alias), {
+    linkedin: 'https://www.linkedin.com/in/daniela-trifu/',
+    method: 'reviewed-supplied-profile',
+  })
+  for (const rows of [
+    [],
+    [row, { ...row }],
+    [attendee('Another Daniela', 'Daniela', 'Other', '')],
+  ])
+    assert.throws(
+      () => matchMaker({ name: 'Daniela' }, rows, alias),
+      /one matching registered full name/,
+    )
+  assert.throws(
+    () => matchMaker({ name: 'Daniela' }, [row], { ...alias, evidence: '' }),
+    /public evidence/,
+  )
+  assert.throws(
+    () =>
+      matchMaker({ name: 'Daniela' }, [row], {
+        ...alias,
+        providedProfile: 'https://linkedin.com.evil.test/in/daniela-trifu/',
+      }),
+    /public evidence/,
+  )
+  assert.throws(
+    () =>
+      matchMaker(
+        { name: 'Daniela' },
+        [{ ...row, [column]: 'https://linkedin.com/in/different/' }],
+        alias,
+      ),
+    /conflicts/,
+  )
+})
+
 test('enrichment preserves the submitted roster and public fields while excluding registration data', () => {
   const maker = {
     name: 'Ada Lovelace',

@@ -28,7 +28,7 @@ The first command only reports the proposed selection. Applying fetches public s
 
 ## LinkedIn enrichment
 
-Reviewed November 18, 2026 against the organiser-supplied attendee CSV. **21 of 27 builder credits across 20 project pages have a LinkedIn link.** This is name-based matching: the source gallery has no project email field, so an email join is unavailable.
+Reviewed November 18, 2026 against the organiser-supplied attendee CSV. **22 of 27 builder credits across 21 project pages have a LinkedIn link.** This is name-based matching: the source gallery has no project email field, so an email join is unavailable.
 
 Names are compared against the registered display name and first/last name. A first name is accepted only when it identifies one registered name across the entire list, including rows with blank LinkedIn fields. Multiple possible identities or conflicting profiles remain unlinked. Names, team subtitles, team order, project repositories and descriptions are unchanged. Only normalized personal LinkedIn URLs are exported; emails, phone numbers, guest IDs, attendance status and survey answers remain private.
 
@@ -41,11 +41,12 @@ Six shortened or variant credits have an explicit reviewed alias in `data/netlif
 - The organiser confirmed Guido V on My Custom Chart is Guido Vezzoni.
 - Al Ste-Marie's registered URL is unavailable. His [current profile](https://www.linkedin.com/in/al-unsoldgroup/) lists RenovAI, as does his [own project overview](https://unsold.group/al/projects/), so the current URL is used.
 
-These six credits still have no verified link:
+The organiser also supplied [Daniela Trifu's profile](https://www.linkedin.com/in/daniela-trifu/) for Cafenest. It displays the uniquely matching attendee's full name and a [post about this Netlify HackNight](https://www.linkedin.com/feed/update/urn:li:activity:7478114249131790336/). This reviewed addition fills a blank registration profile; it is recorded separately from URLs supplied in the CSV. The original “Daniela” credit is preserved.
+
+These five credits still have no verified link:
 
 | Project              | Submitted credit | Reason                                      |
 | -------------------- | ---------------- | ------------------------------------------- |
-| Cafenest             | Daniela          | Matching registration has no LinkedIn URL.  |
 | CoffeeLate           | Alejandro Chávez | No matching registered name.                |
 | Conscious Living Hub | Hack Night 4     | Group credit does not identify an attendee. |
 | DentAI               | mayantooth       | Team handle does not identify an attendee.  |

@@ -27,6 +27,27 @@ function matchMaker(maker, attendees, alias) {
       throw new Error(
         'Reviewed alias must identify the submitted maker and its evidence.',
       )
+    if (alias.providedProfile) {
+      const registeredName = nameKey(alias.attendeeName)
+      const matching =
+        registeredName &&
+        attendees.filter((row) =>
+          [row.name, `${row.first_name || ''} ${row.last_name || ''}`].some(
+            (value) => nameKey(value) === registeredName,
+          ),
+        )
+      const target = profileUrl('linkedin', alias.providedProfile)
+      if (!matching || matching.length !== 1 || !target || !alias.evidence)
+        throw new Error(
+          'A supplied profile requires one matching registered full name and public evidence.',
+        )
+      const original = matching[0][linkedinColumn]?.trim()
+      if (original && linkedinKey(original) !== linkedinKey(target))
+        throw new Error(
+          'Supplied profile conflicts with the registered LinkedIn URL.',
+        )
+      return { linkedin: target, method: 'reviewed-supplied-profile' }
+    }
     const sourceKey = linkedinKey(alias.attendeeProfile)
     if (
       !sourceKey ||
