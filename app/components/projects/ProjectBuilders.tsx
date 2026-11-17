@@ -1,7 +1,7 @@
 import type { ProjectBuilder } from '@/lib/project-detail'
 import { projectPageCopy } from '@/data/project-page'
 import ProjectBuilderAvatar from './ProjectBuilderAvatar'
-import { FaGithub } from 'react-icons/fa6'
+import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 
 export default function ProjectBuilders({
   builders,
@@ -13,6 +13,7 @@ export default function ProjectBuilders({
   const copy = projectPageCopy(locale)
   if (!builders.length) return null
   const services: Record<string, string> = {
+    linkedin: 'LinkedIn',
     github: 'GitHub',
     twitter: 'Twitter',
     website: copy.website,
@@ -38,8 +39,8 @@ export default function ProjectBuilders({
               name={builder.name}
               src={builder.image}
             />
-            <div className="min-w-0">
-              <p className="break-words font-semibold">
+            <div className="min-w-0 flex-1">
+              <p className="break-words font-semibold leading-6">
                 {builder.links.linkedin ? (
                   <a
                     href={builder.links.linkedin}
@@ -58,27 +59,29 @@ export default function ProjectBuilders({
                   {builder.role}
                 </p>
               )}
-              <div className="flex flex-wrap gap-x-4">
-                {Object.entries(builder.links)
-                  .filter(([type]) => type !== 'linkedin')
-                  .map(([type, href]) => (
+              <div className="-ml-3 flex flex-wrap items-center gap-x-1">
+                {Object.entries(services)
+                  .filter(([type]) => builder.links[type])
+                  .map(([type, label]) => (
                     <a
                       key={type}
-                      href={href}
+                      href={builder.links[type]}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`inline-flex min-h-11 items-center text-sm text-accent hover:text-inversion focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
-                        type === 'github'
-                          ? 'min-w-11 justify-center'
-                          : 'underline underline-offset-4'
+                        type === 'github' || type === 'linkedin'
+                          ? 'h-11 w-11 shrink-0 justify-center'
+                          : 'px-3 underline underline-offset-4'
                       }`}
-                      aria-label={`${services[type] ?? type}: ${builder.name}`}
-                      title={`${services[type] ?? type}: ${builder.name}`}
+                      aria-label={`${label}: ${builder.name}`}
+                      title={`${label}: ${builder.name}`}
                     >
-                      {type === 'github' ? (
+                      {type === 'linkedin' ? (
+                        <FaLinkedin aria-hidden="true" className="h-5 w-5" />
+                      ) : type === 'github' ? (
                         <FaGithub aria-hidden="true" className="h-5 w-5" />
                       ) : (
-                        (services[type] ?? type)
+                        label
                       )}
                     </a>
                   ))}
