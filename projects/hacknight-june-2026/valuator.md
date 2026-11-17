@@ -16,12 +16,14 @@ hackers:
     description: BadalonaBoyzz
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/starklink/'
   - name: Diego
     description: BadalonaBoyzz
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/diego-valades-9a4697184/'
 links:
   website: 'https://netlifyhackathon.netlify.app/'
   github: 'https://github.com/colinstark/netlify-hack'

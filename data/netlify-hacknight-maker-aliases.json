@@ -1,0 +1,44 @@
+[
+  {
+    "project": "adhd-life-year-tracker",
+    "maker": "Azaliia Razetdinova",
+    "attendeeProfile": "https://www.linkedin.com/in/azaliyarazetdinova/",
+    "reason": "Reviewed transliteration: Azaliia Razetdinova and registered Azaliya Razetdinova share the full surname."
+  },
+  {
+    "project": "bufa",
+    "maker": "Rob McW",
+    "attendeeProfile": "https://www.linkedin.com/in/robertmcwhirter/",
+    "reason": "Robert McWhirter's public post explicitly identifies Bufa and its submitted demo URL as his Netlify HackNight project.",
+    "evidence": "https://www.linkedin.com/posts/robertmcwhirter_i-built-a-kitesurf-forecast-app-in-90-minutes-activity-7480921096834326528-JuTh"
+  },
+  {
+    "project": "coffeelate",
+    "maker": "Javier Verdecia",
+    "attendeeProfile": "https://www.linkedin.com/in/javier-rodriguez-verdecia-2b9a10243/",
+    "reason": "The attendee-supplied profile displays Javier Rodriguez Verdecia, confirming both submitted name components.",
+    "evidence": "https://www.linkedin.com/in/javier-rodriguez-verdecia-2b9a10243/"
+  },
+  {
+    "project": "kilnin-it-with-chloe",
+    "maker": "Chloe and the bots",
+    "attendeeProfile": "https://www.linkedin.com/in/chloe-beck/",
+    "reason": "The submitted pottery portfolio identifies Chloe Beck in its author metadata. The collective display credit is preserved.",
+    "evidence": "https://klininit.netlify.app/"
+  },
+  {
+    "project": "my-custom-chart",
+    "maker": "Guido V",
+    "attendeeProfile": "https://www.linkedin.com/in/guidovezzoni/",
+    "reason": "User confirmed Guido V on My Custom Chart is Guido Vezzoni on 18 November 2026."
+  },
+  {
+    "project": "renovai",
+    "maker": "Al Ste-Marie",
+    "attendeeProfile": "https://www.linkedin.com/in/al-s-4589a43a9/",
+    "replacementProfile": "https://www.linkedin.com/in/al-unsoldgroup/",
+    "reason": "The attendee URL returns LinkedIn's missing-page screen. Al Ste-Marie's current public profile lists RenovAI; his own project overview also identifies it.",
+    "evidence": "https://www.linkedin.com/in/al-unsoldgroup/",
+    "additionalEvidence": "https://unsold.group/al/projects/"
+  }
+]

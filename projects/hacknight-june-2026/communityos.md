@@ -18,7 +18,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/afonsogcardoso/'
 links:
   website: 'https://communityos-afonso.netlify.app/'
 ---

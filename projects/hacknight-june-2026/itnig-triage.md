@@ -15,7 +15,8 @@ hackers:
     description: Sol
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/Samxbe/'
 links:
   website: 'https://agent-6a4415c21073c573611a53ee--itnig-triage-0.netlify.app/'
   github: 'https://github.com/samxbee/itnig-triage/tree/main/backend'

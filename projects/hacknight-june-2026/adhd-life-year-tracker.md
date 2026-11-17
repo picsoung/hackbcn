@@ -15,7 +15,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/azaliyarazetdinova/'
 links:
   website: 'https://6a440ff8b4c32a50be33a4a0--amazing-clafoutis-8dcab8.netlify.app/'
 ---

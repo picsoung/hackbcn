@@ -25,7 +25,8 @@ hackers:
     description: PM who likes to build
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/abdibedel/'
 links:
   website: 'https://matchmind-football-quiz.netlify.app/'
 ---

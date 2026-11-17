@@ -15,7 +15,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/nasia-kudaibergen-29a11671/'
 links:
   website: 'http://golden-caramel-ed54ee.netlify.app/'
 ---

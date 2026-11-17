@@ -15,7 +15,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/mikaelbaron/'
 links:
   website: 'https://stellular-croquembouche-f3e6ef.netlify.app/'
 ---

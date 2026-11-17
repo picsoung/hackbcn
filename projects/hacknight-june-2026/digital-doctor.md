@@ -16,7 +16,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/kenny-davalos-55815132a/'
 links:
   website: 'https://agent-6a43fad95f576b0--reliable-sunflower-507d7b.netlify.app/'
 ---

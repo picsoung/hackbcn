@@ -17,7 +17,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/patriciobruno/'
 links:
   website: 'https://vibecoderrealitycheck.netlify.app/'
 ---

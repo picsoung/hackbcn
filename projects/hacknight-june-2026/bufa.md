@@ -15,7 +15,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/robertmcwhirter/'
 links:
   website: 'https://bufa.netlify.app/'
 ---

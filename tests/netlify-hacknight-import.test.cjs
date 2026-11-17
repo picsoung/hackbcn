@@ -90,9 +90,10 @@ test('submitted member lists, team credits and searchable maker names are preser
     )[0].name,
     'CoffeeLate',
   )
-  // Source project repositories do not establish personal profile identities.
+  // Source project repositories do not establish personal GitHub identities.
   for (const project of projects)
-    for (const maker of project.data.hackers) assert.deepEqual(maker.links, {})
+    for (const maker of project.data.hackers)
+      assert.equal(maker.links.github, undefined)
 })
 
 test('23 source images are durable local copies, including the animated RenovAI demo', () => {
@@ -133,6 +134,49 @@ test('23 source images are durable local copies, including the animated RenovAI 
       .content.trim(),
     '',
   )
+})
+
+test('attendee enrichment adds 21 LinkedIn links while leaving six unresolved credits unlinked', () => {
+  const linked = projects
+    .flatMap((project) => project.data.hackers)
+    .filter((maker) => maker.links.linkedin)
+  assert.equal(linked.length, 21)
+  assert.equal(
+    projects.filter((project) =>
+      project.data.hackers.some((maker) => maker.links.linkedin),
+    ).length,
+    20,
+  )
+  assert.deepEqual(
+    projects
+      .flatMap((project) => project.data.hackers)
+      .filter((maker) => !maker.links.linkedin)
+      .map((maker) => maker.name)
+      .sort(),
+    [
+      'Alejandro Chávez',
+      'Daniel',
+      'Daniela',
+      'Hack Night 4',
+      'Joseph',
+      'mayantooth',
+    ].sort(),
+  )
+  assert.equal(
+    projects.find((project) => project.data.title === 'My Custom Chart').data
+      .hackers[0].links.linkedin,
+    'https://www.linkedin.com/in/guidovezzoni/',
+  )
+  assert.equal(
+    projects.find((project) => project.data.title === 'RenovAI').data.hackers[0]
+      .links.linkedin,
+    'https://www.linkedin.com/in/al-unsoldgroup/',
+  )
+  for (const maker of linked)
+    assert.match(
+      maker.links.linkedin,
+      /^https:\/\/www\.linkedin\.com\/in\/[^/]+\/$/,
+    )
 })
 
 test('importer keeps the latest duplicate regardless of input order and exports only public fields', async () => {

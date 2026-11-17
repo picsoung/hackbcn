@@ -19,7 +19,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/david-m-l/'
 links:
   website: 'https://foundafounder.netlify.app/'
   github: 'https://github.com/dmatarinl/foundafounder'

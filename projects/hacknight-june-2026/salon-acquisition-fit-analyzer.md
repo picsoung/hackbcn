@@ -15,7 +15,8 @@ hackers:
     description: Halo
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/hassannurudeen/'
 links:
   website: 'https://salonacquisitionfitanalyzer.netlify.app/'
 ---

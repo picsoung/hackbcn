@@ -19,7 +19,8 @@ hackers:
     description: START Barcelona
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/itspatrickchoi/'
 links:
   website: 'https://gazeai.netlify.app/'
 ---

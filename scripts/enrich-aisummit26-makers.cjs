@@ -11,7 +11,7 @@ const fields = {
   github: 'What is your GitHub username?',
 }
 
-function parseCsv(text) {
+function parseCsv(text, requiredColumns = ['email', ...Object.values(fields)]) {
   const rows = []
   let row = []
   let field = ''
@@ -39,7 +39,7 @@ function parseCsv(text) {
   if (quoted) throw new Error('Unclosed quoted field in attendee CSV.')
   if (row.length || field) rows.push([...row, field])
   const [headers = [], ...body] = rows
-  for (const column of ['email', ...Object.values(fields)]) {
+  for (const column of requiredColumns) {
     if (!headers.includes(column))
       throw new Error(`Missing attendee column: ${column}`)
   }

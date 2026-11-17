@@ -15,7 +15,8 @@ hackers:
     description: Joaquim
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/joaquimcardona/'
 links:
   website: 'https://makeclip-app.netlify.app/app'
 ---

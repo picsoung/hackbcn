@@ -15,7 +15,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/guidovezzoni/'
 links:
   website: 'https://mycustomchart.netlify.app/'
 ---

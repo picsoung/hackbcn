@@ -15,7 +15,8 @@ hackers:
     description: coffeeteam
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/javier-rodriguez-verdecia-2b9a10243/'
   - name: Alejandro Chávez
     description: coffeeteam
     image:

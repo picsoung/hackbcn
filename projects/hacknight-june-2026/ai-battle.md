@@ -18,7 +18,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/ruhidagdelen/'
 links:
   website: 'https://my-ai-battle.netlify.app/'
 ---

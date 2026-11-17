@@ -15,7 +15,8 @@ hackers:
     description: Chloe
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/chloe-beck/'
 links:
   website: 'https://klininit.netlify.app/'
 ---

@@ -15,7 +15,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/arthurnunesc/'
 links:
   website: 'https://chipper-chaja-e755bd.netlify.app/'
 ---
