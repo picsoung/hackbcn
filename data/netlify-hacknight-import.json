@@ -1,0 +1,232 @@
+{
+  "source": "https://hackbarna-netlify-hacknight.netlify.app",
+  "event": "hacknight-june-2026",
+  "sourceRows": 27,
+  "publishedProjects": 25,
+  "omitted": [
+    { "sourceId": 1, "reason": "Apparent organiser test." },
+    {
+      "sourceId": 22,
+      "reason": "Duplicate submission; retained the latest matching project."
+    }
+  ],
+  "missingImages": [
+    { "sourceId": 2, "reason": "Submitted image-host link returns 404." },
+    {
+      "sourceId": 26,
+      "reason": "Submitted screenshot URL is an HTML app, not an image."
+    }
+  ],
+  "capturedAt": "2026-11-17T22:35:18.158Z",
+  "projects": [
+    { "sourceId": 2, "slug": "communityos" },
+    {
+      "sourceId": 3,
+      "slug": "world-cup-country-matchups",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/1d35ff26-b986-4237-a1af-a416bc87511f",
+        "file": "/projects/hacknight-june-2026/world-cup-country-matchups.png",
+        "sha256": "68b682d39ee4eca89131e03c78c3489fb98886adba9947b1e40a840651b99f6d"
+      }
+    },
+    {
+      "sourceId": 4,
+      "slug": "foundafounder-startup-signal-tracker",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/55b91621-3371-46c5-b2eb-9dc855c83760",
+        "file": "/projects/hacknight-june-2026/foundafounder-startup-signal-tracker.png",
+        "sha256": "4f593cfe7615e64271dee3608caddd581803c29630f7926fcd9b026c377c9687"
+      }
+    },
+    {
+      "sourceId": 5,
+      "slug": "digital-doctor",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/74a91cb0-cde7-4cd1-b25b-734b755fef96",
+        "file": "/projects/hacknight-june-2026/digital-doctor.png",
+        "sha256": "7208c868347d996cc331703eb93b75733f08a6129fa1a97ebee258bd8e2f1fb5"
+      }
+    },
+    {
+      "sourceId": 6,
+      "slug": "coffeelate",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/24cded28-7ab6-49d9-9dce-d53f2a330179",
+        "file": "/projects/hacknight-june-2026/coffeelate.png",
+        "sha256": "57e842e82207985b34c7cbc4451a44f8cad66a217a7adff5412e9b7a5812f8e3"
+      }
+    },
+    {
+      "sourceId": 7,
+      "slug": "conscious-living-hub",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/796bc733-21e7-4b77-9ad9-176ca96195e7",
+        "file": "/projects/hacknight-june-2026/conscious-living-hub.jpg",
+        "sha256": "7ca722487990e7f3d163f505b670556354fc0a53f6636a79f9d34b8a47c42009"
+      }
+    },
+    {
+      "sourceId": 8,
+      "slug": "vibecoder-reality-check",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/c8b67ea8-d95e-4bed-bed8-d026973e4393",
+        "file": "/projects/hacknight-june-2026/vibecoder-reality-check.png",
+        "sha256": "d96ca706e89bccacd19ba171cecb2d01758ac47f2f330c0a6e6ce751ea253be9"
+      }
+    },
+    {
+      "sourceId": 9,
+      "slug": "ai-battle",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/a8458767-fabe-4f83-bce5-d2e9651f83f6",
+        "file": "/projects/hacknight-june-2026/ai-battle.png",
+        "sha256": "bea3f8ec9d54ace00c05d46590a7cd683ccf5a88de7e28f6beed170d57160076"
+      }
+    },
+    {
+      "sourceId": 10,
+      "slug": "bufa",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/07407ba8-9fc6-4b5e-853f-70fb83d34bd7",
+        "file": "/projects/hacknight-june-2026/bufa.png",
+        "sha256": "fdee23331da065bb47be81177f842eb9f0a7c9b247044c03f12114472417d62c"
+      }
+    },
+    {
+      "sourceId": 11,
+      "slug": "portfolio-maker",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/038c9291-9e48-495e-a63b-ad7a41fd2d3d",
+        "file": "/projects/hacknight-june-2026/portfolio-maker.png",
+        "sha256": "abd17cbb232883bba476a235bb56cef9181eef71d222778293b8c203bbb5868f"
+      }
+    },
+    {
+      "sourceId": 12,
+      "slug": "kilnin-it-with-chloe",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/b323f426-ea24-4b9d-b741-c0ab938b5e00",
+        "file": "/projects/hacknight-june-2026/kilnin-it-with-chloe.png",
+        "sha256": "a2cbd70867434b0750b60c9320bd1e42e5afd2cf87bc92e8417cc95264dd8e0d"
+      }
+    },
+    {
+      "sourceId": 13,
+      "slug": "makeclip",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/79186aa3-2523-4917-99f3-743f1616539e",
+        "file": "/projects/hacknight-june-2026/makeclip.png",
+        "sha256": "5a1ae342145fd0631ea176805099c45bd614ad2fbdf7bc056980d7fc64b16962"
+      }
+    },
+    {
+      "sourceId": 14,
+      "slug": "privacyradar",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/d03de37b-3892-4906-a046-bdec5ec4d343",
+        "file": "/projects/hacknight-june-2026/privacyradar.png",
+        "sha256": "86765a095f0510122a2c5348757778895a0da24c8d1ea8f799cf65232867b155"
+      }
+    },
+    {
+      "sourceId": 15,
+      "slug": "valuator",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/8ad99ab8-4539-4f77-ac29-72b4ef9baa45",
+        "file": "/projects/hacknight-june-2026/valuator.png",
+        "sha256": "946abee87be2ab8fd97b5a6a3c863793b1453007f75f2c9a45da79ddeb038359"
+      }
+    },
+    {
+      "sourceId": 16,
+      "slug": "matchmind",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/38c0eb0c-353a-425f-bb96-ad32a25db311",
+        "file": "/projects/hacknight-june-2026/matchmind.png",
+        "sha256": "a11e1d4b6b9983429ec3666c6a791c393572cade6b52f43174c77af8268af14c"
+      }
+    },
+    {
+      "sourceId": 17,
+      "slug": "renovai",
+      "image": {
+        "sourceUrl": "https://renovaiapp.com/renovai-flow.gif",
+        "file": "/projects/hacknight-june-2026/renovai.gif",
+        "sha256": "849606a7cd735e7b40ba93725da2d4d04724ac2612333be9e3a636a220cb18fe"
+      }
+    },
+    {
+      "sourceId": 18,
+      "slug": "mika-s-personal-webpage",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/15be8180-038d-4e89-9123-77a9c647e7b1",
+        "file": "/projects/hacknight-june-2026/mika-s-personal-webpage.png",
+        "sha256": "db63321fe554071472edc109e6ba39a8ed207758ffe33eceb66d143745872300"
+      }
+    },
+    {
+      "sourceId": 19,
+      "slug": "cafenest",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/b5e837f8-8091-4567-89da-45241f0d20df",
+        "file": "/projects/hacknight-june-2026/cafenest.png",
+        "sha256": "53fdc21cc48bc95823ec922b777a8f05450ce7149094b357652584d2215d9e5d"
+      }
+    },
+    {
+      "sourceId": 20,
+      "slug": "gaze-ai",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/fad2846f-af30-4710-9d50-1f3fb39772a1",
+        "file": "/projects/hacknight-june-2026/gaze-ai.png",
+        "sha256": "3ea942670e1385ad5ccf22727c358ca29971185757575e97e9bd6ca83f313109"
+      }
+    },
+    {
+      "sourceId": 21,
+      "slug": "adhd-life-year-tracker",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/24b8a243-8d5b-4541-8330-ca0ce1768d25",
+        "file": "/projects/hacknight-june-2026/adhd-life-year-tracker.jpg",
+        "sha256": "b457cb019c88051179b1abbfd8ca9420f83945889a283a6a0206ca663733593e"
+      }
+    },
+    {
+      "sourceId": 23,
+      "slug": "salon-acquisition-fit-analyzer",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/800cac68-529f-4cc3-95dd-39d83cb39755",
+        "file": "/projects/hacknight-june-2026/salon-acquisition-fit-analyzer.png",
+        "sha256": "dca858a64f1f4d844a0001da31c4cca0e4deda5d3411eaf039e0b149fd39adfc"
+      }
+    },
+    {
+      "sourceId": 24,
+      "slug": "barna-spotlight",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/17a8e462-c4e7-41e9-b8e4-b64fdb6552f9",
+        "file": "/projects/hacknight-june-2026/barna-spotlight.png",
+        "sha256": "2aeb286e988c7848cce89bb24681f57a939dee6a013885de435c053d012ee651"
+      }
+    },
+    {
+      "sourceId": 25,
+      "slug": "itnig-triage",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/9ceb6cad-5a89-49cc-95d2-b97f7cba6ade",
+        "file": "/projects/hacknight-june-2026/itnig-triage.png",
+        "sha256": "741d4b27d5a92971a6499caea7d51107b2f9cca361a8eaf62f8ef210e279f01a"
+      }
+    },
+    { "sourceId": 26, "slug": "dentai" },
+    {
+      "sourceId": 27,
+      "slug": "my-custom-chart",
+      "image": {
+        "sourceUrl": "https://hackbarna-netlify-hacknight.netlify.app/api/screenshots/f623ba93-2824-4be0-92c6-e78b44ba9b4a",
+        "file": "/projects/hacknight-june-2026/my-custom-chart.png",
+        "sha256": "8d03c101b69865ef638cf4680f5c14fe19da21959f1725d9790bb4216dd9a67d"
+      }
+    }
+  ]
+}
