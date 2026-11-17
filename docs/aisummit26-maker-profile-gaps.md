@@ -2,7 +2,7 @@
 
 Reviewed 17 November 2026. Only public maker names, project links and profile URLs are included. Emails and registration identifiers are excluded.
 
-Of 144 maker credits, 104 now have an avatar, 109 have LinkedIn links and 83 have GitHub links. This pass added 83 LinkedIn portraits and nine custom GitHub avatars. Existing portraits remain unchanged. Generic GitHub identicons are left as initials. Counts describe project credits, so the same person may appear in more than one project.
+Of 144 maker credits, 105 now have an avatar, 109 have LinkedIn links and 83 have GitHub links. This pass added 84 LinkedIn portraits and nine custom GitHub avatars. Existing portraits remain unchanged. Generic GitHub identicons are left as initials. Counts describe project credits, so the same person may appear in more than one project.
 
 ## Missing both profile links
 
@@ -56,7 +56,6 @@ The supplied LinkedIn page is unavailable or has no usable photo. Where a GitHub
 | [Bussola](https://www.hackbarna.com/en/projects/aisummit26/bussola)                                                         | Dr Camilla Kirchhübel   | [LinkedIn](https://www.linkedin.com/in/camilla-g-572420438/)                                                |
 | [COUCHSYNC](https://www.hackbarna.com/en/projects/aisummit26/couchsync)                                                     | Tarik Benslaiman Chikhi | [LinkedIn](https://www.linkedin.com/in/tarek-benslaiman-9b8532375/)                                         |
 | [HackFire](https://www.hackbarna.com/en/projects/aisummit26/hackfire)                                                       | Bryan Tito Farez        | [LinkedIn](https://www.linkedin.com/in/bryan-tito-farez-12020842b/), [GitHub](https://github.com/bryan-brr) |
-| [House Hack](https://www.hackbarna.com/en/projects/aisummit26/house-hack)                                                   | Sonia Niubó Martí       | [LinkedIn](https://www.linkedin.com/in/sonianiubo/)                                                         |
 | [Nova-Cast](https://www.hackbarna.com/en/projects/aisummit26/nova-cast)                                                     | Nina Haide              | [LinkedIn](https://www.linkedin.com/in/ninahaide/), [GitHub](https://github.com/N1n4CH)                     |
 | [plantfire](https://www.hackbarna.com/en/projects/aisummit26/plantfire)                                                     | Alain Faure             | [LinkedIn](https://www.linkedin.com/in/alain-f-848119336/)                                                  |
 | [ResponsAra](https://www.hackbarna.com/en/projects/aisummit26/responsara)                                                   | Sable                   | [LinkedIn](https://www.linkedin.com/in/publius-d-35812b202/)                                                |
