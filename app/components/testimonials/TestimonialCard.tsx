@@ -29,7 +29,7 @@ export default function TestimonialCard({
       href={post.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className={`group block h-full focus-visible:outline-none focus-visible:ring-2 ${light ? 'focus-visible:ring-slate-900' : 'focus-visible:ring-accent'}`}
     >
       <div className={`hb-px hb-px-shadow h-full overflow-hidden ${
         light ? 'bg-white text-slate-900' : 'bg-ground-raised text-ink'
@@ -61,7 +61,7 @@ export default function TestimonialCard({
                   }`}
                 />
               ) : (
-                <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/15 font-semibold text-accent">
+                <span aria-hidden="true" className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full font-semibold ${light ? 'bg-slate-100 text-slate-700' : 'bg-accent/15 text-accent'}`}>
                   {post.author.split(' ').map((part) => part[0]).slice(0, 2).join('')}
                 </span>
               )}

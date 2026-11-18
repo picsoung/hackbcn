@@ -27,7 +27,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/balazs-lapis-b7a86860/'
+      github: 'https://github.com/balazslapis'
   - name: Melissa Orphali
     description: ''
     image:
@@ -37,7 +39,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/viktoriasar/'
+      github: 'https://github.com/highultimate'
 links:
   github: 'https://github.com/akhtarshahnawaz/arca-hackbarna2026'
   website: 'https://arca.up.railway.app/'

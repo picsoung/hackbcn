@@ -23,6 +23,8 @@ import { getEventBySlug } from '@/lib/events'
 import { getEventProjectCards } from '@/lib/project-catalog'
 import EventProjectsSection from '@/app/components/projects/EventProjectsSection'
 import RecapVideo from '@/app/components/events/RecapVideo'
+import EventTestimonialsSection from '@/app/components/testimonials/EventTestimonialsSection'
+import { getTestimonialsForEvent } from '@/data/testimonials'
 import { permanentRedirect, notFound } from 'next/navigation'
 
 // Past events keep this legacy URL as their canonical address (indexed, externally linked).
@@ -58,6 +60,7 @@ export default async function EventPage({
   const { communitySponsors } = getCommunitySponsorsByEvent(eventSlug)
   const projects = await getEventProjectCards(locale, eventSlug)
   const legacyEvent = getEventBySlug(eventSlug)
+  const communityPosts = getTestimonialsForEvent(eventSlug)
 
   return (
     <div>
@@ -94,6 +97,18 @@ export default async function EventPage({
                 eventSlug={eventSlug}
                 eventName={legacyEvent?.name ?? eventSlug}
                 projects={projects}
+                tone="light"
+              />
+            </div>
+          </div>
+        )}
+        {communityPosts.length > 0 && (
+          <div className="bg-white">
+            <div className="mx-auto max-w-7xl px-6 pb-10 lg:px-8">
+              <EventTestimonialsSection
+                posts={communityPosts}
+                locale={locale}
+                eventSlug={eventSlug}
                 tone="light"
               />
             </div>

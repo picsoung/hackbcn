@@ -21,7 +21,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/thevarunaditya/'
+      github: 'https://github.com/varunaditya-plus'
   - name: Tiam Haghshenas
     description: ''
     image:

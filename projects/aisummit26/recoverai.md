@@ -20,17 +20,22 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/ychibani42/'
+      github: 'https://github.com/ychibani42'
   - name: Yago Rodriguez-Martos
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/yago-rodr%C3%ADguez-martos/'
   - name: Javier Urrutia
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/javier-urrutia-095079252/'
+      github: 'https://github.com/mendikat'
 links:
   github: 'https://github.com/ychibani42/RecoverAI'
   website: 'https://recoveria.strategicplatform.com/'

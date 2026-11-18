@@ -18,12 +18,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/adrian-pasten/'
+      github: 'https://github.com/fredpalas'
   - name: María Rey
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/oyonarteweb/'
+      github: 'https://github.com/marythe-ux'
 links:
   github: 'https://github.com/Apperture-Dev/podium'
   website: 'https://app.hostium.apperture.dev/'

@@ -21,22 +21,28 @@ hackers:
   - name: Irina Ichim
     description: ''
     image:
-      src: ''
-    links: {}
+      src: /testimonials/avatars/irina-ichim.jpg
+    links:
+      linkedin: 'https://www.linkedin.com/in/irina-ichim-desarrolladora/'
+      github: 'https://github.com/Irina-Ichim'
   - name: Elvia Benedith
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/elvia-benedith/'
+      github: 'https://github.com/Elviabth'
   - name: Silvina Lucero
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/silvina-lucero/'
+      github: 'https://github.com/silvinalucerobcn-spec'
   - name: Ana Lucia Silva
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/ana-lucia-silva-cordoba.jpg
     links: {}
 links:
   github: 'https://github.com/ctrl-Ella/OffLoad'

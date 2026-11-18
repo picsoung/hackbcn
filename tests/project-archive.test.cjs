@@ -18,6 +18,226 @@ const {
   relatedProjectCards,
 } = require('../lib/project-cards.ts')
 const { projectListPath } = require('../lib/project-seo.ts')
+const {
+  archivedProjectDemo,
+  archivedProjectUrl,
+} = require('../lib/archived-project.ts')
+const {
+  archivedProjectContent,
+  projectBuilder,
+  projectLinks,
+  projectVideo,
+} = require('../lib/project-detail.ts')
+const { makerProfileKey } = require('../lib/maker-avatar.ts')
+
+test('maker portraits match verified profiles across locales and tracking parameters', () => {
+  assert.equal(
+    projectBuilder({
+      name: 'Guido',
+      linkedinUrl: 'https://www.linkedin.com/in/GuidoVezzoni/?utm_source=share',
+    }).image,
+    '/testimonials/avatars/guido-vezzoni.jpg',
+  )
+  assert.equal(
+    projectBuilder({
+      name: 'Francesc Brugarolas Padros',
+      links: { github: 'github.com/fcesc-code/' },
+    }).image,
+    '/makers/francesc-brugarolas.jpg',
+  )
+  assert.equal(
+    makerProfileKey('https://es.linkedin.com/in/gisela-lardin-morales/en'),
+    'linkedin:gisela-lardin-morales',
+  )
+  assert.equal(
+    makerProfileKey('https://www.linkedin.com/in/andr%C3%A9-barbosa/'),
+    'linkedin:andré-barbosa',
+  )
+})
+
+test('portrait enrichment keeps explicit images and never guesses from names or repository links', () => {
+  assert.equal(projectBuilder({ name: 'Guido Vezzoni' }).image, undefined)
+  assert.equal(
+    projectBuilder({
+      name: 'Another Guido',
+      linkedinUrl: 'https://linkedin.com/in/someone-else',
+    }).image,
+    undefined,
+  )
+  assert.equal(
+    projectBuilder({
+      name: 'Francesc',
+      image: { src: '/hackers/original.jpeg' },
+      links: { github: 'https://github.com/fcesc-code' },
+    }).image,
+    '/hackers/original.jpeg',
+  )
+  for (const url of [
+    'https://github.com/fcesc-code/project',
+    'https://linkedin.com.example.com/in/guidovezzoni',
+    'https://linkedin.com/company/guidovezzoni',
+    'https://other.example/in/guidovezzoni',
+    'https://linkedin.com/in/%invalid',
+    'https://example:password@linkedin.com/in/guidovezzoni',
+  ])
+    assert.equal(makerProfileKey(url), undefined, url)
+})
+
+test('every extracted maker avatar has a verified profile and a local image', () => {
+  const fs = require('node:fs')
+  const path = require('node:path')
+  const avatars = require('../data/maker-avatars.json')
+  const identities = new Set()
+  for (const avatar of avatars) {
+    const key = makerProfileKey(avatar.profileUrl)
+    assert.ok(key, avatar.profileUrl)
+    assert.ok(!identities.has(key), avatar.profileUrl)
+    identities.add(key)
+    assert.match(avatar.image, /^\/makers\/[\w-]+\.(jpg|png|webp)$/)
+    assert.ok(
+      fs.statSync(path.join(__dirname, '../public', avatar.image)).size > 0,
+    )
+    assert.ok(Number.isFinite(Date.parse(avatar.retrievedAt)))
+  }
+})
+
+test('archived demo links preserve every first-edition video and its recorded start time', () => {
+  const projects = getProjects().filter(
+    (project) => project.data.event === 'v1-2024',
+  )
+  assert.equal(projects.length, 18)
+  for (const project of projects) {
+    const embedded = project.content.match(
+      /<YouTube id="([^"]+)" timestamp="(\d+)"/,
+    )
+    assert.ok(embedded, project.slug)
+    assert.deepEqual(
+      archivedProjectDemo(project.data.youtubeLink),
+      {
+        id: embedded[1],
+        timestamp: embedded[2],
+      },
+      project.slug,
+    )
+    const prepared = archivedProjectContent(project)
+    assert.equal(prepared.media.type, 'youtube', project.slug)
+    assert.equal(prepared.media.id, embedded[1], project.slug)
+    assert.equal(prepared.media.timestamp, embedded[2], project.slug)
+    assert.ok(!prepared.content.includes('<YouTube'), project.slug)
+  }
+  assert.deepEqual(
+    archivedProjectDemo('https://youtu.be/JZzgPRxKiFM?t=1h2m3s'),
+    {
+      id: 'JZzgPRxKiFM',
+      timestamp: '3723',
+    },
+  )
+  assert.equal(
+    archivedProjectDemo('https://example.com/watch?v=JZzgPRxKiFM'),
+    undefined,
+  )
+})
+
+test('shared builder credits retain photos, roles and social links without private fields', () => {
+  const builder = projectBuilder({
+    name: ' Example Builder ',
+    job: 'Developer',
+    image: { src: '/hackers/example.jpg' },
+    links: {
+      linkedin: 'linkedin.com/in/example',
+      github: 'github.com/example',
+      twitter: 'twitter.com/example',
+      email: 'https://private.example.test',
+    },
+    creatorEmail: 'private@example.test',
+  })
+  assert.deepEqual(builder, {
+    name: 'Example Builder',
+    role: 'Developer',
+    image: '/hackers/example.jpg',
+    links: {
+      linkedin: 'https://linkedin.com/in/example',
+      github: 'https://github.com/example',
+      twitter: 'https://twitter.com/example',
+    },
+  })
+  assert.doesNotMatch(JSON.stringify(builder), /private|creatorEmail/)
+  assert.deepEqual(
+    projectBuilder({
+      name: 'Submitted Builder',
+      linkedinUrl: 'https://linkedin.com/in/submitted',
+    }).links,
+    { linkedin: 'https://linkedin.com/in/submitted' },
+  )
+})
+
+test('the primary media moves out of MDX while additional demos and text remain', () => {
+  const project = getProjects().find((project) => project.slug === 'AQ-App')
+  const original = project.content
+  const extra = '<YouTube id="Z3qFd-oT8Xo" timestamp="0" />'
+  const prepared = archivedProjectContent({
+    ...project,
+    content: `${original}\nExtra context.\n${extra}`,
+  })
+  assert.equal(prepared.media.timestamp, '4800')
+  assert.ok(
+    prepared.content.includes(
+      'We aim to raise awareness about the dangers of air pollution',
+    ),
+  )
+  assert.ok(prepared.content.includes('Extra context.'))
+  assert.ok(prepared.content.includes(extra))
+  const markdown = getProjects().find(
+    (project) => project.slug === 'aisummit26/ai-meeting-moderator',
+  )
+  assert.equal(archivedProjectContent(markdown).content, markdown.content)
+  assert.equal(archivedProjectContent(markdown).media.id, 'LT4t5-4Rzak')
+})
+
+test('shared actions deduplicate URLs while preserving distinct demos and image links', () => {
+  assert.deepEqual(
+    projectLinks([
+      ['video', 'https://example.com/first'],
+      ['video', 'https://example.com/second'],
+      ['github', 'https://example.com/first'],
+      ['screenshot', '/api/project/screenshot'],
+      ['website', 'javascript:alert(1)'],
+    ]),
+    [
+      { type: 'github', href: 'https://example.com/first' },
+      { type: 'video', href: 'https://example.com/second' },
+      { type: 'screenshot', href: '/api/project/screenshot' },
+    ],
+  )
+  assert.deepEqual(projectVideo('https://www.loom.com/share/abc123'), {
+    type: 'embed',
+    src: 'https://www.loom.com/embed/abc123',
+  })
+  assert.deepEqual(projectVideo('https://vimeo.com/123456'), {
+    type: 'embed',
+    src: 'https://player.vimeo.com/video/123456',
+  })
+  assert.equal(
+    projectVideo('https://example.com/watch?v=JZzgPRxKiFM'),
+    undefined,
+  )
+})
+
+test('older builder links without a protocol remain external profile links', () => {
+  const anne = getProjects()
+    .find((project) => project.slug === 'candit')
+    .data.hackers.find((hacker) => hacker.name === 'Anne Pehse')
+  assert.equal(
+    archivedProjectUrl(anne.links.linkedin),
+    'https://www.linkedin.com/in/anne-pehse',
+  )
+  assert.equal(
+    archivedProjectUrl(anne.links.github),
+    'https://github.com/anninape',
+  )
+  assert.equal(archivedProjectUrl('javascript:alert(1)'), undefined)
+  assert.equal(archivedProjectUrl(''), undefined)
+})
 
 test('existing Markdown publication dates remain valid for sitemap generation', () => {
   const projects = getProjects()
@@ -138,7 +358,11 @@ const submitted = {
   screenshotKey: 'event/preview.png',
   videoUrl: 'https://youtu.be/abc123',
 }
-const event = { name: 'Jev-a-thon', startDate: '2026-11-10T18:00:00Z' }
+const event = {
+  name: 'Jev-a-thon',
+  startDate: '2026-11-10T18:00:00Z',
+  imageUrl: '/events/jevathon-cover.png',
+}
 
 test('public cards preserve media and discovery without voting metrics or private fields', () => {
   const card = submittedProjectCard(
@@ -157,6 +381,7 @@ test('public cards preserve media and discovery without voting metrics or privat
     },
   )
   assert.equal(card.creator, 'Alex, Sam')
+  assert.equal(card.eventImage, event.imageUrl)
   assert.equal(card.award, 'Community prize')
   assert.equal(card.voteCount, undefined)
   assert.equal(card.judgeScore, undefined)
@@ -189,6 +414,12 @@ test('the archive groups every project by event, newest first, without conflatin
   const cards = [...archived, older, recent]
   const groups = groupProjectCards(cards)
   assert.equal(groups[0].key, submitted.eventSlug)
+  assert.equal(groups[0].image, event.imageUrl)
+  assert.equal(
+    groupProjectCards([{ ...recent, eventImage: undefined }, recent])[0].image,
+    event.imageUrl,
+    'an event cover can come from any matching project, never its screenshot',
+  )
   assert.equal(groups.flatMap((group) => group.projects).length, cards.length)
   assert.equal(new Set(cards.map((card) => card.key)).size, cards.length)
   assert.notEqual(recent.href, older.href)

@@ -21,17 +21,23 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/asierzapata/'
+      github: 'https://github.com/asierzapata'
   - name: Enric Moreu
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/enricmf/'
+      github: 'https://github.com/enric1994'
   - name: Juanjo Nieto
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/juan-jose-nieto-salas/'
+      github: 'https://github.com/juanjo3ns'
 links:
   github: 'https://github.com/asierzapata/kan'
   website: 'https://getkan.dev/'

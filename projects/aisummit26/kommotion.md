@@ -26,7 +26,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/edouardf/'
+      github: 'https://github.com/edouardfoussier'
 links:
   github: 'https://github.com/edouardfoussier/hackbarna'
   website: 'https://kommotion.tv/'

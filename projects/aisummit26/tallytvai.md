@@ -25,7 +25,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/thomas-samson/'
+      github: 'https://github.com/Thomasjsr'
 links:
   github: 'https://github.com/Hellgard/TallyTVAI'
   video: 'https://youtu.be/jCWKZ41KDn4'

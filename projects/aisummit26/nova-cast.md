@@ -20,7 +20,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/ninahaide/'
+      github: 'https://github.com/N1n4CH'
 links:
   github: 'https://github.com/n1n4xyz/nova-cast'
   video: 'https://youtu.be/gvSj4s39rMo'

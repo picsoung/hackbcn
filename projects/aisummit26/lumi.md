@@ -21,17 +21,22 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/valentin-robles-menichelli/'
+      github: 'https://github.com/valentinrobles'
   - name: Giulia Bono
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/giuliabono/'
   - name: Marta Conde
     description: ''
     image:
-      src: ''
-    links: {}
+      src: /testimonials/avatars/marta-conde.jpg
+    links:
+      linkedin: 'https://www.linkedin.com/in/martacondedesign/'
+      github: 'https://github.com/MartaCondeDesign'
 links:
   github: 'https://github.com/valentinrobles/bam-hackers'
   video: 'https://www.youtube.com/watch?v=lffjHbn9BDE'

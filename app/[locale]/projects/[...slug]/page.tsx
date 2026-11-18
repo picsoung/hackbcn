@@ -1,25 +1,25 @@
-import React from 'react'
 import { notFound } from 'next/navigation'
-import { projectMetadata } from '@/lib/project-seo'
-
-import { getProject, Person } from '@/app/helpers/projects'
-import { archivedProjectCard, type ProjectCard } from '@/lib/project-cards'
-import { getRelatedProjectCards } from '@/lib/project-catalog'
-import { getEventDataBySlug } from '@/lib/events-server'
-import ProjectRecommendations from '@/app/components/projects/ProjectRecommendations'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import ReactMarkdown from 'react-markdown'
-import YouTube from '@/app/components/mdx/Youtube'
-import Avatar from '@/app/components/Avatar'
-import LinkIcon from '@/app/components/LinkIcon'
+import { getProject, type Project } from '@/app/helpers/projects'
+import { archivedProjectCard } from '@/lib/project-cards'
+import {
+  archivedProjectContent,
+  projectBuilder,
+  projectLinks,
+} from '@/lib/project-detail'
+import { getRelatedProjectCards } from '@/lib/project-catalog'
+import { getEventDataBySlug } from '@/lib/events-server'
+import { projectMetadata } from '@/lib/project-seo'
+import { projectPageCopy } from '@/data/project-page'
+import ProjectDetail from '@/app/components/projects/ProjectDetail'
+import ProjectVideo, {
+  type ProjectVideoProps,
+} from '@/app/components/projects/ProjectVideo'
 
-import { FaTrophy } from 'react-icons/fa6'
+type Params = { params: { slug: string[]; locale: string } }
 
-export function generateMetadata({
-  params,
-}: {
-  params: { slug: string[]; locale: string }
-}) {
+export function generateMetadata({ params }: Params) {
   try {
     const project = getProject(params.slug)
     return projectMetadata(
@@ -34,157 +34,59 @@ export function generateMetadata({
 
 export const dynamic = 'force-dynamic'
 
-export default async function ProjectBySlug({
-  params,
-}: {
-  params: { slug: string[]; locale: string }
-}) {
-  let content
-  let current: ProjectCard
-
-  const tagColors = [
-    'bg-indigo-100 text-indigo-700',
-    'bg-green-100 text-green-700',
-    'bg-yellow-100 text-yellow-700',
-    'bg-orange-100 text-orange-700',
-    'bg-red-100 text-red-700',
-    'bg-blue-200 text-blue-700',
-    'bg-purple-100 text-purple-700',
-    'bg-pink-100 text-pink-700',
-  ]
-  const winnerColors: { [key: string]: { bg: string; text: string } } = {
-    yellow: {
-      bg: 'bg-yellow-300',
-      text: 'text-yellow-900',
-    },
-    blue: {
-      bg: 'bg-blue-300',
-      text: 'text-blue-900',
-    },
-    stone: {
-      bg: 'bg-gray-300',
-      text: 'text-gray-900',
-    },
-  }
-
+export default async function ProjectBySlug({ params }: Params) {
+  let project: Project
   try {
-    const project = getProject(params.slug)
-    current = archivedProjectCard(
-      project,
-      params.locale,
-      project.data.event
-        ? getEventDataBySlug(project.data.event)?.event
-        : undefined,
-    )
-
-    const getTagColor = (tag: string) => {
-      const index = project.data.techStack.indexOf(tag)
-      const colorIndex = index % tagColors.length
-      return tagColors[colorIndex]
-    }
-
-    content = (
-      <>
-        <h1>{project.data.title}</h1>
-        <div className="flex flex-col gap-6 sm:flex-row sm:justify-between">
-          <div className="flex flex-col">
-            {project.data.winner && (
-              <div>
-                <h2>Awards</h2>
-                <div
-                  className={`flex flex-row gap-2 w-1/2 items-center ${winnerColors[project.data.winner.color].bg} ${winnerColors[project.data.winner.color].text} p-3 lg:px-5 my-4 rounded-lg`}
-                >
-                  <FaTrophy size={20} />
-                  <span className="text-lg">{project.data.winner.text}</span>
-                </div>
-              </div>
-            )}
-            {project.data.techStack.length > 0 && (
-              <div>
-                <h2>Stack</h2>
-                <small className="text-gray-400">
-                  {project.data.techStack.map((tag: string, index: number) => {
-                    const colorClass = getTagColor(tag)
-                    return (
-                      <span
-                        key={tag}
-                        className={`inline-block rounded-full px-2 py-1 mr-1 mb-1 ${colorClass}`}
-                      >
-                        {tag}
-                      </span>
-                    )
-                  })}
-                </small>
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <div className="flex flex-col">
-              <h2>One liner</h2>
-              <p className="text-gray-500">{project.data.description}</p>
-            </div>
-            <div className="flex flex-col">
-              {project.data.links &&
-                Object.keys(project.data.links).length > 0 && (
-                  <>
-                    <h2>Links</h2>
-                    <div className="flex flex-wrap items-center gap-4">
-                      {' '}
-                      {Object.entries(project.data.links).map(([type, url]) => {
-                        if (!url) return null
-                        return (
-                          <LinkIcon
-                            key={type}
-                            linkType={type}
-                            linkURL={url}
-                            showText={true}
-                          />
-                        )
-                      })}
-                    </div>
-                  </>
-                )}
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h2>Team</h2>
-          <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:max-w-none lg:grid-cols-4">
-            {project.data.hackers.map((hacker: Person, index: number) => (
-              <Avatar key={index} person={hacker} />
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2>Project details</h2>
-          {project.data.contentFormat === 'markdown' ? (
-            <ReactMarkdown skipHtml>{project.content}</ReactMarkdown>
-          ) : (
-            <MDXRemote source={project.content} components={{ YouTube }} />
-          )}
-        </div>
-      </>
-    )
+    project = getProject(params.slug)
   } catch {
     notFound()
   }
+  const { data } = project
+  const copy = projectPageCopy(params.locale)
+  const event = data.event ? getEventDataBySlug(data.event)?.event : undefined
+  const current = archivedProjectCard(project, params.locale, event)
   const related = await getRelatedProjectCards(current, params.locale)
+  const { content, media } = archivedProjectContent(project)
+  const links = projectLinks([
+    ...Object.entries(data.links ?? {}),
+    ['video', data.youtubeLink],
+  ])
   return (
-    <div id="project" className="min-h-screen bg-white py-10 sm:py-10">
-      <div className="mx-auto max-w-7xl px-4 lg:px-8">
-        <h2 className="mt-2 text-3xl sm:text-5xl font-cal font-semibold text-indigo-600">
-          Project
-        </h2>
-        <article className="prose mg:prose-lg max-w-4xl mx-auto [overflow-wrap:anywhere]">
-          {content}
-        </article>
-      </div>
-      <ProjectRecommendations
-        current={current}
-        related={related}
-        tone="light"
-      />
-    </div>
+    <ProjectDetail
+      project={current}
+      builders={(data.hackers ?? []).map(projectBuilder)}
+      links={links}
+      media={media}
+      stack={data.techStack}
+      related={related}
+      locale={params.locale}
+      publishedDate={data.publishedDate}
+      modifiedDate={data.modifiedDate}
+    >
+      {content.trim() ? (
+        data.contentFormat === 'markdown' ? (
+          <ReactMarkdown skipHtml>{content}</ReactMarkdown>
+        ) : (
+          <MDXRemote
+            source={content}
+            components={{
+              YouTube: (
+                props: Omit<ProjectVideoProps, 'announce' | 'title'> & {
+                  title?: string
+                },
+              ) => (
+                <div className="my-8">
+                  <ProjectVideo
+                    {...props}
+                    title={props.title || data.title}
+                    announce={copy.watchDemo}
+                  />
+                </div>
+              ),
+            }}
+          />
+        )
+      ) : undefined}
+    </ProjectDetail>
   )
 }

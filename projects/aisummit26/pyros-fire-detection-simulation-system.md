@@ -18,12 +18,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/roger-farrerons-calbet-224452234/'
+      github: 'https://github.com/DrFarree'
   - name: Yasine Kahouaji
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/yasinekahouaji/'
   - name: Alejandro Reyes
     description: ''
     image:

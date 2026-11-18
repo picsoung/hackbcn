@@ -20,7 +20,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/starklink/'
+      github: 'https://github.com/colinstark'
   - name: Diego Guevara
     description: ''
     image:
@@ -30,7 +32,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/nasia-kudaibergen-29a11671/'
 links:
   github: 'https://github.com/colinstark/hackbarna26/'
   website: 'https://ling0.app/'

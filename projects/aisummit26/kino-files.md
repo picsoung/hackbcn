@@ -25,7 +25,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/martilarosaramos/'
+      github: 'https://github.com/santo0'
   - name: Manuel Felix Parma
     description: ''
     image:

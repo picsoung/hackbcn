@@ -24,7 +24,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/matija-milekic/'
 links:
   github: 'https://github.com/spectral-butters/hacky-movies'
   video: 'https://youtu.be/2ZmsCthPvck'

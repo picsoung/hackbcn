@@ -24,12 +24,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sergio-pulido/'
+      github: 'https://github.com/sergio-pulido'
   - name: Ramon Amela
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/ramonamela/'
+      github: 'https://github.com/ramonamela'
 links:
   github: 'https://github.com/sergio-pulido/reverie'
   website: 'https://reverie-five-pied.vercel.app/'

@@ -21,17 +21,23 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/elenalpris/'
+      github: 'https://github.com/elp-ops'
   - name: Luca Narbone
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/lucanarbone/'
+      github: 'https://github.com/uaaoe'
   - name: Nicolas Cardenas
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/nicolas-cardenas-732b16224/'
+      github: 'https://github.com/Nicolas-Cardenas-Segura'
 links:
   github: 'https://github.com/Nicolas-Cardenas-Segura/finblindspot'
   video: 'https://youtu.be/a5MXIvyv84Y'

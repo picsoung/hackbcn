@@ -20,12 +20,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/Andreiigna/'
+      github: 'https://github.com/AndreiIgna'
   - name: Romina Cialdella
     description: ''
     image:
-      src: ''
-    links: {}
+      src: /testimonials/avatars/romina-cialdella.jpg
+    links:
+      linkedin: 'https://www.linkedin.com/in/rominacialdella/'
 links:
   github: 'https://github.com/rocklet2/hackbarna'
   website: 'https://taula-learn.app/'

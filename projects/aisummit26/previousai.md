@@ -26,13 +26,15 @@ hackers:
   - name: Ylenia Porras
     description: ''
     image:
-      src: ''
+      src: /testimonials/avatars/ylenia-porras.jpg
     links: {}
   - name: Rubén Ausín Trujillo
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/rubenausin/'
+      github: 'https://github.com/Rathero'
 links:
   github: 'https://github.com/Rathero/PreviousAI'
   website: 'https://pill-success-sphere-disposition.trycloudflare.com/'

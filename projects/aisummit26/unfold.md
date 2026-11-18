@@ -24,12 +24,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/anna-kreise/'
+      github: 'https://github.com/akreise'
   - name: Diana Kreise
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/diana-kreise-074824307/'
+      github: 'https://github.com/dkreise'
 links:
   github: 'https://github.com/ettoreboy/hackbarna2026-cangrejo'
   video: 'https://youtu.be/mK291ZF-lOE'

@@ -19,12 +19,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sbarankova/'
+      github: 'https://github.com/milieere'
   - name: Alexander Walker
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/alexander-renatto-walker-barreda-39442b139/'
+      github: 'https://github.com/walkeriano'
 links:
   github: 'https://github.com/milieere/marketplace'
   website: 'https://marketplace-web-1ylr.vercel.app/'

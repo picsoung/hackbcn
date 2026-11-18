@@ -22,7 +22,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sabrina-j-418682172/'
 links:
   github: 'https://github.com/Sinteqia/hackbarna-2026-project'
   website: 'https://done-head-consultancy-diversity.trycloudflare.com/'

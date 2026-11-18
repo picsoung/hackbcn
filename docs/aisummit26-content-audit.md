@@ -21,6 +21,14 @@ The 70 populated source rows include three obvious tests (`NicoTest`, `NicoTest2
 
 The import includes only project names, pitches, descriptions, team member names, challenge labels and submitted links. Email columns, enriched personal/company information, submission tokens and internal judging data are omitted. Participant descriptions render as Markdown with raw HTML skipped, rather than executing as MDX. No awards or profile identities are inferred.
 
+### Maker profiles
+
+On 17 November 2026, the original submission emails were joined privately to the organiser-provided Hacker attendee export dated 24 September 2026. Matching uses trimmed, case-insensitive email equality. Display names, email aliases and repository ownership are not used to guess a match. The existing 65 archived projects are identified by their submitted repository links, retaining the later submission for repeated projects.
+
+Of 144 maker credits, 110 have an unambiguous email match. Their submitted public profiles supply 109 LinkedIn links and 83 GitHub links across 60 updated project pages. Names, portraits, project content and team order are preserved. The remaining 28 credits have no matching attendee email. Six credits across `FIREGUARD_HACKBARNA_TeamFedora` and `preply_project_learning-` reuse an email for several teammates and remain unchanged pending individual confirmation.
+
+The import script is `scripts/enrich-aisummit26-makers.cjs`. It validates the complete batch before writing, rejects conflicting duplicate attendee profiles, and writes only normalized LinkedIn and GitHub URLs into the existing public team metadata. The attendee CSV, private submission join data, emails, email hashes and guest identifiers are not part of the application or repository.
+
 Records live in `projects/aisummit26/`. Their event keys connect them to the event's final Projects disclosure and to the searchable global archive. Each project has a stable detail URL and is included in the existing sitemap. All project cards, descriptions, maker names and ItemList JSON-LD remain in the initial server HTML when the disclosure is closed.
 
 ## Community posts

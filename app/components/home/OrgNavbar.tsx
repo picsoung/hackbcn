@@ -28,6 +28,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
 
   const navigation = [
     { name: intl.t('home.navbar.events'), href: `/${intl.locale}/events` },
+    { name: intl.t('navbar.projects'), href: `/${intl.locale}/projects` },
     { name: intl.t('partner.nav'), href: `/${intl.locale}/sponsor` },
     { name: intl.t('navbar.testimonials'), href: `/${intl.locale}/testimonials` },
     { name: intl.t('home.navbar.digest'), href: getDigestHref(intl.locale), external: true },
@@ -86,7 +87,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                     </Link>
                   </div>
 
-                  <div className="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-6">
+                  <div className="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4 xl:space-x-6">
                     {navigation.map((item) =>
                       item.external ? (
                         <a

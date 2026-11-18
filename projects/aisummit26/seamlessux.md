@@ -18,12 +18,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/patriciobcs/'
+      github: 'https://github.com/patriciobcs'
   - name: Amina Ben Salem
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/amina-ben-salem/'
+      github: 'https://github.com/minasrc'
 links:
   github: 'https://github.com/seamlessux/seamlessux'
   website: 'https://seamlessux.patriciobcs.com/'

@@ -10,12 +10,17 @@ export default function EventTestimonialsSection({
   posts,
   locale,
   eventSlug,
+  tone = 'night',
 }: {
   posts: Testimonial[]
   locale: string
   eventSlug: string
+  tone?: 'night' | 'light'
 }) {
   const disclosure = useRef<HTMLDetailsElement>(null)
+  const light = tone === 'light'
+  const muted = light ? 'text-slate-600' : 'text-ink-dim'
+  const link = light ? 'text-slate-900' : 'text-accent'
 
   useEffect(() => {
     const revealFromHash = () => {
@@ -58,32 +63,37 @@ export default function EventTestimonialsSection({
       aria-labelledby="event-testimonials-heading"
       className="scroll-mt-8"
     >
-      <details ref={disclosure} className="group border-b border-band-2">
-        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent [&::-webkit-details-marker]:hidden">
+      <details
+        ref={disclosure}
+        className={`group border-b ${light ? 'border-slate-200' : 'border-band-2'}`}
+      >
+        <summary
+          className={`flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 [&::-webkit-details-marker]:hidden ${light ? 'text-slate-900 focus-visible:outline-slate-900' : 'text-ink focus-visible:outline-accent'}`}
+        >
           <h2 id="event-testimonials-heading" className="text-xl font-semibold">
             Community posts{' '}
-            <span className="ml-2 text-sm font-normal tabular-nums text-ink-dim">
+            <span className={`ml-2 text-sm font-normal tabular-nums ${muted}`}>
               {posts.length}
             </span>
           </h2>
           <ChevronDownIcon
             aria-hidden="true"
-            className="h-5 w-5 shrink-0 text-ink-dim group-open:rotate-180"
+            className={`h-5 w-5 shrink-0 group-open:rotate-180 ${muted}`}
           />
         </summary>
         <div className="pb-8">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-            <p className="text-sm text-ink-dim">
+            <p className={`text-sm ${muted}`}>
               Recaps and project demos from this event.
             </p>
             <Link
               href={`/${locale}/testimonials#${eventSlug}`}
-              className="inline-flex min-h-11 items-center text-sm font-semibold text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className={`inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${link} ${light ? 'focus-visible:outline-slate-900' : 'focus-visible:outline-accent'}`}
             >
               View in community archive
             </Link>
           </div>
-          <TestimonialGrid posts={posts} />
+          <TestimonialGrid posts={posts} light={light} />
         </div>
       </details>
     </section>

@@ -23,12 +23,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/camilla-g-572420438/'
   - name: Maria Bodero
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/mariabodero/'
+      github: 'https://github.com/mbodriv'
 links:
   github: 'https://github.com/mbodriv/HackathonApp'
   website: 'https://hackathon-app-green-nine.vercel.app/'

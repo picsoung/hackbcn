@@ -17,7 +17,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/tairasim/'
+      github: 'https://github.com/assimovt'
 links:
   github: 'https://github.com/assimovt/nito'
   website: 'https://usenito.com/'

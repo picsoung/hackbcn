@@ -22,12 +22,15 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/daniel-duhnev/'
+      github: 'https://github.com/daniel-duhnev'
   - name: Philipp Leihe
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/philipp-l-5173b0104/'
 links:
   github: 'https://github.com/lihp99/hackbarna-fuego'
   website: 'https://www.youtube.com/watch?v=SWOD-GCFqsM'

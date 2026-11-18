@@ -1,3 +1,8 @@
+import {
+  communityMentions,
+  curatedAnnouncementReviews,
+} from './community-mentions'
+
 // Curated public posts. Add a source URL and the matching event slug for each
 // entry; a short excerpt is enough when there is no local screenshot. The same
 // list powers the archive and each event's testimonials section.
@@ -24,11 +29,15 @@ export const testimonialEvents = [
   { slug: 'netlify-barcelona-2026', name: 'Netlify @ Barcelona', date: 'October 2026' },
   { slug: 'aisummit26', name: 'HackBarna × AI Summit 2026', date: 'September 2026' },
   { slug: 'hacknight-june-2026', name: 'HackNight #4: Build with Netlify', date: 'June 2026' },
+  { slug: 'hacknight-3-linkup-2026', name: 'HackNight #3: Powered by Linkup', date: 'April 2026' },
+  { slug: 'skillathon-hacknight-2026', name: 'Skill-a-thon HackNight', date: 'March 2026' },
+  { slug: 'vibecode-hacknight-2026', name: 'Vibecode Hack Night', date: 'February 2026' },
   { slug: 'aisummit25', name: 'HackBarna × AI Summit 2025', date: 'October 2025' },
+  { slug: 'hacknight-edreams-2024', name: 'Hack Night @ eDreams ODIGEO', date: 'September 2024' },
   { slug: 'v1-2024', name: 'HackBarna v1', date: 'June 2024' },
 ] as const
 
-export const testimonials: Testimonial[] = [
+const curatedTestimonials: Testimonial[] = [
   // Jev-a-thon posts: verified public metadata and short verbatim excerpts.
   {
     eventSlug: 'hacknight-5-jevathon-2026',
@@ -413,6 +422,55 @@ export const testimonials: Testimonial[] = [
   { eventSlug: 'v1-2024', platform: 'linkedin', author: 'Vero', image: '/testimonials/vero_linkedin.png', url: 'https://www.linkedin.com/posts/veroagnolutto_ai-hackathon-barcelona-activity-7213530083985166336-pFyj' },
   { eventSlug: 'v1-2024', platform: 'press', author: 'Parentesis', image: '/testimonials/parentesis_press.png', url: 'https://www.parentesis.media/programar-una-ia-en-24-horas-asi-sera-el-hackaton-de-barcelona/' },
 ]
+
+// Preserve all original records, including screenshots reclassified as announcements.
+export const communityPostArchive: Testimonial[] = [
+  ...curatedTestimonials,
+  ...communityMentions.flatMap((mention): Testimonial[] => {
+    if (
+      mention.status !== 'added' ||
+      !mention.eventSlug ||
+      mention.platform === 'web' ||
+      ![
+        'participant-recap',
+        'organizer-recap',
+        'partner-recap',
+        'commentary-repost',
+        'project-update',
+        'press-recap',
+      ].includes(mention.kind)
+    )
+      return []
+
+    return [
+      {
+        eventSlug: mention.eventSlug,
+        platform: mention.platform,
+        author: mention.author,
+        authorUrl: mention.authorUrl,
+        url: mention.url,
+        sourceUrl: mention.sourceUrl,
+        excerpt: mention.summary,
+        excerptLang: 'en',
+        avatar: mention.avatar,
+        avatarKind: mention.avatarKind,
+        position: mention.position,
+        positionSourceUrl: mention.positionSourceUrl,
+      },
+    ]
+  }),
+]
+
+const auditOnlyUrls = new Set(
+  [...communityMentions, ...curatedAnnouncementReviews]
+    .filter((mention) => mention.status === 'audit-only')
+    .map((mention) => mention.url),
+)
+
+// Every public view uses the same recap-only selection, including older cards.
+export const testimonials = communityPostArchive.filter(
+  (post) => !auditOnlyUrls.has(post.url),
+)
 
 export function getTestimonialsForEvent(eventSlug: string) {
   return testimonials.filter((post) => post.eventSlug === eventSlug)
