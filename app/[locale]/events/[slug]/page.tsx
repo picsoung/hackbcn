@@ -10,9 +10,10 @@ import { buildOgImagePath, formatOgDate } from '@/lib/og'
 import { getEventProjectCards } from '@/lib/project-catalog'
 import { getLiveEvent } from '@/lib/live/config'
 import EventProjectsSection from '@/app/components/projects/EventProjectsSection'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
+const legacyCanonicalSlugs = new Set(['v1-2024', 'aisummit25'])
 
 export function generateMetadata({
   params,
@@ -39,7 +40,9 @@ export function generateMetadata({
     image: event.imageUrl,
     footer: `hackbarna.com/events/${event.slug}`,
   })
-  const canonical = `/${params.locale}/events/${event.slug}`
+  const canonical = legacyCanonicalSlugs.has(event.slug)
+    ? `/${params.locale}/${event.slug}`
+    : `/${params.locale}/events/${event.slug}`
 
   return {
     title: `${eventTitle} — HackBarna`,
@@ -74,6 +77,9 @@ export default async function EventDetailPage({
 }: {
   params: { locale: string; slug: string }
 }) {
+  if (legacyCanonicalSlugs.has(params.slug)) {
+    permanentRedirect(`/${params.locale}/${params.slug}`)
+  }
   const data = getEventDataBySlug(params.slug)
   if (!data) {
     notFound()
