@@ -118,7 +118,7 @@ test('AI Summit maker profiles expose only public URLs while preserving full tea
   )
 })
 
-test('AI Summit 2026 has a credited gallery and all thirteen sourced community posts', () => {
+test('AI Summit 2026 has a credited gallery and preserves the original community portraits', () => {
   const { event } = readMdxEvent('aisummit26')
   assert.equal(event.active, false)
   assert.equal(event.gallery.length, 4)
@@ -132,8 +132,10 @@ test('AI Summit 2026 has a credited gallery and all thirteen sourced community p
     assert.ok(photo.width > 0 && photo.height > 0)
   }
   const posts = getTestimonialsForEvent('aisummit26')
-  assert.equal(posts.length, 13)
-  for (const post of posts) {
+  assert.equal(posts.length, 71)
+  const originalPosts = posts.slice(0, 13)
+  assert.equal(originalPosts.length, 13)
+  for (const post of originalPosts) {
     assert.ok(post.url.startsWith('https://'))
     assert.ok(post.position)
     assert.ok(
