@@ -1,4 +1,7 @@
-import { communityMentions } from './community-mentions'
+import {
+  communityMentions,
+  curatedAnnouncementReviews,
+} from './community-mentions'
 
 // Curated public posts. Add a source URL and the matching event slug for each
 // entry; a short excerpt is enough when there is no local screenshot. The same
@@ -420,15 +423,22 @@ const curatedTestimonials: Testimonial[] = [
   { eventSlug: 'v1-2024', platform: 'press', author: 'Parentesis', image: '/testimonials/parentesis_press.png', url: 'https://www.parentesis.media/programar-una-ia-en-24-horas-asi-sera-el-hackaton-de-barcelona/' },
 ]
 
-// Announcements and contextual references stay in the source audit. The explicit
-// allowlist also prevents web/profile references from becoming testimonial cards.
-export const testimonials: Testimonial[] = [
+// Preserve all original records, including screenshots reclassified as announcements.
+export const communityPostArchive: Testimonial[] = [
   ...curatedTestimonials,
   ...communityMentions.flatMap((mention): Testimonial[] => {
     if (
       mention.status !== 'added' ||
       !mention.eventSlug ||
-      mention.platform === 'web'
+      mention.platform === 'web' ||
+      ![
+        'participant-recap',
+        'organizer-recap',
+        'partner-recap',
+        'commentary-repost',
+        'project-update',
+        'press-recap',
+      ].includes(mention.kind)
     )
       return []
 
@@ -450,6 +460,17 @@ export const testimonials: Testimonial[] = [
     ]
   }),
 ]
+
+const auditOnlyUrls = new Set(
+  [...communityMentions, ...curatedAnnouncementReviews]
+    .filter((mention) => mention.status === 'audit-only')
+    .map((mention) => mention.url),
+)
+
+// Every public view uses the same recap-only selection, including older cards.
+export const testimonials = communityPostArchive.filter(
+  (post) => !auditOnlyUrls.has(post.url),
+)
 
 export function getTestimonialsForEvent(eventSlug: string) {
   return testimonials.filter((post) => post.eventSlug === eventSlug)

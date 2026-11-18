@@ -1,6 +1,6 @@
 # Historical community mentions
 
-Reviewed November 18, 2026. This audit preserves the 53 previously saved posts and records 113 additional public sources, including 78 recaps and project updates added to event pages. 35 announcements, contextual mentions and references are retained here for review.
+Reviewed November 18, 2026. This audit preserves the 53 previously saved posts and records 113 additional public sources, including 78 recaps and project updates added to event pages. 39 announcements, contextual mentions and references are retained here for review, including four announcements reclassified from the original collection. The public sections now show 127 recap cards.
 
 ## Coverage and matching
 
@@ -8,7 +8,7 @@ The search covered public LinkedIn mentions of HackBarna, Hack Barna, the origin
 
 Event assignments use explicit event names, dates, venues, challenges, projects and teammates. Publication recency alone is insufficient: Pieter’s later Concept3 update belongs to Glovo 2025, LinguaTrace uses Jev but belongs to AI Summit 2026, and June’s Netlify build night differs from October’s fireside meetup. Reposts retain the commenting author’s own meaning; embedded text is not attributed to the reposter.
 
-The public sections include verified recaps and follow-ups about projects built at the event. Announcements, brief redistributions, other-event promotions and profile references stay in the audit. Existing curated records and screenshots are preserved as originally saved; their historical labels are not presented as a fresh verification of every field. New summaries are third-person paraphrases, not invented quotations. Existing verified portraits are reused only by profile URL; missing portraits use initials. No attendee email, private registration data, browser identifiers or tracking parameters are included.
+The organiser confirmed: “Show recaps; keep announcements in the audit.” This applies to every public community section and the main archive. All 21 first-edition screenshots were checked for this distinction: 17 describe the event experience, while four promote the upcoming event. The public sections include verified recaps and follow-ups about projects built at the event. Announcements, brief redistributions, other-event promotions and profile references stay in the audit. Existing curated records and screenshots are preserved as originally saved; their historical labels are not presented as a fresh verification of every field. New summaries are third-person paraphrases, not invented quotations. Existing verified portraits are reused only by profile URL; missing portraits use initials. No attendee email, private registration data, browser identifiers or tracking parameters are included.
 
 The unrelated cybersecurity organisation HackBCN / hackbcn.org is excluded. For eDreams, the official listing is saved and the participant-post gap remains open.
 
@@ -25,7 +25,7 @@ The unrelated cybersecurity organisation HackBCN / hackbcn.org is excluded. For 
 | Vibecode Hack Night              | February 11, 2026     |                0 |             2 |           2 |                  0 |
 | HackBarna × AI Summit 2025       | October 11–12, 2025   |                4 |             7 |          11 |                  5 |
 | Hack Night @ eDreams ODIGEO      | September 26, 2024    |                0 |             0 |           0 |                  1 |
-| HackBarna v1                     | June 29–30, 2024      |               21 |             0 |          21 |                  2 |
+| HackBarna v1                     | June 29–30, 2024      |               21 |             0 |          17 |                  6 |
 
 8 additional mentions remain unassigned because they are biographies, tags, or descriptions of other events. Related-event references are recorded separately from the primary assignment.
 
@@ -201,9 +201,20 @@ The typed source of truth is [community-mentions.ts](../data/community-mentions.
 | [Bcombinator ](https://www.linkedin.com/posts/ai-is-no-longer-a-pilot-lets-talk-about-ugcPost-7508434408157167616-2cDW/)                       | context | Audit only | Bcombinator lists HackBarna among partners for its AI Day. Separate Bcombinator programme; not one of the ten archived HackBarna events.                                                                                 |
 | [Claudia Stanelli ](https://www.linkedin.com/posts/claudia-s-4755b8191_hackbarna-aisummit-aisummitbarcelona-ugcPost-7508269410717990912-d9q3/) | context | Audit only | Claudia uses the HackBarna hashtag in a recap of a Vapi and Deepgram Voice AI meetup. The described event is at AZUL Rooftop, not an archived HackBarna event.                                                           |
 
+## Reclassified announcements from the original collection
+
+The original records and screenshots remain saved in `communityPostArchive`. These four sources are audit-only under the confirmed display policy.
+
+| Source                                                                                                                                         | Type               | Reason                                                                                                                                                       |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Gabriele Raffaelli](https://www.linkedin.com/posts/gabriele-raffaelli-67779576_hackbcn-ai-hackathon-activity-7207761310208389120-IYMv)        | announcement       | The original post says he has signed up and encourages people to attend; it describes a previous conference talk rather than a HackBCN experience.           |
+| [Joan Bordonaba](https://www.linkedin.com/posts/joanbr4_despu%C3%A9s-de-la-gran-experiencia-creo-que-activity-7210744680899108865-ijW3)        | announcement       | The original post explicitly says the hackathon will start June 29–30 and registration is still open; its opening reflection concerns an earlier experience. |
+| [Tanya Van Gastel](https://www.linkedin.com/posts/tanyavangastel_barcelonas-first-ai-hackathon-is-this-week-activity-7212055785965514752-eowb) | announcement       | The original post says the first AI hackathon is this week and she is excited to see what the selected hackers will build.                                   |
+| [Paréntesis.Media](https://www.parentesis.media/programar-una-ia-en-24-horas-asi-sera-el-hackaton-de-barcelona/)                               | press-announcement | The article is dated June 26, 2024 and describes the event prospectively, before the hackathon took place.                                                   |
+
 ## Preserved archive
 
-These 53 existing sources remain intact, including their images, portraits, excerpts and event assignments. Newly discovered URL variants for the same content were not added as duplicate cards.
+These 53 existing sources remain saved, including their images, portraits, excerpts and event assignments. The four reviewed announcements are excluded from public cards and retained in the audit above. Newly discovered URL variants for the same content were not added as duplicate cards.
 
 | Event                            | Existing source                                                                                                                                                  |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |

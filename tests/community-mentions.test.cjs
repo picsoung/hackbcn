@@ -13,9 +13,13 @@ require('ts-node').register({
   },
 })
 
-const { communityMentions } = require('../data/community-mentions.ts')
+const {
+  communityMentions,
+  curatedAnnouncementReviews,
+} = require('../data/community-mentions.ts')
 const {
   testimonials,
+  communityPostArchive,
   testimonialEvents,
   getTestimonialsForEvent,
 } = require('../data/testimonials.ts')
@@ -25,12 +29,13 @@ const added = communityMentions.filter((post) => post.status === 'added')
 test('historical search preserves the existing archive and adds the reviewed recaps once', () => {
   assert.equal(baselineUrls.length, 53)
   assert.deepEqual(
-    testimonials.slice(0, 53).map((post) => post.url),
+    communityPostArchive.slice(0, 53).map((post) => post.url),
     baselineUrls,
   )
   assert.equal(communityMentions.length, 113)
   assert.equal(added.length, 78)
-  assert.equal(testimonials.length, 131)
+  assert.equal(communityPostArchive.length, 131)
+  assert.equal(testimonials.length, 127)
   assert.equal(
     new Set(testimonials.map((post) => post.url.replace(/\/$/, ''))).size,
     testimonials.length,
@@ -40,7 +45,7 @@ test('historical search preserves the existing archive and adds the reviewed rec
     communityMentions.length,
   )
   assert.deepEqual(
-    testimonials.slice(53).map((post) => post.url),
+    communityPostArchive.slice(53).map((post) => post.url),
     added.map((post) => post.url),
   )
 })
@@ -55,7 +60,7 @@ test('the smaller hack nights now have their own correctly grouped community pos
     aisummit25: 11,
     aisummit26: 71,
     'hacknight-5-jevathon-2026': 13,
-    'v1-2024': 21,
+    'v1-2024': 17,
     'hacknight-edreams-2024': 0,
   }
   for (const [slug, count] of Object.entries(expected)) {
@@ -111,11 +116,12 @@ test('event assignments follow the described project and venue rather than recen
   assert.equal(university.platform, 'press')
 })
 
-test('announcements, unrelated contexts and reference pages do not become new testimonials', () => {
+test('announcements, unrelated contexts and reference pages stay out of every public testimonial view', () => {
   const urls = new Set(testimonials.map((post) => post.url))
-  for (const post of communityMentions.filter(
-    (post) => post.status === 'audit-only',
-  )) {
+  for (const post of [
+    ...communityMentions,
+    ...curatedAnnouncementReviews,
+  ].filter((post) => post.status === 'audit-only')) {
     assert.ok(!urls.has(post.url), post.author)
   }
   const marc = communityMentions.find((post) => post.author === 'Marc Pous')
@@ -126,6 +132,36 @@ test('announcements, unrelated contexts and reference pages do not become new te
   )
   assert.equal(edreams.length, 1)
   assert.equal(edreams[0].kind, 'event-listing')
+})
+
+test('the four older announcements remain saved with their sources and screenshots for the audit', () => {
+  assert.equal(curatedAnnouncementReviews.length, 4)
+  assert.deepEqual(
+    curatedAnnouncementReviews.map((post) => post.author),
+    [
+      'Gabriele Raffaelli',
+      'Joan Bordonaba',
+      'Tanya Van Gastel',
+      'Paréntesis.Media',
+    ],
+  )
+  for (const review of curatedAnnouncementReviews) {
+    const original = communityPostArchive.find(
+      (post) => post.url === review.url,
+    )
+    assert.ok(original, review.author)
+    assert.ok(baselineUrls.includes(review.url), review.author)
+    assert.equal(review.status, 'audit-only')
+    assert.ok(['announcement', 'press-announcement'].includes(review.kind))
+    assert.equal(review.eventSlug, 'v1-2024')
+    assert.ok(review.evidence.length > 50)
+    assert.ok(fs.existsSync(path.join(process.cwd(), 'public', original.image)))
+    assert.ok(
+      !getTestimonialsForEvent('v1-2024').some(
+        (post) => post.url === review.url,
+      ),
+    )
+  }
 })
 
 test('reposts preserve the actual author and link the recovered original', () => {
@@ -151,7 +187,7 @@ test('reposts preserve the actual author and link the recovered original', () =>
 
 test('new source data contains public evidence, short paraphrases and local verified portraits only', () => {
   const slugs = new Set(testimonialEvents.map((event) => event.slug))
-  for (const post of communityMentions) {
+  for (const post of [...communityMentions, ...curatedAnnouncementReviews]) {
     assert.ok(post.eventSlug === null || slugs.has(post.eventSlug))
     assert.ok(post.relatedEventSlugs?.every((slug) => slugs.has(slug)) ?? true)
     assert.ok(post.evidence.length > 35, post.author)
@@ -183,7 +219,7 @@ test('new source data contains public evidence, short paraphrases and local veri
         post.author,
       )
   }
-  for (const post of testimonials.slice(53)) {
+  for (const post of communityPostArchive.slice(53)) {
     assert.equal(post.featuredOnHome, undefined)
     assert.equal(post.publishedAt, undefined)
   }

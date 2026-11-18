@@ -31,6 +31,59 @@ export type CommunityMention = {
   positionSourceUrl?: string
 }
 
+// Reclassified from the original screenshot collection after the organiser
+// confirmed that announcements belong in the audit, outside event recaps.
+export const curatedAnnouncementReviews: CommunityMention[] = [
+  {
+    eventSlug: 'v1-2024',
+    kind: 'announcement',
+    status: 'audit-only',
+    platform: 'linkedin',
+    author: 'Gabriele Raffaelli',
+    url: 'https://www.linkedin.com/posts/gabriele-raffaelli-67779576_hackbcn-ai-hackathon-activity-7207761310208389120-IYMv',
+    summary:
+      'Gabriele shares his registration for the upcoming first edition and invites Barcelona’s AI community to join.',
+    evidence:
+      'The original post says he has signed up and encourages people to attend; it describes a previous conference talk rather than a HackBCN experience.',
+  },
+  {
+    eventSlug: 'v1-2024',
+    kind: 'announcement',
+    status: 'audit-only',
+    platform: 'linkedin',
+    author: 'Joan Bordonaba',
+    url: 'https://www.linkedin.com/posts/joanbr4_despu%C3%A9s-de-la-gran-experiencia-creo-que-activity-7210744680899108865-ijW3',
+    summary:
+      'Joan looks forward to the June 29–30 hackathon, invites others to register and offers to form a team.',
+    evidence:
+      'The original post explicitly says the hackathon will start June 29–30 and registration is still open; its opening reflection concerns an earlier experience.',
+  },
+  {
+    eventSlug: 'v1-2024',
+    kind: 'announcement',
+    status: 'audit-only',
+    platform: 'linkedin',
+    author: 'Tanya Van Gastel',
+    url: 'https://www.linkedin.com/posts/tanyavangastel_barcelonas-first-ai-hackathon-is-this-week-activity-7212055785965514752-eowb',
+    summary:
+      'Tanya announces her upcoming judging role and invites people to watch Sunday’s demos.',
+    evidence:
+      'The original post says the first AI hackathon is this week and she is excited to see what the selected hackers will build.',
+  },
+  {
+    eventSlug: 'v1-2024',
+    kind: 'press-announcement',
+    status: 'audit-only',
+    platform: 'press',
+    author: 'Paréntesis.Media',
+    url: 'https://www.parentesis.media/programar-una-ia-en-24-horas-asi-sera-el-hackaton-de-barcelona/',
+    summary:
+      'Paréntesis.Media previews the first edition’s format and the June 29–30 programme.',
+    evidence:
+      'The article is dated June 26, 2024 and describes the event prospectively, before the hackathon took place.',
+  },
+]
+
 // Public sources reviewed on November 18, 2026. Summaries are paraphrases.
 // Publication dates are not inferred from LinkedIn IDs or relative timestamps.
 // Only added recaps and updates enter event sections; other mentions remain auditable.
