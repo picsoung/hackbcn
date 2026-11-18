@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import type { ProjectMedia as Media } from '@/lib/project-detail'
 import { projectPageCopy } from '@/data/project-page'
 import ProjectVideo from './ProjectVideo'
@@ -7,11 +10,31 @@ export default function ProjectMedia({
   name,
   locale,
 }: {
-  media: Media
+  media?: Media
   name: string
   locale: string
 }) {
   const copy = projectPageCopy(locale)
+  const [failedImage, setFailedImage] = useState<string>()
+  if (!media || (media.type === 'image' && media.src === failedImage))
+    return (
+      <div
+        data-project-media-placeholder
+        className="hb-px hb-px-lg bg-band-2 p-2 sm:p-3"
+      >
+        <div className="hb-px flex aspect-video flex-col items-center justify-center gap-4 bg-ground-raised px-6 text-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/signet-white.svg"
+            alt=""
+            width={64}
+            height={64}
+            className="h-16 w-16 opacity-40"
+          />
+          <p className="text-sm text-ink-dim">{copy.noPreview}</p>
+        </div>
+      </div>
+    )
   if (media.type === 'youtube')
     return <ProjectVideo {...media} title={name} announce={copy.watchDemo} />
   return (
@@ -39,6 +62,7 @@ export default function ProjectMedia({
               src={media.src}
               alt={`${name}: ${copy.preview}`}
               className="h-full w-full object-contain"
+              onError={() => setFailedImage(media.src)}
             />
           </a>
         )}

@@ -156,13 +156,11 @@ export default function ProjectDetail({
           data-project-content
           className="grid items-start gap-10 border-t border-band-2 pt-8 sm:pt-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14"
         >
-          {media && (
-            <div className="min-w-0 lg:col-start-1">
-              <ProjectMedia media={media} name={project.name} locale={locale} />
-            </div>
-          )}
+          <div className="min-w-0 lg:col-start-1">
+            <ProjectMedia media={media} name={project.name} locale={locale} />
+          </div>
           <aside
-            className={`min-w-0 space-y-9 border-t border-band-2 pt-8 lg:col-start-2 lg:row-start-1 lg:border-t-0 lg:pt-0 ${media && children ? 'lg:row-span-2' : ''}`}
+            className={`min-w-0 space-y-9 border-t border-band-2 pt-8 lg:col-start-2 lg:row-start-1 lg:border-t-0 lg:pt-0 ${children ? 'lg:row-span-2' : ''}`}
           >
             <ProjectBuilders builders={builders} locale={locale} />
             {stack.length > 0 && (
