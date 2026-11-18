@@ -19,7 +19,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/cescvilanova/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k977af3z41vaz03kfqk2bxwhdh836kxy

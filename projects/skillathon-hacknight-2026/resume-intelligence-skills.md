@@ -22,7 +22,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/maurogioberti/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k979gdpy3xmzarx3bxtfxrqw7h8371b8

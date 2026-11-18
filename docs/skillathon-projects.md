@@ -16,6 +16,24 @@ The November 18 snapshot contains 17 submissions, all created on March 19. This 
 
 The public export contains only the project title, descriptive text, dates, tags, submitted builder names, public project links, installation text and verified image assets. Account emails, account IDs, vote totals and other unrecognized source fields remain outside the app and repository. The source site and its database are unchanged.
 
+## Attendee profile matching
+
+The supplied guest export contains 329 registrations and a LinkedIn question, without a GitHub field. It remains outside the repository. The enrichment adds **16 verified LinkedIn credits across 14 projects**: 12 submitter credits matched by their own account email, one collaborator by exact full name, and three collaborator credits by an unambiguous registered first name. Names, roles, credit order and project links stay as submitted. Existing portraits are reused by verified profile identity; repository owners are never treated as personal profiles.
+
+The submitting account's email is never assigned to collaborators. Conflicting registrations, incompatible author names and profiles already assigned to another credit on the same project remain unresolved. Joe Tannoury's exact account email matches a registration using the abbreviated surname “Tann”; this narrowly reviewed exception still requires that exact email and the attendee-supplied profile. “Joe” remains a separate, unlinked credit rather than inventing a second identity. The Oscar credit on whatsapp traductor remains unlinked because its submitting account is registered under a different name. No substitution is made between the submitted Mohamed/Mohammed or Publius/Plubius spellings.
+
+Thirteen credits remain unlinked: Joe; Mohamed (three credits); Publius/Plubius (five); Nicolas Grenié; Toby; Oscar on whatsapp traductor; and tomas. These have missing profiles, no matching registration, an unresolved repeated identity, or an incompatible submitting account.
+
+Colin Stark has **five archived projects** connected by the same verified LinkedIn identity: a11y ally, Design One-Pager and Steve as a Service from Skill-a-thon, LING0 from AI Summit 2026, and Valuator from the June Netlify HackNight. The shared detail page automatically uses that identity for its existing portrait and other-project suggestions.
+
+```sh
+node scripts/enrich-skillathon-makers.cjs /private/attendees.csv /private/projects.json
+node scripts/enrich-skillathon-makers.cjs /private/attendees.csv /private/projects.json --write
+node --test tests/skillathon-maker-profiles.test.cjs
+```
+
+The first command reports public matches and unresolved submitted credits. The second updates only the builder frontmatter after validating the complete batch. Repeating the enrichment leaves already matching files unchanged. Running the original importer after enrichment deliberately reports a conflict rather than overwriting these verified profiles.
+
 ## Placement and indexing
 
 Projects are Markdown files in `projects/skillathon-hacknight-2026/` and use the same detail layout as every other archived project. The event's existing collapsed Projects grid and the searchable main `/projects` archive pick them up automatically. The existing sitemap and server-rendered structured data include their localized detail routes. Community recaps remain in the event's separate collapsed Community posts section.

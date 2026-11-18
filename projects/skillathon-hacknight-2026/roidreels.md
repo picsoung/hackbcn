@@ -17,7 +17,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/leojamesin/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k976nbr327ycb8s82v4mmefcrs836e6m

@@ -20,12 +20,14 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/qba-sobolewski/'
   - name: Wojciech Krupiński
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/w-krupinski/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k979fq2hzzg3mrhzg3x7aq4t5n837yz2

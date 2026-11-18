@@ -19,7 +19,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/starklink/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k97b1tptkx2nqyqhzvrb92xh2s837zb1

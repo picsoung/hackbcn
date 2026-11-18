@@ -20,7 +20,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/oscararmandofuentes/'
   - name: Mohamed
     description: ''
     image:

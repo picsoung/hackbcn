@@ -21,7 +21,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/giacomobianchi00/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k9777zeyt2cxe3mfgbxmcvpsg1836813

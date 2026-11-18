@@ -28,7 +28,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/mo-alameen/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k97asn9rsh8vdzvzymr3t0tt6h836t00

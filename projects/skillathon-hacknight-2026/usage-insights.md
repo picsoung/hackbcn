@@ -22,7 +22,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/oscararmandofuentes/'
   - name: Plubius
     description: ''
     image:
@@ -32,7 +33,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/mo-alameen/'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k972sdrwkmpcn7pzc8k5dde9wh837eg7

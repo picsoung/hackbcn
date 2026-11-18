@@ -68,7 +68,12 @@ test('Skill-a-thon imports 16 event projects with original submission links and 
       JSON.stringify(project),
       /authorEmail|authorId|upvoteCount|[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i,
     )
-    for (const maker of project.data.hackers) assert.deepEqual(maker.links, {})
+    for (const maker of project.data.hackers) {
+      for (const [service, url] of Object.entries(maker.links)) {
+        assert.equal(service, 'linkedin')
+        assert.match(url, /^https:\/\/www\.linkedin\.com\/in\/[^/]+\/$/)
+      }
+    }
   }
 })
 
