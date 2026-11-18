@@ -1,0 +1,135 @@
+{
+  "source": "https://hackbarna-skillathon.netlify.app",
+  "endpoint": "/api/projects",
+  "event": "skillathon-hacknight-2026",
+  "capturedAt": "2026-11-18T13:32:27.338Z",
+  "sourceRows": 17,
+  "publishedProjects": 16,
+  "omitted": [
+    {
+      "sourceId": "k977k4pmzv6y4mty69cp7yf82h8372ts",
+      "retainedSourceId": "k97ee1gcesj563cyehvsznq881837h5z",
+      "reason": "Earlier duplicate with the same submitter, title and description."
+    }
+  ],
+  "corrections": [
+    {
+      "sourceId": "k979gdpy3xmzarx3bxtfxrqw7h8371b8",
+      "field": "installCommand",
+      "reason": "Removed an erroneous npx prefix; the pip command is documented in the project README.",
+      "sourceUrl": "https://github.com/maurogioberti/skill-a-thon-resume-analyzer#install"
+    }
+  ],
+  "missingMedia": [
+    {
+      "sourceId": "k976nbr327ycb8s82v4mmefcrs836e6m",
+      "reason": "The source specifies youtube media but provides no URL."
+    },
+    {
+      "sourceId": "k977af3z41vaz03kfqk2bxwhdh836kxy",
+      "reason": "The source specifies image media but provides no URL."
+    }
+  ],
+  "projects": [
+    {
+      "sourceId": "k972dzvp33rz1tzem5566bkyyh837hgm",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k972dzvp33rz1tzem5566bkyyh837hgm",
+      "slug": "drawhub-draw-on-dice-fyi",
+      "image": {
+        "file": "/projects/skillathon-hacknight-2026/drawhub-draw-on-dice-fyi.png",
+        "sourceUrl": "https://i.ibb.co/YFtsF2QW/Screenshot-2026-03-19-at-19-53-36.png",
+        "sha256": "1da722fd81a6634511c018929a9d9f40a9ea019947bb70ab96bdb35fc0379ac9"
+      }
+    },
+    {
+      "sourceId": "k972k0dn2bnqy7mtqe2g0z1e7d8368s3",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k972k0dn2bnqy7mtqe2g0z1e7d8368s3",
+      "slug": "skill-composer"
+    },
+    {
+      "sourceId": "k972sdrwkmpcn7pzc8k5dde9wh837eg7",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k972sdrwkmpcn7pzc8k5dde9wh837eg7",
+      "slug": "usage-insights"
+    },
+    {
+      "sourceId": "k975tstn1pz70c2zsvyf71hx3h837tpr",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k975tstn1pz70c2zsvyf71hx3h837tpr",
+      "slug": "royal-crown-lingo",
+      "image": {
+        "file": "/projects/skillathon-hacknight-2026/royal-crown-lingo.jpg",
+        "sourceUrl": "https://www.grunge.com/img/gallery/this-is-how-much-the-british-crown-jewels-are-really-worth/l-intro-1636729493.jpg",
+        "sha256": "209ecbf39db90467ae7f183bc83e1f4b65a374c63975c3dea83d3f63c3adb93b"
+      }
+    },
+    {
+      "sourceId": "k976nbr327ycb8s82v4mmefcrs836e6m",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k976nbr327ycb8s82v4mmefcrs836e6m",
+      "slug": "roidreels"
+    },
+    {
+      "sourceId": "k9773hxrzpasz2fmyen3px4239837wbg",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k9773hxrzpasz2fmyen3px4239837wbg",
+      "slug": "setup-hooks"
+    },
+    {
+      "sourceId": "k9777zeyt2cxe3mfgbxmcvpsg1836813",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k9777zeyt2cxe3mfgbxmcvpsg1836813",
+      "slug": "bravo-to-react-native"
+    },
+    {
+      "sourceId": "k977af3z41vaz03kfqk2bxwhdh836kxy",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k977af3z41vaz03kfqk2bxwhdh836kxy",
+      "slug": "software-vendor-cost-optimizer"
+    },
+    {
+      "sourceId": "k977fq44kkewcsezc00xhyaw4h836xy4",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k977fq44kkewcsezc00xhyaw4h836xy4",
+      "slug": "a11y-ally"
+    },
+    {
+      "sourceId": "k9789wq2fcn8gp34kb2g2dhr1s83727k",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k9789wq2fcn8gp34kb2g2dhr1s83727k",
+      "slug": "meal-planner"
+    },
+    {
+      "sourceId": "k979fq2hzzg3mrhzg3x7aq4t5n837yz2",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k979fq2hzzg3mrhzg3x7aq4t5n837yz2",
+      "slug": "paradigm",
+      "image": {
+        "file": "/projects/skillathon-hacknight-2026/paradigm.jpg",
+        "sourceUrl": "https://raw.githubusercontent.com/useparadigm/skill_a_thon/refs/heads/main/32b351602440871309779c32cfc6be276dac7fa034289ac05a35c81b54e8f79b.jpg",
+        "sha256": "a49c4fc5f2c3b812d99a485cd54f05ffdaa4386db084a764e01df425e477eebf"
+      }
+    },
+    {
+      "sourceId": "k979gdpy3xmzarx3bxtfxrqw7h8371b8",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k979gdpy3xmzarx3bxtfxrqw7h8371b8",
+      "slug": "resume-intelligence-skills"
+    },
+    {
+      "sourceId": "k979jtf08c36904j0yj9md0tnh836jx9",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k979jtf08c36904j0yj9md0tnh836jx9",
+      "slug": "steve-as-a-service"
+    },
+    {
+      "sourceId": "k97asn9rsh8vdzvzymr3t0tt6h836t00",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k97asn9rsh8vdzvzymr3t0tt6h836t00",
+      "slug": "whatsapp-traductor"
+    },
+    {
+      "sourceId": "k97b1tptkx2nqyqhzvrb92xh2s837zb1",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k97b1tptkx2nqyqhzvrb92xh2s837zb1",
+      "slug": "design-one-pager"
+    },
+    {
+      "sourceId": "k97ee1gcesj563cyehvsznq881837h5z",
+      "sourceUrl": "https://hackbarna-skillathon.netlify.app/projects/k97ee1gcesj563cyehvsznq881837h5z",
+      "slug": "openclaw-audit",
+      "image": {
+        "file": "/projects/skillathon-hacknight-2026/openclaw-audit.png",
+        "sourceUrl": "https://raw.githubusercontent.com/awaaate/openclaw-audit/master/assets/screenshot.png",
+        "sha256": "61b91010c088294961d2343ffb7f3723778f1d9cc5438c33bb9e0acd807e81b8"
+      }
+    }
+  ]
+}

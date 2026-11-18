@@ -155,6 +155,7 @@ export function searchProjectCards(projects: ProjectCard[], query: string) {
         project.name,
         project.description,
         project.eventName,
+        project.eventSlug ?? '',
         project.creator,
         ...project.hackers.map((hacker) => hacker.name),
       ].join(' '),

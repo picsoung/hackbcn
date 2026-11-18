@@ -46,6 +46,7 @@ export default function ProjectDetail({
   const labels: Record<string, string> = {
     website: copy.openProject,
     github: 'GitHub',
+    submission: copy.originalSubmission,
     video: copy.watchDemo,
     youtube: copy.watchDemo,
     slides: copy.slides,
