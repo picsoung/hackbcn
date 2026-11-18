@@ -15,6 +15,7 @@ export type ProjectCard = {
   hackers: ProjectHacker[]
   eventSlug?: string
   eventName: string
+  eventImage?: string
   eventHref?: string
   eventDate: number
   tags: string[]
@@ -41,7 +42,7 @@ function videoThumbnail(url: string | null) {
   }
 }
 
-type EventInfo = { name: string; startDate?: string }
+type EventInfo = { name: string; startDate?: string; imageUrl?: string }
 
 export function submittedProjectCard(
   project: PublicProject,
@@ -63,6 +64,7 @@ export function submittedProjectCard(
     hackers: projectHackers(project),
     eventSlug: project.eventSlug,
     eventName: event.name,
+    eventImage: event.imageUrl,
     eventHref: projectListPath(locale, project.eventSlug),
     eventDate:
       Date.parse(event.startDate ?? '') ||
@@ -97,6 +99,7 @@ export function archivedProjectCard(
     }).filter((person) => person.name),
     eventSlug: project.data.event,
     eventName: event?.name ?? 'Community projects',
+    eventImage: event?.imageUrl,
     eventHref: project.data.event
       ? projectListPath(locale, project.data.event)
       : undefined,
@@ -115,6 +118,7 @@ export function groupProjectCards(projects: ProjectCard[]) {
     {
       key: string
       name: string
+      image?: string
       href?: string
       date: number
       projects: ProjectCard[]
@@ -125,11 +129,13 @@ export function groupProjectCards(projects: ProjectCard[]) {
     const group = groups.get(key) ?? {
       key,
       name: project.eventName,
+      image: project.eventImage,
       href: project.eventHref,
       date: project.eventDate,
       projects: [],
     }
     group.projects.push(project)
+    group.image ??= project.eventImage
     group.date = Math.max(group.date, project.eventDate)
     groups.set(key, group)
   }

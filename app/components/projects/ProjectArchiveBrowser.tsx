@@ -3,7 +3,6 @@
 import { useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import {
-  ArrowUpRightIcon,
   ChevronDownIcon,
   MagnifyingGlassIcon,
   XMarkIcon,
@@ -15,6 +14,40 @@ import {
 } from '@/lib/project-cards'
 import ProjectGrid from './ProjectGrid'
 
+function EventCover({ src }: { src?: string }) {
+  const [failed, setFailed] = useState(false)
+  return (
+    <span
+      aria-hidden="true"
+      className="hb-px block h-20 w-20 shrink-0 bg-band-2 p-px sm:h-32 sm:w-32 lg:h-36 lg:w-36"
+    >
+      <span className="hb-px flex h-full items-center justify-center overflow-hidden bg-ground-raised">
+        {src && !failed ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={src}
+            alt=""
+            width={144}
+            height={144}
+            loading="lazy"
+            onError={() => setFailed(true)}
+            className="h-full w-full object-contain"
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src="/brand/signet-white.svg"
+            alt=""
+            width={48}
+            height={48}
+            className="h-10 w-10 opacity-40 sm:h-12 sm:w-12"
+          />
+        )}
+      </span>
+    </span>
+  )
+}
+
 export default function ProjectArchiveBrowser({
   projects,
   locale,
@@ -22,11 +55,8 @@ export default function ProjectArchiveBrowser({
   projects: ProjectCard[]
   locale: string
 }) {
-  const groups = useMemo(() => groupProjectCards(projects), [projects])
   const [query, setQuery] = useState('')
-  const [browseExpanded, setBrowseExpanded] = useState(
-    () => new Set(groups.slice(0, 1).map((group) => group.key)),
-  )
+  const [browseExpanded, setBrowseExpanded] = useState(new Set<string>())
   const [searchExpanded, setSearchExpanded] = useState(new Set<string>())
   const input = useRef<HTMLInputElement>(null)
   const searching = query.trim().length > 0
@@ -147,28 +177,27 @@ export default function ProjectArchiveBrowser({
                   return next
                 })
               }}
-              className="flex cursor-pointer list-none items-center gap-4 py-6 text-ink hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:gap-6 sm:py-8 [&::-webkit-details-marker]:hidden"
+              className="flex cursor-pointer list-none items-center gap-4 py-6 text-ink hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:gap-8 sm:py-8 [&::-webkit-details-marker]:hidden"
             >
-              <div className="flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
+              <EventCover key={group.image ?? group.key} src={group.image} />
+              <div className="min-w-0 flex-1">
                 {group.date > 0 && (
                   <time
                     dateTime={new Date(group.date).toISOString()}
-                    className="shrink-0 text-sm tabular-nums text-ink-dim sm:w-24"
+                    className="mb-2 block text-xs tabular-nums text-ink-dim sm:text-sm"
                   >
                     {dateFormat.format(new Date(group.date))}
                   </time>
                 )}
-                <div className="min-w-0 flex-1">
-                  <h2 className="break-words text-xl font-semibold leading-snug sm:text-2xl">
-                    {group.name}
-                  </h2>
-                  <p className="mt-1 text-sm font-normal text-ink-dim">
-                    {group.projects.length}{' '}
-                    {group.projects.length === 1 ? 'project' : 'projects'}
-                  </p>
-                </div>
+                <h2 className="break-words text-lg font-semibold leading-snug sm:text-2xl lg:text-3xl">
+                  {group.name}
+                </h2>
+                <p className="mt-2 text-sm font-normal text-ink-dim">
+                  {group.projects.length}{' '}
+                  {group.projects.length === 1 ? 'project' : 'projects'}
+                </p>
               </div>
-              <span className="hb-px flex h-11 w-11 shrink-0 items-center justify-center bg-band-2 text-accent group-hover/event:bg-accent group-hover/event:text-ground">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center text-accent sm:h-11 sm:w-11">
                 <ChevronDownIcon
                   className="h-5 w-5 group-open/event:rotate-180"
                   aria-hidden="true"
@@ -180,10 +209,9 @@ export default function ProjectArchiveBrowser({
                 <div className="mb-6 flex justify-end">
                   <Link
                     href={group.href}
-                    className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                    className="inline-flex min-h-11 items-center text-sm font-semibold text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                   >
                     View event
-                    <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </div>
               )}

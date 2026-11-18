@@ -358,7 +358,11 @@ const submitted = {
   screenshotKey: 'event/preview.png',
   videoUrl: 'https://youtu.be/abc123',
 }
-const event = { name: 'Jev-a-thon', startDate: '2026-11-10T18:00:00Z' }
+const event = {
+  name: 'Jev-a-thon',
+  startDate: '2026-11-10T18:00:00Z',
+  imageUrl: '/events/jevathon-cover.png',
+}
 
 test('public cards preserve media and discovery without voting metrics or private fields', () => {
   const card = submittedProjectCard(
@@ -377,6 +381,7 @@ test('public cards preserve media and discovery without voting metrics or privat
     },
   )
   assert.equal(card.creator, 'Alex, Sam')
+  assert.equal(card.eventImage, event.imageUrl)
   assert.equal(card.award, 'Community prize')
   assert.equal(card.voteCount, undefined)
   assert.equal(card.judgeScore, undefined)
@@ -409,6 +414,12 @@ test('the archive groups every project by event, newest first, without conflatin
   const cards = [...archived, older, recent]
   const groups = groupProjectCards(cards)
   assert.equal(groups[0].key, submitted.eventSlug)
+  assert.equal(groups[0].image, event.imageUrl)
+  assert.equal(
+    groupProjectCards([{ ...recent, eventImage: undefined }, recent])[0].image,
+    event.imageUrl,
+    'an event cover can come from any matching project, never its screenshot',
+  )
   assert.equal(groups.flatMap((group) => group.projects).length, cards.length)
   assert.equal(new Set(cards.map((card) => card.key)).size, cards.length)
   assert.notEqual(recent.href, older.href)
