@@ -11,6 +11,7 @@ export type CommunityMention = {
     | 'project-update'
     | 'announcement'
     | 'press-announcement'
+    | 'press-recap'
     | 'context'
     | 'project-reference'
     | 'profile-reference'
@@ -1519,5 +1520,103 @@ export const communityMentions: CommunityMention[] = [
       'Jordi’s public project history lists Flightmate from the first HackBCN edition.',
     evidence:
       'Project description explicitly gives June 29–30, 2024. Not a standalone post.',
+  },
+  {
+    eventSlug: 'aisummit25',
+    kind: 'commentary-repost',
+    status: 'added',
+    platform: 'linkedin',
+    author: 'Asier Zapata Fernández',
+    authorUrl: 'https://www.linkedin.com/in/asierzapata/',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7383395659376144384/',
+    summary:
+      'Asier reflects on his team’s live agent demo at Glovo and the experience of building together with Linkup and SLNG.',
+    evidence:
+      'Explicit Glovo, the 2025 team and its geospatial agent; distinct from his 2026 Kan recap.',
+    originalPostUrl:
+      'https://www.linkedin.com/feed/update/urn:li:share:7383236304081321985/',
+    avatar: '/makers/linkedin-asierzapata-5ae89d4b.jpg',
+  },
+  {
+    eventSlug: 'aisummit25',
+    kind: 'participant-recap',
+    status: 'added',
+    platform: 'linkedin',
+    author: 'Enric Moreu',
+    authorUrl: 'https://www.linkedin.com/in/enricmf/',
+    url: 'https://www.linkedin.com/feed/update/urn:li:share:7383236304081321985/',
+    summary:
+      'Enric shares his team’s AI and mapping project, celebrating the teamwork and support behind their second-place result at Glovo.',
+    evidence:
+      'Explicit Glovo, Asier, Juan José, Linkup and SLNG identify the 2025 Marco Polo team.',
+    avatar: '/makers/linkedin-enricmf-e0058ca2.jpg',
+  },
+  {
+    eventSlug: 'aisummit25',
+    kind: 'commentary-repost',
+    status: 'added',
+    platform: 'linkedin',
+    author: 'Dwane Hemmings',
+    authorUrl: 'https://www.linkedin.com/in/dwane-hemmings/',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7383547257545048064/',
+    summary:
+      'Dwane celebrates meeting Irina at HackBarna and the energy FemCoders brought to Barcelona’s builder community.',
+    evidence:
+      'Own commentary shares Irina’s mentor recap, which explicitly names Glovo and the 2025 sponsors.',
+    originalPostUrl:
+      'https://www.linkedin.com/feed/update/urn:li:activity:7383516968395472896/',
+  },
+  {
+    eventSlug: 'aisummit25',
+    kind: 'partner-recap',
+    status: 'added',
+    platform: 'linkedin',
+    author: 'Irina Ichim',
+    authorUrl: 'https://www.linkedin.com/in/irina-ichim-desarrolladora/',
+    url: 'https://www.linkedin.com/feed/update/urn:li:activity:7383516968395472896/',
+    summary:
+      'Irina reflects on mentoring at the Glovo hackathon with FemCoders Club and the supportive atmosphere among teams and sponsors.',
+    evidence:
+      'Explicit Glovo, Lingo.dev, Amazon Developer and the 2025 AI Summit edition.',
+    avatar: '/testimonials/avatars/irina-ichim.jpg',
+    position: 'Software Engineer & HackBarna Mentor',
+  },
+  {
+    eventSlug: 'aisummit25',
+    kind: 'press-recap',
+    status: 'added',
+    platform: 'press',
+    author: 'Universitat Pompeu Fabra',
+    url: 'https://www.upf.edu/web/emai/news/-/asset_publisher/2BG58e3qObnh/content/emai-students-participate-in-the-hackbarna-hackathon-2025/maximized',
+    summary:
+      'UPF celebrates the Echoes team, whose app brings artworks to life through spoken stories, and their hackathon challenge results.',
+    evidence:
+      'Official university article dated October 21, 2025 explicitly identifies the October 11–12 event and Janne, Alessandro and Marcelo.',
+  },
+  {
+    eventSlug: 'aisummit25',
+    kind: 'profile-reference',
+    status: 'audit-only',
+    platform: 'linkedin',
+    author: 'Marc Bisbal Arias',
+    authorUrl: 'https://www.linkedin.com/in/bamarc/',
+    url: 'https://ch.linkedin.com/in/janne-rotter',
+    summary:
+      'Janne’s publicly indexed activity history includes Marc’s recap of representing Lingo.dev and celebrating the Echoes team.',
+    evidence:
+      'The indexed entry names Alessandro, Janne and Marcelo and the Lingo.dev challenge. Original post permalink remains unresolved; current signed-in profile views did not return it.',
+  },
+  {
+    eventSlug: 'aisummit25',
+    kind: 'profile-reference',
+    status: 'audit-only',
+    platform: 'linkedin',
+    author: 'Little Birds',
+    authorUrl: 'https://www.linkedin.com/company/littlebirds-ai/',
+    url: 'https://es.linkedin.com/company/littlebirds-ai',
+    summary:
+      'The company’s indexed history includes its Glovo recap, Summit launch and a speaker’s follow-up using the app.',
+    evidence:
+      'Publicly indexed updates explicitly name Glovo, Evolv, Marco Polo and the 2025 jury. Individual permalinks remain unresolved: the signed-in company Posts view currently returns no posts.',
   },
 ]

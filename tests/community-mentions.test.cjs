@@ -28,9 +28,9 @@ test('historical search preserves the existing archive and adds the reviewed rec
     testimonials.slice(0, 53).map((post) => post.url),
     baselineUrls,
   )
-  assert.equal(communityMentions.length, 106)
-  assert.equal(added.length, 73)
-  assert.equal(testimonials.length, 126)
+  assert.equal(communityMentions.length, 113)
+  assert.equal(added.length, 78)
+  assert.equal(testimonials.length, 131)
   assert.equal(
     new Set(testimonials.map((post) => post.url.replace(/\/$/, ''))).size,
     testimonials.length,
@@ -52,7 +52,7 @@ test('the smaller hack nights now have their own correctly grouped community pos
     'hacknight-3-linkup-2026': 1,
     'hacknight-june-2026': 5,
     'netlify-barcelona-2026': 5,
-    aisummit25: 6,
+    aisummit25: 11,
     aisummit26: 71,
     'hacknight-5-jevathon-2026': 13,
     'v1-2024': 21,
@@ -97,6 +97,18 @@ test('event assignments follow the described project and venue rather than recen
   )
   assert.equal(asier.eventSlug, 'aisummit26')
   assert.deepEqual(asier.relatedEventSlugs, ['aisummit25'])
+  const glovoAsier = communityMentions.find(
+    (post) =>
+      post.author === 'Asier Zapata Fernández' &&
+      post.eventSlug === 'aisummit25',
+  )
+  assert.match(glovoAsier.summary, /Glovo/)
+  const university = communityMentions.find(
+    (post) => post.author === 'Universitat Pompeu Fabra',
+  )
+  assert.equal(university.eventSlug, 'aisummit25')
+  assert.equal(university.kind, 'press-recap')
+  assert.equal(university.platform, 'press')
 })
 
 test('announcements, unrelated contexts and reference pages do not become new testimonials', () => {
