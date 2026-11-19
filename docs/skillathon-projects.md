@@ -18,7 +18,7 @@ The public export contains only the project title, descriptive text, dates, tags
 
 ## Attendee profile matching
 
-The supplied guest export contains 329 registrations and a LinkedIn question, without a GitHub field. It remains outside the repository. The enrichment adds **16 verified LinkedIn credits across 14 projects**: 12 submitter credits matched by their own account email, one collaborator by exact full name, and three collaborator credits by an unambiguous registered first name. Names, roles, credit order and project links stay as submitted. Existing portraits are reused by verified profile identity; repository owners are never treated as personal profiles.
+The supplied guest export contains 329 registrations and a LinkedIn question, without a GitHub field. It remains outside the repository. The initial enrichment adds **16 verified LinkedIn credits across 14 projects**: 12 submitter credits matched by their own account email, one collaborator by exact full name, and three collaborator credits by an unambiguous registered first name. Names, roles, credit order and project links stay as submitted. Existing portraits are reused by verified profile identity; repository owners are never treated as personal profiles.
 
 The submitting account's email is never assigned to collaborators. Conflicting registrations, incompatible author names and profiles already assigned to another credit on the same project remain unresolved. Joe Tannoury's exact account email matches a registration using the abbreviated surname “Tann”; this narrowly reviewed exception still requires that exact email and the attendee-supplied profile. “Joe” remains a separate, unlinked credit rather than inventing a second identity. The Oscar credit on whatsapp traductor remains unlinked because its submitting account is registered under a different name. No substitution is made between the submitted Mohamed/Mohammed or Publius/Plubius spellings.
 
@@ -53,3 +53,5 @@ node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/skillathon-impo
 ```
 
 The first command reports the proposed selection. Applying validates the event identity, all public fields and the complete image batch before creating files. It checks image signatures and recorded hashes, rejects conflicts, and leaves identical files untouched on repeat runs. The importer reads the retained media capture, so repeating the import does not depend on remote image URLs continuing to work.
+
+The 19 November portrait review verifies Nicolas Grenié’s LinkedIn identity on Royal Crown Lingo through an exact submitting-account email match in the previously supplied guest lists, bringing this archive to **17 verified LinkedIn credits across 15 projects**. His existing local portrait is reused. The [portrait audit](builder-portrait-audit.md) records this follow-up without exposing the private matching data.

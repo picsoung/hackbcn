@@ -23,3 +23,5 @@ npx tsc --noEmit --incremental false
 ```
 
 No database migration or attendee-file import is required for this feature.
+
+Verified portraits and remaining identity/photo gaps are recorded in the [builder portrait audit](builder-portrait-audit.md).

@@ -16,9 +16,54 @@ const {
 } = require('../lib/builders.ts')
 const { getProjects } = require('../app/helpers/projects.ts')
 const { projectBuilder } = require('../lib/project-detail.ts')
+const { projectHackers } = require('../lib/live/validate.ts')
 const maker = (name, links = {}, extra = {}) => ({ name, links, ...extra })
 const entry = (key, ...builders) => ({ projectKey: key, builders })
 const linkedin = (id) => `https://www.linkedin.com/in/${id}/`
+
+test('the reviewed Council-convention credit gives Tiam and Stepan separate identities without copying the photo owner’s profile', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'council-convention',
+    creatorName: 'Tiam Haghshenas / Stepan Gritsun',
+    linkedinUrl: linkedin('tiam-haghshenas-58a9063b7'),
+  }
+  const team = projectHackers(source)
+  assert.deepEqual(team, [
+    { name: 'Tiam Haghshenas', linkedinUrl: source.linkedinUrl },
+    { name: 'Stepan Gritsun', linkedinUrl: null },
+  ])
+  const profiles = buildBuilderDirectory([
+    entry('council', ...team.map(projectBuilder)),
+  ])
+  assert.equal(profiles.length, 2)
+  assert.ok(profiles.find((p) => p.name === 'Tiam Haghshenas').image)
+  assert.equal(
+    profiles.find((p) => p.name === 'Stepan Gritsun').image,
+    undefined,
+  )
+})
+
+test('reviewed team corrections do not change other projects, different profile owners or updated source rosters', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'council-convention',
+    creatorName: 'Tiam Haghshenas / Stepan Gritsun',
+    linkedinUrl: linkedin('tiam-haghshenas-58a9063b7'),
+  }
+  for (const different of [
+    { slug: 'another-project' },
+    { eventSlug: 'another-event' },
+    { linkedinUrl: linkedin('someone-else') },
+  ])
+    assert.equal(projectHackers({ ...source, ...different }).length, 1)
+  const updated = [
+    { name: 'Tiam Haghshenas', linkedinUrl: source.linkedinUrl },
+    { name: 'Stepan Gritsun', linkedinUrl: linkedin('confirmed-stepan') },
+    { name: 'Another builder', linkedinUrl: null },
+  ]
+  assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
+})
 
 test('verified identities join across display-name changes, locales and tracking, with stable URLs', () => {
   const first = entry(

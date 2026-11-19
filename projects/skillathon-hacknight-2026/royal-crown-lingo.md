@@ -17,7 +17,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: https://www.linkedin.com/in/nicolasgrenie/
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k975tstn1pz70c2zsvyf71hx3h837tpr
