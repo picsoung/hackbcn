@@ -1,12 +1,12 @@
 # Builder portrait audit
 
-Reviewed 19 November 2026. Added 47 real LinkedIn profile photos to the shared local portrait registry. Each image was downloaded from the matched account in the signed-in browser and visually reviewed. Original captures remain outside Git. The published thumbnails are at most 320 pixels per side and total 878,783 bytes; no generated faces or generic avatars were added.
+Reviewed 19 November 2026. Added 50 real LinkedIn profile photos to the shared local portrait registry. Each image was downloaded from the matched account in the signed-in browser and visually reviewed. Original captures remain outside Git. The published thumbnails are at most 320 pixels per side and total 951,507 bytes; no generated faces or generic avatars were added.
 
 An additional exact submitting-account email match across the previously supplied guest lists verifies Nicolas Grenié’s LinkedIn identity on Royal Crown Lingo. That credit reuses his existing local portrait. The attendee files and matching email remain outside Git.
 
 The organiser also confirmed that Toby on Bravo to React Native is [Toby Oliver](https://www.linkedin.com/in/toby0/). His linked profile now supplies his portrait; the original submitted display name is preserved.
 
-The current public catalog has **258 builder entries: 203 with a portrait and 55 without one**, improving coverage for **48 entries**. Unverified names remain scoped to individual project credits, so these counts are not a count of distinct people. Of the remaining gaps, 9 have supplied social profiles and 46 need a verified individual profile first.
+The current public catalog has **257 builder entries: 206 with a portrait and 51 without one**, improving coverage for **51 entries**. Unverified names remain scoped to individual project credits, so these counts are not a count of distinct people. Of the remaining gaps, 8 have supplied social profiles and 43 need a verified individual profile first.
 
 ## Added portraits
 
@@ -61,6 +61,9 @@ Photos match by the original supplied personal profile URL, including accounts t
 | Melissa Orphali      | [LinkedIn](https://www.linkedin.com/in/melissa-orphali-318377132/)           |
 | Marta Quiros Dinares | [LinkedIn](https://www.linkedin.com/in/martaquiros/)                         |
 | Abel Romero Martinez | [LinkedIn](https://www.linkedin.com/in/abel-romero-115b0539b/)               |
+| Diego Guevara        | [LinkedIn](https://www.linkedin.com/in/diego-guevara-valades-9a4697184/)     |
+| Katya Dominguez      | [LinkedIn](https://www.linkedin.com/in/thekatyadominguez/)                   |
+| Vitaly Alt           | [LinkedIn](https://www.linkedin.com/in/vitalyalt/)                           |
 
 ## Reviewed team credit
 
@@ -72,6 +75,8 @@ The organiser supplied LinkedIn profiles for Pietro Baffico (Bussola), Melissa O
 
 Melissa and Marta have unique matching full-name registrations in the AI Summit guest list. Their registered LinkedIn URLs match the organiser-supplied accounts exactly, so their attendee-supplied GitHub links—[melissaorphali](https://github.com/melissaorphali) and [quirosdinares](https://github.com/quirosdinares)—are now included too. The original submission emails had no exact match in that export; this follow-up is a reviewed identity match rather than a relaxed email-import rule. Pietro was not found under that name in the supplied AI Summit guest export. Abel's registration was subsequently located by the supplied profile URL under the first name “Abel”; its email does not match the source submissions. No private registration details are published.
 
+The organiser also supplied Diego Guevara, Katya Dominguez and Vitaly Alt’s profiles. All three portraits were checked in the signed-in browser. Diego’s working profile replaces the unavailable shortened URL on Valuator and connects that credit to LING0; the reviewed replacement is retained in the Netlify maker alias registry. Vitaly’s matching registered LinkedIn account also verifies his [bioztar GitHub profile](https://github.com/bioztar). Original submitted display names are preserved.
+
 ## Supplied profiles without usable photos
 
 LinkedIn profiles were checked in the signed-in browser. GitHub results were checked against the public account API and visually reviewed; generic identicons were rejected. Unavailable accounts are not replaced with namesakes.
@@ -81,7 +86,6 @@ LinkedIn profiles were checked in the signed-in browser. GitHub results were che
 | Alain Faure             | [LinkedIn](https://www.linkedin.com/in/alain-f-848119336/)                   | LinkedIn profile unavailable (404)                |
 | Alex Rodriguez Zafra    | [LinkedIn](https://www.linkedin.com/in/alex-rodriguez-zafra/)                | LinkedIn profile unavailable (404)                |
 | Bryan Tito Farez        | [LinkedIn](https://www.linkedin.com/in/bryan-tito-farez-12020842b/)          | LinkedIn default avatar; GitHub generic identicon |
-| Diego                   | [LinkedIn](https://www.linkedin.com/in/diego-valades-9a4697184/)             | LinkedIn profile unavailable (404)                |
 | Dr Camilla Kirchhübel   | [LinkedIn](https://www.linkedin.com/in/camilla-g-572420438/)                 | LinkedIn profile unavailable (404)                |
 | Miquel                  | [LinkedIn](https://www.linkedin.com/in/miquel-mulet-alarc%C3%B3n-510484316/) | LinkedIn default avatar                           |
 | Ricard                  | [GitHub](https://github.com/ricardmulet)                                     | GitHub generic identicon                          |
@@ -108,7 +112,6 @@ Names alone, shared submitting accounts, repository owners and teammate emails d
 | Anna Falceto Pinyol          | `aisummit26/kino-files`                              |
 | Caetano Souto Maior          | `aisummit26/arlandria`                               |
 | Daniel                       | `hacknight-june-2026/portfolio-maker`                |
-| Diego Guevara                | `aisummit26/ling0`                                   |
 | Enric                        | `Ducktors`                                           |
 | Erwan Molina                 | `aisummit26/tallytvai`                               |
 | Ettore Ciprian               | `aisummit26/unfold`                                  |
@@ -120,7 +123,6 @@ Names alone, shared submitting accounts, repository owners and teammate emails d
 | Joe                          | `skillathon-hacknight-2026/drawhub-draw-on-dice-fyi` |
 | Jordi                        | `Mulets_Team`                                        |
 | Joseph                       | `hacknight-june-2026/privacyradar`                   |
-| Katya Dominguez              | `aisummit26/kommotion`                               |
 | Manuel Felix Parma           | `aisummit26/kino-files`                              |
 | mayantooth                   | `hacknight-june-2026/dentai`                         |
 | Mohamed                      | `skillathon-hacknight-2026/meal-planner`             |
@@ -139,4 +141,3 @@ Names alone, shared submitting accounts, repository owners and teammate emails d
 | Stepan Gritsun               | `hacknight-5-jevathon-2026:council-convention`       |
 | Tiam Haghshenas              | `aisummit26/if-a-tv-knew-you`                        |
 | tomas                        | `skillathon-hacknight-2026/openclaw-audit`           |
-| Vitaly Alt                   | `aisummit26/ai-meeting-moderator`                    |

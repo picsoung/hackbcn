@@ -21,7 +21,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/vitalyalt/'
+      github: 'https://github.com/bioztar'
   - name: Artem Shambalev
     description: ''
     image:
@@ -34,5 +36,6 @@ links:
   website: 'https://gavel.pro7ocol.com/console'
   video: 'https://youtu.be/LT4t5-4Rzak'
 ---
+
 We were tired of people taking up whole floor in the meeting, discussing what pizza place to go, instead of the issue at hand and unability to receive structured feedback after the meeting.
 So our project does exactly that - moderates meeting room, ensures that everybody has voice in the matter and summarized and structures info against agenda. And any off-topic themes are noted too.

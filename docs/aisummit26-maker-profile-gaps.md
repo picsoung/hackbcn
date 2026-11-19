@@ -2,17 +2,18 @@
 
 Reviewed 19 November 2026. Only public maker names, project links and profile URLs are included. Emails and registration identifiers are excluded.
 
-Of 144 maker credits, 112 now have an avatar, 114 have LinkedIn links and 85 have GitHub links. The initial pass added 84 LinkedIn portraits and nine custom GitHub avatars; the 19 November review recovered Balazs Lapis and Nina Haide’s LinkedIn portraits. Existing portraits remain unchanged. Generic GitHub identicons are left as initials. Counts describe project credits, so the same person may appear in more than one project.
+Of 144 maker credits, 115 now have an avatar, 117 have LinkedIn links and 86 have GitHub links. The initial pass added 84 LinkedIn portraits and nine custom GitHub avatars; the 19 November review recovered Balazs Lapis and Nina Haide’s LinkedIn portraits. Existing portraits remain unchanged. Generic GitHub identicons are left as initials. Counts describe project credits, so the same person may appear in more than one project.
 
 The organiser’s supplied profiles also resolve Pietro Baffico, Melissa Orphali, Marta Quiros Dinares and both full-name Abel Romero Martinez credits. Melissa’s and Marta’s matching registered LinkedIn accounts verify their attendee-supplied GitHub links too. All four recovered portraits are stored locally. The [email audit](attendee-email-audit.md) found that the first-name-only “abel” credit on preply_project_learning- uses Alvaro’s shared team email, which differs from Abel’s registration; the credit remains separate.
 
+The supplied Diego Guevara, Katya Dominguez and Vitaly Alt profiles are also linked with verified local portraits. Vitaly’s registered LinkedIn identity confirms his attendee-supplied `bioztar` GitHub account. Diego’s LING0 credit and the corrected Valuator credit share one profile.
+
 ## Missing both profile links
 
-These 30 credits still need verified LinkedIn/GitHub details. Four already have a portrait from a previously verified community post.
+These 27 credits still need verified LinkedIn/GitHub details. Four already have a portrait from a previously verified community post.
 
 | Project                                                                                                                               | Maker                        | Avatar    | Reason                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | --------- | ----------------------------------------- |
-| [AI Meeting Moderator](https://www.hackbarna.com/en/projects/aisummit26/ai-meeting-moderator)                                         | Vitaly Alt                   | Missing   | No matching attendee email                |
 | [ARCA - wildfire evacuation assistant](https://www.hackbarna.com/en/projects/aisummit26/arca-wildfire-evacuation-assistant)           | Shahnawaz Akhtar             | Missing   | No matching attendee email                |
 | [ARLANDRIA](https://www.hackbarna.com/en/projects/aisummit26/arlandria)                                                               | Caetano Souto Maior          | Missing   | Matched registration has no profile links |
 | [Cherubin](https://www.hackbarna.com/en/projects/aisummit26/cherubin)                                                                 | Javier Jose Diaz Rivera      | Missing   | No matching attendee email                |
@@ -29,8 +30,6 @@ These 30 credits still need verified LinkedIn/GitHub details. Four already have 
 | [if a tv knew you](https://www.hackbarna.com/en/projects/aisummit26/if-a-tv-knew-you)                                                 | Tiam Haghshenas              | Missing   | No matching attendee email                |
 | [Kino Files](https://www.hackbarna.com/en/projects/aisummit26/kino-files)                                                             | Anna Falceto Pinyol          | Missing   | No matching attendee email                |
 | [Kino Files](https://www.hackbarna.com/en/projects/aisummit26/kino-files)                                                             | Manuel Felix Parma           | Missing   | No matching attendee email                |
-| [Kommotion](https://www.hackbarna.com/en/projects/aisummit26/kommotion)                                                               | Katya Dominguez              | Missing   | No matching attendee email                |
-| [ling0](https://www.hackbarna.com/en/projects/aisummit26/ling0)                                                                       | Diego Guevara                | Missing   | No matching attendee email                |
 | [MIRA](https://www.hackbarna.com/en/projects/aisummit26/mira)                                                                         | Arnab Dey                    | Available | No matching attendee email                |
 | [OffLoad](https://www.hackbarna.com/en/projects/aisummit26/offload)                                                                   | Ana Lucia Silva              | Available | Matched registration has no profile links |
 | [preply_project_learning-](https://www.hackbarna.com/en/projects/aisummit26/preply-project-learning)                                  | alvaro                       | Missing   | Email reused for several teammates        |

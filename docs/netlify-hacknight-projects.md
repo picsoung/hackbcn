@@ -61,3 +61,5 @@ node scripts/enrich-netlify-hacknight-makers.cjs /private/attendees.csv --write
 ```
 
 The original archive importer intentionally refuses to overwrite enriched files; do not replace them with an earlier unlinked snapshot.
+
+The organiser supplied [Diego Guevara Valades’s current LinkedIn profile](https://www.linkedin.com/in/diego-guevara-valades-9a4697184/) on 19 November 2026. It replaces the unavailable shortened attendee URL on Valuator, preserves the submitted “Diego” credit and connects it to Diego Guevara on LING0 at AI Summit. The reviewed replacement is recorded in `data/netlify-hacknight-maker-aliases.json` so re-enrichment keeps the working URL. His verified local portrait is reused on both details and the shared builder profile.

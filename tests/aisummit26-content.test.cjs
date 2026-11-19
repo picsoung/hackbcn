@@ -76,8 +76,8 @@ test('new archive cards use demo thumbnails and legacy link arrays still resolve
 test('AI Summit maker profiles expose only public URLs while preserving full team credits', () => {
   const makers = projects.flatMap((project) => project.data.hackers)
   assert.equal(makers.length, 144)
-  assert.equal(makers.filter((maker) => maker.links?.linkedin).length, 114)
-  assert.equal(makers.filter((maker) => maker.links?.github).length, 85)
+  assert.equal(makers.filter((maker) => maker.links?.linkedin).length, 117)
+  assert.equal(makers.filter((maker) => maker.links?.github).length, 86)
   for (const maker of makers) {
     assert.doesNotMatch(
       JSON.stringify(maker),
@@ -99,7 +99,10 @@ test('AI Summit maker profiles expose only public URLs while preserving full tea
     project.slug.endsWith('/ai-meeting-moderator'),
   )
   assert.equal(meeting.data.hackers[0].name, 'Vitaly Alt')
-  assert.deepEqual(meeting.data.hackers[0].links, {})
+  assert.deepEqual(meeting.data.hackers[0].links, {
+    linkedin: 'https://www.linkedin.com/in/vitalyalt/',
+    github: 'https://github.com/bioztar',
+  })
   assert.equal(
     meeting.data.hackers[1].links.github,
     'https://github.com/ashambalev',
