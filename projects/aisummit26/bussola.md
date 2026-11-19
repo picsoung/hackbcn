@@ -18,7 +18,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/pietro-baffico/'
   - name: Dr Camilla Kirchhübel
     description: ''
     image:
@@ -37,4 +38,5 @@ links:
   website: 'https://hackathon-app-green-nine.vercel.app/'
   video: 'https://youtu.be/hpl3TS8CJkI'
 ---
+
 Empower people to invest.

@@ -18,7 +18,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/abel-romero-115b0539b/'
   - name: Alvaro
     description: ''
     image:
@@ -33,4 +34,5 @@ links:
   github: 'https://github.com/rivenblackrowvx/FIREGUARD_HACKBARNA'
   video: 'https://youtube.com/shorts/OfDofdE80dw?si=3ej8QVFGaB9ExFSC'
 ---
+
 FIREGUARD combines satellites, Arduino/ESP32 sensors, AI, and drones to detect and verify wildfires early, reducing false alarms and enabling faster response.

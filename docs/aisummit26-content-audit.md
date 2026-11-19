@@ -25,7 +25,7 @@ The import includes only project names, pitches, descriptions, team member names
 
 On 17 November 2026, the original submission emails were joined privately to the organiser-provided Hacker attendee export dated 24 September 2026. Matching uses trimmed, case-insensitive email equality. Display names, email aliases and repository ownership are not used to guess a match. The existing 65 archived projects are identified by their submitted repository links, retaining the later submission for repeated projects.
 
-Of 144 maker credits, 110 have an unambiguous email match. Their submitted public profiles supply 109 LinkedIn links and 83 GitHub links across 60 updated project pages. Names, portraits, project content and team order are preserved. The remaining 28 credits have no matching attendee email. Six credits across `FIREGUARD_HACKBARNA_TeamFedora` and `preply_project_learning-` reuse an email for several teammates and remain unchanged pending individual confirmation.
+Of 144 maker credits, 110 have an unambiguous email match. Their submitted public profiles supply 109 LinkedIn links and 83 GitHub links across 60 updated project pages. Names, portraits, project content and team order are preserved. The remaining 28 credits have no matching attendee email. Six credits across `FIREGUARD_HACKBARNA_TeamFedora` and `preply_project_learning-` reuse an email for several teammates and were left unchanged in that initial pass pending individual confirmation.
 
 The import script is `scripts/enrich-aisummit26-makers.cjs`. It validates the complete batch before writing, rejects conflicting duplicate attendee profiles, and writes only normalized LinkedIn and GitHub URLs into the existing public team metadata. The attendee CSV, private submission join data, emails, email hashes and guest identifiers are not part of the application or repository.
 
@@ -60,3 +60,9 @@ The gallery credits [Keig Studio](https://keig-studio.com/). Files are hosted lo
 - All 65 new project detail URLs return successful responses locally. The global archive HTML and sitemap include all 65 projects.
 - The event's initial HTML includes all 65 cards and matching ItemList JSON-LD. Community posts and Projects stay collapsed on a fresh visit and open for their anchor links.
 - Desktop and 390px/320px viewport checks cover the gallery, disclosures, team credits, links and long project text. Gallery photos retain their original aspect ratios, all thirteen author/logo images load, and keyboard Enter/Space toggles work.
+
+## Reviewed identity follow-up — 19 November 2026
+
+The organiser supplied LinkedIn profiles for Pietro Baffico, Melissa Orphali, Marta Quiros Dinares and Abel Romero Martinez. These add five LinkedIn project credits across Bussola, ARCA, PreviousAI, Fireguard and TitanAI Searcher. Abel’s two full-name credits now share one builder identity. The first-name-only “abel” credit on preply_project_learning- remains separate pending confirmation.
+
+Melissa’s and Marta’s registered LinkedIn URLs exactly match the organiser-supplied accounts. Their registration records also supply their GitHub links, which are now included. Their submission emails had no exact match in the attendee export, so the original strict email join did not assign those records. No email or private registration field is published. The four signed-in profile portraits are checked in locally. AI Summit now has 114 LinkedIn credits, 85 GitHub credits and 112 pictured credits out of 144; see the [portrait audit](builder-portrait-audit.md) for sources.

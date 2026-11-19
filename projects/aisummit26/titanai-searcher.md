@@ -30,9 +30,11 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/abel-romero-115b0539b/'
 links:
   github: 'https://github.com/alex60243/TitanOS-film-search'
   video: 'https://youtu.be/XMHdkOTca0Y'
 ---
+
 TitanAI Searcher helps searching for films just talking to tv as on a call

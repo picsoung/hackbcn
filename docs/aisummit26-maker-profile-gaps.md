@@ -2,25 +2,24 @@
 
 Reviewed 19 November 2026. Only public maker names, project links and profile URLs are included. Emails and registration identifiers are excluded.
 
-Of 144 maker credits, 107 now have an avatar, 109 have LinkedIn links and 83 have GitHub links. The initial pass added 84 LinkedIn portraits and nine custom GitHub avatars; the 19 November review recovered Balazs Lapis and Nina Haide’s LinkedIn portraits. Existing portraits remain unchanged. Generic GitHub identicons are left as initials. Counts describe project credits, so the same person may appear in more than one project.
+Of 144 maker credits, 112 now have an avatar, 114 have LinkedIn links and 85 have GitHub links. The initial pass added 84 LinkedIn portraits and nine custom GitHub avatars; the 19 November review recovered Balazs Lapis and Nina Haide’s LinkedIn portraits. Existing portraits remain unchanged. Generic GitHub identicons are left as initials. Counts describe project credits, so the same person may appear in more than one project.
+
+The organiser’s supplied profiles also resolve Pietro Baffico, Melissa Orphali, Marta Quiros Dinares and both full-name Abel Romero Martinez credits. Melissa’s and Marta’s matching registered LinkedIn accounts verify their attendee-supplied GitHub links too. All four recovered portraits are stored locally. The first-name-only “abel” credit on preply_project_learning- remains unlinked pending confirmation.
 
 ## Missing both profile links
 
-These 35 credits still need verified LinkedIn/GitHub details. Four already have a portrait from a previously verified community post.
+These 30 credits still need verified LinkedIn/GitHub details. Four already have a portrait from a previously verified community post.
 
 | Project                                                                                                                               | Maker                        | Avatar    | Reason                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | --------- | ----------------------------------------- |
 | [AI Meeting Moderator](https://www.hackbarna.com/en/projects/aisummit26/ai-meeting-moderator)                                         | Vitaly Alt                   | Missing   | No matching attendee email                |
 | [ARCA - wildfire evacuation assistant](https://www.hackbarna.com/en/projects/aisummit26/arca-wildfire-evacuation-assistant)           | Shahnawaz Akhtar             | Missing   | No matching attendee email                |
-| [ARCA - wildfire evacuation assistant](https://www.hackbarna.com/en/projects/aisummit26/arca-wildfire-evacuation-assistant)           | Melissa Orphali              | Missing   | No matching attendee email                |
 | [ARLANDRIA](https://www.hackbarna.com/en/projects/aisummit26/arlandria)                                                               | Caetano Souto Maior          | Missing   | Matched registration has no profile links |
-| [Bussola](https://www.hackbarna.com/en/projects/aisummit26/bussola)                                                                   | Pietro Baffico               | Missing   | No matching attendee email                |
 | [Cherubin](https://www.hackbarna.com/en/projects/aisummit26/cherubin)                                                                 | Javier Jose Diaz Rivera      | Missing   | No matching attendee email                |
 | [chezy](https://www.hackbarna.com/en/projects/aisummit26/chezy)                                                                       | Anabel Frieros Rodríguez     | Missing   | No matching attendee email                |
 | [chezy](https://www.hackbarna.com/en/projects/aisummit26/chezy)                                                                       | Jessie Lee Delgadillo Newman | Missing   | No matching attendee email                |
 | [chezy](https://www.hackbarna.com/en/projects/aisummit26/chezy)                                                                       | Joaquín Terrasa Moya         | Missing   | No matching attendee email                |
 | [FIMI (Film It Make It)](https://www.hackbarna.com/en/projects/aisummit26/fimi-film-it-make-it)                                       | Andrii Bondar                | Missing   | No matching attendee email                |
-| [FIREGUARD_HACKBARNA_TeamFedora](https://www.hackbarna.com/en/projects/aisummit26/fireguard-hackbarna-teamfedora)                     | Abel Romero Martinez         | Missing   | Email reused for several teammates        |
 | [FIREGUARD_HACKBARNA_TeamFedora](https://www.hackbarna.com/en/projects/aisummit26/fireguard-hackbarna-teamfedora)                     | Alvaro                       | Missing   | Email reused for several teammates        |
 | [FIREGUARD_HACKBARNA_TeamFedora](https://www.hackbarna.com/en/projects/aisummit26/fireguard-hackbarna-teamfedora)                     | Alex                         | Missing   | Email reused for several teammates        |
 | [Ginger](https://www.hackbarna.com/en/projects/aisummit26/ginger)                                                                     | Yazide Arsalan               | Available | No matching attendee email                |
@@ -37,13 +36,11 @@ These 35 credits still need verified LinkedIn/GitHub details. Four already have 
 | [preply_project_learning-](https://www.hackbarna.com/en/projects/aisummit26/preply-project-learning)                                  | alvaro                       | Missing   | Email reused for several teammates        |
 | [preply_project_learning-](https://www.hackbarna.com/en/projects/aisummit26/preply-project-learning)                                  | abel                         | Missing   | Email reused for several teammates        |
 | [preply_project_learning-](https://www.hackbarna.com/en/projects/aisummit26/preply-project-learning)                                  | alex                         | Missing   | Email reused for several teammates        |
-| [PreviousAI](https://www.hackbarna.com/en/projects/aisummit26/previousai)                                                             | Marta Quiros Dinares         | Missing   | No matching attendee email                |
 | [PreviousAI](https://www.hackbarna.com/en/projects/aisummit26/previousai)                                                             | Ylenia Porras                | Available | No matching attendee email                |
 | [Pyros - Fire detection & Simulation System](https://www.hackbarna.com/en/projects/aisummit26/pyros-fire-detection-simulation-system) | Alejandro Reyes              | Missing   | No matching attendee email                |
 | [ReelPick](https://www.hackbarna.com/en/projects/aisummit26/reelpick)                                                                 | Alexander Bovkun             | Missing   | No matching attendee email                |
 | [TallyTvAI](https://www.hackbarna.com/en/projects/aisummit26/tallytvai)                                                               | Erwan Molina                 | Missing   | No matching attendee email                |
 | [TitanAI Searcher](https://www.hackbarna.com/en/projects/aisummit26/titanai-searcher)                                                 | Alvaro Haoan Lamela          | Missing   | No matching attendee email                |
-| [TitanAI Searcher](https://www.hackbarna.com/en/projects/aisummit26/titanai-searcher)                                                 | Abel Romero Martinez         | Missing   | No matching attendee email                |
 | [Unfold](https://www.hackbarna.com/en/projects/aisummit26/unfold)                                                                     | Ettore Ciprian               | Missing   | No matching attendee email                |
 
 ## Linked profiles still missing an avatar

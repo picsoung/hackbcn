@@ -76,8 +76,8 @@ test('new archive cards use demo thumbnails and legacy link arrays still resolve
 test('AI Summit maker profiles expose only public URLs while preserving full team credits', () => {
   const makers = projects.flatMap((project) => project.data.hackers)
   assert.equal(makers.length, 144)
-  assert.equal(makers.filter((maker) => maker.links?.linkedin).length, 109)
-  assert.equal(makers.filter((maker) => maker.links?.github).length, 83)
+  assert.equal(makers.filter((maker) => maker.links?.linkedin).length, 114)
+  assert.equal(makers.filter((maker) => maker.links?.github).length, 85)
   for (const maker of makers) {
     assert.doesNotMatch(
       JSON.stringify(maker),
