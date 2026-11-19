@@ -1,10 +1,12 @@
 # Builder portrait audit
 
-Reviewed 19 November 2026. Added 42 real LinkedIn profile photos to the shared local portrait registry. Each image was downloaded from the already matched account in the signed-in browser and visually reviewed. Original captures remain outside Git. The published thumbnails are at most 320 pixels per side and total 797,608 bytes; no generated faces or generic avatars were added.
+Reviewed 19 November 2026. Added 43 real LinkedIn profile photos to the shared local portrait registry. Each image was downloaded from the matched account in the signed-in browser and visually reviewed. Original captures remain outside Git. The published thumbnails are at most 320 pixels per side and total 815,676 bytes; no generated faces or generic avatars were added.
 
 An additional exact submitting-account email match across the previously supplied guest lists verifies Nicolas Grenié’s LinkedIn identity on Royal Crown Lingo. That credit reuses his existing local portrait. The attendee files and matching email remain outside Git.
 
-The current public catalog has **259 builder entries: 198 with a portrait and 61 without one**, improving coverage for **43 entries**. Unverified names remain scoped to individual project credits, so these counts are not a count of distinct people. Of the remaining gaps, 9 have supplied social profiles and 52 need a verified individual profile first.
+The organiser also confirmed that Toby on Bravo to React Native is [Toby Oliver](https://www.linkedin.com/in/toby0/). His linked profile now supplies his portrait; the original submitted display name is preserved.
+
+The current public catalog has **259 builder entries: 199 with a portrait and 60 without one**, improving coverage for **44 entries**. Unverified names remain scoped to individual project credits, so these counts are not a count of distinct people. Of the remaining gaps, 9 have supplied social profiles and 51 need a verified individual profile first.
 
 ## Added portraits
 
@@ -54,6 +56,7 @@ Photos match by the original supplied personal profile URL, including accounts t
 | Rob Ritzenhein      | [LinkedIn](https://www.linkedin.com/in/robritz/)                             |
 | Ruben van de Water  | [LinkedIn](https://www.linkedin.com/in/ruben-van-de-water/)                  |
 | Tiam Haghshenas     | [LinkedIn](https://www.linkedin.com/in/tiam-haghshenas-58a9063b7/)           |
+| Toby                | [LinkedIn](https://www.linkedin.com/in/toby0/)                               |
 
 ## Reviewed team credit
 
@@ -130,6 +133,5 @@ Names alone, shared submitting accounts, repository owners and teammate emails d
 | Shahnawaz Akhtar             | `aisummit26/arca-wildfire-evacuation-assistant`      |
 | Stepan Gritsun               | `hacknight-5-jevathon-2026:council-convention`       |
 | Tiam Haghshenas              | `aisummit26/if-a-tv-knew-you`                        |
-| Toby                         | `skillathon-hacknight-2026/bravo-to-react-native`    |
 | tomas                        | `skillathon-hacknight-2026/openclaw-audit`           |
 | Vitaly Alt                   | `aisummit26/ai-meeting-moderator`                    |
