@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function ProjectBuilderAvatar({
   name,
@@ -12,6 +12,12 @@ export default function ProjectBuilderAvatar({
   size?: 'credit' | 'profile'
 }) {
   const [failed, setFailed] = useState(false)
+  const imageRef = useRef<HTMLImageElement>(null)
+  useEffect(() => {
+    // A remote portrait may fail before React hydrates and attaches onError.
+    const image = imageRef.current
+    setFailed(!!image && image.complete && image.naturalWidth === 0)
+  }, [src])
   const names = name.trim().split(/\s+/)
   const initials = [
     names[0],
@@ -28,6 +34,7 @@ export default function ProjectBuilderAvatar({
       {src && !failed ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
+          ref={imageRef}
           src={src}
           alt=""
           width={size === 'profile' ? 128 : 56}

@@ -10,11 +10,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:auth": "node --experimental-strip-types --test tests/auth.test.mjs",
     "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "sponsorship:budget": "node scripts/sponsorship-budget.mjs",
     "sponsorship:test": "node --test scripts/sponsorship-budget.test.mjs",
-    "sponsorship:pdf": ".venv-sponsorship/bin/python scripts/build-sponsorship-pdf.py"
+    "sponsorship:pdf": ".venv-sponsorship/bin/python scripts/build-sponsorship-pdf.py",
+    "test:auth:integration": "node --conditions=react-server tests/auth-store.integration.cjs"
   },
   "dependencies": {
     "@formatjs/intl": "^2.10.2",
@@ -22,6 +24,7 @@
     "@heroicons/react": "^2.1.3",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
+    "@netlify/blobs": "^11.1.9",
     "@netlify/database": "^2.0.3",
     "@next/mdx": "^14.2.4",
     "@replexica/compiler": "^0.3.2",
@@ -38,6 +41,7 @@
     "marked": "^12.0.2",
     "next": "14.1.0",
     "next-mdx-remote": "^6.0.0",
+    "openid-client": "^6.9.0",
     "posthog-js": "^1.136.1",
     "prettier": "^3.3.2",
     "react": "^18",
@@ -48,8 +52,7 @@
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "replexica": "^0.22.0",
-    "server-only": "^0.0.1",
-    "@netlify/blobs": "^11.1.9"
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@testing-library/react": "^16.0.0",

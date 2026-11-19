@@ -9,8 +9,51 @@ import {
   text,
   timestamp,
   uniqueIndex,
+  uuid,
 } from 'drizzle-orm/pg-core'
 import type { ProjectHacker } from '../lib/live/validate'
+
+/** Private identity/session records. Public catalog queries never join these tables. */
+export const identityAccounts = pgTable('identity_accounts', {
+  id: uuid().primaryKey(), // Existing Digest Auth subject, not a new auth identity.
+  issuer: text().notNull(),
+  email: text(),
+  emailVerified: boolean('email_verified').notNull().default(false),
+  name: text(),
+  avatarUrl: text('avatar_url'),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
+
+export const identitySessions = pgTable(
+  'identity_sessions',
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    tokenHash: text('token_hash').notNull().unique(),
+    accountId: uuid('account_id')
+      .notNull()
+      .references(() => identityAccounts.id, { onDelete: 'cascade' }),
+    credentials: text().notNull(), // AES-GCM ciphertext; never a browser session payload.
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    refreshVersion: integer('refresh_version').notNull().default(0),
+    refreshLease: text('refresh_lease'),
+    refreshLockedUntil: timestamp('refresh_locked_until', {
+      withTimezone: true,
+    }),
+    revokedAt: timestamp('revoked_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index('identity_sessions_expiry_idx').on(t.expiresAt),
+    index('identity_sessions_account_idx').on(t.accountId),
+  ],
+)
 
 /** Projects submitted live during an event. One table for every event, keyed by event_slug. */
 export const liveProjects = pgTable(

@@ -159,3 +159,62 @@ reduces costs by the documented cash expense it avoids. Pass revenue is allocate
 equally by night; calculate materially different nights separately. This is a
 contribution forecast, not accounting net profit. Cost data stays in `scripts/`
 and is never imported by the website.
+
+## Shared HackBarna accounts
+
+The website uses the existing Digest Lovable Cloud identity provider. Existing
+Google/email accounts, user IDs and Digest subscriptions are preserved. The
+website is an OIDC client with its own host-only, HttpOnly session. Digest keeps
+its existing login and browser storage.
+
+- `/<locale>/auth`: continue to the shared HackBarna sign-in.
+- `/auth/start`: authorization code + S256 PKCE, state and nonce.
+- `/auth/callback`: server-side code exchange and verified ES256 identity.
+- `/<locale>/account`: private account summary and Digest preferences link.
+- `/api/auth/session`: private, uncached account fields; never provider tokens.
+- `/auth/signout`: same-origin POST revoking this website's session. Digest
+  remains signed in; the provider currently has no discovered end-session URL.
+
+Read [the implementation plan](docs/hackbarna-identity-implementation-plan.md)
+for claiming profiles, team permissions, project revisions and Jev moderation.
+These later phases are not enabled by the sign-in foundation alone.
+
+### Configuration
+
+Register a confidential OAuth client in the existing Lovable Cloud / Supabase
+project `usfkgslefvtrtlwexnfo`. Use `client_secret_post`, ES256 ID tokens and one
+exact callback per environment. For Netlify Dev the callback is
+`http://localhost:8888/auth/callback`; production uses
+`https://www.hackbarna.com/auth/callback`. Deploy Previews need separate clients
+with their own exact preview callback. Do not use wildcard callbacks or expose
+production credentials to previews.
+
+Set the four server-only environment variables in `.env.example`. Generate
+`HACKBARNA_SESSION_KEY` from 32 random bytes (64 hexadecimal characters), keep it
+stable within that environment, and store it as a secret. Rotating it invalidates
+existing sessions. Never use a service-role key or a `NEXT_PUBLIC_` variable for
+these values. The canonical issuer is the `.supabase.co/auth/v1` URL in discovery,
+not Digest's `.lovable.cloud` frontend proxy.
+
+Apply `netlify/database/migrations` to the linked local/preview database before
+signing in. The identity tables contain private account metadata, session hashes
+and AES-256-GCM encrypted rotating provider credentials. The raw opaque session
+ID is only in a host-only cookie (`__Host-hb_session` on HTTPS). Sessions expire
+after 14 days, support database-coordinated refresh and cannot be restored by a
+refresh after logout. Periodically remove expired/revoked sessions in operations.
+
+Account and authentication routes are dynamic and private. Public project and
+builder pages remain cacheable, with navbar identity loaded separately on the
+client. A missing configuration displays a temporary-unavailable state.
+
+Use Node 24 and run `npm run test:auth`. The protocol tests use a signed local
+provider fixture and cover callback/credential tampering, issuer/audience/nonce,
+PKCE, replay, refresh races and revocation. A real existing Digest account must
+also complete the registered local and preview flow before production rollout.
+
+With Netlify Dev running on port 8888 and the local migration applied, run
+`npm run test:auth:integration` to exercise the real Postgres store and HTTP
+routes. It refuses a non-loopback database, uses a separate fixture account,
+checks session encryption, refresh locks, account/public isolation and logout,
+then removes that fixture. This verifies website sessions independently of a
+real provider sign-in; it does not replace the existing-account OAuth check.
