@@ -75,7 +75,10 @@ export default function ProjectDetail({
             author: builders.map((builder) => ({
               '@type': 'Person',
               name: builder.name,
-              url: builder.links.linkedin,
+              url: builder.href
+                ? `${siteOrigin()}${builder.href}`
+                : builder.links.linkedin,
+              sameAs: Object.values(builder.links),
             })),
             award: project.award,
             isPartOf: project.eventHref

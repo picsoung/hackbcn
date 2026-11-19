@@ -5,6 +5,7 @@ import { makerAvatar } from './maker-avatar'
 
 export type ProjectBuilder = {
   name: string
+  href?: string
   role?: string
   image?: string
   links: Record<string, string>
