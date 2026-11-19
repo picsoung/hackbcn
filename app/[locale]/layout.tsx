@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './../globals.css'
 import { IntlProvider } from '@/app/components/Intl'
 import { ThemeProvider } from '@/app/contexts/ThemeContext'
+import { AuthProvider } from '@/app/components/auth/AuthProvider'
 import { getFeaturedUpcomingEvent } from '@/lib/events-server'
 import { buildOgImagePath, formatOgDate } from '@/lib/og'
 import i18nConfig from '../../i18n.json'
@@ -104,7 +105,7 @@ export default async function HomeLayout({
       {/* <ThemeProvider eventSlug="aisummit25"> */}
         <html lang={params.locale}>
           <body className={inter.className}>
-            {children}
+            <AuthProvider>{children}</AuthProvider>
           </body>
         </html>
       {/* </ThemeProvider> */}

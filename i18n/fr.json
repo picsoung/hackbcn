@@ -216,5 +216,16 @@
   "partner.logos.hosts": "Lieux qui nous ont accueillis",
   "partner.managed.title": "Votre hackathon clé en main",
   "partner.managed.body": "Votre idée, notre organisation. Nous gérons le format, le lieu, les inscriptions, les repas et le déroulement de l’événement. Vous apportez votre équipe ou votre défi ; nous nous occupons du reste.",
-  "partner.managed.cta": "Organiser mon hackathon"
+  "partner.managed.cta": "Organiser mon hackathon",
+  "auth.account": "Votre compte HackBarna",
+  "auth.signIn": "Se connecter",
+  "auth.sharedAccount": "Un compte pour HackBarna et le Digest hebdomadaire.",
+  "auth.exploreProjects": "Découvrir les projets de la communauté",
+  "auth.manageDigest": "Gérer votre abonnement au Digest hebdomadaire",
+  "auth.continueWithHackBarna": "Continuer avec HackBarna",
+  "auth.existingLogin": "Utilisez votre connexion Google ou e-mail habituelle. Vous pourrez créer un compte à l’écran suivant si nécessaire.",
+  "auth.temporarilyUnavailable": "La connexion est temporairement indisponible. Réessayez plus tard.",
+  "auth.signInFailed": "La connexion n’a pas pu aboutir. Réessayez.",
+  "auth.signOutWebsite": "Se déconnecter de ce site",
+  "auth.navAccount": "Compte"
 }

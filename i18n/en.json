@@ -218,5 +218,16 @@
   "partner.logos.hosts": "Previous hosts",
   "partner.managed.title": "Hackathon in a box",
   "partner.managed.body": "Your idea, our organisation. We handle the format, venue, registrations, food, and running the day. You bring your team or challenge; we take care of the rest.",
-  "partner.managed.cta": "Plan my hackathon"
+  "partner.managed.cta": "Plan my hackathon",
+  "auth.account": "Your HackBarna account",
+  "auth.signIn": "Sign in",
+  "auth.sharedAccount": "One account for HackBarna and the weekly Digest.",
+  "auth.exploreProjects": "Explore community projects",
+  "auth.manageDigest": "Manage your weekly Digest subscription",
+  "auth.continueWithHackBarna": "Continue with HackBarna",
+  "auth.existingLogin": "Use your existing Google or email login. New here? You can create an account on the next screen.",
+  "auth.temporarilyUnavailable": "Sign-in is temporarily unavailable. Please try again later.",
+  "auth.signInFailed": "We couldn’t finish signing you in. Please try again.",
+  "auth.signOutWebsite": "Sign out of this website",
+  "auth.navAccount": "Account"
 }

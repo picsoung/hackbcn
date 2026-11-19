@@ -217,5 +217,16 @@
   "partner.logos.hosts": "Espais que ens han acollit",
   "partner.managed.title": "El teu hackathon, de principi a fi",
   "partner.managed.body": "La teva idea, la nostra organització. Ens encarreguem del format, l’espai, les inscripcions, el menjar i la coordinació de l’esdeveniment. Tu hi portes el teu equip o repte; nosaltres ens ocupem de la resta.",
-  "partner.managed.cta": "Organitza el meu hackathon"
+  "partner.managed.cta": "Organitza el meu hackathon",
+  "auth.account": "El teu compte de HackBarna",
+  "auth.signIn": "Inicia la sessió",
+  "auth.sharedAccount": "Un compte per a HackBarna i el Digest setmanal.",
+  "auth.exploreProjects": "Explora els projectes de la comunitat",
+  "auth.manageDigest": "Gestiona la subscripció al Digest setmanal",
+  "auth.continueWithHackBarna": "Continua amb HackBarna",
+  "auth.existingLogin": "Fes servir el teu accés habitual amb Google o correu. Si encara no tens compte, el pots crear a la pantalla següent.",
+  "auth.temporarilyUnavailable": "L’inici de sessió no està disponible temporalment. Torna-ho a provar més tard.",
+  "auth.signInFailed": "No hem pogut completar l’inici de sessió. Torna-ho a provar.",
+  "auth.signOutWebsite": "Tanca la sessió en aquest web",
+  "auth.navAccount": "Compte"
 }

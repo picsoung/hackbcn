@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 import type { Event } from '@/types/events'
 import { getDigestHref } from '@/app/helpers/digest'
 import { Wordmark } from '../brand/Mark'
+import AuthNav from '../auth/AuthNav'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -112,6 +113,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                       )
                     )}
 
+                    <AuthNav />
                     <Menu as="div" className="relative">
                       <Menu.Button aria-label={intl.t('home.navbar.language')} className="inline-flex items-center p-1.5 rounded-pixel text-ink-dim hover:text-ink hover:bg-band-2 transition-colors">
                         <GlobeAltIcon className="h-5 w-5" />
@@ -187,6 +189,7 @@ export default function OrgNavbar({ featuredEvent }: { featuredEvent?: Event | n
                       </Link>
                     )
                   )}
+                  <div className="pl-4 pr-4 py-2 border-t border-band-2"><AuthNav /></div>
                   <div className="pl-6 pr-4 py-2 border-t border-band-2">
                     <div className="flex items-center space-x-2 text-ink-dim mb-2">
                       <GlobeAltIcon className="h-5 w-5" />
