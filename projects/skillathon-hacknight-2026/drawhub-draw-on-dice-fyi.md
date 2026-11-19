@@ -21,6 +21,7 @@ hackers:
       src: ''
     links:
       linkedin: 'https://www.linkedin.com/in/joetann/'
+      github: 'https://github.com/YiumPotato'
   - name: Joe
     description: ''
     image:

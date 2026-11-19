@@ -19,6 +19,7 @@ hackers:
       src: ''
     links:
       linkedin: https://www.linkedin.com/in/nicolasgrenie/
+      github: 'https://github.com/picsoung'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k975tstn1pz70c2zsvyf71hx3h837tpr

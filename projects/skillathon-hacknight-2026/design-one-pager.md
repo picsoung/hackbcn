@@ -21,6 +21,7 @@ hackers:
       src: ''
     links:
       linkedin: 'https://www.linkedin.com/in/starklink/'
+      github: 'https://github.com/colinstark'
 links:
   submission: >-
     https://hackbarna-skillathon.netlify.app/projects/k97b1tptkx2nqyqhzvrb92xh2s837zb1

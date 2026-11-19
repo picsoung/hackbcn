@@ -4,7 +4,7 @@ Reviewed 19 November 2026. Only public maker names, project links and profile UR
 
 Of 144 maker credits, 112 now have an avatar, 114 have LinkedIn links and 85 have GitHub links. The initial pass added 84 LinkedIn portraits and nine custom GitHub avatars; the 19 November review recovered Balazs Lapis and Nina Haide’s LinkedIn portraits. Existing portraits remain unchanged. Generic GitHub identicons are left as initials. Counts describe project credits, so the same person may appear in more than one project.
 
-The organiser’s supplied profiles also resolve Pietro Baffico, Melissa Orphali, Marta Quiros Dinares and both full-name Abel Romero Martinez credits. Melissa’s and Marta’s matching registered LinkedIn accounts verify their attendee-supplied GitHub links too. All four recovered portraits are stored locally. The first-name-only “abel” credit on preply_project_learning- remains unlinked pending confirmation.
+The organiser’s supplied profiles also resolve Pietro Baffico, Melissa Orphali, Marta Quiros Dinares and both full-name Abel Romero Martinez credits. Melissa’s and Marta’s matching registered LinkedIn accounts verify their attendee-supplied GitHub links too. All four recovered portraits are stored locally. The [email audit](attendee-email-audit.md) found that the first-name-only “abel” credit on preply_project_learning- uses Alvaro’s shared team email, which differs from Abel’s registration; the credit remains separate.
 
 ## Missing both profile links
 
@@ -32,7 +32,7 @@ These 30 credits still need verified LinkedIn/GitHub details. Four already have 
 | [Kommotion](https://www.hackbarna.com/en/projects/aisummit26/kommotion)                                                               | Katya Dominguez              | Missing   | No matching attendee email                |
 | [ling0](https://www.hackbarna.com/en/projects/aisummit26/ling0)                                                                       | Diego Guevara                | Missing   | No matching attendee email                |
 | [MIRA](https://www.hackbarna.com/en/projects/aisummit26/mira)                                                                         | Arnab Dey                    | Available | No matching attendee email                |
-| [OffLoad](https://www.hackbarna.com/en/projects/aisummit26/offload)                                                                   | Ana Lucia Silva              | Available | No matching attendee email                |
+| [OffLoad](https://www.hackbarna.com/en/projects/aisummit26/offload)                                                                   | Ana Lucia Silva              | Available | Matched registration has no profile links |
 | [preply_project_learning-](https://www.hackbarna.com/en/projects/aisummit26/preply-project-learning)                                  | alvaro                       | Missing   | Email reused for several teammates        |
 | [preply_project_learning-](https://www.hackbarna.com/en/projects/aisummit26/preply-project-learning)                                  | abel                         | Missing   | Email reused for several teammates        |
 | [preply_project_learning-](https://www.hackbarna.com/en/projects/aisummit26/preply-project-learning)                                  | alex                         | Missing   | Email reused for several teammates        |
