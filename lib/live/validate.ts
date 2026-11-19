@@ -1,3 +1,16 @@
+// Reviewed public credit from the original Council-convention submission.
+// Apply only while the source still has this exact combined name and profile.
+const projectTeamCredits = [
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    projectSlug: 'council-convention',
+    submittedName: 'Tiam Haghshenas / Stepan Gritsun',
+    primaryProfilePath: '/in/tiam-haghshenas-58a9063b7',
+    primaryName: 'Tiam Haghshenas',
+    otherNames: ['Stepan Gritsun'],
+  },
+]
+
 export type ProjectHacker = { name: string; linkedinUrl: string | null }
 
 export interface ProjectInput {
@@ -39,8 +52,10 @@ function linkedinProfile(value: string): string | null {
     : null
 }
 
-/** Public team members only. Keep legacy credits intact rather than guessing how to split names. */
+/** Public team members only. Legacy names change only for explicitly reviewed credits. */
 export function projectHackers(project: {
+  eventSlug?: string
+  slug?: string
   hackers?: unknown
   creatorName: string
   linkedinUrl: string
@@ -58,7 +73,7 @@ export function projectHackers(project: {
         ]
       })
     : []
-  return hackers.length
+  const team = hackers.length
     ? hackers
     : [
         {
@@ -68,6 +83,25 @@ export function projectHackers(project: {
             : null,
         },
       ]
+  const reviewed = projectTeamCredits.find(
+    (credit) =>
+      credit.eventSlug === project.eventSlug &&
+      credit.projectSlug === project.slug,
+  )
+  if (
+    reviewed &&
+    team.length === 1 &&
+    team[0].name === reviewed.submittedName &&
+    team[0].linkedinUrl &&
+    new URL(team[0].linkedinUrl).pathname.replace(/\/+$/, '').toLowerCase() ===
+      reviewed.primaryProfilePath
+  ) {
+    return [
+      { name: reviewed.primaryName, linkedinUrl: team[0].linkedinUrl },
+      ...reviewed.otherNames.map((name) => ({ name, linkedinUrl: null })),
+    ]
+  }
+  return team
 }
 
 export function validateProject(

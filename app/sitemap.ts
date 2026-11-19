@@ -8,6 +8,8 @@ import i18nConfig from '../i18n.json'
 import { getProjects } from '@/app/helpers/projects'
 import { LIVE_EVENTS } from '@/lib/live/config'
 import { listProjectSitemapEntries } from '@/lib/live/projects'
+import { getBuilderCatalog } from '@/lib/builder-catalog'
+import { builderProfilePath } from '@/lib/builders'
 import {
   projectListPath,
   siteOrigin,
@@ -32,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const liveProjects = (await listProjectSitemapEntries()).filter((p) =>
     Object.hasOwn(LIVE_EVENTS, p.eventSlug),
   )
+  const { profiles: builders } = await getBuilderCatalog('en')
 
   const now = new Date()
 
@@ -104,6 +107,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.7,
     })
+    for (const builder of builders) {
+      out.push({
+        url: `${SITE}${builderProfilePath(locale, builder.slug)}`,
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      })
+    }
     for (const project of liveProjects) {
       out.push({
         url: `${SITE}${projectListPath(locale, project.eventSlug, project.slug)}`,

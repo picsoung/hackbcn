@@ -21,7 +21,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/thekatyadominguez/'
   - name: Edouard Foussier
     description: ''
     image:
@@ -34,6 +35,7 @@ links:
   website: 'https://kommotion.tv/'
   video: 'https://youtu.be/wk0ihPy0E8g'
 ---
+
 The problem
 Streamers live off audience interaction, but their content is bounded by what they can physically do on camera. Interactive formats (polls, chat games) are shallow, and producing actual serialized story content is out of reach for a solo creator. Generative video exists, but it's offline, one-shot and disconnected from a live audience — nobody has turned it into a live, community-driven show format.
 

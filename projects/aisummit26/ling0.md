@@ -27,7 +27,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/diego-guevara-valades-9a4697184/'
   - name: Nasia Kudaibergen
     description: ''
     image:
@@ -39,6 +40,7 @@ links:
   website: 'https://ling0.app/'
   video: 'https://youtu.be/O0yrfmD-uaI'
 ---
+
 **Someone who has studied a language for months and still froze when it mattered — the landlord picked up, the interviewer asked a question, and nothing came out.**
 
 The status quo is a year of study that doesn't survive contact with a real conversation.

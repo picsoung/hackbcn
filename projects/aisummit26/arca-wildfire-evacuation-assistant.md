@@ -34,7 +34,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/melissa-orphali-318377132/'
+      github: 'https://github.com/melissaorphali'
   - name: Viktoria Sargsyan
     description: ''
     image:
@@ -47,6 +49,7 @@ links:
   website: 'https://arca.up.railway.app/'
   video: 'https://youtu.be/6mW0dw2aXuM'
 ---
+
 n a wildfire, coordinators already know where the fire is. What nobody hands them is who in its path runs out of time first. A care home, a farm with hundreds of animals, a family that will not leave without the dogs, and a school do not leave on the same clock.
 
 We built two parts. Talaia merges about a dozen official Spanish and Catalan sources into one answer to “what is here?” — schools, care homes, hospitals, farms. ARCA is the evacuation assistant. Deepfire shows where fire is being seen. Talaia says what sits inside that shape. ARCA says who to call first.

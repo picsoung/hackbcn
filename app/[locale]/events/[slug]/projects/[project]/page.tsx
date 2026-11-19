@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import ProjectPageShell from '@/app/components/projects/ProjectPageShell'
 import ProjectDetail from '@/app/components/projects/ProjectDetail'
 import { submittedProjectCard } from '@/lib/project-cards'
-import { getRelatedProjectCards } from '@/lib/project-catalog'
+import { getProjectPageContext } from '@/lib/builder-catalog'
 import { getEventDataBySlug } from '@/lib/events-server'
 import {
   projectBuilder,
@@ -46,7 +46,11 @@ export default async function ProjectPage({ params, searchParams }: Params) {
     params.locale,
     getEventDataBySlug(event.slug)?.event ?? event,
   )
-  const related = await getRelatedProjectCards(current, params.locale)
+  const { related, builders } = await getProjectPageContext(
+    current,
+    projectHackers(project).map(projectBuilder),
+    params.locale,
+  )
   const copy = projectPageCopy(params.locale)
   const screenshot = project.screenshotKey
     ? `/api/live/${event.slug}/projects/${project.slug}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
@@ -64,7 +68,7 @@ export default async function ProjectPage({ params, searchParams }: Params) {
     <ProjectPageShell>
       <ProjectDetail
         project={current}
-        builders={projectHackers(project).map(projectBuilder)}
+        builders={builders}
         links={links}
         media={media}
         stack={project.usedLovable ? ['Lovable'] : []}

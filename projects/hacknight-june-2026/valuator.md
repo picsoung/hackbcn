@@ -23,7 +23,7 @@ hackers:
     image:
       src: ''
     links:
-      linkedin: 'https://www.linkedin.com/in/diego-valades-9a4697184/'
+      linkedin: 'https://www.linkedin.com/in/diego-guevara-valades-9a4697184/'
 links:
   website: 'https://netlifyhackathon.netlify.app/'
   github: 'https://github.com/colinstark/netlify-hack'

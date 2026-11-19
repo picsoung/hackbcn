@@ -8,7 +8,7 @@ import {
   projectBuilder,
   projectLinks,
 } from '@/lib/project-detail'
-import { getRelatedProjectCards } from '@/lib/project-catalog'
+import { getProjectPageContext } from '@/lib/builder-catalog'
 import { getEventDataBySlug } from '@/lib/events-server'
 import { projectMetadata } from '@/lib/project-seo'
 import { projectPageCopy } from '@/data/project-page'
@@ -45,7 +45,11 @@ export default async function ProjectBySlug({ params }: Params) {
   const copy = projectPageCopy(params.locale)
   const event = data.event ? getEventDataBySlug(data.event)?.event : undefined
   const current = archivedProjectCard(project, params.locale, event)
-  const related = await getRelatedProjectCards(current, params.locale)
+  const { related, builders } = await getProjectPageContext(
+    current,
+    (data.hackers ?? []).map(projectBuilder),
+    params.locale,
+  )
   const { content, media } = archivedProjectContent(project)
   const links = projectLinks([
     ...Object.entries(data.links ?? {}),
@@ -54,7 +58,7 @@ export default async function ProjectBySlug({ params }: Params) {
   return (
     <ProjectDetail
       project={current}
-      builders={(data.hackers ?? []).map(projectBuilder)}
+      builders={builders}
       links={links}
       media={media}
       stack={data.techStack}

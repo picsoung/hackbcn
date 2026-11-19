@@ -16,7 +16,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/toby0/'
   - name: Giacomo
     description: ''
     image:
