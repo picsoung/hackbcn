@@ -25,6 +25,15 @@ const nextConfig = {
       },
     ],
   },
+  headers: async () =>
+    ['branch-deploy', 'deploy-preview'].includes(process.env.CONTEXT)
+      ? [
+          {
+            source: '/:path*',
+            headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+          },
+        ]
+      : [],
   redirects: async () => {
     return [
       {
@@ -33,7 +42,7 @@ const nextConfig = {
         permanent: false,
       },
     ]
-  }
+  },
 }
 
 const withMDX = nextMdx({
