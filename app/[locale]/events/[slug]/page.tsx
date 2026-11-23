@@ -11,6 +11,7 @@ import { getEventProjectCards } from '@/lib/project-catalog'
 import { getLiveEvent } from '@/lib/live/config'
 import EventProjectsSection from '@/app/components/projects/EventProjectsSection'
 import { notFound, permanentRedirect } from 'next/navigation'
+import { localizedAlternates } from '@/lib/page-seo'
 
 export const dynamic = 'force-dynamic'
 const legacyCanonicalSlugs = new Set(['v1-2024', 'aisummit25'])
@@ -40,14 +41,18 @@ export function generateMetadata({
     image: event.imageUrl,
     footer: `hackbarna.com/events/${event.slug}`,
   })
-  const canonical = legacyCanonicalSlugs.has(event.slug)
-    ? `/${params.locale}/${event.slug}`
-    : `/${params.locale}/events/${event.slug}`
+  const alternates = localizedAlternates(
+    params.locale,
+    legacyCanonicalSlugs.has(event.slug)
+      ? `/${event.slug}`
+      : `/events/${event.slug}`,
+  )
+  const canonical = alternates.canonical
 
   return {
     title: `${eventTitle} — HackBarna`,
     description,
-    alternates: { canonical },
+    alternates,
     openGraph: {
       type: 'website',
       url: canonical,

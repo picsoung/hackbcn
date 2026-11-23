@@ -6,12 +6,15 @@ import { ThemeProvider } from '@/app/contexts/ThemeContext'
 import { AuthProvider } from '@/app/components/auth/AuthProvider'
 import { getFeaturedUpcomingEvent } from '@/lib/events-server'
 import { buildOgImagePath, formatOgDate } from '@/lib/og'
+import { siteOrigin } from '@/lib/project-seo'
+import { siteLocales } from '@/lib/page-seo'
+import { notFound } from 'next/navigation'
 import i18nConfig from '../../i18n.json'
 
 const inter = Inter({ subsets: ['latin'] })
 
 function getMetadataBase() {
-  return new URL(process.env.SITE_ORIGIN || 'https://hackbarna.com')
+  return new URL(siteOrigin())
 }
 
 export async function generateMetadata(args: any) {
@@ -50,16 +53,6 @@ export async function generateMetadata(args: any) {
     },
     manifest: '/site.webmanifest',
     metadataBase,
-    alternates: {
-      canonical: '/',
-      languages: {
-        'x-default': '/',
-        en: '/en',
-        fr: '/fr',
-        es: '/es',
-        ca: '/ca',
-      },
-    },
     openGraph: {
       type: 'website',
       url: `/${args.params.locale}`,
@@ -94,6 +87,8 @@ export default async function HomeLayout({
   children,
   params,
 }: HomeLayoutProps) {
+  if (!siteLocales.includes(params.locale)) notFound()
+
   // Load translation data for the current locale
   const localeData = await loadLocaleData(params.locale)
 

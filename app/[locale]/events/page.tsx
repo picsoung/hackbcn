@@ -2,14 +2,21 @@ import OrgNavbar from '@/app/components/home/OrgNavbar'
 import OrgFooter from '@/app/components/home/OrgFooter'
 import EventsIndex from '@/app/components/events/EventsIndex'
 import UpcomingFeature from '@/app/components/events/UpcomingFeature'
-import ArchiveWall, { type ArchiveItem } from '@/app/components/events/ArchiveWall'
+import ArchiveWall, {
+  type ArchiveItem,
+} from '@/app/components/events/ArchiveWall'
 import EventsBottomCTA from '@/app/components/events/EventsBottomCTA'
+import { localizedPageMetadata } from '@/lib/page-seo'
 import {
   getFeaturedUpcomingEvent,
   getAllUpcoming,
   getUnifiedPastEvents,
   getPastHackNights,
 } from '@/lib/events-server'
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return localizedPageMetadata(params.locale, '/events', 'events.title')
+}
 
 export default function EventsPage() {
   const featured = getFeaturedUpcomingEvent()
