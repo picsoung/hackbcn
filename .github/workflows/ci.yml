@@ -55,8 +55,14 @@ jobs:
       - name: Verify authentication
         run: npm run test:auth
       - name: Verify project and homepage behavior
-        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs
+        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs
       - name: Check types
         run: npx tsc --noEmit
       - name: Build production assets
         run: npm run build
+      - name: Verify rendered SEO routes
+        run: |
+          node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/hackbarna-seo-server.log" 2>&1 &
+          seo_server_pid=$!
+          trap 'kill "$seo_server_pid"' EXIT
+          node tests/seo-routes.integration.mjs http://127.0.0.1:3100
