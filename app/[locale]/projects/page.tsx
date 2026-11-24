@@ -1,4 +1,7 @@
-import { getProjectCatalog } from '@/lib/project-catalog'
+import {
+  getProjectCatalog,
+  getProjectEventSummaries,
+} from '@/lib/project-catalog'
 import {
   projectListSchema,
   projectMetadata,
@@ -25,7 +28,10 @@ export default async function ProjectArchive({
     () => import('@/i18n/en.json'),
   )
   const title = localeData.default['projects.title'] ?? 'Project Archive'
-  const projects = await getProjectCatalog(params.locale)
+  const [projects, eventSummaries] = await Promise.all([
+    getProjectCatalog(params.locale),
+    getProjectEventSummaries(params.locale),
+  ])
   return (
     <div
       id="projects"
@@ -57,7 +63,11 @@ export default async function ProjectArchive({
             and meet the makers behind them.
           </p>
         </header>
-        <ProjectArchiveBrowser projects={projects} locale={params.locale} />
+        <ProjectArchiveBrowser
+          projects={projects}
+          eventSummaries={eventSummaries}
+          locale={params.locale}
+        />
       </div>
     </div>
   )

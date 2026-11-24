@@ -20,7 +20,7 @@ import { getSponsorsByEvent } from '@/data/sponsors'
 import { getCommunitySponsorsByEvent } from '@/data/communitySponsors'
 import { getEventDataBySlug } from '@/lib/events-server'
 import { getEventBySlug } from '@/lib/events'
-import { getEventProjectCards } from '@/lib/project-catalog'
+import { getEventProjects } from '@/lib/project-catalog'
 import EventProjectsSection from '@/app/components/projects/EventProjectsSection'
 import RecapVideo from '@/app/components/events/RecapVideo'
 import EventTestimonialsSection from '@/app/components/testimonials/EventTestimonialsSection'
@@ -58,7 +58,7 @@ export default async function EventPage({
   const { mentors } = getMentorsByEvent(eventSlug)
   const { sponsors } = getSponsorsByEvent(eventSlug)
   const { communitySponsors } = getCommunitySponsorsByEvent(eventSlug)
-  const projects = await getEventProjectCards(locale, eventSlug)
+  const { projects, total } = await getEventProjects(locale, eventSlug)
   const legacyEvent = getEventBySlug(eventSlug)
   const communityPosts = getTestimonialsForEvent(eventSlug)
 
@@ -89,7 +89,7 @@ export default async function EventPage({
         <SignupCTA />
         <FAQ />
         <Team />
-        {projects.length > 0 && (
+        {total > 0 && (
           <div className="bg-white">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <EventProjectsSection
@@ -97,6 +97,7 @@ export default async function EventPage({
                 eventSlug={eventSlug}
                 eventName={legacyEvent?.name ?? eventSlug}
                 projects={projects}
+                total={total}
                 tone="light"
               />
             </div>

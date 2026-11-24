@@ -1,0 +1,2 @@
+ALTER TABLE "live_projects" ADD COLUMN "visibility" text DEFAULT 'public' NOT NULL;--> statement-breakpoint
+ALTER TABLE "live_projects" ADD CONSTRAINT "live_projects_visibility_check" CHECK ("visibility" in ('public', 'private'));

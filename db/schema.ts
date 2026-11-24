@@ -1,5 +1,7 @@
+import { sql } from 'drizzle-orm'
 import {
   boolean,
+  check,
   index,
   integer,
   jsonb,
@@ -63,6 +65,10 @@ export const liveProjects = pgTable(
     eventSlug: text('event_slug').notNull(),
     slug: text().notNull(),
     name: text().notNull(),
+    visibility: text()
+      .$type<'public' | 'private'>()
+      .notNull()
+      .default('public'),
     tagline: text().notNull(),
     url: text().notNull(),
     videoUrl: text('video_url'),
@@ -94,6 +100,10 @@ export const liveProjects = pgTable(
   (t) => [
     uniqueIndex('live_projects_event_slug_idx').on(t.eventSlug, t.slug),
     index('live_projects_event_votes_idx').on(t.eventSlug, t.voteCount),
+    check(
+      'live_projects_visibility_check',
+      sql`${t.visibility} in ('public', 'private')`,
+    ),
   ],
 )
 

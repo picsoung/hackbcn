@@ -23,7 +23,7 @@ export async function GET(
   return new Response(data, {
     headers: {
       'Content-Type': contentType,
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': 'no-store',
       'X-Content-Type-Options': 'nosniff',
     },
   })
