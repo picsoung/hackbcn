@@ -183,6 +183,24 @@ export async function getPublicProject(eventSlug: string, slug: string) {
   return project ? { ...project, hackers: projectHackers(project) } : null
 }
 
+/** Private source lookup. Call only after the account/organiser authorization gate. */
+export async function getProjectManagementSource(
+  eventSlug: string,
+  slug: string,
+  database: Pick<ReturnType<typeof getDb>, 'select'> = getDb(),
+) {
+  if (
+    !Object.hasOwn(LIVE_EVENTS, eventSlug) ||
+    isHiddenProject(eventSlug, slug)
+  )
+    return null
+  const [project] = await database
+    .select({ ...publicColumns, visibility: projects.visibility })
+    .from(projects)
+    .where(and(eq(projects.eventSlug, eventSlug), eq(projects.slug, slug)))
+    .limit(1)
+  return project ? { ...project, hackers: projectHackers(project) } : null
+}
 export async function getJevAnswers(id: number) {
   const [row] = await getDb()
     .select({ jevAnswers: projects.jevAnswers })

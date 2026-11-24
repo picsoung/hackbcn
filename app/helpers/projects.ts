@@ -121,6 +121,30 @@ export function getProject(slugOrFilePath: string[]): Project {
   return project
 }
 
+/** Server source snapshots for visibility resolution and verified owner views. */
+export function getBuiltProjects(): Project[] {
+  return getFilenames()
+    .map((filename) => readProject([filename]))
+    .filter(
+      (project) =>
+        project.data.status === 'published' ||
+        project.data.status === 'private',
+    )
+    .sort(sortProjectsByName)
+}
+
+export function getBuiltProject(slug: string[]): Project | null {
+  try {
+    const project = readProject(slug)
+    return project.data.status === 'published' ||
+      project.data.status === 'private'
+      ? project
+      : null
+  } catch {
+    return null
+  }
+}
+
 export function getProjects(): Project[] {
   const filenames = getFilenames()
   return filenames

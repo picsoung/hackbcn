@@ -5,7 +5,7 @@ import {
 } from '@/lib/events-server'
 import { hackNights } from '@/data/hacknights'
 import i18nConfig from '../i18n.json'
-import { getProjects } from '@/app/helpers/projects'
+import { getPublicArchivedProjects } from '@/lib/projects/archive-visibility'
 import { LIVE_EVENTS } from '@/lib/live/config'
 import { listProjectSitemapEntries } from '@/lib/live/projects'
 import { getBuilderCatalog } from '@/lib/builder-catalog'
@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .map((e) => e.slug)
     .filter((s) => !PAST_LEGACY_SLUGS.includes(s))
   const hackNightSlugs = hackNights.map((hn) => hn.slug)
-  const archivedProjects = getProjects()
+  const archivedProjects = await getPublicArchivedProjects()
   const liveProjects = (await listProjectSitemapEntries()).filter((p) =>
     Object.hasOwn(LIVE_EVENTS, p.eventSlug),
   )

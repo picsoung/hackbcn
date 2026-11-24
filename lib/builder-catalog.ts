@@ -1,5 +1,5 @@
 import 'server-only'
-import { getProjects } from '@/app/helpers/projects'
+import { getPublicArchivedProjects } from './projects/archive-visibility'
 import { getProjectCatalog } from './project-catalog'
 import { projectBuilder, type ProjectBuilder } from './project-detail'
 import { relatedProjectCards, type ProjectCard } from './project-cards'
@@ -12,7 +12,7 @@ import {
 export async function getBuilderCatalog(locale: string) {
   const projects = await getProjectCatalog(locale)
   const archived = new Map(
-    getProjects().map((project) => [
+    (await getPublicArchivedProjects()).map((project) => [
       `archive:${project.slug}`,
       (project.data.hackers ?? []).map(projectBuilder),
     ]),

@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import AuthShell from '@/app/components/auth/AuthShell'
 import AccountPanel from '@/app/components/auth/AccountPanel'
+import ProjectOwnershipLink from '@/app/components/auth/ProjectOwnershipLink'
 import { getCurrentIdentity } from '@/lib/auth/identity-server'
 import { getAuthLocale } from '@/lib/auth/shared'
 import { accountUnavailableCopy } from '@/data/account-page'
@@ -42,6 +43,7 @@ export default async function AccountPage({
     redirect(`/${locale}/auth?next=${encodeURIComponent(`/${locale}/account`)}`)
   return (
     <AuthShell>
+      <ProjectOwnershipLink locale={locale} />
       <AccountPanel user={user} />
     </AuthShell>
   )

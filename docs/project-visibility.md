@@ -28,9 +28,10 @@ RETURNING event_slug, slug, visibility;
 ```
 
 Use `public` to restore visibility. Existing and new submissions default to
-`public`. This change does not add an unauthenticated visibility endpoint. The
-planned verified-team editing flow can use the same field once ownership and
-permissions are in place.
+`public`. Verified teammates can also use My projects to hide or restore a
+project; see [claiming and permissions](project-ownership.md). There is no
+unauthenticated visibility endpoint. Use the account controls for normal changes
+so version checks and the private audit are preserved.
 
 Test submissions such as Jev-a-thon's Kiki remain excluded from both listings and
 totals through the existing event configuration. Keep those exclusions separate

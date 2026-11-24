@@ -27,12 +27,14 @@ require('ts-node').register({
 })
 
 async function main() {
-  const detail = JSON.parse(
-    execFileSync('netlify', ['db', 'connect', '--json'], {
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'pipe'],
-    }),
-  )
+  const detail = process.env.TEST_DATABASE_URL
+    ? { context: 'dev', connection_string: process.env.TEST_DATABASE_URL }
+    : JSON.parse(
+        execFileSync('netlify', ['db', 'connect', '--json'], {
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'pipe'],
+        }),
+      )
   assert.equal(detail.context, 'dev')
   assert.ok(
     ['localhost', '127.0.0.1', '[::1]'].includes(

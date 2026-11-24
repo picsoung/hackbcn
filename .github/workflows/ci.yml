@@ -43,8 +43,24 @@ jobs:
     needs: promotion-policy
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: hackbarna
+          POSTGRES_PASSWORD: local-ci-only
+          POSTGRES_DB: hackbarna_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U hackbarna -d hackbarna_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     env:
       NEXT_TELEMETRY_DISABLED: '1'
+      NETLIFY_DB_URL: postgres://hackbarna:local-ci-only@127.0.0.1:5432/hackbarna_test
+      TEST_DATABASE_URL: postgres://hackbarna:local-ci-only@127.0.0.1:5432/hackbarna_test
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -52,10 +68,16 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: Set up disposable project database
+        run: node tests/setup-project-test-database.mjs
       - name: Verify authentication
         run: npm run test:auth
       - name: Verify project and homepage behavior
-        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs
+        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs tests/project-ownership.test.cjs
+      - name: Verify project ownership and visibility in Postgres
+        run: |
+          node --conditions=react-server tests/project-ownership.integration.cjs
+          node --conditions=react-server tests/project-visibility.integration.cjs
       - name: Check types
         run: npx tsc --noEmit
       - name: Build production assets

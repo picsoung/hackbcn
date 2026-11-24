@@ -1,9 +1,9 @@
 import 'server-only'
+import { getArchivedProjectCounts } from '@/app/helpers/projects'
 import {
-  getProjects,
-  getProjectsByEvent,
-  getArchivedProjectCounts,
-} from '@/app/helpers/projects'
+  getPublicArchivedProjects,
+  getPublicArchivedProjectsByEvent,
+} from './projects/archive-visibility'
 import { getEventDataBySlug } from '@/lib/events-server'
 import { getLiveEvent } from '@/lib/live/config'
 import {
@@ -60,8 +60,8 @@ export async function getProjectEventSummaries(
 export async function getEventProjectCards(locale: string, eventSlug: string) {
   const event = getEventDataBySlug(eventSlug)?.event
   const live = getLiveEvent(eventSlug)
-  const archived = getProjectsByEvent(eventSlug).map((project) =>
-    archivedProjectCard(project, locale, event),
+  const archived = (await getPublicArchivedProjectsByEvent(eventSlug)).map(
+    (project) => archivedProjectCard(project, locale, event),
   )
   if (!live) return archived
   const submitted = await listProjects(eventSlug)
@@ -85,7 +85,7 @@ export async function getProjectCatalog(locale: string) {
         category: categoryLabel(project.category),
       })
     }),
-    ...getProjects().map((project) =>
+    ...(await getPublicArchivedProjects()).map((project) =>
       archivedProjectCard(
         project,
         locale,
