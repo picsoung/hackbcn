@@ -55,7 +55,7 @@ jobs:
       - name: Verify authentication
         run: npm run test:auth
       - name: Verify project and homepage behavior
-        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs
+        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs
       - name: Check types
         run: npx tsc --noEmit
       - name: Build production assets
