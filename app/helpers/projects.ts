@@ -34,6 +34,7 @@ export interface ProjectData {
   description: string
   tags: string[]
   thumbnailUrl: string
+  projectImage?: string
   category: ProjectCategory
   // Private projects contribute to event totals without exposing their details.
   status: 'draft' | 'published' | 'private'

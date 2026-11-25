@@ -1,4 +1,5 @@
 import 'server-only'
+import { applySubmittedContent } from '@/lib/projects/approved-content'
 import {
   and,
   desc,
@@ -96,6 +97,7 @@ export type PublicProject = {
   url: string
   videoUrl: string | null
   screenshotKey: string | null
+  imageUrl?: string
   creatorName: string
   linkedinUrl: string
   hackers: ProjectHacker[]
@@ -136,7 +138,9 @@ export async function listProjects(
       projects.createdAt,
     )
     .then((rows) =>
-      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      applySubmittedContent(
+        rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      ),
     )
 }
 
@@ -149,7 +153,9 @@ export async function listAllProjects(): Promise<PublicProject[]> {
     .where(and(inArray(projects.eventSlug, events), publicProjectVisibility()))
     .orderBy(desc(projects.createdAt), projects.name)
     .then((rows) =>
-      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      applySubmittedContent(
+        rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      ),
     )
 }
 
@@ -180,7 +186,13 @@ export async function getPublicProject(eventSlug: string, slug: string) {
       ),
     )
     .limit(1)
-  return project ? { ...project, hackers: projectHackers(project) } : null
+  return project
+    ? (
+        await applySubmittedContent([
+          { ...project, hackers: projectHackers(project) },
+        ])
+      )[0]
+    : null
 }
 
 /** Private source lookup. Call only after the account/organiser authorization gate. */
@@ -362,6 +374,7 @@ export async function addShare(eventSlug: string, slug: string) {
 export async function exportShareable(eventSlug: string) {
   return getDb()
     .select({
+      eventSlug: projects.eventSlug,
       slug: projects.slug,
       name: projects.name,
       tagline: projects.tagline,
@@ -389,6 +402,9 @@ export async function exportShareable(eventSlug: string) {
     )
     .orderBy(desc(projects.voteCount))
     .then((rows) =>
-      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      applySubmittedContent(
+        rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      ),
     )
+    .then((rows) => rows.map(({ eventSlug, ...row }) => row))
 }

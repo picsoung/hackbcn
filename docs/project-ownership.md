@@ -56,7 +56,7 @@ node scripts/prepare-project-claim-evidence.cjs \
 ```
 
 After deploying the migration, a signed-in allowlisted organiser can import that
-file from the Ownership review section on My projects. The file's key fingerprint
+file from Organiser tools at `/{locale}/account/review`, under the collapsed match import. The file's key fingerprint
 must match the current environment. Prepare a new file for another environment or
 after rotating the lookup key. Never commit the key, original contacts, prepared
 proofs or identity account records.
@@ -98,8 +98,6 @@ real transactions and concurrent teammates, and drops the schema afterward. CI
 provides a disposable PostgreSQL database and also runs the existing project,
 identity, privacy and rendered-route checks.
 
-For local integration, run Netlify Dev first, or provide `TEST_DATABASE_URL`
-pointing to a disposable loopback PostgreSQL instance.
+For local integration, set `TEST_DATABASE_URL` to a disposable loopback PostgreSQL 17 instance. Netlify’s embedded local database is suitable for the browser flow but does not reliably reproduce concurrent PostgreSQL transactions.
 
-Content editing, team invitations, additional-email verification and submission
-moderation are subsequent flows; this change manages ownership and visibility.
+The focused content editor and organiser review are described in [Account workspace](account-workspace.md). Team invitations, additional-email verification and automated submission moderation remain subsequent flows.

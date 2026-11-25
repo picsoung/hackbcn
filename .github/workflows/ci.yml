@@ -73,11 +73,14 @@ jobs:
       - name: Verify authentication
         run: npm run test:auth
       - name: Verify project and homepage behavior
-        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs tests/project-ownership.test.cjs
+        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs tests/project-ownership.test.cjs tests/community-profile.test.cjs tests/review-notifications.test.cjs tests/profile-claim-email.test.mjs tests/communication-preferences.test.cjs
+      - name: Verify image decoding and upload limits
+        run: node --conditions=react-server --test tests/media-images.test.cjs
       - name: Verify project ownership and visibility in Postgres
         run: |
           node --conditions=react-server tests/project-ownership.integration.cjs
           node --conditions=react-server tests/project-visibility.integration.cjs
+          node --conditions=react-server tests/communication-preferences.integration.cjs
       - name: Check types
         run: npx tsc --noEmit
       - name: Build production assets

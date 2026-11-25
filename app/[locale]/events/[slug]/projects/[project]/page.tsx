@@ -52,9 +52,12 @@ export default async function ProjectPage({ params, searchParams }: Params) {
     params.locale,
   )
   const copy = projectPageCopy(params.locale)
-  const screenshot = project.screenshotKey
-    ? `/api/live/${event.slug}/projects/${project.slug}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
-    : undefined
+  const screenshot =
+    project.imageUrl !== undefined
+      ? project.imageUrl || undefined
+      : project.screenshotKey
+        ? `/api/live/${event.slug}/projects/${project.slug}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
+        : undefined
   const video = projectVideo(project.videoUrl, screenshot)
   const media =
     video ??

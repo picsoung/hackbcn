@@ -55,9 +55,12 @@ export function submittedProjectCard(
     name: project.name,
     description: project.tagline,
     href: projectListPath(locale, project.eventSlug, project.slug),
-    image: project.screenshotKey
-      ? `/api/live/${encodeURIComponent(project.eventSlug)}/projects/${encodeURIComponent(project.slug)}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
-      : videoThumbnail(project.videoUrl),
+    image:
+      project.imageUrl !== undefined
+        ? project.imageUrl || undefined
+        : project.screenshotKey
+          ? `/api/live/${encodeURIComponent(project.eventSlug)}/projects/${encodeURIComponent(project.slug)}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
+          : videoThumbnail(project.videoUrl),
     creator: projectHackers(project)
       .map((hacker) => hacker.name)
       .join(', '),
@@ -86,7 +89,9 @@ export function archivedProjectCard(
     description: project.data.description,
     href: `/${locale}/projects/${project.slug.split('/').map(encodeURIComponent).join('/')}`,
     image:
-      project.data.thumbnailUrl || videoThumbnail(project.data.youtubeLink),
+      project.data.projectImage !== undefined
+        ? project.data.projectImage || undefined
+        : project.data.thumbnailUrl || videoThumbnail(project.data.youtubeLink),
     creator:
       project.data.hackers?.map((person) => person.name).join(', ') ?? '',
     hackers: projectHackers({

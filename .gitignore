@@ -43,3 +43,6 @@ next-env.d.ts
 
 # Optional PDF generation environment
 /.venv-sponsorship/
+
+# local credentials for the one-off decline sync
+scripts/sync-luma-declines/.env

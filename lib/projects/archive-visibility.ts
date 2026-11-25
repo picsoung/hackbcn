@@ -9,6 +9,7 @@ import {
   type Project,
 } from '@/app/helpers/projects'
 import { projectReference } from './ownership'
+import { approvedProjectContent, applyArchiveContent } from './approved-content'
 
 /** Resolve privacy before any content is passed to a public component. Fail closed on DB errors. */
 export async function getPublicArchivedProjects() {
@@ -28,12 +29,19 @@ export async function getPublicArchivedProjects() {
       ),
     )
   const states = new Map(overrides.map((row) => [row.key, row.visibility]))
-  return sources.filter(
-    (project) =>
-      (states.get(`archive:${project.slug}`) ??
-        (project.data.status === 'private' ? 'private' : 'public')) ===
-      'public',
+  const approved = await approvedProjectContent(
+    sources.map((p) => `archive:${p.slug}`),
   )
+  return sources
+    .filter(
+      (project) =>
+        (states.get(`archive:${project.slug}`) ??
+          (project.data.status === 'private' ? 'private' : 'public')) ===
+        'public',
+    )
+    .map((project) =>
+      applyArchiveContent(project, approved.get(`archive:${project.slug}`)),
+    )
 }
 
 export async function getPublicArchivedProjectsByEvent(eventSlug: string) {
@@ -61,6 +69,9 @@ export async function getPublicArchivedProject(
     .limit(1)
   return (override?.visibility ??
     (source.data.status === 'private' ? 'private' : 'public')) === 'public'
-    ? source
+    ? applyArchiveContent(
+        source,
+        (await approvedProjectContent([reference.key])).get(reference.key),
+      )
     : null
 }

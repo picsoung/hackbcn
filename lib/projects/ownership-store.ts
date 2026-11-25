@@ -1,4 +1,6 @@
 import 'server-only'
+import { enqueueReviewNotification } from './review-queue'
+import { reviewNotificationSettings, reviewText } from './review-notifications'
 import { and, asc, desc, eq, inArray, isNull, sql } from 'drizzle-orm'
 import { getDb } from '@/db'
 import {
@@ -8,6 +10,7 @@ import {
   projectVisibility,
   projectVisibilityAudit,
   projectClaimEvidence,
+  projectContent,
 } from '@/db/schema'
 import { getBuiltProject } from '@/app/helpers/projects'
 import { getEventDataBySlug } from '@/lib/events-server'
@@ -93,6 +96,17 @@ export async function accountProjects(user: IdentityUser, locale: string) {
         .from(projectVisibility)
         .where(inArray(projectVisibility.projectKey, keys))
     : []
+  const edits = keys.length
+    ? await getDb()
+        .select({
+          key: projectContent.projectKey,
+          approved: projectContent.approvedContent,
+          status: projectContent.status,
+        })
+        .from(projectContent)
+        .where(inArray(projectContent.projectKey, keys))
+    : []
+  const editStates = new Map(edits.map((edit) => [edit.key, edit]))
   const states = new Map(
     settings.map((setting) => [setting.projectKey, setting]),
   )
@@ -102,8 +116,20 @@ export async function accountProjects(user: IdentityUser, locale: string) {
         const source = await sourceProject(key, locale)
         if (!source) return null
         const setting = states.get(key)
+        const edit = editStates.get(key)
         return {
-          project: source.card,
+          project: edit?.approved
+            ? {
+                ...source.card,
+                name: edit.approved.name,
+                description: edit.approved.description,
+                image:
+                  edit.approved.image !== undefined
+                    ? edit.approved.image || undefined
+                    : source.card.image,
+              }
+            : source.card,
+          editStatus: edit?.status ?? null,
           visibility:
             source.reference.kind === 'archive'
               ? (setting?.visibility ?? source.visibility)
@@ -274,7 +300,8 @@ export async function requestProjectClaim(
         set: {
           message: message.trim(),
           status,
-          requestedAt: new Date(),
+          requestedAt:
+            existing?.status === 'pending' ? existing.requestedAt : new Date(),
           ...verification,
         },
         setWhere: inArray(projectClaims.status, [
@@ -283,8 +310,35 @@ export async function requestProjectClaim(
           'revoked',
         ]),
       })
-      .returning({ id: projectClaims.id, status: projectClaims.status })
-    return claim ?? { status: 'existing' as const }
+      .returning({
+        id: projectClaims.id,
+        status: projectClaims.status,
+        requestedAt: projectClaims.requestedAt,
+      })
+    if (
+      claim?.status === 'pending' &&
+      existing?.status !== 'pending' &&
+      reviewNotificationSettings().enabled
+    ) {
+      const requested = await sourceProject(reference.key, 'en', tx)
+      await enqueueReviewNotification(tx, {
+        key: `claim:${claim.id}:${claim.requestedAt.getTime()}`,
+        projectKey: reference.key,
+        claimId: claim.id,
+        requestedAt: claim.requestedAt,
+        alert: {
+          kind: 'project_claim',
+          project: reviewText(requested?.card.name, 'Requested project'),
+          event: reviewText(requested?.card.eventName, 'HackBarna'),
+          actor: reviewText(user.name, 'HackBarna member'),
+          fields: [],
+          path: `/en/account/review?claim=${claim.id}`,
+        },
+      })
+    }
+    return claim
+      ? { id: claim.id, status: claim.status }
+      : { status: 'existing' as const }
   })
 }
 
