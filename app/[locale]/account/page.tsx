@@ -2,13 +2,20 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import AuthShell from '@/app/components/auth/AuthShell'
 import AccountPanel from '@/app/components/auth/AccountPanel'
+import AccountWorkspace from '@/app/components/auth/AccountWorkspace'
+import { isProjectOrganiser } from '@/lib/projects/ownership'
 import { getCurrentIdentity } from '@/lib/auth/identity-server'
 import { getAuthLocale } from '@/lib/auth/shared'
 import { accountUnavailableCopy } from '@/data/account-page'
+import { getCommunityProfile } from '@/lib/community/profile-store'
+import { getCommunicationPreferences } from '@/lib/account/communication-store'
+import { accountWorkspaceCopy } from '@/data/account-workspace'
 
-export const metadata = {
-  title: 'Your HackBarna account',
-  robots: { index: false, follow: false },
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return {
+    title: `${accountWorkspaceCopy(getAuthLocale(params.locale)).account} · HackBarna`,
+    robots: { index: false, follow: false },
+  }
 }
 export const dynamic = 'force-dynamic'
 
@@ -19,8 +26,15 @@ export default async function AccountPage({
 }) {
   const locale = getAuthLocale(params.locale)
   let user
+  let profile
+  let communications
   try {
     user = await getCurrentIdentity()
+    if (user)
+      [profile, communications] = await Promise.all([
+        getCommunityProfile(user),
+        getCommunicationPreferences(user.id),
+      ])
   } catch {
     const copy = accountUnavailableCopy(locale)
     return (
@@ -40,9 +54,18 @@ export default async function AccountPage({
   }
   if (!user)
     redirect(`/${locale}/auth?next=${encodeURIComponent(`/${locale}/account`)}`)
+  if (!profile || !communications) throw new Error('Profile unavailable')
   return (
-    <AuthShell>
-      <AccountPanel user={user} />
-    </AuthShell>
+    <AccountWorkspace
+      locale={locale}
+      active="profile"
+      organiser={isProjectOrganiser(user)}
+    >
+      <AccountPanel
+        user={user}
+        profile={profile}
+        communications={communications}
+      />
+    </AccountWorkspace>
   )
 }

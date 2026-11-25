@@ -7,7 +7,7 @@ import {
   getFeaturedUpcomingEvent,
 } from '@/lib/events-server'
 import { buildOgImagePath, formatOgDate } from '@/lib/og'
-import { getEventProjectCards } from '@/lib/project-catalog'
+import { getEventProjects } from '@/lib/project-catalog'
 import { getLiveEvent } from '@/lib/live/config'
 import EventProjectsSection from '@/app/components/projects/EventProjectsSection'
 import { notFound, permanentRedirect } from 'next/navigation'
@@ -90,7 +90,7 @@ export default async function EventDetailPage({
     notFound()
   }
   const featured = getFeaturedUpcomingEvent()
-  const projects = await getEventProjectCards(params.locale, params.slug)
+  const { projects, total } = await getEventProjects(params.locale, params.slug)
 
   return (
     <div
@@ -106,14 +106,15 @@ export default async function EventDetailPage({
           judges={data.judges}
           mentors={data.mentors}
           locale={params.locale}
-          projectCount={projects.length}
+          projectCount={total}
           projectsSection={
-            projects.length > 0 || getLiveEvent(params.slug) ? (
+            total > 0 || getLiveEvent(params.slug) ? (
               <EventProjectsSection
                 locale={params.locale}
                 eventSlug={params.slug}
                 eventName={data.event.name}
                 projects={projects}
+                total={total}
               />
             ) : undefined
           }

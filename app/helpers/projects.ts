@@ -34,8 +34,10 @@ export interface ProjectData {
   description: string
   tags: string[]
   thumbnailUrl: string
+  projectImage?: string
   category: ProjectCategory
-  status: 'draft' | 'published'
+  // Private projects contribute to event totals without exposing their details.
+  status: 'draft' | 'published' | 'private'
   contentFormat?: 'markdown' | 'mdx'
   youtubeLink: string
   hackers: Person[]
@@ -71,7 +73,7 @@ export function getFilenames(): string[] {
   )
 }
 
-export function getProject(slugOrFilePath: string[]): Project {
+function readProject(slugOrFilePath: string[]): Project {
   const basePath = path.join(getProjectsDirectory(), ...slugOrFilePath)
   const filePaths = globSync([basePath + '.md', basePath + '.mdx', basePath])
   const markdownWithMeta = fs.readFileSync(filePaths[0], 'utf-8')
@@ -113,16 +115,59 @@ function sortProjectsByName(project1: Project, project2: Project) {
     .localeCompare(project2.data.title.toLowerCase())
 }
 
+/** Public detail lookup: drafts and private projects behave like missing pages. */
+export function getProject(slugOrFilePath: string[]): Project {
+  const project = readProject(slugOrFilePath)
+  if (project.data.status !== 'published') throw new Error('Project not found')
+  return project
+}
+
+/** Server source snapshots for visibility resolution and verified owner views. */
+export function getBuiltProjects(): Project[] {
+  return getFilenames()
+    .map((filename) => readProject([filename]))
+    .filter(
+      (project) =>
+        project.data.status === 'published' ||
+        project.data.status === 'private',
+    )
+    .sort(sortProjectsByName)
+}
+
+export function getBuiltProject(slug: string[]): Project | null {
+  try {
+    const project = readProject(slug)
+    return project.data.status === 'published' ||
+      project.data.status === 'private'
+      ? project
+      : null
+  } catch {
+    return null
+  }
+}
+
 export function getProjects(): Project[] {
   const filenames = getFilenames()
   return filenames
     .map((filename) => {
-      return getProject([filename])
+      return readProject([filename])
     })
     .filter((project) => {
-      return project.data.status !== 'draft'
+      return project.data.status === 'published'
     })
     .sort(sortProjectsByName)
+}
+
+/** Anonymous event totals only. Never return private project names or builders. */
+export function getArchivedProjectCounts(): Record<string, number> {
+  const counts: Record<string, number> = {}
+  for (const filename of getFilenames()) {
+    const { data } = readProject([filename])
+    if (data.status !== 'published' && data.status !== 'private') continue
+    const key = data.event ?? 'community'
+    counts[key] = (counts[key] ?? 0) + 1
+  }
+  return counts
 }
 
 // Returns projects whose frontmatter `event:` matches the given slug.

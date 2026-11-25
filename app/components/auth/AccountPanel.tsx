@@ -1,58 +1,89 @@
 'use client'
 
-import Link from 'next/link'
 import { useIntl } from '../Intl'
 import { getDigestLocale } from '@/lib/auth/shared'
 import type { IdentityUser } from '@/lib/auth/types'
+import type { CommunityProfile } from '@/lib/community/profile'
 import ProjectBuilderAvatar from '../projects/ProjectBuilderAvatar'
+import CommunityProfileForm from './CommunityProfileForm'
+import { accountWorkspaceCopy } from '@/data/account-workspace'
+import CommunicationLanguageForm from './CommunicationLanguageForm'
+import type { CommunicationPreferences } from '@/lib/account/communications'
 
-export default function AccountPanel({ user }: { user: IdentityUser }) {
-  const intl = useIntl()
+export default function AccountPanel({
+  user,
+  profile,
+  communications,
+}: {
+  user: IdentityUser
+  profile: CommunityProfile
+  communications: CommunicationPreferences
+}) {
+  const intl = useIntl(),
+    copy = accountWorkspaceCopy(intl.locale)
   return (
     <>
-      <h1 className="text-3xl font-bold tracking-tight">
-        {intl.t('auth.account')}
-      </h1>
-      <p className="mt-3 leading-relaxed text-ink-dim">
-        {intl.t('auth.sharedAccount')}
-      </p>
-      <div className="my-8 flex items-start gap-5 border-y border-band-2 py-6">
-        <ProjectBuilderAvatar
-          name={user.name || user.email || 'HackBarna'}
-          src={user.avatarUrl ?? undefined}
-        />
-        <div className="min-w-0 space-y-2">
-          {user.name && (
-            <p className="break-words text-lg font-semibold">{user.name}</p>
-          )}
-          {user.email && (
-            <p className="break-words text-ink-dim">{user.email}</p>
-          )}
+      <header className="flex flex-wrap items-start justify-between gap-6">
+        <div className="flex min-w-0 items-center gap-4">
+          <ProjectBuilderAvatar
+            name={profile.displayName}
+            src={profile.avatarUrl || undefined}
+          />
+          <div className="min-w-0">
+            <h1 className="break-words text-2xl font-bold tracking-tight sm:text-3xl">
+              {profile.displayName}
+            </h1>
+            <p className="mt-1 text-sm text-ink-dim">
+              {intl.t('auth.sharedAccount')}
+            </p>
+            {user.email && (
+              <p className="mt-2 break-all text-sm text-ink-dim">
+                {user.email}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="space-y-4">
-        <Link
-          href={`/${intl.locale}/projects`}
-          className="hb-px hb-px-sm flex min-h-11 items-center justify-center bg-accent px-5 py-3 font-semibold text-ground hover:bg-inversion focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ground"
-        >
-          {intl.t('auth.exploreProjects')}
-        </Link>
-        <a
-          href={`https://digest.hackbarna.com/${getDigestLocale(intl.locale)}/account`}
-          className="flex min-h-11 items-center justify-center rounded-pixel border border-band-2 px-4 text-center text-sm hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        >
-          {intl.t('auth.manageDigest')}
-        </a>
+      </header>
+      <section
+        id="profile"
+        aria-labelledby="account-profile-title"
+        className="mt-8 border-t border-ink/15 pt-7"
+      >
+        <h2 id="account-profile-title" className="text-2xl font-semibold">
+          {copy.publicProfile}
+        </h2>
+        <p className="mt-2 max-w-prose text-sm leading-relaxed text-ink-dim">
+          {copy.settingsIntro}
+        </p>
+        <CommunityProfileForm initial={profile} />
+      </section>
+      <CommunicationLanguageForm
+        initial={communications}
+        locale={intl.locale}
+      />
+      <section className="mt-10 flex flex-wrap items-start justify-between gap-4 border-t border-ink/15 pt-6">
+        <div>
+          <h2 className="font-semibold">{copy.signIn}</h2>
+          <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-dim">
+            {copy.digestHelp}
+          </p>
+          <a
+            href={`https://digest.hackbarna.com/${getDigestLocale(intl.locale)}/account`}
+            className="mt-2 inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4"
+          >
+            {intl.t('profile.digestSettings')}
+          </a>
+        </div>
         <form action="/auth/signout" method="post">
           <input type="hidden" name="locale" value={intl.locale} />
           <button
-            className="min-h-11 text-sm text-ink-dim underline underline-offset-4 hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
             type="submit"
+            className="min-h-11 text-sm text-ink-dim underline underline-offset-4 hover:text-ink"
           >
             {intl.t('auth.signOutWebsite')}
           </button>
         </form>
-      </div>
+      </section>
     </>
   )
 }

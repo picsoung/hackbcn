@@ -41,6 +41,7 @@ export default function ProjectBuilderAvatar({
           height={size === 'profile' ? 128 : 56}
           className="h-full w-full object-cover"
           loading="lazy"
+          referrerPolicy="no-referrer"
           onError={() => setFailed(true)}
         />
       ) : (

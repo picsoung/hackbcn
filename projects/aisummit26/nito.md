@@ -5,7 +5,7 @@ publishedDate: '2026-09-20'
 description: 'nito is a design reviewer for agent-written code, so slop doesn''t ship'
 thumbnailUrl: ''
 category: Technology
-status: published
+status: private
 contentFormat: markdown
 tags:
   - Cognition

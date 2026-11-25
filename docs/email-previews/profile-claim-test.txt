@@ -1,0 +1,72 @@
+TEST / PRUEBA / PROVA
+For review only. The button opens your local preview; profile claims are not live on the public site yet.
+Solo para revisar. El botón abre la vista previa local; todavía no se pueden reclamar perfiles en la web pública.
+Només per revisar. El botó obre la vista prèvia local; encara no es poden reclamar perfils al web públic.
+
+English
+
+Hi Nicolas,
+
+Thanks for coming to HackBarna! We've updated the website with projects from past events so people can see what Barcelona's builders are making.
+
+We've added your project:
+
+Skill-a-thon HackNight
+• Royal Crown Lingo
+
+You can now claim your profile, add your photo and links, and update your projects. If you'd rather keep a project private, you can hide it too.
+
+Claim my profile: http://localhost:8888/en/account/projects?project=archive%3Askillathon-hacknight-2026%2Froyal-crown-lingo
+
+Your HackBarna Digest (https://digest.hackbarna.com/) account works here too. Use the email that received this message. If you already use another email or something is missing, just reply and I'll help.
+
+Project edits need review before they appear on the site. Hiding takes effect immediately.
+
+Castellano
+
+Hola Nicolas,
+
+¡Gracias por venir a HackBarna! Hemos renovado la web y añadido los proyectos de eventos anteriores para que se vea lo que está creando la gente de Barcelona.
+
+Ya hemos añadido tu proyecto:
+
+Skill-a-thon HackNight
+• Royal Crown Lingo
+
+Ahora puedes reclamar tu perfil, añadir tu foto y enlaces, y actualizar tus proyectos. Si prefieres que un proyecto sea privado, también puedes ocultarlo.
+
+Reclamar mi perfil: http://localhost:8888/es/account/projects?project=archive%3Askillathon-hacknight-2026%2Froyal-crown-lingo
+
+Tu cuenta de HackBarna Digest (https://digest.hackbarna.com/es) también sirve aquí. Entra con el correo en el que has recibido este mensaje. Si ya usas otro correo o falta algún proyecto, responde y te echo una mano.
+
+Revisamos los cambios de los proyectos antes de publicarlos. Si ocultas un proyecto, deja de mostrarse al momento.
+
+Català
+
+Hola Nicolas,
+
+Gràcies per venir a HackBarna! Hem renovat el web i hi hem afegit els projectes dels esdeveniments anteriors per donar a conèixer el que es crea a Barcelona.
+
+Ja hi hem afegit el teu projecte:
+
+Skill-a-thon HackNight
+• Royal Crown Lingo
+
+Ara pots reclamar el teu perfil, afegir-hi la foto i els enllaços, i actualitzar els teus projectes. Si prefereixes que un projecte sigui privat, també el pots amagar.
+
+Reclamar el meu perfil: http://localhost:8888/ca/account/projects?project=archive%3Askillathon-hacknight-2026%2Froyal-crown-lingo
+
+El teu compte de HackBarna Digest (https://digest.hackbarna.com/ca) també serveix aquí. Entra amb el correu on has rebut aquest missatge. Si ja fas servir un altre correu o hi falta algun projecte, respon-me i t'ajudo.
+
+Revisem els canvis dels projectes abans de publicar-los. Si amagues un projecte, deixa de mostrar-se de seguida.
+
+Fem communitat, hackejem
+Nico
+
+Reply / Responde / Respon: nico@hackbarna.com
+
+This is a preview for the organiser. The participant campaign is still a draft.
+
+Esta es una vista previa para el organizador. El envío a participantes sigue siendo un borrador.
+
+Aquesta és una vista prèvia per a l'organitzador. L'enviament als participants encara és un esborrany.

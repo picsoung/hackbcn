@@ -13,6 +13,7 @@ import {
   validProjectDate,
 } from '@/lib/project-seo'
 import { projectPageCopy } from '@/data/project-page'
+import { projectManagementCopy } from '@/data/project-management'
 import ProjectBuilders from './ProjectBuilders'
 import ProjectMedia from './ProjectMedia'
 import ProjectRecommendations from './ProjectRecommendations'
@@ -166,6 +167,12 @@ export default function ProjectDetail({
             className={`min-w-0 space-y-9 border-t border-band-2 pt-8 lg:col-start-2 lg:row-start-1 lg:border-t-0 lg:pt-0 ${children ? 'lg:row-span-2' : ''}`}
           >
             <ProjectBuilders builders={builders} locale={locale} />
+            <Link
+              href={`/${locale}/account/projects?project=${encodeURIComponent(project.key)}`}
+              className={textLink}
+            >
+              {projectManagementCopy(locale).manage}
+            </Link>
             {stack.length > 0 && (
               <section aria-labelledby="project-stack-heading">
                 <h2

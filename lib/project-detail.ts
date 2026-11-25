@@ -122,7 +122,10 @@ export function archivedProjectContent(project: Project): {
             type: 'youtube',
             id: attributes.id,
             timestamp: attributes.timestamp ?? '0',
-            thumbnail: attributes.thumbnail || data.thumbnailUrl || undefined,
+            thumbnail:
+              data.projectImage !== undefined
+                ? data.projectImage || undefined
+                : attributes.thumbnail || data.thumbnailUrl || undefined,
           },
         }
       }

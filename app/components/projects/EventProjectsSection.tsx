@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { ProjectCard } from '@/lib/project-cards'
 import { getLiveEvent } from '@/lib/live/config'
+import { projectPrivacyNotice } from '@/data/project-privacy'
 import {
   projectListPath,
   projectListSchema,
@@ -14,12 +15,14 @@ export default function EventProjectsSection({
   eventSlug,
   eventName,
   projects,
+  total = projects.length,
   tone = 'night',
 }: {
   locale: string
   eventSlug: string
   eventName: string
   projects: ProjectCard[]
+  total?: number
   tone?: 'night' | 'light'
 }) {
   const live = getLiveEvent(eventSlug)
@@ -32,7 +35,7 @@ export default function EventProjectsSection({
       aria-labelledby="event-projects-heading"
       className="scroll-mt-8"
     >
-      <ProjectsDisclosure count={projects.length} tone={tone}>
+      <ProjectsDisclosure count={total} tone={tone}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -53,8 +56,15 @@ export default function EventProjectsSection({
             <p className={`text-sm ${muted}`}>
               {projects.length
                 ? 'Explore the demos and meet the builders.'
-                : 'Projects will appear here as builders submit them.'}
+                : total > 0
+                  ? projectPrivacyNotice(locale)
+                  : 'Projects will appear here as builders submit them.'}
             </p>
+            {projects.length > 0 && total > projects.length && (
+              <p className={`mt-2 max-w-2xl text-sm ${muted}`}>
+                {projectPrivacyNotice(locale)}
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap gap-5 text-sm font-semibold">
             {live?.open && (
