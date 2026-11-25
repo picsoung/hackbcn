@@ -1,6 +1,6 @@
 # Profile and project claim invitation — draft
 
-Status: participant campaign draft only. No participant recipient list has been uploaded or scheduled. One organiser-only test was requested on November 25, 2026, and Resend confirmed delivery; delivery details remain outside the repository.
+Status: individual participant messages are prepared privately for the organiser's requested **26 November 2026 at 09:02 Europe/Madrid** slot. No participant messages are queued or sent. See [campaign readiness](profile-claim-campaign.md) for the audience, remaining release requirements and opt-out flow. One organiser-only test was requested on November 25, 2026, and Resend confirmed delivery; delivery details remain outside the repository.
 
 For this draft, the organiser has instructed us to assume that people with projects agreed to be contacted. This is a campaign planning assumption, not a recorded consent event. It must not create newsletter subscriptions or change existing opt-outs.
 
@@ -16,7 +16,7 @@ The default invitation includes **English, Castellano and Catalan together in on
 
 From: **Nico at HackBarna** `<digest@hackbarna.com>`
 
-Reply-to: `nico@hackbarna.com` (recommended; confirm that the mailbox or forwarding alias receives replies before the next send)
+Reply-to: `nico@hackbarna.com` (the organiser confirmed that this receives replies)
 
 Subject: **Your projects are on HackBarna**
 
@@ -134,7 +134,7 @@ node scripts/render-profile-claim-email.mjs \
   --input /private/invitation.json --out /private/invitation.html
 ```
 
-The renderer keeps `Nico at HackBarna <digest@hackbarna.com>` as the already-tested sender and recommends `nico@hackbarna.com` for Reply-To. Setting Reply-To does not create a mailbox or forwarding rule. Neither repository currently confirms that alias is configured, so verify its delivery before sending the next version. No extra test email has been sent as part of the copy/brand revision.
+The renderer keeps `Nico at HackBarna <digest@hackbarna.com>` as the already-tested sender and uses the organiser-confirmed `nico@hackbarna.com` for Reply-To. The organiser chose `HackBarna · Barcelona, Spain` for the footer. No extra test email has been sent as part of the copy/brand revision.
 
 Previews: [All three in one email](email-previews/profile-claim-test.html), [English reference](email-previews/profile-claim-test.en.html), [Castellano reference](email-previews/profile-claim-test.es.html), [Català reference](email-previews/profile-claim-test.ca.html). Each has a matching `.txt` version. Without a first name, ES and CA use “Hola,” rather than an English fallback. The friendly sender label becomes `Nico de HackBarna` in individual ES and CA messages; the actual sender and reply addresses stay the same. The private account setting and Resend contact-property sync are documented in [Communication preferences](communication-preferences.md).
 
@@ -158,6 +158,6 @@ Before sending, release and verify the shared profile/claim/edit/hide flows and 
 
 ## Delivery timing and organiser test
 
-Use **10:00 Europe/Madrid on a weekday** as the initial campaign slot, after the launch requirements above are met. This is a starting hypothesis, not a measured optimum: no recipient engagement/time-zone model has been established. Prefer a person's confirmed time zone when available rather than guessing from their email or name. Measure completed claims and replies to improve later sends. Use an explicit timestamp with an offset (for example, `2026-11-26T10:00:00+01:00`) when scheduling through Resend, and recheck eligibility and completed claims before queueing.
+The organiser selected **Thursday 26 November 2026 at 09:02 Europe/Madrid** (`2026-11-26T09:02:00+01:00`), after the launch requirements above are met. This replaces the earlier suggested 10:00 slot. It is an explicit delivery choice, not a measured optimum. Recheck eligibility and completed claims before queueing. If the time has passed or release requirements remain unmet, leave the messages unscheduled and ask for a new time; never fall back to sending immediately.
 
 The organiser requested one immediate test to their own supplied address on November 25, 2026. The [HTML test preview](email-previews/profile-claim-test.html) links “HackBarna Digest” to the live Digest site. It is labelled as a test, uses Nicolas’s public Royal Crown Lingo credit and links its primary action to the local preview. The production project-management URL returned 404 during preparation, so it must not be used in a participant send yet. No participant campaign is scheduled by this test.

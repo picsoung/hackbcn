@@ -195,8 +195,89 @@ async function main() {
       (await store.getCommunicationPreferences(alice.id)).contactSync,
       'synced',
     )
+    process.env.HACKBARNA_INVITATION_KEY = 'f'.repeat(64)
+    const optOut = require('../lib/email/invitation-opt-out.ts')
+    const optOutStore = require('../lib/email/invitation-opt-out-store.ts')
+    const optOutRoute = require('../app/api/invitations/unsubscribe/route.ts')
+    assert.equal(
+      await optOutStore.profileInvitationsStopped('recipient@example.test'),
+      false,
+    )
+    assert.equal(await optOutStore.stopProfileInvitations('forged'), false)
+    const token = optOut.invitationOptOutToken('recipient@example.test')
+    assert.equal(
+      (
+        await optOutRoute.GET(
+          new Request(
+            `http://localhost:8888/api/invitations/unsubscribe?token=${token}`,
+          ),
+        )
+      ).status,
+      303,
+    )
+    assert.equal(
+      await optOutStore.profileInvitationsStopped('recipient@example.test'),
+      false,
+    )
+    const unsubscribe = (body) =>
+      new Request('http://localhost:8888/api/invitations/unsubscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      })
+    const savedOptOut = await optOutRoute.POST(
+      unsubscribe(new URLSearchParams({ token, locale: 'ca' })),
+    )
+    assert.equal(savedOptOut.status, 303)
+    assert.equal(
+      savedOptOut.headers.get('location'),
+      '/ca/invitations/unsubscribe?done=1',
+    )
+    assert.equal(savedOptOut.headers.get('cache-control'), 'private, no-store')
+    assert.equal(
+      await optOutStore.profileInvitationsStopped('recipient@example.test'),
+      true,
+    )
+    assert.equal(
+      await optOutStore.profileInvitationsStopped('other@example.test'),
+      false,
+    )
+    await optOutRoute.POST(
+      unsubscribe(new URLSearchParams({ token, locale: 'ca' })),
+    )
+    const optedOutRows = await pool.query(
+      'SELECT * FROM profile_invitation_opt_outs',
+    )
+    assert.equal(optedOutRows.rows.length, 1)
+    assert.equal(
+      JSON.stringify(optedOutRows.rows).includes('recipient@example.test'),
+      false,
+    )
+    assert.equal(
+      (await optOutRoute.POST(unsubscribe('x'.repeat(1500)))).status,
+      413,
+    )
+    const oneClickToken = optOut.invitationOptOutToken('one-click@example.test')
+    const oneClick = new Request(
+      `http://localhost:8888/api/invitations/unsubscribe?token=${oneClickToken}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'List-Unsubscribe=One-Click',
+      },
+    )
+    assert.equal((await optOutRoute.POST(oneClick)).status, 200)
+    assert.equal(
+      await optOutStore.profileInvitationsStopped('one-click@example.test'),
+      true,
+    )
+    // Opting out cannot alter the account language or newsletter properties.
+    assert.equal(
+      (await store.getCommunicationPreferences(alice.id)).communicationLanguage,
+      'es',
+    )
     console.log(
-      'PASS private preferences, unknown default, account isolation, CSRF, body limit, revision conflict, verified email, durable retry and newer-save race',
+      'PASS private preferences, account isolation, durable retry, newer-save race and signed invitation-only opt-outs',
     )
   } finally {
     await pool?.end()

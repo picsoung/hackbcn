@@ -18,6 +18,14 @@ import type { ProjectEditContent } from '../lib/projects/edit-content'
 import type { ReviewAlert } from '../lib/projects/review-notifications'
 import type { CommunicationLanguage } from '../lib/account/communications'
 
+/** Invitation-only opt-outs. No plaintext addresses and no newsletter subscription changes. */
+export const profileInvitationOptOuts = pgTable('profile_invitation_opt_outs', {
+  emailHash: text('email_hash').primaryKey(),
+  optedOutAt: timestamp('opted_out_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
+
 /** Private shared-account preference and durable contact-sync queue. Never public profile data. */
 export const accountCommunications = pgTable(
   'account_communications',
