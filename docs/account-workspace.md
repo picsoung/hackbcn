@@ -8,6 +8,12 @@ The personal workspace uses the existing HackBarna identity and brand, with a sm
 
 The focused editor at `/{locale}/account/projects/edit?project=…` currently edits the name, short description, project picture, website/demo and video link. Teams, awards, source identifiers, event assignments and ownership are outside this form. Profile links cannot grant project access.
 
+## Verified public profiles
+
+A saved community profile updates the public builder page and project-detail credit only after an unambiguous email claim binds the account to that exact original credit. Pending/revoked claims, disabled or stale roster evidence and conflicting accounts never apply public profile changes. An organiser-approved project membership alone cannot identify which teammate's profile to change; that needs an explicit credit assignment in a later organiser flow.
+
+The builder directory groups the original reviewed source credits before applying display changes. Editing a name or social link therefore keeps the existing builder URL and cannot merge another builder's identity. A cleared avatar/link is respected, and only public fields reach page components. The builder's saved bio appears on their profile page. Hidden projects never enter the public binding lookup.
+
 ## Edit publication
 
 This first editor uses **organiser review for every content revision**. The planned automated Jev conduct gate is still pending. The UI says “Send for review”. An expandable explanation describes the manual review, the retained approved version and the separate visibility controls. Only feedback on rejected revisions is returned to builders; approval notes stay private to organisers. Approval notes are optional, while requesting changes requires useful feedback.

@@ -276,8 +276,111 @@ async function main() {
       (await store.getCommunicationPreferences(alice.id)).communicationLanguage,
       'es',
     )
+    const schemaTables = require('../db/schema.ts')
+    const publicDisplay = require('../lib/community/claimed-profiles.ts')
+    const displayHelpers = require('../lib/community/claimed-display.ts')
+    const builderHelpers = require('../lib/builders.ts')
+    const rosterProof = require('../lib/projects/email-proof.ts')
+    await database
+      .insert(schemaTables.identityAccounts)
+      .values({
+        id: alice.id,
+        issuer: 'https://fixture.example.test',
+        email: alice.email,
+        emailVerified: true,
+      })
+    await database
+      .insert(schemaTables.communityProfiles)
+      .values({
+        accountId: alice.id,
+        displayName: 'Ada Confirmed',
+        avatarUrl: '',
+        bio: 'A public bio',
+        linkedinUrl: 'https://www.linkedin.com/in/ada-new/',
+        githubUrl: 'https://github.com/ada',
+      })
+    const publicKey = 'archive:fixture-public',
+      roster = [
+        {
+          name: 'Ada Original',
+          linkedinUrl: 'https://www.linkedin.com/in/ada-original/',
+        },
+      ]
+    const [evidence] = await database
+      .insert(schemaTables.projectClaimEvidence)
+      .values({
+        projectKey: publicKey,
+        creditIndex: 0,
+        emailHash: 'a'.repeat(64),
+        keyId: 'b'.repeat(64),
+        rosterDigest: rosterProof.claimRosterDigest(roster),
+        sourceDigest: 'c'.repeat(64),
+      })
+      .returning({ id: schemaTables.projectClaimEvidence.id })
+    const [membership] = await database
+      .insert(schemaTables.projectClaims)
+      .values({
+        accountId: alice.id,
+        projectKey: publicKey,
+        status: 'verified',
+        verificationMethod: 'email',
+        evidenceId: evidence.id,
+      })
+      .returning({ id: schemaTables.projectClaims.id })
+    const bindings = await publicDisplay.claimedBuilderDisplays([publicKey])
+    assert.equal(bindings.length, 1)
+    const originals = builderHelpers.buildBuilderDirectory([
+      {
+        projectKey: publicKey,
+        builders: [
+          { name: roster[0].name, links: { linkedin: roster[0].linkedinUrl } },
+        ],
+      },
+    ])
+    const displayed = displayHelpers.applyClaimedDisplays(
+      originals,
+      new Map([[publicKey, roster]]),
+      bindings,
+    )
+    assert.equal(displayed[0].name, 'Ada Confirmed')
+    assert.equal(displayed[0].slug, originals[0].slug)
+    assert.equal(displayed[0].links.github, 'https://github.com/ada')
+    assert.equal(displayed[0].bio, 'A public bio')
+    assert.equal(JSON.stringify(displayed).includes(alice.id), false)
+    assert.deepEqual(
+      await publicDisplay.claimedBuilderDisplays(['archive:unrelated']),
+      [],
+    )
+    await database
+      .update(schemaTables.projectClaims)
+      .set({ status: 'pending' })
+      .where(eq(schemaTables.projectClaims.id, membership.id))
+    assert.deepEqual(
+      await publicDisplay.claimedBuilderDisplays([publicKey]),
+      [],
+    )
+    await database
+      .update(schemaTables.projectClaims)
+      .set({ status: 'verified', verificationMethod: 'organiser' })
+      .where(eq(schemaTables.projectClaims.id, membership.id))
+    assert.deepEqual(
+      await publicDisplay.claimedBuilderDisplays([publicKey]),
+      [],
+    )
+    await database
+      .update(schemaTables.projectClaims)
+      .set({ verificationMethod: 'email' })
+      .where(eq(schemaTables.projectClaims.id, membership.id))
+    await database
+      .update(schemaTables.projectClaimEvidence)
+      .set({ disabledAt: new Date() })
+      .where(eq(schemaTables.projectClaimEvidence.id, evidence.id))
+    assert.deepEqual(
+      await publicDisplay.claimedBuilderDisplays([publicKey]),
+      [],
+    )
     console.log(
-      'PASS private preferences, account isolation, durable retry, newer-save race and signed invitation-only opt-outs',
+      'PASS private preferences, account isolation, durable retry, signed opt-outs and verified public-profile binding',
     )
   } finally {
     await pool?.end()

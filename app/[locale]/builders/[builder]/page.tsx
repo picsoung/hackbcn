@@ -118,6 +118,11 @@ export default async function BuilderPage({ params }: Params) {
                 .replace('{projects}', projectCount)
                 .replace('{events}', eventCount)}
             </p>
+            {profile.bio && (
+              <p className="mt-4 max-w-prose whitespace-pre-line text-sm leading-relaxed text-ink-dim sm:text-base">
+                {profile.bio}
+              </p>
+            )}
             <div className="mt-2">
               <BuilderSocialLinks builder={profile} locale={params.locale} />
             </div>
