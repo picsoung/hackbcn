@@ -1,6 +1,12 @@
 import { getStore } from '@netlify/blobs'
 import { getLiveEvent } from '@/lib/live/config'
-import { getPublicProject } from '@/lib/live/projects'
+import {
+  getPublicProject,
+  getProjectManagementSource,
+} from '@/lib/live/projects'
+import { getCurrentIdentity } from '@/lib/auth/identity-server'
+import { isProjectOrganiser } from '@/lib/projects/ownership'
+import { canManageProjectImage } from '@/lib/media/store'
 import { imageType } from '@/lib/live/media'
 
 export const dynamic = 'force-dynamic'
@@ -11,7 +17,19 @@ export async function GET(
 ) {
   if (!getLiveEvent(params.event))
     return new Response('Not found', { status: 404 })
-  const project = await getPublicProject(params.event, params.project)
+  let project = await getPublicProject(params.event, params.project)
+  if (!project) {
+    const user = await getCurrentIdentity()
+    if (
+      user &&
+      (isProjectOrganiser(user) ||
+        (await canManageProjectImage(
+          user,
+          `submitted:${params.event}:${params.project}`,
+        )))
+    )
+      project = await getProjectManagementSource(params.event, params.project)
+  }
   if (!project?.screenshotKey) return new Response('Not found', { status: 404 })
   const data = await getStore('project-screenshots').get(
     project.screenshotKey,
@@ -23,7 +41,7 @@ export async function GET(
   return new Response(data, {
     headers: {
       'Content-Type': contentType,
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': 'no-store',
       'X-Content-Type-Options': 'nosniff',
     },
   })

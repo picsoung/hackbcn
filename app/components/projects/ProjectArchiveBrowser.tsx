@@ -11,7 +11,9 @@ import {
   groupProjectCards,
   searchProjectCards,
   type ProjectCard,
+  type ProjectEventSummary,
 } from '@/lib/project-cards'
+import { projectPrivacyNotice } from '@/data/project-privacy'
 import ProjectGrid from './ProjectGrid'
 
 function EventCover({ src }: { src?: string }) {
@@ -50,9 +52,11 @@ function EventCover({ src }: { src?: string }) {
 
 export default function ProjectArchiveBrowser({
   projects,
+  eventSummaries = [],
   locale,
 }: {
   projects: ProjectCard[]
+  eventSummaries?: ProjectEventSummary[]
   locale: string
 }) {
   const [query, setQuery] = useState('')
@@ -64,7 +68,13 @@ export default function ProjectArchiveBrowser({
     () => searchProjectCards(projects, query),
     [projects, query],
   )
-  const visibleGroups = useMemo(() => groupProjectCards(matches), [matches])
+  const visibleGroups = useMemo(
+    () => groupProjectCards(matches, searching ? [] : eventSummaries),
+    [matches, searching, eventSummaries],
+  )
+  const count = searching
+    ? matches.length
+    : visibleGroups.reduce((sum, group) => sum + group.total, 0)
   const expanded = searching ? searchExpanded : browseExpanded
   const setExpanded = searching ? setSearchExpanded : setBrowseExpanded
   const allExpanded = visibleGroups.every((group) => expanded.has(group.key))
@@ -134,8 +144,8 @@ export default function ProjectArchiveBrowser({
 
       <div className="mb-2 mt-10 flex min-h-11 flex-wrap items-center justify-between gap-x-6 gap-y-1">
         <p role="status" aria-atomic="true" className="text-sm text-ink-dim">
-          {matches.length} {matches.length === 1 ? 'project' : 'projects'}
-          {' across '}
+          {count} {count === 1 ? 'project' : 'projects'}
+          {searching ? ' across ' : ' built across '}
           {visibleGroups.length}{' '}
           {visibleGroups.length === 1 ? 'event' : 'events'}
           {searching ? ' found' : ''}
@@ -193,8 +203,8 @@ export default function ProjectArchiveBrowser({
                   {group.name}
                 </h2>
                 <p className="mt-2 text-sm font-normal text-ink-dim">
-                  {group.projects.length}{' '}
-                  {group.projects.length === 1 ? 'project' : 'projects'}
+                  {group.total} {group.total === 1 ? 'project' : 'projects'}
+                  {searching ? '' : ' built'}
                 </p>
               </div>
               <span className="flex h-6 w-6 shrink-0 items-center justify-center text-accent sm:h-11 sm:w-11">
@@ -215,13 +225,20 @@ export default function ProjectArchiveBrowser({
                   </Link>
                 </div>
               )}
-              <ProjectGrid projects={group.projects} />
+              {!searching && group.total > group.projects.length && (
+                <p className="mb-6 max-w-2xl text-sm leading-relaxed text-ink-dim">
+                  {projectPrivacyNotice(locale)}
+                </p>
+              )}
+              {group.projects.length > 0 && (
+                <ProjectGrid projects={group.projects} />
+              )}
             </div>
           </details>
         ))}
       </div>
 
-      {matches.length === 0 && (
+      {visibleGroups.length === 0 && (
         <div className="py-16 sm:py-20">
           <h2 className="text-2xl font-semibold text-ink">
             {searching ? 'No projects found' : 'No projects published yet'}

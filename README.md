@@ -185,9 +185,16 @@ Register a confidential OAuth client in the existing Lovable Cloud / Supabase
 project `usfkgslefvtrtlwexnfo`. Use `client_secret_post`, ES256 ID tokens and one
 exact callback per environment. For Netlify Dev the callback is
 `http://localhost:8888/auth/callback`; production uses
-`https://www.hackbarna.com/auth/callback`. Deploy Previews need separate clients
-with their own exact preview callback. Do not use wildcard callbacks or expose
-production credentials to previews.
+`https://www.hackbarna.com/auth/callback`. The persistent preview branch is
+`codex/preview`, deployed at `https://codex-preview--hackbarna.netlify.app`.
+Register one separate preview client with the exact callback
+`https://codex-preview--hackbarna.netlify.app/auth/callback`; Netlify already has
+that callback configured specifically for this branch. Its client credentials
+and a separate session key still need configuring before sign-in is available.
+Push reviewed commits to that branch to update the same URL. Other PR previews
+do not need individual OAuth clients. Do not use wildcard callbacks or expose
+production credentials to previews. Only trusted preview code should receive
+the preview client's credentials. Non-production deploys send a noindex header.
 
 Set the four server-only environment variables in `.env.example`. Generate
 `HACKBARNA_SESSION_KEY` from 32 random bytes (64 hexadecimal characters), keep it
@@ -218,3 +225,40 @@ routes. It refuses a non-loopback database, uses a separate fixture account,
 checks session encryption, refresh locks, account/public isolation and logout,
 then removes that fixture. This verifies website sessions independently of a
 real provider sign-in; it does not replace the existing-account OAuth check.
+
+### Shared community profile
+
+`/<locale>/account` now edits one community profile (name, photo, bio,
+LinkedIn and GitHub) stored in `community_profiles`. Digest reads the same profile
+for its navbar, consent screen and account view. Digest continues to hold login,
+security and newsletter settings. The private profile API returns only community
+fields and a revision number; it does not return emails, account IDs or credentials.
+
+The authenticated `/api/account/profile` endpoint accepts the website session or
+an ES256-verified direct Digest token from the fixed issuer. Third-party OAuth
+clients are denied unless their exact client ID is explicitly trusted. Browser
+origins are limited to Digest and the configured website; cookie mutations also
+require same-origin provenance. Revision checks reject concurrent overwrites.
+
+Digest defaults to `https://www.hackbarna.com`. Its optional
+`VITE_HACKBARNA_PROFILE_ORIGIN` can point a trusted preview at the corresponding
+HackBarna Deploy Preview; local development uses `http://localhost:8888`.
+Never point that setting at an untrusted preview: Digest sends its account token
+to the configured, validated HackBarna API.
+
+`/<locale>/account/projects` lists verified projects with editing and visibility
+controls. Exact, unambiguous private event-email evidence can verify a claim;
+other claims go to an organiser. Editable LinkedIn/GitHub URLs grant no ownership.
+Content edits require review; hiding takes effect immediately. See
+[Project ownership](docs/project-ownership.md) and
+[Account workspace](docs/account-workspace.md) for permissions and rollout.
+
+Account and project-management interfaces support English, Castellano, Catalan
+and French. The separate communication-language preference supports EN/ES/CA;
+an unset preference keeps all three languages in invitations. See
+[Communication preferences](docs/communication-preferences.md).
+
+Run `npm run test:profile` and, with Netlify Dev running,
+`npm run test:profile:integration`. Apply the community-profile migration locally
+before testing. The integration check uses two isolated test accounts and removes
+their profiles and sessions afterward.

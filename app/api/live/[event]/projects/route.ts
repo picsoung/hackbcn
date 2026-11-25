@@ -17,7 +17,12 @@ export async function GET(_req: Request, { params }: Params) {
   if (!getLiveEvent(params.event))
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   const list = await listProjects(params.event)
-  return NextResponse.json(list.map(({ id, ...rest }) => rest))
+  return NextResponse.json(
+    list.map(({ id, ...rest }) => rest),
+    {
+      headers: { 'Cache-Control': 'no-store' },
+    },
+  )
 }
 
 export async function POST(req: Request, { params }: Params) {

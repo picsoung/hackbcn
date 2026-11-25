@@ -11,7 +11,7 @@ const nextConfig = {
       ['deploy-preview', 'branch-deploy'].includes(process.env.CONTEXT) &&
       process.env.DEPLOY_PRIME_URL
         ? process.env.DEPLOY_PRIME_URL
-        : 'https://hackbarna.com',
+        : 'https://www.hackbarna.com',
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'md', 'ts', 'tsx'],
   // Optionally, add any other Next.js config below
@@ -25,15 +25,34 @@ const nextConfig = {
       },
     ],
   },
+  headers: async () =>
+    ['branch-deploy', 'deploy-preview'].includes(process.env.CONTEXT)
+      ? [
+          {
+            source: '/:path*',
+            headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+          },
+        ]
+      : [],
   redirects: async () => {
     return [
+      {
+        source: '/events/v1-2024/conduct',
+        destination: '/en/conduct',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|es|ca|fr)/:eventSlug/conduct',
+        destination: '/:locale/conduct',
+        permanent: true,
+      },
       {
         source: '/',
         destination: '/en',
         permanent: false,
       },
     ]
-  }
+  },
 }
 
 const withMDX = nextMdx({

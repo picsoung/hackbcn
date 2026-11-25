@@ -1,10 +1,12 @@
-'use client'
 import Footer from '@/app/components/Footer'
-import GradientHero from '@/app/components/GradientHero'
-import { useIntl } from '@/app/components/Intl'
 import ClientNavbar from '@/app/components/ClientNavbar'
 import { ThemeProvider } from '@/app/contexts/ThemeContext'
-import { useState } from 'react'
+import { localizedPageMetadata } from '@/lib/page-seo'
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return localizedPageMetadata(params.locale, '/conduct', 'conduct.title')
+}
+
 export default function ProjectLayout({
   children,
 }: {

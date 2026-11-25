@@ -4,10 +4,13 @@ import AuthForm from '@/app/components/auth/AuthForm'
 import { getIdentityConfig } from '@/lib/auth/identity-config'
 import { getCurrentIdentity } from '@/lib/auth/identity-server'
 import { getAuthLocale, getSafeReturnPath } from '@/lib/auth/shared'
+import { accountWorkspaceCopy } from '@/data/account-workspace'
 
-export const metadata = {
-  title: 'HackBarna account',
-  robots: { index: false, follow: false },
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return {
+    title: `${accountWorkspaceCopy(getAuthLocale(params.locale)).account} · HackBarna`,
+    robots: { index: false, follow: false },
+  }
 }
 export const dynamic = 'force-dynamic'
 

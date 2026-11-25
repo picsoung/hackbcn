@@ -1,4 +1,5 @@
 import 'server-only'
+import { applySubmittedContent } from '@/lib/projects/approved-content'
 import {
   and,
   desc,
@@ -21,7 +22,8 @@ import {
 } from './validate'
 import { isHiddenProject, LIVE_EVENTS } from './config'
 
-function publicProjectVisibility() {
+// Test entries are excluded even from anonymous totals. Real private projects count.
+function countedProjectVisibility() {
   return and(
     ...Object.values(LIVE_EVENTS).flatMap((event) =>
       event.hiddenProjectSlugs?.length
@@ -34,6 +36,28 @@ function publicProjectVisibility() {
         : [],
     ),
   )
+}
+
+function publicProjectVisibility() {
+  return and(eq(projects.visibility, 'public'), countedProjectVisibility())
+}
+
+/** Aggregate participation only: private records never leave this query. */
+export async function listProjectCounts(eventSlug?: string) {
+  const events = eventSlug ? [eventSlug] : Object.keys(LIVE_EVENTS)
+  if (
+    !events.length ||
+    events.some((slug) => !Object.hasOwn(LIVE_EVENTS, slug))
+  )
+    return []
+  return getDb()
+    .select({
+      eventSlug: projects.eventSlug,
+      count: sql<number>`count(*)::int`,
+    })
+    .from(projects)
+    .where(and(inArray(projects.eventSlug, events), countedProjectVisibility()))
+    .groupBy(projects.eventSlug)
 }
 
 /** Public shape of a project. Email is deliberately left out. */
@@ -73,6 +97,7 @@ export type PublicProject = {
   url: string
   videoUrl: string | null
   screenshotKey: string | null
+  imageUrl?: string
   creatorName: string
   linkedinUrl: string
   hackers: ProjectHacker[]
@@ -113,7 +138,9 @@ export async function listProjects(
       projects.createdAt,
     )
     .then((rows) =>
-      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      applySubmittedContent(
+        rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      ),
     )
 }
 
@@ -126,7 +153,9 @@ export async function listAllProjects(): Promise<PublicProject[]> {
     .where(and(inArray(projects.eventSlug, events), publicProjectVisibility()))
     .orderBy(desc(projects.createdAt), projects.name)
     .then((rows) =>
-      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      applySubmittedContent(
+        rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      ),
     )
 }
 
@@ -149,16 +178,46 @@ export async function getPublicProject(eventSlug: string, slug: string) {
   const [project] = await getDb()
     .select(publicColumns)
     .from(projects)
+    .where(
+      and(
+        eq(projects.eventSlug, eventSlug),
+        eq(projects.slug, slug),
+        publicProjectVisibility(),
+      ),
+    )
+    .limit(1)
+  return project
+    ? (
+        await applySubmittedContent([
+          { ...project, hackers: projectHackers(project) },
+        ])
+      )[0]
+    : null
+}
+
+/** Private source lookup. Call only after the account/organiser authorization gate. */
+export async function getProjectManagementSource(
+  eventSlug: string,
+  slug: string,
+  database: Pick<ReturnType<typeof getDb>, 'select'> = getDb(),
+) {
+  if (
+    !Object.hasOwn(LIVE_EVENTS, eventSlug) ||
+    isHiddenProject(eventSlug, slug)
+  )
+    return null
+  const [project] = await database
+    .select({ ...publicColumns, visibility: projects.visibility })
+    .from(projects)
     .where(and(eq(projects.eventSlug, eventSlug), eq(projects.slug, slug)))
     .limit(1)
   return project ? { ...project, hackers: projectHackers(project) } : null
 }
-
 export async function getJevAnswers(id: number) {
   const [row] = await getDb()
     .select({ jevAnswers: projects.jevAnswers })
     .from(projects)
-    .where(eq(projects.id, id))
+    .where(and(eq(projects.id, id), publicProjectVisibility()))
     .limit(1)
   return (row?.jevAnswers ?? null) as {
     probabilities?: Record<string, number>
@@ -177,11 +236,17 @@ export async function votedProjectIds(
   return new Set(rows.map((r) => r.id))
 }
 
-async function findId(eventSlug: string, slug: string) {
+async function findId(eventSlug: string, slug: string, publicOnly = false) {
   const [p] = await getDb()
     .select({ id: projects.id })
     .from(projects)
-    .where(and(eq(projects.eventSlug, eventSlug), eq(projects.slug, slug)))
+    .where(
+      and(
+        eq(projects.eventSlug, eventSlug),
+        eq(projects.slug, slug),
+        publicOnly ? publicProjectVisibility() : undefined,
+      ),
+    )
     .limit(1)
   return p?.id ?? null
 }
@@ -274,7 +339,7 @@ export async function setVote(
   on: boolean,
 ) {
   if (isHiddenProject(eventSlug, slug)) return null
-  const id = await findId(eventSlug, slug)
+  const id = await findId(eventSlug, slug, true)
   if (!id) return null
   if (on) {
     await getDb()
@@ -294,7 +359,13 @@ export async function addShare(eventSlug: string, slug: string) {
   const [row] = await getDb()
     .update(projects)
     .set({ shareCount: sql`${projects.shareCount} + 1` })
-    .where(and(eq(projects.eventSlug, eventSlug), eq(projects.slug, slug)))
+    .where(
+      and(
+        eq(projects.eventSlug, eventSlug),
+        eq(projects.slug, slug),
+        publicProjectVisibility(),
+      ),
+    )
     .returning({ shareCount: projects.shareCount })
   return row ?? null
 }
@@ -303,6 +374,7 @@ export async function addShare(eventSlug: string, slug: string) {
 export async function exportShareable(eventSlug: string) {
   return getDb()
     .select({
+      eventSlug: projects.eventSlug,
       slug: projects.slug,
       name: projects.name,
       tagline: projects.tagline,
@@ -330,6 +402,9 @@ export async function exportShareable(eventSlug: string) {
     )
     .orderBy(desc(projects.voteCount))
     .then((rows) =>
-      rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      applySubmittedContent(
+        rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      ),
     )
+    .then((rows) => rows.map(({ eventSlug, ...row }) => row))
 }

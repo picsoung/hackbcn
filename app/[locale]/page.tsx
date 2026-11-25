@@ -7,12 +7,17 @@ import PastEvents from '@/app/components/home/PastEvents'
 import HomeJoin from '@/app/components/home/HomeJoin'
 import OrgFooter from '@/app/components/home/OrgFooter'
 import { getHomepageEvents, toHomeEvent } from '@/lib/homepage'
+import { localizedAlternates } from '@/lib/page-seo'
 import {
   getFeaturedUpcomingEvent,
   getAllSponsorsAcrossEvents,
   getAllCommunitySponsorsAcrossEvents,
   getAllUpcoming,
 } from '@/lib/events-server'
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return { alternates: localizedAlternates(params.locale) }
+}
 
 export default function HomePage({ params }: { params: { locale: string } }) {
   const featured = getFeaturedUpcomingEvent()

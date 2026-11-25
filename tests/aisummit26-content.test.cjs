@@ -13,21 +13,27 @@ require('ts-node').register({
   },
 })
 
-const { getProjectsByEvent, getProject } = require('../app/helpers/projects.ts')
+const {
+  getProjectsByEvent,
+  getProject,
+  getArchivedProjectCounts,
+} = require('../app/helpers/projects.ts')
 const { readMdxEvent } = require('../lib/event-content.ts')
 const { getTestimonialsForEvent } = require('../data/testimonials.ts')
 const { archivedProjectCard } = require('../lib/project-cards.ts')
 const projects = getProjectsByEvent('aisummit26')
 
 test('AI Summit 2026 imports distinct real submissions with complete public teams and links', () => {
-  assert.equal(projects.length, 65)
-  assert.equal(new Set(projects.map((p) => p.slug)).size, 65)
+  assert.equal(getArchivedProjectCounts().aisummit26, 65)
+  assert.equal(projects.length, 64)
+  assert.equal(new Set(projects.map((p) => p.slug)).size, 64)
   assert.equal(
     new Set(
       projects.map((p) => p.data.links.github.toLowerCase().replace(/\/$/, '')),
     ).size,
-    65,
+    64,
   )
+  assert.throws(() => getProject(['aisummit26', 'nito']), /Project not found/)
   assert.ok(!projects.some((p) => /NicoTest|^-$/.test(p.data.title)))
   assert.equal(projects.filter((p) => p.data.title === 'Grootguard').length, 1)
   assert.equal(
@@ -75,9 +81,9 @@ test('new archive cards use demo thumbnails and legacy link arrays still resolve
 
 test('AI Summit maker profiles expose only public URLs while preserving full team credits', () => {
   const makers = projects.flatMap((project) => project.data.hackers)
-  assert.equal(makers.length, 144)
-  assert.equal(makers.filter((maker) => maker.links?.linkedin).length, 117)
-  assert.equal(makers.filter((maker) => maker.links?.github).length, 86)
+  assert.equal(makers.length, 143)
+  assert.equal(makers.filter((maker) => maker.links?.linkedin).length, 116)
+  assert.equal(makers.filter((maker) => maker.links?.github).length, 85)
   for (const maker of makers) {
     assert.doesNotMatch(
       JSON.stringify(maker),

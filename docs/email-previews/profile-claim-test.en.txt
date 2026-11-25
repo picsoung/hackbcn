@@ -1,0 +1,25 @@
+[TEST] For review only. The button opens your local preview; profile claims are not live on the public site yet.
+
+Hi Nicolas,
+
+Thanks for coming to HackBarna! We've updated the website with projects from past events so people can see what Barcelona's builders are making.
+
+We've added your project:
+
+Skill-a-thon HackNight
+• Royal Crown Lingo
+
+You can now claim your profile, add your photo and links, and update your projects. If you'd rather keep a project private, you can hide it too.
+
+Claim my profile: http://localhost:8888/en/account/projects?project=archive%3Askillathon-hacknight-2026%2Froyal-crown-lingo
+
+Your HackBarna Digest (https://digest.hackbarna.com/) account works here too. Use the email that received this message. If you already use another email or something is missing, just reply and I'll help.
+
+Project edits need review before they appear on the site. Hiding takes effect immediately.
+
+Fem communitat, hackejem
+Nico
+
+You can reply to me at nico@hackbarna.com.
+
+This is a preview for the organiser. The participant campaign is still a draft.

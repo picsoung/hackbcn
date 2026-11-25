@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [codex/preview, main]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+  push:
+    branches: [codex/preview, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  promotion-policy:
+    name: Promotion policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Require production changes to come from preview
+        env:
+          BASE_BRANCH: ${{ github.base_ref }}
+          HEAD_BRANCH: ${{ github.head_ref }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          node <<'JS'
+          const { BASE_BRANCH, HEAD_BRANCH, HEAD_REPOSITORY, REPOSITORY } = process.env
+          if (BASE_BRANCH === 'main' &&
+              (HEAD_BRANCH !== 'codex/preview' || HEAD_REPOSITORY !== REPOSITORY)) {
+            console.error('Merge features into codex/preview first. Only a release PR from this repository’s codex/preview branch may target main.')
+            process.exit(1)
+          }
+          console.log(BASE_BRANCH === 'main' ? 'Production promotion from preview.' : 'Preview integration or branch validation.')
+          JS
+
+  build-and-test:
+    name: Build and test
+    needs: promotion-policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: hackbarna
+          POSTGRES_PASSWORD: local-ci-only
+          POSTGRES_DB: hackbarna_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U hackbarna -d hackbarna_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      NETLIFY_DB_URL: postgres://hackbarna:local-ci-only@127.0.0.1:5432/hackbarna_test
+      TEST_DATABASE_URL: postgres://hackbarna:local-ci-only@127.0.0.1:5432/hackbarna_test
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Set up disposable project database
+        run: node tests/setup-project-test-database.mjs
+      - name: Verify authentication
+        run: npm run test:auth
+      - name: Verify project and homepage behavior
+        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs tests/project-ownership.test.cjs tests/community-profile.test.cjs tests/review-notifications.test.cjs tests/profile-claim-email.test.mjs tests/communication-preferences.test.cjs tests/invitation-opt-out.test.cjs tests/claimed-profile-display.test.cjs
+      - name: Verify image decoding and upload limits
+        run: node --conditions=react-server --test tests/media-images.test.cjs
+      - name: Verify project ownership and visibility in Postgres
+        run: |
+          node --conditions=react-server tests/project-ownership.integration.cjs
+          node --conditions=react-server tests/project-visibility.integration.cjs
+          node --conditions=react-server tests/communication-preferences.integration.cjs
+      - name: Check types
+        run: npx tsc --noEmit
+      - name: Build production assets
+        run: npm run build
+      - name: Verify rendered SEO routes
+        run: |
+          node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/hackbarna-seo-server.log" 2>&1 &
+          seo_server_pid=$!
+          trap 'kill "$seo_server_pid"' EXIT
+          node tests/seo-routes.integration.mjs http://127.0.0.1:3100
+          node tests/project-visibility-routes.integration.mjs http://127.0.0.1:3100

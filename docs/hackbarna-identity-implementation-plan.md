@@ -145,6 +145,17 @@ Implement and verify Phase 1 first, then proceed through the data and user flows
 - Phone-width account checks show no horizontal overflow and 44px-or-larger primary action targets. A failed Google portrait exposed an image-error event firing before hydration; the shared avatar now detects this and shows initials, also preserving the normal onError fallback.
 - A separate small Digest change on `codex/hackbarna-shared-identity` replaces event-search wording with a scope-based account-access explanation and labels continued sign-in. It preserves the existing consent logic, account storage and Google broker. Deployment remains separate from local code verification.
 
+## Verification record: 20 November 2026
+
+- The shared-profile follow-up is on `codex/shared-profile-and-consent` in both repositories, based on the merged identity changes.
+- The website now stores an account-owned community profile and shows read-only project credits matched by social URLs. Name, avatar, bio, LinkedIn and GitHub are editable. Digest reads the same profile for its navbar, account and consent screen, and links to the website editor; its security and subscription settings remain in Digest.
+- The community-profile migration is applied only to the local database. Six profile/JWT tests, the 22 existing auth tests and 37 project/builder/homepage tests pass. The real local database/HTTP integration verifies isolation, revision conflicts, field/body limits, CORS/CSRF, private/public separation and revoked sessions; fixture accounts and profiles are removed afterward.
+- Website type checks, targeted lint and the production build pass. The real signed-in local account saves a profile and displays a matching project credit. At a 390px viewport, the account page has no horizontal overflow. The redesigned consent screen was inspected with a clearly labelled UI-only fixture; local Vite does not provide Lovable's managed Google broker, so this is not an end-to-end hosted Digest sign-in verification. The fixture is removed from the implementation.
+- Digest type checks, five branding/profile boundary tests, targeted lint for the new components/helpers/consent route, and the production build pass. The existing account/navbar files retain unrelated formatting/type-style lint findings. Build-generated MCP route and deploy-config edits were restored; neither app's dependency lockfile was broadly regenerated.
+- A persistent Netlify branch deploy is configured for `codex/preview` at `https://codex-preview--hackbarna.netlify.app`. Its exact OAuth callback is set in that branch's environment. Production OAuth credentials remain scoped to production; a separate provider client and preview session key still need provisioning. The first preview uses current `main` plus non-production noindex headers, leaving the uncommitted profile/consent work separate.
+- Public app-registration risks and the organiser-created-client recommendation are documented in `docs/oauth-app-registration-review.md`. Production registration settings are unchanged. The new profile API rejects untrusted OAuth client IDs; this does not replace a live audit of existing Digest RLS and endpoint policies.
+- Verified claims, public archive overrides and project editing/hiding remain unimplemented. Connect the additional profile store to account export/deletion and verify the two configured deployments before a broad production rollout.
+
 ## References
 
 - [Supabase OAuth setup](https://supabase.com/docs/guides/auth/oauth-server/getting-started)

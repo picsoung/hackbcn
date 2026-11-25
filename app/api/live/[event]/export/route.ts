@@ -12,6 +12,9 @@ export async function GET(
   if (!getLiveEvent(params.event))
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   return NextResponse.json(await exportShareable(params.event), {
-    headers: { 'Access-Control-Allow-Origin': '*' },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'no-store',
+    },
   })
 }

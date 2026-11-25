@@ -7,6 +7,8 @@ export type BuilderProfile = {
   slug: string
   name: string
   image?: string
+  bio?: string
+  claimed?: boolean
   links: Record<string, string>
   credits: BuilderCredit[]
   projectKeys: string[]

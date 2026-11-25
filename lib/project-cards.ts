@@ -55,9 +55,12 @@ export function submittedProjectCard(
     name: project.name,
     description: project.tagline,
     href: projectListPath(locale, project.eventSlug, project.slug),
-    image: project.screenshotKey
-      ? `/api/live/${encodeURIComponent(project.eventSlug)}/projects/${encodeURIComponent(project.slug)}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
-      : videoThumbnail(project.videoUrl),
+    image:
+      project.imageUrl !== undefined
+        ? project.imageUrl || undefined
+        : project.screenshotKey
+          ? `/api/live/${encodeURIComponent(project.eventSlug)}/projects/${encodeURIComponent(project.slug)}/screenshot?v=${encodeURIComponent(project.screenshotKey)}`
+          : videoThumbnail(project.videoUrl),
     creator: projectHackers(project)
       .map((hacker) => hacker.name)
       .join(', '),
@@ -86,7 +89,9 @@ export function archivedProjectCard(
     description: project.data.description,
     href: `/${locale}/projects/${project.slug.split('/').map(encodeURIComponent).join('/')}`,
     image:
-      project.data.thumbnailUrl || videoThumbnail(project.data.youtubeLink),
+      project.data.projectImage !== undefined
+        ? project.data.projectImage || undefined
+        : project.data.thumbnailUrl || videoThumbnail(project.data.youtubeLink),
     creator:
       project.data.hackers?.map((person) => person.name).join(', ') ?? '',
     hackers: projectHackers({
@@ -112,18 +117,27 @@ export function archivedProjectCard(
   }
 }
 
-export function groupProjectCards(projects: ProjectCard[]) {
+/** Safe event-level participation figures; no private project identifiers. */
+export type ProjectEventSummary = {
+  key: string
+  name: string
+  image?: string
+  href?: string
+  date: number
+  total: number
+}
+
+export function groupProjectCards(
+  projects: ProjectCard[],
+  summaries: ProjectEventSummary[] = [],
+) {
   const groups = new Map<
     string,
-    {
-      key: string
-      name: string
-      image?: string
-      href?: string
-      date: number
-      projects: ProjectCard[]
-    }
+    ProjectEventSummary & { projects: ProjectCard[] }
   >()
+  for (const summary of summaries) {
+    if (summary.total > 0) groups.set(summary.key, { ...summary, projects: [] })
+  }
   for (const project of projects) {
     const key = project.eventSlug ?? 'community'
     const group = groups.get(key) ?? {
@@ -132,9 +146,11 @@ export function groupProjectCards(projects: ProjectCard[]) {
       image: project.eventImage,
       href: project.eventHref,
       date: project.eventDate,
+      total: 0,
       projects: [],
     }
     group.projects.push(project)
+    group.total = Math.max(group.total, group.projects.length)
     group.image ??= project.eventImage
     group.date = Math.max(group.date, project.eventDate)
     groups.set(key, group)

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import ReactMarkdown from 'react-markdown'
-import { getProject, type Project } from '@/app/helpers/projects'
+import { getPublicArchivedProject } from '@/lib/projects/archive-visibility'
 import { archivedProjectCard } from '@/lib/project-cards'
 import {
   archivedProjectContent,
@@ -19,28 +19,21 @@ import ProjectVideo, {
 
 type Params = { params: { slug: string[]; locale: string } }
 
-export function generateMetadata({ params }: Params) {
-  try {
-    const project = getProject(params.slug)
-    return projectMetadata(
-      `/${params.locale}/projects/${params.slug.map(encodeURIComponent).join('/')}`,
-      project.data.title,
-      project.data.description,
-    )
-  } catch {
-    return {}
-  }
+export async function generateMetadata({ params }: Params) {
+  const project = await getPublicArchivedProject(params.slug)
+  if (!project) return {}
+  return projectMetadata(
+    `/${params.locale}/projects/${params.slug.map(encodeURIComponent).join('/')}`,
+    project.data.title,
+    project.data.description,
+  )
 }
 
 export const dynamic = 'force-dynamic'
 
 export default async function ProjectBySlug({ params }: Params) {
-  let project: Project
-  try {
-    project = getProject(params.slug)
-  } catch {
-    notFound()
-  }
+  const project = await getPublicArchivedProject(params.slug)
+  if (!project) notFound()
   const { data } = project
   const copy = projectPageCopy(params.locale)
   const event = data.event ? getEventDataBySlug(data.event)?.event : undefined

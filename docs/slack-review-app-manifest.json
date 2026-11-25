@@ -1,0 +1,12 @@
+{
+  "display_information": {
+    "name": "HackBarna Reviews",
+    "description": "Review alerts for HackBarna projects and ownership requests.",
+    "background_color": "#ff3d9a"
+  },
+  "features": {
+    "bot_user": { "display_name": "HackBarna Reviews", "always_online": false }
+  },
+  "oauth_config": { "scopes": { "bot": ["incoming-webhook"] } },
+  "settings": { "incoming_webhooks": { "incoming_webhooks_enabled": true } }
+}
