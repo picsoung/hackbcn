@@ -24,7 +24,7 @@ Public archive and submitted-project readers overlay only approved fields. Pendi
 
 ## Local validation and rollout
 
-Apply the new `20261124210831_project_editing` migration with `netlify db migrations apply`. The existing shared community-profile migration is also required for the profile page. Both are applied locally; this work does not deploy production.
+Apply the new `20261124210831_project_editing` migration with `netlify db migrations apply`. The existing shared community-profile migration is also required for the profile page. The workspace migrations are applied locally, on the stable preview and in production following the approved release #74 on November 26, 2026.
 
 Run the ownership integration against **PostgreSQL 17**, as CI does:
 
@@ -45,4 +45,4 @@ Uploads require a verified server session and same-origin request. Project uploa
 
 An opaque `/api/media/:id` route checks references and visibility on every read. A staged avatar stays private until saved to its owner’s profile. A project picture stays private until its revision is approved and the project is public. Verified teammates and organisers can inspect held project images. Hiding a project also denies anonymous image requests, with no-store responses. Uploaded media cannot be attached to another person’s profile or another project.
 
-Replacing or removing a staged upload discards its bytes. Referenced profile, project and revision-history images are protected from discard. Discard retains the upload reservation so it cannot reset the hourly limit. The `account_image_uploads` migration is applied locally; production deployment remains separate.
+Replacing or removing a staged upload discards its bytes. Referenced profile, project and revision-history images are protected from discard. Discard retains the upload reservation so it cannot reset the hourly limit. The `account_image_uploads` migration is applied locally and in the released preview/production databases.
