@@ -37,7 +37,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/manuel-vila-/'
 links:
   github: 'https://github.com/drorasaf/kiko'
 ---

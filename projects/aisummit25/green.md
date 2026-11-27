@@ -21,7 +21,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/nacho-pujol/'
   - name: Areeb Abad Fazli
     description: ''
     image:

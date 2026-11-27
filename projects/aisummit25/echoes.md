@@ -39,17 +39,20 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/marcelojimenezdafonseca/'
   - name: Alessandro Vecchi
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/ale-vecchi/'
   - name: Janne Rotter
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/janne-rotter-3725b7293/'
 links:
   github: 'https://github.com/Alessandro-vecchi/landmark-oracle'
 ---

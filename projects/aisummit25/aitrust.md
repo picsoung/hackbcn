@@ -29,7 +29,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/oriol-porta-tovar-321b41290/'
 links:
   github: 'https://github.com/marinapalma2000/AITrust'
 ---

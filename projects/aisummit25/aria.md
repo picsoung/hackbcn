@@ -22,7 +22,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/rovillanueva92/'
 links:
   github: 'https://github.com/rovillanueva/ARIA'
 ---

@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict')
 const { test } = require('node:test')
 const {
+  parseAttendees,
   memberCredits,
   profileIndex,
   enrichProject,
@@ -12,6 +13,49 @@ const attendee = (email, linkedin, github) => ({
 })
 const project = (names) => ({
   hackers: names.map((name) => ({ name, links: {} })),
+})
+
+test('2025 participant exports skip metadata and normalize their public profile columns without copying team or demo fields', () => {
+  const rows = parseAttendees(
+    '\uFEFF# Hackathon Participants Export - 2025-10-06,,,,\r\n# Source: https://example.test/export,,,,\r\n#,,,,\r\nName,Email,LinkedIn,Team Members,Demo Project\r\n"Ada Lovelace",ada@example.test,https://www.linkedin.com/in/ada/,"Bob, Carl",https://example.test/demo\r\n',
+  )
+  assert.deepEqual(rows, [
+    {
+      email: 'ada@example.test',
+      'What is your LinkedIn profile?': 'https://www.linkedin.com/in/ada/',
+    },
+  ])
+  const result = enrichProject(
+    project(['Ada']),
+    'Ada ada@example.test',
+    profileIndex(rows),
+  )
+  assert.equal(
+    result.hackers[0].links.linkedin,
+    'https://www.linkedin.com/in/ada/',
+  )
+  assert.doesNotMatch(JSON.stringify(result), /@|example\.test|Bob|Carl/)
+  assert.equal(
+    parseAttendees(
+      'email,What is your LinkedIn profile?\nada@example.test,https://www.linkedin.com/in/ada/\n',
+    ).length,
+    1,
+  )
+  const github = parseAttendees(
+    'Name,Email,LinkedIn\nAda,ada@example.test,https://github.com/ada\n',
+  )
+  const githubOnly = enrichProject(
+    project(['Ada']),
+    'Ada ada@example.test',
+    profileIndex(github),
+  )
+  assert.deepEqual(githubOnly.hackers[0].links, {
+    github: 'https://github.com/ada',
+  })
+  assert.throws(
+    () => parseAttendees('# Only export metadata\n'),
+    /no CSV header/,
+  )
 })
 
 test('verified 2025 credits share the existing maker profile, portrait and other event projects', () => {

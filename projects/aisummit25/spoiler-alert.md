@@ -32,7 +32,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/ruhidagdelen/'
   - name: Rafael Murcia
     description: ''
     image:

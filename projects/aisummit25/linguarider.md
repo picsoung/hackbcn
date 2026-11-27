@@ -39,7 +39,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/aleks-tatter-6131937a/'
   - name: Roberto Henriquez
     description: ''
     image:

@@ -13,6 +13,25 @@ const key = (value) =>
     .trim()
     .toLowerCase()
 
+function parseAttendees(text) {
+  const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/)
+  const start = lines.findIndex((line) => line.trim() && !line.startsWith('#'))
+  if (start < 0) throw new Error('Attendee file has no CSV header.')
+  const csv = lines.slice(start).join('\n')
+  if (/^Name,Email,LinkedIn(?:,|$)/.test(lines[start])) {
+    return parseCsv(csv, ['Name', 'Email', 'LinkedIn']).map((row) => ({
+      email: row.Email,
+      'What is your LinkedIn profile?': row.LinkedIn,
+      ...(profileUrl('github', row.LinkedIn)
+        ? {
+            'What is your GitHub username?': profileUrl('github', row.LinkedIn),
+          }
+        : {}),
+    }))
+  }
+  return parseCsv(csv, ['email'])
+}
+
 function memberCredits(value) {
   const pieces = value.split(/\r?\n|[,;]|\s+&\s+/).filter((part) => part.trim())
   const credits = []
@@ -147,7 +166,7 @@ function main() {
   if (!Array.isArray(files) || !files.length)
     throw new Error('Missing attendee file manifest.')
   const attendees = profileIndex(
-    files.flatMap((file) => parseCsv(fs.readFileSync(file, 'utf8'), ['email'])),
+    files.flatMap((file) => parseAttendees(fs.readFileSync(file, 'utf8'))),
   )
   const changes = [],
     matches = [],
@@ -213,7 +232,7 @@ function main() {
   )
 }
 
-module.exports = { memberCredits, profileIndex, enrichProject }
+module.exports = { parseAttendees, memberCredits, profileIndex, enrichProject }
 if (require.main === module) {
   try {
     main()

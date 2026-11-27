@@ -21,9 +21,11 @@ Only submitted titles, pitches, descriptions, names, challenge selections, techn
 
 ## Maker profiles
 
-The first enrichment pass matches individual submission emails against the three previously supplied AI Summit 2026, Netlify HackNight and Skill-a-thon attendee lists. It adds 19 LinkedIn profiles and 14 GitHub profiles across 14 projects. Twelve credits reuse a verified local portrait through the existing profile identity lookup. Their project credits now join the same builder profile as their projects from other events.
+The first enrichment pass matched individual submission emails against the three previously supplied AI Summit 2026, Netlify HackNight and Skill-a-thon attendee lists. The organiser then supplied a 2025 participant export containing 74 rows, with 65 usable personal LinkedIn URLs and one personal GitHub URL in its profile column. Its three metadata lines are skipped; team-member and demo columns are not treated as personal identities. That export verifies 14 additional maker profiles across 10 projects.
 
-The remaining 78 credits keep their submitted names and avatar placeholders. No name-only, repository-owner or guessed social-profile matches are used. The AI Summit 2025 guest list has not been supplied yet. Shared team emails, conflicting registrations and existing conflicting curated links are not overwritten. Original import checksums remain a record of the initial source import; enrichment is a subsequent curation step.
+Current totals are 33 LinkedIn profiles, 14 GitHub profiles and 14 verified local portraits among 97 maker credits. Profile identities connect their projects across events. All previously curated links are preserved.
+
+The remaining 64 credits retain their submitted names: 46 have no matching registration email, 14 have no unambiguous individual email in the project submission, and four have matching registrations without usable profile links. No name-only, repository-owner or guessed social-profile matches are used. Shared team emails, conflicting registrations and existing conflicting curated links are not overwritten. Original import checksums remain a record of the initial source import; enrichment is a subsequent curation step.
 
 `scripts/enrich-aisummit25-makers.cjs` reads the private submission snapshot and a private `{ "files": ["/private/attendees.csv"] }` manifest. Its dry run reports public names, profile links and unresolved reasons only; `--write` updates only the team metadata. It creates no ownership evidence or account permissions.
 

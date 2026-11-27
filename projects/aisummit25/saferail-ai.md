@@ -23,7 +23,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/dani-vazquez-ferrer-986445134/'
   - name: Xavi Velàsquez
     description: ''
     image:

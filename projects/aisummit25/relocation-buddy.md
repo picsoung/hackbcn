@@ -34,17 +34,20 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/arnabdey0503/'
   - name: Arnaldo Vera
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/arnaldovera/'
   - name: Davide Toniolo
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/dtoniolo/'
 links:
   github: 'https://github.com/dtoniolo/ai-summit-hackathon'
 ---

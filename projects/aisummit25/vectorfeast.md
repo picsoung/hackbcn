@@ -28,7 +28,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/pau-grau-sabate-1700442a1/'
   - name: Oriol Josa
     description: ''
     image:
