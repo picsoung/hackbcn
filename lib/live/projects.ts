@@ -159,6 +159,24 @@ export async function listAllProjects(): Promise<PublicProject[]> {
     )
 }
 
+/** Private directory source; the organiser caller must authorize before calling. */
+export async function listManagedProjects() {
+  return getDb()
+    .select({ ...publicColumns, visibility: projects.visibility })
+    .from(projects)
+    .where(
+      and(
+        inArray(projects.eventSlug, Object.keys(LIVE_EVENTS)),
+        countedProjectVisibility(),
+      ),
+    )
+    .then((rows) =>
+      applySubmittedContent(
+        rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
+      ),
+    )
+}
+
 /** Small public query for crawler discovery, without cookies or private contact data. */
 export async function listProjectSitemapEntries() {
   return getDb()

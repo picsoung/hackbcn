@@ -81,6 +81,7 @@ jobs:
           node --conditions=react-server tests/project-ownership.integration.cjs
           node --conditions=react-server tests/project-visibility.integration.cjs
           node --conditions=react-server tests/communication-preferences.integration.cjs
+          node --conditions=react-server tests/organiser-editing.integration.cjs
       - name: Check types
         run: npx tsc --noEmit
       - name: Build production assets
@@ -95,3 +96,4 @@ jobs:
           node tests/aisummit25-routes.integration.mjs http://127.0.0.1:3100
           node tests/project-tags-routes.integration.mjs http://127.0.0.1:3100
           node tests/project-awards-routes.integration.mjs http://127.0.0.1:3100
+          node --conditions=react-server tests/organiser-routes.integration.cjs

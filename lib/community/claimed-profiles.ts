@@ -11,9 +11,10 @@ import type { ClaimedDisplay } from './claimed-display'
 /** Only verified, unambiguous individual credits can bind an account to a public builder. */
 export async function claimedBuilderDisplays(
   projectKeys: string[],
+  database: Pick<ReturnType<typeof getDb>, 'select'> = getDb(),
 ): Promise<ClaimedDisplay[]> {
   if (!projectKeys.length) return []
-  return getDb()
+  return database
     .select({
       projectKey: projectClaims.projectKey,
       creditIndex: projectClaimEvidence.creditIndex,

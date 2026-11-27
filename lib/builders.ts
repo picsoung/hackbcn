@@ -9,6 +9,7 @@ export type BuilderProfile = {
   image?: string
   bio?: string
   claimed?: boolean
+  edited?: boolean
   links: Record<string, string>
   credits: BuilderCredit[]
   projectKeys: string[]

@@ -1,5 +1,4 @@
 import 'server-only'
-import { getPublicArchivedProjects } from './projects/archive-visibility'
 import { getProjectCatalog } from './project-catalog'
 import { projectBuilder, type ProjectBuilder } from './project-detail'
 import { relatedProjectCards, type ProjectCard } from './project-cards'
@@ -10,24 +9,34 @@ import {
 } from './builders'
 import { claimedBuilderDisplays } from './community/claimed-profiles'
 import { applyClaimedDisplays } from './community/claimed-display'
+import { applyBuilderDisplays } from './community/builder-display'
+import { builderDisplayOverrides } from './community/builder-profiles'
+import { getBuiltProject } from '@/app/helpers/projects'
 
-export async function getBuilderCatalog(locale: string) {
-  const projects = await getProjectCatalog(locale)
-  const archived = new Map(
-    (await getPublicArchivedProjects()).map((project) => [
-      `archive:${project.slug}`,
-      (project.data.hackers ?? []).map(projectBuilder),
-    ]),
-  )
-  const sourceProfiles = buildBuilderDirectory(
+export function sourceBuilderProfiles(projects: ProjectCard[]) {
+  return buildBuilderDirectory(
     projects.map((project) => ({
       projectKey: project.key,
       builders:
-        archived.get(project.key) ?? project.hackers.map(projectBuilder),
+        (project.key.startsWith('archive:')
+          ? getBuiltProject(project.key.slice(8).split('/'))?.data.hackers.map(
+              projectBuilder,
+            )
+          : undefined) ?? project.hackers.map(projectBuilder),
     })),
   )
+}
+
+export async function getBuilderCatalog(locale: string) {
+  const projects = await getProjectCatalog(locale)
+  const sourceProfiles = sourceBuilderProfiles(projects)
   const profiles = applyClaimedDisplays(
-    sourceProfiles,
+    applyBuilderDisplays(
+      sourceProfiles,
+      await builderDisplayOverrides(
+        sourceProfiles.map((profile) => profile.slug),
+      ),
+    ),
     new Map(projects.map((project) => [project.key, project.hackers])),
     await claimedBuilderDisplays(projects.map((project) => project.key)),
   )
@@ -46,7 +55,7 @@ export async function getProjectPageContext(
       const profile = builderForCredit(profiles, current.key, index)
       return {
         ...builder,
-        ...(profile?.claimed
+        ...(profile?.claimed || profile?.edited
           ? { name: profile.name, image: profile.image, links: profile.links }
           : {}),
         href: profile ? builderProfilePath(locale, profile.slug) : undefined,

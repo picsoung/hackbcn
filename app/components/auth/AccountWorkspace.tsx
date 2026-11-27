@@ -18,7 +18,7 @@ export default function AccountWorkspace({
   const items = [
     ['profile', `/${locale}/account`],
     ['projects', `/${locale}/account/projects`],
-    ...(organiser ? [['organiser', `/${locale}/account/review`]] : []),
+    ...(organiser ? [['organiser', `/${locale}/account/admin`]] : []),
   ]
   return (
     <AuthShell wide>

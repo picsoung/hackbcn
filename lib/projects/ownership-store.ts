@@ -472,7 +472,8 @@ export async function changeProjectVisibility(
         ),
       )
       .for('share')
-    if (!membership) throw new ProjectAccessError('forbidden', 403)
+    if (!membership && !isProjectOrganiser(user))
+      throw new ProjectAccessError('forbidden', 403)
     const source = await sourceProject(reference.key, 'en', tx)
     if (!source) throw new ProjectAccessError('not_found', 404)
     await tx
