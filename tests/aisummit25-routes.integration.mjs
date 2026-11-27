@@ -16,6 +16,22 @@ const records = manifest.projects.map(({ slug }) => ({
 const tasks = []
 for (const locale of ['en', 'es', 'ca', 'fr']) {
   tasks.push(async () => {
+    const builderPath = `/${locale}/builders/starklink-255870758bcc`
+    const response = await fetch(base + builderPath, {
+      signal: AbortSignal.timeout(30000),
+    })
+    assert.equal(response.status, 200, builderPath)
+    const html = await response.text()
+    assert.ok(
+      html.includes(`/${locale}/projects/aisummit25/travel-tetris`),
+      `${builderPath} omits Travel Tetris`,
+    )
+    assert.ok(
+      html.includes(`/${locale}/projects/aisummit26/ling0`),
+      `${builderPath} omits an existing Colin project`,
+    )
+  })
+  tasks.push(async () => {
     for (const page of [`/${locale}/aisummit25`, `/${locale}/projects`]) {
       const response = await fetch(base + page, {
         signal: AbortSignal.timeout(30000),

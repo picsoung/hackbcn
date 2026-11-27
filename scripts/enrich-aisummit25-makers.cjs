@@ -6,6 +6,7 @@ const matter = require('gray-matter')
 const { parseMembers, prepareProjects } = require('./import-aisummit25.cjs')
 const { parseCsv, profileUrl } = require('./enrich-aisummit26-makers.cjs')
 const manifest = require('../data/aisummit25-import.json')
+const reviewedAliases = require('../data/aisummit25-maker-aliases.json')
 
 const EMAIL = /[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi
 const key = (value) =>
@@ -152,6 +153,123 @@ function enrichProject(data, members, attendees) {
   return { hackers, matches, unresolved }
 }
 
+function applyReviewedProfiles(result, project, aliases = reviewedAliases) {
+  const hackers = result.hackers.map((maker) => ({
+    ...maker,
+    links: { ...maker.links },
+  }))
+  const matches = [...result.matches]
+  const reviewedNames = new Set()
+  for (const alias of aliases.filter((entry) => entry.project === project)) {
+    const credits = hackers.filter((maker) => maker.name === alias.maker)
+    if (
+      credits.length !== 1 ||
+      reviewedNames.has(alias.maker) ||
+      !alias.reason?.trim() ||
+      !alias.evidence?.startsWith('https://')
+    )
+      throw new Error(
+        'Reviewed identity must identify one credit and its confirmation evidence.',
+      )
+    const links = {}
+    for (const [service, value] of Object.entries(alias.links || {})) {
+      if (
+        !['linkedin', 'github'].includes(service) ||
+        !profileUrl(service, value)
+      )
+        throw new Error(
+          'Reviewed identity contains an invalid personal profile.',
+        )
+      links[service] = profileUrl(service, value)
+      if (
+        credits[0].links[service] &&
+        key(profileUrl(service, credits[0].links[service])) !==
+          key(links[service])
+      )
+        throw new Error(
+          'Reviewed identity conflicts with an existing curated profile.',
+        )
+      if (
+        hackers.some(
+          (maker) =>
+            maker !== credits[0] &&
+            key(profileUrl(service, maker.links[service])) ===
+              key(links[service]),
+        )
+      )
+        throw new Error('Reviewed identity already belongs to a teammate.')
+    }
+    if (!Object.keys(links).length)
+      throw new Error('Reviewed identity needs a personal profile.')
+    credits[0].links = { ...credits[0].links, ...links }
+    reviewedNames.add(alias.maker)
+    matches.push({
+      maker: alias.maker,
+      method: 'organiser-confirmed-profile',
+      links,
+      reason: alias.reason,
+      evidence: alias.evidence,
+    })
+  }
+  return {
+    hackers,
+    matches: matches.filter(
+      (match) =>
+        !reviewedNames.has(match.maker) ||
+        match.method === 'organiser-confirmed-profile',
+    ),
+    unresolved: result.unresolved.filter(
+      (credit) => !reviewedNames.has(credit.maker),
+    ),
+  }
+}
+
+const fullNameKey = (name) =>
+  String(name || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+
+/** Candidates are review suggestions only, never identity or ownership joins. */
+function existingProfileSuggestions(name, profiles) {
+  const normalized = fullNameKey(name)
+  if (!normalized.includes(' ')) return []
+  return profiles
+    .filter(
+      (profile) =>
+        fullNameKey(profile.name) === normalized &&
+        (profile.links.linkedin || profile.links.github),
+    )
+    .map((profile) => ({
+      name: profile.name,
+      profile: `/en/builders/${profile.slug}`,
+      links: profile.links,
+    }))
+}
+
+function archiveProfiles() {
+  require('ts-node').register({
+    skipProject: true,
+    transpileOnly: true,
+    compilerOptions: {
+      module: 'commonjs',
+      moduleResolution: 'node',
+      esModuleInterop: true,
+    },
+  })
+  const { getProjects } = require('../app/helpers/projects.ts')
+  const { projectBuilder } = require('../lib/project-detail.ts')
+  const { buildBuilderDirectory } = require('../lib/builders.ts')
+  return buildBuilderDirectory(
+    getProjects().map((project) => ({
+      projectKey: `archive:${project.slug}`,
+      builders: (project.data.hackers || []).map(projectBuilder),
+    })),
+  )
+}
+
 function main() {
   const [snapshotPath, attendeeManifestPath, mode] = process.argv.slice(2)
   if (!snapshotPath || !attendeeManifestPath || (mode && mode !== '--write'))
@@ -168,6 +286,7 @@ function main() {
   const attendees = profileIndex(
     files.flatMap((file) => parseAttendees(fs.readFileSync(file, 'utf8'))),
   )
+  const knownProfiles = archiveProfiles()
   const changes = [],
     matches = [],
     unresolved = []
@@ -190,7 +309,10 @@ function main() {
     const source = snapshot.rows.find(
       (row) => row.sourceRow === entry.sourceRow,
     )
-    const result = enrichProject(data, source.members, attendees)
+    const result = applyReviewedProfiles(
+      enrichProject(data, source.members, attendees),
+      entry.slug,
+    )
     matches.push(
       ...result.matches.map((match) => ({ project: entry.slug, ...match })),
     )
@@ -198,6 +320,7 @@ function main() {
       ...result.unresolved.map((credit) => ({
         project: entry.slug,
         ...credit,
+        candidates: existingProfileSuggestions(credit.maker, knownProfiles),
       })),
     )
     if (JSON.stringify(data.hackers) === JSON.stringify(result.hackers))
@@ -232,7 +355,14 @@ function main() {
   )
 }
 
-module.exports = { parseAttendees, memberCredits, profileIndex, enrichProject }
+module.exports = {
+  parseAttendees,
+  memberCredits,
+  profileIndex,
+  enrichProject,
+  applyReviewedProfiles,
+  existingProfileSuggestions,
+}
 if (require.main === module) {
   try {
     main()

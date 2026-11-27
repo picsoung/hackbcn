@@ -31,7 +31,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/starklink/'
+      github: 'https://github.com/colinstark'
   - name: Miguel Sureda
     description: ''
     image:

@@ -15,7 +15,9 @@ Builder names and portraits on project details link to a localized `/[locale]/bu
 
 Pages and project grids are server rendered. Metadata includes a canonical URL, a `ProfilePage`/`Person` record and an `ItemList` of that builder's projects. Project structured data links its authors to their internal profiles and preserves their external social identities. The sitemap includes profile URLs in English, Spanish, Catalan and French. Unknown builder IDs return 404.
 
-Colin Stark is a useful cross-event check: his profile contains a11y ally, Design One-Pager, Steve as a Service, ling0 and Valuator, plus his verified local portrait, LinkedIn and GitHub.
+Colin Stark is a useful cross-event check: his profile contains a11y ally, Design One-Pager, Steve as a Service, ling0, Valuator and Travel Tetris, plus his verified local portrait, LinkedIn and GitHub. The organiser confirmed the Travel Tetris credit despite a different submission email. That narrow exception is recorded in `data/aisummit25-maker-aliases.json`; it does not relax name-based matching or grant account permissions.
+
+The 2025 enrichment audit now suggests existing linked profiles for unresolved full-name matches. These candidates require review and never merge identities automatically. First-name-only matches and unlinked credit placeholders are not suggested. Reviewed exceptions remain scoped to the project and submitted maker name.
 
 ```sh
 node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs

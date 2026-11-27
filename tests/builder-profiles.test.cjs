@@ -223,7 +223,7 @@ test('normalized URL prefixes cannot collide between different verified identiti
   assert.equal(new Set(people.map((p) => p.slug)).size, 2)
 })
 
-test('Colin’s profile contains all five archived projects, his verified portrait and both social profiles', () => {
+test('Colin’s profile contains all six archived projects, his verified portrait and both social profiles', () => {
   const profiles = buildBuilderDirectory(
     getProjects().map((p) => ({
       projectKey: `archive:${p.slug}`,
@@ -232,7 +232,9 @@ test('Colin’s profile contains all five archived projects, his verified portra
   )
   const colin = profiles.find((p) => p.links.linkedin === linkedin('starklink'))
   assert.equal(colin.name, 'Colin Stark')
-  assert.equal(colin.projectKeys.length, 5)
+  assert.equal(colin.projectKeys.length, 6)
+  assert.equal(colin.slug, 'starklink-255870758bcc')
+  assert.ok(colin.projectKeys.includes('archive:aisummit25/travel-tetris'))
   assert.ok(colin.projectKeys.includes('archive:hacknight-june-2026/valuator'))
   assert.ok(colin.projectKeys.includes('archive:aisummit26/ling0'))
   assert.match(colin.image, /^\/makers\/linkedin-starklink-/)
