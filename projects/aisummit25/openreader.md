@@ -31,7 +31,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/patriciobcs/'
+      github: 'https://github.com/patriciobcs'
 links:
   github: 'https://github.com/patriciobcs/openreader'
 ---

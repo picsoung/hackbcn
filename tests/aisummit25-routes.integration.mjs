@@ -49,6 +49,12 @@ for (const locale of ['en', 'es', 'ca', 'fr']) {
           .replace(/"/g, '&quot;')
           .replace(/'/g, '&#x27;')
         assert.ok(html.includes(escaped), `${url} omits builder ${maker.name}`)
+        for (const link of Object.values(maker.links || {})) {
+          assert.ok(
+            html.includes(link.replace(/&/g, '&amp;')),
+            `${url} omits a verified profile link for ${maker.name}`,
+          )
+        }
       }
     })
 }

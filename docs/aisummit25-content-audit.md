@@ -19,6 +19,20 @@ Team fields mix names and email addresses using commas, newlines, brackets, colo
 
 Only submitted titles, pitches, descriptions, names, challenge selections, technology labels and project links are published. Descriptions render as Markdown with raw HTML skipped. Source cells are data, never instructions or executable MDX. Form tokens, original contact strings and judging fields stay out of the import. No ownership permissions, claim proofs or invitations are created by this content import.
 
+## Maker profiles
+
+The first enrichment pass matches individual submission emails against the three previously supplied AI Summit 2026, Netlify HackNight and Skill-a-thon attendee lists. It adds 19 LinkedIn profiles and 14 GitHub profiles across 14 projects. Twelve credits reuse a verified local portrait through the existing profile identity lookup. Their project credits now join the same builder profile as their projects from other events.
+
+The remaining 78 credits keep their submitted names and avatar placeholders. No name-only, repository-owner or guessed social-profile matches are used. The AI Summit 2025 guest list has not been supplied yet. Shared team emails, conflicting registrations and existing conflicting curated links are not overwritten. Original import checksums remain a record of the initial source import; enrichment is a subsequent curation step.
+
+`scripts/enrich-aisummit25-makers.cjs` reads the private submission snapshot and a private `{ "files": ["/private/attendees.csv"] }` manifest. Its dry run reports public names, profile links and unresolved reasons only; `--write` updates only the team metadata. It creates no ownership evidence or account permissions.
+
+```sh
+node scripts/enrich-aisummit25-makers.cjs /private/source.json /private/attendee-files.json
+node scripts/enrich-aisummit25-makers.cjs /private/source.json /private/attendee-files.json --write
+node --test tests/aisummit25-makers.test.cjs
+```
+
 ## Reviewed exceptions
 
 - **10x CEO:** the team-name cell contains an encoded label. The visible project name comes from its explicit submitted pitch and description; the repository supplies its stable `10xceo` URL. The encoded text is not decoded or executed.

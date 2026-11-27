@@ -25,7 +25,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/drorasaf/'
+      github: 'https://github.com/drorasaf'
   - name: Yaroslav Sudakov
     description: ''
     image:

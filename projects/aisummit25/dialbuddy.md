@@ -24,7 +24,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/andrey-ryazanov/'
+      github: 'https://github.com/calledandrey'
 links:
   github: 'https://github.com/calledandrey/DialBuddy'
 ---

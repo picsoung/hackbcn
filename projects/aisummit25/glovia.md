@@ -37,7 +37,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/joaquin-ferreiros/'
 links:
   github: 'https://github.com/brunoferraric1/hackathon-glovo-app-clone'
 ---

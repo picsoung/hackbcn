@@ -36,7 +36,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/guillermollopis/'
 links:
   github: 'https://github.com/guillermollopis/evolve'
 ---

@@ -36,12 +36,16 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/miguelsureda/'
+      github: 'https://github.com/Miguelsuredasuau'
   - name: Joaquin Terrasa
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/quinoterrasa/'
+      github: 'https://github.com/espetro'
 links:
   github: 'https://github.com/espetro/hackbarna-project'
 ---

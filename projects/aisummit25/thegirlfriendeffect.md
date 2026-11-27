@@ -23,7 +23,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/pol_avec/'
+      github: 'https://github.com/kafkasl'
 links:
   github: 'https://github.com/kafkasl/girlfriend-effect'
 ---

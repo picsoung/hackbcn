@@ -16,7 +16,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/shahnawazakhtar/'
+      github: 'https://github.com/akhtarshahnawaz'
   - name: Melissa Orphali
     description: ''
     image:
@@ -26,7 +28,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/balazs-lapis-b7a86860/'
+      github: 'https://github.com/balazslapis'
   - name: Viktoria Sargsyan
     description: ''
     image:

@@ -22,12 +22,14 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/anna-niub%C3%B3-mart%C3%AD/'
   - name: Sònia Niubó Martí
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sonianiubo/'
 links:
   website: 'http://plannr-me.lovable.app/'
 ---

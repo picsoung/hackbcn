@@ -17,7 +17,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/katerina-zarapina/'
+      github: 'https://github.com/katerinazarapina'
 links:
   github: 'https://github.com/katerinazarapina/ripe-to-reborn/tree/main?tab=readme-ov-file#readme'
 ---

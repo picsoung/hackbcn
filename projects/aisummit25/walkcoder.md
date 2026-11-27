@@ -56,7 +56,9 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/sergio-pulido/'
+      github: 'https://github.com/sergio-pulido'
 links:
   github: 'https://github.com/spulido8/voice2app'
 ---

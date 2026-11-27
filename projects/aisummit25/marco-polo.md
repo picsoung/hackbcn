@@ -24,17 +24,23 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/juan-jose-nieto-salas/'
+      github: 'https://github.com/juanjo3ns'
   - name: Asier Zapata
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/asierzapata/'
+      github: 'https://github.com/asierzapata'
   - name: Enric Moreu
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/enricmf/'
+      github: 'https://github.com/enric1994'
 links:
   github: 'https://github.com/juanjo3ns/tragent'
 ---

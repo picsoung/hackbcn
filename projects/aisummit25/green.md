@@ -26,7 +26,8 @@ hackers:
     description: ''
     image:
       src: ''
-    links: {}
+    links:
+      linkedin: 'https://www.linkedin.com/in/areebfazli/'
   - name: Dani Fuyà Espinar
     description: ''
     image:
