@@ -10,6 +10,8 @@ import {
   projectContent,
   projectContentHistory,
   projectVisibility,
+  builderProfiles,
+  builderProfileHistory,
 } from '@/db/schema'
 import type { IdentityUser } from '@/lib/auth/types'
 import { getIdentityConfig } from '@/lib/auth/identity-config'
@@ -21,6 +23,7 @@ import {
   ProjectAccessError,
 } from '@/lib/projects/ownership'
 import { managedImageId, ImageUploadError } from './shared'
+import { getBuilderCatalog } from '@/lib/builder-catalog'
 
 export const mediaStore = () =>
   getStore({ name: 'community-media', consistency: 'strong' })
@@ -36,6 +39,7 @@ export async function canManageProjectImage(
   database: Pick<ReturnType<typeof getDb>, 'select'> = getDb(),
 ) {
   if (!user.emailVerified || !user.email || !projectReference(key)) return false
+  if (isProjectOrganiser(user)) return true
   const [claim] = await database
     .select({ id: projectClaims.id })
     .from(projectClaims)
@@ -127,11 +131,29 @@ export async function assertMediaReference(
 export async function publicMedia(asset: typeof mediaAssets.$inferSelect) {
   if (!asset.ready) return false
   if (asset.purpose === 'avatar') {
-    const [profile] = await getDb()
+    const profiles = await getDb()
       .select({ url: communityProfiles.avatarUrl })
       .from(communityProfiles)
-      .where(eq(communityProfiles.accountId, asset.ownerId))
-    return !!profile && managedImageId(profile.url) === asset.id
+      .where(
+        sql`${communityProfiles.avatarUrl} ILIKE ${'%/api/media/' + asset.id}`,
+      )
+    if (profiles.some((profile) => managedImageId(profile.url) === asset.id))
+      return true
+    const builders = await getDb()
+      .select({ slug: builderProfiles.slug, content: builderProfiles.content })
+      .from(builderProfiles)
+      .where(
+        sql`${builderProfiles.content}->>'avatarUrl' ILIKE ${'%/api/media/' + asset.id}`,
+      )
+    if (!builders.length) return false
+    const catalog = await getBuilderCatalog('en')
+    return builders.some((row) =>
+      catalog.profiles.some(
+        (profile) =>
+          profile.slug === row.slug &&
+          managedImageId(profile.image ?? '') === asset.id,
+      ),
+    )
   }
   if (!asset.projectKey) return false
   const [state] = await getDb()
@@ -165,7 +187,8 @@ export async function canReadMedia(
   if (!asset.ready) return false
   if (await publicMedia(asset)) return true
   if (!user?.emailVerified || !user.email) return false
-  if (asset.purpose === 'avatar') return asset.ownerId === user.id
+  if (asset.purpose === 'avatar')
+    return asset.ownerId === user.id || isProjectOrganiser(user)
   return (
     !!asset.projectKey &&
     (isProjectOrganiser(user) ||
@@ -185,11 +208,35 @@ export async function discardMedia(user: IdentityUser, id: string) {
       .for('update')
     if (!asset || asset.ownerId !== user.id)
       throw new ProjectAccessError('not_found', 404)
-    const [profile] = await tx
+    const profiles = await tx
       .select({ image: communityProfiles.avatarUrl })
       .from(communityProfiles)
-      .where(eq(communityProfiles.accountId, asset.ownerId))
-    let referenced = !!profile && managedImageId(profile.image) === id
+      .where(sql`${communityProfiles.avatarUrl} ILIKE ${'%/api/media/' + id}`)
+    const overrides = await tx
+      .select({ content: builderProfiles.content })
+      .from(builderProfiles)
+      .where(
+        sql`${builderProfiles.content}->>'avatarUrl' ILIKE ${'%/api/media/' + id}`,
+      )
+    const profileHistory = await tx
+      .select({
+        content: builderProfileHistory.content,
+        previous: builderProfileHistory.previousContent,
+      })
+      .from(builderProfileHistory)
+      .where(
+        sql`${builderProfileHistory.content}->>'avatarUrl' ILIKE ${'%/api/media/' + id} OR ${builderProfileHistory.previousContent}->>'avatarUrl' ILIKE ${'%/api/media/' + id}`,
+      )
+    let referenced =
+      profiles.some((profile) => managedImageId(profile.image) === id) ||
+      overrides.some(
+        (row) => managedImageId(row.content?.avatarUrl ?? '') === id,
+      ) ||
+      profileHistory.some((row) =>
+        [row.content.avatarUrl, row.previous.avatarUrl].some(
+          (url) => managedImageId(url) === id,
+        ),
+      )
     if (asset.projectKey) {
       const [state] = await tx
         .select()

@@ -47,7 +47,7 @@ export default async function EditProjectPage({
   return (
     <AccountWorkspace
       locale={locale}
-      active="projects"
+      active={isProjectOrganiser(user) ? 'organiser' : 'projects'}
       organiser={isProjectOrganiser(user)}
     >
       <ProjectEditor key={reference.key} data={data} locale={locale} />

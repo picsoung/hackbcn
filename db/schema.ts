@@ -17,6 +17,86 @@ import type { ProjectHacker } from '../lib/live/validate'
 import type { ProjectEditContent } from '../lib/projects/edit-content'
 import type { ReviewAlert } from '../lib/projects/review-notifications'
 import type { CommunicationLanguage } from '../lib/account/communications'
+import type { CommunityProfile } from '../lib/community/profile'
+import type { PrivacyField } from '../lib/projects/privacy-model'
+
+/** Creator credits can be hidden independently of project visibility and account permissions. */
+export const creatorPrivacy = pgTable('creator_privacy', {
+  subjectKey: text('subject_key').primaryKey(),
+  hidden: boolean().notNull().default(false),
+  hiddenFields: text('hidden_fields')
+    .$type<PrivacyField>()
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
+  revision: integer().notNull().default(0),
+  updatedBy: uuid('updated_by').references(() => identityAccounts.id, {
+    onDelete: 'set null',
+  }),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
+export const creatorPrivacyHistory = pgTable(
+  'creator_privacy_history',
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    subjectKey: text('subject_key').notNull(),
+    hidden: boolean().notNull(),
+    hiddenFields: text('hidden_fields')
+      .$type<PrivacyField>()
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
+    revision: integer().notNull(),
+    actorId: uuid('actor_id').references(() => identityAccounts.id, {
+      onDelete: 'set null',
+    }),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('creator_privacy_history_revision_idx').on(
+      table.subjectKey,
+      table.revision,
+    ),
+  ],
+)
+
+/** Public corrections for historical, unclaimed builder credits. Identity grouping stays source-based. */
+export const builderProfiles = pgTable('builder_profiles', {
+  slug: text().primaryKey(),
+  content: jsonb().$type<Omit<CommunityProfile, 'revision'>>(),
+  revision: integer().notNull().default(0),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
+
+/** Private organiser edit history for both historical and claimed public profiles. */
+export const builderProfileHistory = pgTable(
+  'builder_profile_history',
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    slug: text().notNull(),
+    accountId: uuid('account_id'),
+    content: jsonb().$type<Omit<CommunityProfile, 'revision'>>().notNull(),
+    previousContent: jsonb('previous_content')
+      .$type<Omit<CommunityProfile, 'revision'>>()
+      .notNull(),
+    revision: integer().notNull(),
+    actorId: uuid('actor_id').references(() => identityAccounts.id, {
+      onDelete: 'set null',
+    }),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index('builder_profile_history_slug_idx').on(table.slug, table.createdAt),
+  ],
+)
 
 /** Invitation-only opt-outs. No plaintext addresses and no newsletter subscription changes. */
 export const profileInvitationOptOuts = pgTable('profile_invitation_opt_outs', {

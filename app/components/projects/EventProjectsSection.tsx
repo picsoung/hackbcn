@@ -91,7 +91,9 @@ export default function EventProjectsSection({
             </Link>
           </div>
         </div>
-        {projects.length > 0 && <ProjectGrid projects={projects} tone={tone} />}
+        {projects.length > 0 && (
+          <ProjectGrid projects={projects} tone={tone} locale={locale} />
+        )}
       </ProjectsDisclosure>
     </section>
   )

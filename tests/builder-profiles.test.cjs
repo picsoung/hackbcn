@@ -21,6 +21,27 @@ const maker = (name, links = {}, extra = {}) => ({ name, links, ...extra })
 const entry = (key, ...builders) => ({ projectKey: key, builders })
 const linkedin = (id) => `https://www.linkedin.com/in/${id}/`
 
+test('the organiser-confirmed Bicing Planner credit uses Eduard Blanco without overwriting later roster edits', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'bicing-planner',
+    creatorName: 'Eduard Blancode',
+    linkedinUrl: linkedin('eduardblanco'),
+  }
+  assert.equal(projectHackers(source)[0].name, 'Eduard Blanco')
+  assert.equal(
+    projectHackers({ ...source, slug: 'other-project' })[0].name,
+    'Eduard Blancode',
+  )
+  assert.equal(
+    projectHackers({ ...source, linkedinUrl: linkedin('another-person') })[0]
+      .name,
+    'Eduard Blancode',
+  )
+  const updated = [{ name: 'Eduard B.', linkedinUrl: source.linkedinUrl }]
+  assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
+})
+
 test('the reviewed Council-convention credit gives Tiam and Stepan separate identities without copying the photo owner’s profile', () => {
   const source = {
     eventSlug: 'hacknight-5-jevathon-2026',
@@ -61,6 +82,110 @@ test('reviewed team corrections do not change other projects, different profile 
     { name: 'Tiam Haghshenas', linkedinUrl: source.linkedinUrl },
     { name: 'Stepan Gritsun', linkedinUrl: linkedin('confirmed-stepan') },
     { name: 'Another builder', linkedinUrl: null },
+  ]
+  assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
+})
+
+test('Push cube credits Arnab and Alex separately while preserving Arnab’s canonical profile and portrait', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'push-cube',
+    creatorName: 'Arnab Dey, Alex Garcia',
+    linkedinUrl: linkedin('arnabdey0503'),
+    hackers: [
+      { name: 'Arnab Dey, Alex Garcia', linkedinUrl: linkedin('arnabdey0503') },
+    ],
+  }
+  const team = projectHackers(source)
+  assert.deepEqual(team, [
+    { name: 'Arnab Dey', linkedinUrl: linkedin('arnabdey0503') },
+    { name: 'Alex Garcia', linkedinUrl: null },
+  ])
+  const key = 'submitted:hacknight-5-jevathon-2026:push-cube'
+  const profiles = buildBuilderDirectory([
+    entry(key, ...team.map(projectBuilder)),
+    entry(
+      'archive:aisummit25/relocation-buddy',
+      maker('Arnab Dey', { linkedin: linkedin('arnabdey0503') }),
+    ),
+  ])
+  const arnab = builderForCredit(profiles, key, 0)
+  const alex = builderForCredit(profiles, key, 1)
+  assert.equal(arnab.name, 'Arnab Dey')
+  assert.equal(arnab.slug, 'arnabdey0503-dabc6a0e64e5')
+  assert.ok(arnab.image)
+  assert.deepEqual(arnab.projectKeys, [
+    key,
+    'archive:aisummit25/relocation-buddy',
+  ])
+  assert.equal(alex.name, 'Alex Garcia')
+  assert.notEqual(alex.slug, arnab.slug)
+  assert.deepEqual(alex.links, {})
+  assert.equal(alex.image, undefined)
+  assert.deepEqual(alex.projectKeys, [key])
+  assert.ok(
+    profiles.every((profile) => profile.name !== 'Arnab Dey, Alex Garcia'),
+  )
+  assert.deepEqual(projectHackers({ ...source, hackers: [] }), team)
+})
+
+test('the reviewed Push cube split leaves other identities and an owner-updated team intact', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'push-cube',
+    creatorName: 'Arnab Dey, Alex Garcia',
+    linkedinUrl: linkedin('arnabdey0503'),
+  }
+  for (const change of [
+    { eventSlug: 'other-event' },
+    { slug: 'other-project' },
+    { linkedinUrl: linkedin('alex-garcia') },
+    { creatorName: 'A different team' },
+  ])
+    assert.equal(projectHackers({ ...source, ...change }).length, 1)
+  const updated = [
+    { name: 'Arnab Dey', linkedinUrl: linkedin('arnabdey0503') },
+    { name: 'Alex Garcia', linkedinUrl: linkedin('verified-alex') },
+  ]
+  assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
+})
+
+test('Skillars separates three explicitly named builders and gives Chloe’s profile only to Chloe', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'skillars',
+    creatorName: 'Chloe, Xénia & Majo',
+    linkedinUrl: linkedin('chloe-beck'),
+  }
+  const team = projectHackers(source)
+  assert.deepEqual(team, [
+    { name: 'Chloe', linkedinUrl: source.linkedinUrl },
+    { name: 'Xénia', linkedinUrl: null },
+    { name: 'Majo', linkedinUrl: null },
+  ])
+  const profiles = buildBuilderDirectory([
+    entry('skillars', ...team.map(projectBuilder)),
+  ])
+  assert.equal(profiles.length, 3)
+  assert.equal(
+    builderForCredit(profiles, 'skillars', 0).links.linkedin,
+    source.linkedinUrl,
+  )
+  for (const i of [1, 2]) {
+    const profile = builderForCredit(profiles, 'skillars', i)
+    assert.deepEqual(profile.links, {})
+    assert.equal(profile.image, undefined)
+  }
+  assert.equal(projectHackers({ ...source, slug: 'other-project' }).length, 1)
+  assert.equal(
+    projectHackers({ ...source, linkedinUrl: linkedin('another-person') })
+      .length,
+    1,
+  )
+  const updated = [
+    { name: 'Chloe', linkedinUrl: source.linkedinUrl },
+    { name: 'Xénia', linkedinUrl: linkedin('verified-xenia') },
+    { name: 'Majo', linkedinUrl: null },
   ]
   assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
 })
@@ -223,7 +348,7 @@ test('normalized URL prefixes cannot collide between different verified identiti
   assert.equal(new Set(people.map((p) => p.slug)).size, 2)
 })
 
-test('Colin’s profile contains all five archived projects, his verified portrait and both social profiles', () => {
+test('Colin’s profile contains all six archived projects, his verified portrait and both social profiles', () => {
   const profiles = buildBuilderDirectory(
     getProjects().map((p) => ({
       projectKey: `archive:${p.slug}`,
@@ -232,7 +357,9 @@ test('Colin’s profile contains all five archived projects, his verified portra
   )
   const colin = profiles.find((p) => p.links.linkedin === linkedin('starklink'))
   assert.equal(colin.name, 'Colin Stark')
-  assert.equal(colin.projectKeys.length, 5)
+  assert.equal(colin.projectKeys.length, 6)
+  assert.equal(colin.slug, 'starklink-255870758bcc')
+  assert.ok(colin.projectKeys.includes('archive:aisummit25/travel-tetris'))
   assert.ok(colin.projectKeys.includes('archive:hacknight-june-2026/valuator'))
   assert.ok(colin.projectKeys.includes('archive:aisummit26/ling0'))
   assert.match(colin.image, /^\/makers\/linkedin-starklink-/)

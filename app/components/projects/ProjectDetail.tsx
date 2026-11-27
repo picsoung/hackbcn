@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
-import { TrophyIcon } from '@heroicons/react/24/outline'
 import type { ProjectCard, relatedProjectCards } from '@/lib/project-cards'
 import type {
   ProjectBuilder,
@@ -17,13 +16,13 @@ import { projectManagementCopy } from '@/data/project-management'
 import ProjectBuilders from './ProjectBuilders'
 import ProjectMedia from './ProjectMedia'
 import ProjectRecommendations from './ProjectRecommendations'
+import ProjectAward from './ProjectAward'
 
 export default function ProjectDetail({
   project,
   builders,
   links,
   media,
-  stack = [],
   children,
   related,
   locale,
@@ -35,7 +34,6 @@ export default function ProjectDetail({
   builders: ProjectBuilder[]
   links: ProjectLink[]
   media?: Media
-  stack?: string[]
   children?: ReactNode
   related: ReturnType<typeof relatedProjectCards>
   locale: string
@@ -73,15 +71,20 @@ export default function ProjectDetail({
               : undefined,
             datePublished: validProjectDate(publishedDate)?.toISOString(),
             dateModified: validProjectDate(modifiedDate)?.toISOString(),
-            author: builders.map((builder) => ({
-              '@type': 'Person',
-              name: builder.name,
-              url: builder.href
-                ? `${siteOrigin()}${builder.href}`
-                : builder.links.linkedin,
-              sameAs: Object.values(builder.links),
-            })),
+            author: builders.length
+              ? builders.map((builder) => ({
+                  '@type': 'Person',
+                  name: builder.name,
+                  url: builder.href
+                    ? `${siteOrigin()}${builder.href}`
+                    : builder.links.linkedin,
+                  sameAs: Object.values(builder.links),
+                }))
+              : undefined,
             award: project.award,
+            keywords:
+              [...project.tags, ...(project.challenges ?? [])].join(', ') ||
+              undefined,
             isPartOf: project.eventHref
               ? {
                   '@type': 'CollectionPage',
@@ -124,12 +127,6 @@ export default function ProjectDetail({
           )}
         </nav>
         <header className="pb-8 pt-5 sm:pb-10 sm:pt-7">
-          {project.award && (
-            <p className="mb-4 flex items-center gap-2 font-semibold text-accent">
-              <TrophyIcon className="h-5 w-5 shrink-0" aria-hidden="true" />
-              {project.award}
-            </p>
-          )}
           <h1 className="max-w-4xl break-words text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight [overflow-wrap:anywhere]">
             {project.name}
           </h1>
@@ -166,6 +163,12 @@ export default function ProjectDetail({
           <aside
             className={`min-w-0 space-y-9 border-t border-band-2 pt-8 lg:col-start-2 lg:row-start-1 lg:border-t-0 lg:pt-0 ${children ? 'lg:row-span-2' : ''}`}
           >
+            <ProjectAward
+              award={project.award}
+              locale={locale}
+              variant="detail"
+              eventName={project.eventName}
+            />
             <ProjectBuilders builders={builders} locale={locale} />
             <Link
               href={`/${locale}/account/projects?project=${encodeURIComponent(project.key)}`}
@@ -173,26 +176,39 @@ export default function ProjectDetail({
             >
               {projectManagementCopy(locale).manage}
             </Link>
-            {stack.length > 0 && (
-              <section aria-labelledby="project-stack-heading">
-                <h2
-                  id="project-stack-heading"
-                  className="mb-4 text-xl font-semibold"
+            {[
+              { id: 'topics', title: copy.topics, tags: project.topics ?? [] },
+              { id: 'stack', title: copy.stack, tags: project.tools ?? [] },
+              {
+                id: 'challenges',
+                title: copy.challenges,
+                tags: project.challenges ?? [],
+              },
+            ]
+              .filter((group) => group.tags.length)
+              .map((group) => (
+                <section
+                  key={group.id}
+                  aria-labelledby={`project-${group.id}-heading`}
                 >
-                  {copy.stack}
-                </h2>
-                <ul className="flex flex-wrap gap-2">
-                  {stack.map((tag) => (
-                    <li
-                      key={tag}
-                      className="hb-px hb-px-sm bg-band-2 px-3 py-1.5 text-sm text-ink-dim"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
+                  <h2
+                    id={`project-${group.id}-heading`}
+                    className="mb-4 text-xl font-semibold"
+                  >
+                    {group.title}
+                  </h2>
+                  <ul className="flex flex-wrap gap-2">
+                    {group.tags.map((tag) => (
+                      <li
+                        key={tag}
+                        className="hb-px hb-px-sm bg-band-2 px-3 py-1.5 text-sm text-ink-dim"
+                      >
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
           </aside>
           {children && (
             <section

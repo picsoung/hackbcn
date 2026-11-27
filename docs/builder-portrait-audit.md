@@ -45,7 +45,7 @@ Photos match by the original supplied personal profile URL, including accounts t
 | Albert Bañeres       | [LinkedIn](https://www.linkedin.com/in/albert-ba%C3%B1eres-873a28137/)       |
 | André Barbosa        | [LinkedIn](https://www.linkedin.com/in/andr%C3%A9-barbosa-3954121a6/)        |
 | Carmine pisano       | [LinkedIn](https://www.linkedin.com/in/carmine-pisano-b43762184/)            |
-| Eduard Blancode      | [LinkedIn](https://www.linkedin.com/in/eduardblanco/)                        |
+| Eduard Blanco        | [LinkedIn](https://www.linkedin.com/in/eduardblanco/)                        |
 | HRISANTHI GATIDOU    | [LinkedIn](https://www.linkedin.com/in/chrysanthi-gatidou-556037247/)        |
 | Hussnain             | [LinkedIn](https://www.linkedin.com/in/hassnian/)                            |
 | Ian Moss             | [LinkedIn](https://www.linkedin.com/in/alteris/)                             |

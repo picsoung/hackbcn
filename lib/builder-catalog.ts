@@ -1,5 +1,4 @@
 import 'server-only'
-import { getPublicArchivedProjects } from './projects/archive-visibility'
 import { getProjectCatalog } from './project-catalog'
 import { projectBuilder, type ProjectBuilder } from './project-detail'
 import { relatedProjectCards, type ProjectCard } from './project-cards'
@@ -10,28 +9,43 @@ import {
 } from './builders'
 import { claimedBuilderDisplays } from './community/claimed-profiles'
 import { applyClaimedDisplays } from './community/claimed-display'
+import { applyBuilderDisplays } from './community/builder-display'
+import { builderDisplayOverrides } from './community/builder-profiles'
+import {
+  creatorPrivacyContext,
+  globalBuilderFields,
+} from '@/lib/projects/creator-privacy'
+import { maskBuilderFields } from './projects/privacy-model'
+
+export function sourceBuilderProfiles(projects: ProjectCard[]) {
+  return buildBuilderDirectory(
+    projects.map((project) => ({
+      projectKey: project.key,
+      builders: project.builders ?? project.hackers.map(projectBuilder),
+    })),
+  )
+}
 
 export async function getBuilderCatalog(locale: string) {
   const projects = await getProjectCatalog(locale)
-  const archived = new Map(
-    (await getPublicArchivedProjects()).map((project) => [
-      `archive:${project.slug}`,
-      (project.data.hackers ?? []).map(projectBuilder),
-    ]),
-  )
-  const sourceProfiles = buildBuilderDirectory(
-    projects.map((project) => ({
-      projectKey: project.key,
-      builders:
-        archived.get(project.key) ?? project.hackers.map(projectBuilder),
-    })),
-  )
+  const sourceProfiles = sourceBuilderProfiles(projects)
+  const privacy = await creatorPrivacyContext()
   const profiles = applyClaimedDisplays(
-    sourceProfiles,
-    new Map(projects.map((project) => [project.key, project.hackers])),
+    applyBuilderDisplays(
+      sourceProfiles,
+      await builderDisplayOverrides(
+        sourceProfiles.map((profile) => profile.slug),
+      ),
+    ),
+    privacy.rosters,
     await claimedBuilderDisplays(projects.map((project) => project.key)),
   )
-  return { profiles, projects }
+  return {
+    profiles: profiles.map((profile) =>
+      maskBuilderFields(profile, globalBuilderFields(privacy, profile.credits)),
+    ),
+    projects,
+  }
 }
 
 export async function getProjectPageContext(
@@ -42,15 +56,31 @@ export async function getProjectPageContext(
   const { profiles, projects } = await getBuilderCatalog(locale)
   return {
     related: relatedProjectCards(current, projects),
-    builders: builders.map((builder, index) => {
-      const profile = builderForCredit(profiles, current.key, index)
-      return {
-        ...builder,
-        ...(profile?.claimed
-          ? { name: profile.name, image: profile.image, links: profile.links }
-          : {}),
-        href: profile ? builderProfilePath(locale, profile.slug) : undefined,
-      }
+    builders: builders.flatMap((builder, index) => {
+      const profile = builderForCredit(
+        profiles,
+        current.key,
+        builder.creditIndex ?? index,
+      )
+      if (!profile) return []
+      return [
+        maskBuilderFields(
+          {
+            ...builder,
+            ...(profile?.claimed || profile?.edited
+              ? {
+                  name: profile.name,
+                  image: profile.image,
+                  links: profile.links,
+                }
+              : {}),
+            href: profile
+              ? builderProfilePath(locale, profile.slug)
+              : undefined,
+          },
+          builder.hiddenFields ?? [],
+        ),
+      ]
     }),
   }
 }

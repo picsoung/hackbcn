@@ -1,0 +1,225 @@
+{
+  "event": "aisummit25",
+  "sourceUrl": "https://docs.google.com/spreadsheets/d/1HtcE1MP4NLb98KTGBEsvdGIAN6C0lm5TJEwpdtrE3Xk/edit",
+  "sourceSheet": "Submissions2",
+  "sourceSheetId": 2133112806,
+  "sourceRows": 40,
+  "publishedProjects": 40,
+  "builderCredits": 97,
+  "missingLinks": [
+    {
+      "sourceRow": 36,
+      "slug": "team-savti",
+      "reason": "No usable submitted project link; placeholder omitted."
+    }
+  ],
+  "corrections": [
+    {
+      "sourceRow": 15,
+      "field": "title",
+      "reason": "Use the project name explicitly given in its pitch and description instead of the encoded team label."
+    }
+  ],
+  "projects": [
+    {
+      "sourceRow": 2,
+      "slug": "apprvd",
+      "sha256": "4d3de0de8f445b43e88dbffad52588703daee4a4fc7688551c8fd7b9fa4b3bec"
+    },
+    {
+      "sourceRow": 3,
+      "slug": "too-ripe-to-waste",
+      "sha256": "5fa184c3792ec68b111e25b4c51df08de7d653aaa1a19dd0d23fcbeb07e08365"
+    },
+    {
+      "sourceRow": 4,
+      "slug": "ratatouille-ai",
+      "sha256": "4c61b688facd5316ce455138ba9d657bf82ff4a4c0da6ae6212bf9f083b7864d"
+    },
+    {
+      "sourceRow": 5,
+      "slug": "mealify",
+      "sha256": "681409aa0ec12f30031efaaf05be81f55abe2c981d65a74377cc7dd4236f3972"
+    },
+    {
+      "sourceRow": 6,
+      "slug": "evolv",
+      "sha256": "1402bd37cfffbf50ec1d156bc2b22aebbb490c8393eef99f9786427604df9ac5"
+    },
+    {
+      "sourceRow": 7,
+      "slug": "glovia",
+      "sha256": "fb77dd1d41adc25a966a3317f39e91b4688f68cf034918d06b9e7f1af3cbf960"
+    },
+    {
+      "sourceRow": 8,
+      "slug": "thegirlfriendeffect",
+      "sha256": "06294c28762e6ca619d408fa46a54145ed9deac2620832bb18c134fe6113e7ec"
+    },
+    {
+      "sourceRow": 9,
+      "slug": "relocation-buddy",
+      "sha256": "d3f3caebea2621698892efd459a76fb8c99e81070591b9dff5a17c8f1b8e73fc"
+    },
+    {
+      "sourceRow": 10,
+      "slug": "aitrust",
+      "sha256": "866ea7911b310dda3978fabf967a5029d4b441c79e59bdb77522d3d83afcf2cb"
+    },
+    {
+      "sourceRow": 11,
+      "slug": "claimwise",
+      "sha256": "3ec5ef63c1adc73579fc46ca69cc64703b7deb7744d2405754d8b8079fc0ee8d"
+    },
+    {
+      "sourceRow": 12,
+      "slug": "eda2",
+      "sha256": "6f15bb8b7d763ede80696508400cc901aed8c5627d6a1394e9b1f130efc40cf5"
+    },
+    {
+      "sourceRow": 13,
+      "slug": "adderit",
+      "sha256": "3e9e6c7ac82e479d5392fc7cadf67d0321f4806e938bd0c068076e439f0a38b5"
+    },
+    {
+      "sourceRow": 14,
+      "slug": "neuro-plan-ai-campus",
+      "sha256": "db840e3b8e3dfc546bb54785ce36757460e4a172cb3ad9fb97452f83f24658dd"
+    },
+    {
+      "sourceRow": 15,
+      "slug": "10xceo",
+      "sha256": "bf3e2cf2f917a902f2ec6210d3a2cd581c03ca170a6aae157caee188820cbf04"
+    },
+    {
+      "sourceRow": 16,
+      "slug": "marco-polo",
+      "sha256": "d39be1dbb43c90f6ed330c51b901370df550be33adc4073556fa4158080967fc"
+    },
+    {
+      "sourceRow": 17,
+      "slug": "event-buddy",
+      "sha256": "18282f998f803ae0a800ca5b9e4f34c41eb9d13643775f386646b897b04e82d3"
+    },
+    {
+      "sourceRow": 18,
+      "slug": "aria",
+      "sha256": "97950f0e8818d221ed0ac8852db0d0a2f135a35d79b0cc1f9b56e13f65bc5f46"
+    },
+    {
+      "sourceRow": 19,
+      "slug": "saferail-ai",
+      "sha256": "52b0cbdccc5fd50e1733d59779a2c451680359d36136e81c69c7b7c10ce7457f"
+    },
+    {
+      "sourceRow": 20,
+      "slug": "little-birds",
+      "sha256": "9a4df94cc84122f84910e9949b69d83e0c51b7b1941e314f2c9b5e040de73be5"
+    },
+    {
+      "sourceRow": 21,
+      "slug": "url-to-video-underly",
+      "sha256": "24dd84c7486d8abd0e314569ad047b2aa2372dd746e894cc98d821386bec711e"
+    },
+    {
+      "sourceRow": 22,
+      "slug": "travel-tetris",
+      "sha256": "b494d58a7d1b53395ecf3ef3560223c3bbf62f9a28e3b1f0ee7b0f7984329f95"
+    },
+    {
+      "sourceRow": 23,
+      "slug": "do-good-do-beta",
+      "sha256": "ddc1d1650f6e2ecbe3c3789df5d516b5f12fb105645c41f60473887ad2fe7a3d"
+    },
+    {
+      "sourceRow": 24,
+      "slug": "echoes",
+      "sha256": "0cac3c2ad22ef91eb84a1da9197e81f219f81b928ca2a9f455966d9a926ef3e2"
+    },
+    {
+      "sourceRow": 25,
+      "slug": "confluence-team",
+      "sha256": "268c84f3a649463793d42ac79cdf8bf9ee091d59ca88f8bc7b53d415e1a88290"
+    },
+    {
+      "sourceRow": 26,
+      "slug": "yummit",
+      "sha256": "a8be4bcd7d38500cf8ca43525354f0cdab494b4d9443ac209ac8451890677f6a"
+    },
+    {
+      "sourceRow": 27,
+      "slug": "arcxion",
+      "sha256": "cfc489a3722d6243b7c92581aea5e63afe1ef7b2a02d6215f47a22d7b626625c"
+    },
+    {
+      "sourceRow": 28,
+      "slug": "green",
+      "sha256": "26a0db71b9aaff254ed6d8a87d4b05f36924b51d3c8e3602d766fd80c9bd7ea8"
+    },
+    {
+      "sourceRow": 29,
+      "slug": "kiko",
+      "sha256": "dccda2a99d9cd559949c072bdd26e627f4e7ebf66c55cb2e72e417b71350547c"
+    },
+    {
+      "sourceRow": 30,
+      "slug": "dialbuddy",
+      "sha256": "78b09632ec556ddc51abe17c3a4c2f823968e3471c554475b3a54d6291e2c059"
+    },
+    {
+      "sourceRow": 31,
+      "slug": "openreader",
+      "sha256": "7ae8b48858935292f9113b95c5f1d5cd618913db4f9add393a7570924ebeb80f"
+    },
+    {
+      "sourceRow": 32,
+      "slug": "linguarider",
+      "sha256": "d36d9bd2a49fde7337541ee5f1d803a0a8f0369d3100dfe476a04e60d2dc7690"
+    },
+    {
+      "sourceRow": 33,
+      "slug": "viora",
+      "sha256": "678094eeddd512206f17a6462cb3b42185525caf5a0fc1a8d07524bc83e9defe"
+    },
+    {
+      "sourceRow": 34,
+      "slug": "404-found-sisters",
+      "sha256": "f0fedeaaf75bbe4cf82d01669f73a8a51fecac9dabf6c05006f635aed15cd920"
+    },
+    {
+      "sourceRow": 35,
+      "slug": "walkcoder",
+      "sha256": "8459532924e5f8010fd03fda47bbe0c1a1c2abbc3348674451ff7b5b2d75061a"
+    },
+    {
+      "sourceRow": 36,
+      "slug": "team-savti",
+      "sha256": "793b59e2918ffc00377dfdfa1c9cb8ee4e5a0a3eb479b1668a878c280f73c9ce"
+    },
+    {
+      "sourceRow": 37,
+      "slug": "spoiler-alert",
+      "sha256": "2d58804d71e0a2dfa3897c71de81e8d9f61de59a9abd7a3aff1fd1fbd2f2e464"
+    },
+    {
+      "sourceRow": 38,
+      "slug": "serra",
+      "sha256": "665ddc47a05ae7ca301660fc096e983897578a643b783741d5e44117c460d6ee"
+    },
+    {
+      "sourceRow": 39,
+      "slug": "histore-ai",
+      "sha256": "51b586a145628450f3d69a27d8543404c10c15aae60c5754fed4ca40a1460962"
+    },
+    {
+      "sourceRow": 40,
+      "slug": "vectorfeast",
+      "sha256": "1a677bcf8d3eacf026bebee5657cfaeac99f901498cb03bb2f482df6290fa5ea"
+    },
+    {
+      "sourceRow": 41,
+      "slug": "moodi",
+      "sha256": "62d7fc92d29aa70fc7c976a5ab13dc0ee4dcdd16f1eb484c629d702c786d4b08"
+    }
+  ]
+}

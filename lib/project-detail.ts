@@ -2,8 +2,12 @@ import type { Project } from '../app/helpers/projects'
 import { videoEmbed } from './live/validate'
 import { archivedProjectDemo, archivedProjectUrl } from './archived-project'
 import { makerAvatar } from './maker-avatar'
+import { maskBuilderFields, type PrivacyField } from './projects/privacy-model'
 
 export type ProjectBuilder = {
+  hiddenFields?: PrivacyField[]
+  creditIndex?: number
+  profileSlug?: string
   name: string
   href?: string
   role?: string
@@ -29,6 +33,9 @@ const profileServices = [
 ]
 
 export function projectBuilder(source: {
+  hiddenFields?: PrivacyField[]
+  creditIndex?: number
+  profileSlug?: string
   name: string
   description?: string
   job?: string
@@ -47,15 +54,23 @@ export function projectBuilder(source: {
     }),
   )
   const photo = source.image?.src
-  return {
-    name: source.name.trim(),
-    role: source.description || source.job || undefined,
-    image:
-      photo?.startsWith('/') && !photo.startsWith('//')
-        ? photo
-        : archivedProjectUrl(photo) || makerAvatar(links),
-    links,
-  }
+  return maskBuilderFields(
+    {
+      ...(source.hiddenFields ? { hiddenFields: source.hiddenFields } : {}),
+      ...(source.creditIndex !== undefined
+        ? { creditIndex: source.creditIndex }
+        : {}),
+      ...(source.profileSlug ? { profileSlug: source.profileSlug } : {}),
+      name: source.name.trim(),
+      role: source.description || source.job || undefined,
+      image:
+        photo?.startsWith('/') && !photo.startsWith('//')
+          ? photo
+          : archivedProjectUrl(photo) || makerAvatar(links),
+      links,
+    },
+    source.hiddenFields ?? [],
+  )
 }
 
 /** Normalize both archived metadata and submitted-project actions without dropping distinct links. */

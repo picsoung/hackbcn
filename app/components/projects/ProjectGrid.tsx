@@ -1,17 +1,21 @@
 import Link from 'next/link'
-import { TrophyIcon } from '@heroicons/react/24/outline'
 import type { ProjectCard } from '@/lib/project-cards'
+import { projectPageCopy } from '@/data/project-page'
+import ProjectAward from './ProjectAward'
 import ProjectPreview from './ProjectPreview'
 
 export default function ProjectGrid({
   projects,
   tone = 'night',
   showEvent = false,
+  locale = 'en',
 }: {
   projects: ProjectCard[]
   tone?: 'night' | 'light'
   showEvent?: boolean
+  locale?: string
 }) {
+  const copy = projectPageCopy(locale)
   const night = tone === 'night'
   const styles = night
     ? {
@@ -20,7 +24,6 @@ export default function ProjectGrid({
         muted: 'text-ink-dim',
         focus: 'focus-visible:outline-accent',
         tag: 'bg-band-2 text-ink-dim',
-        award: 'text-accent',
       }
     : {
         surface: 'bg-slate-50',
@@ -28,7 +31,6 @@ export default function ProjectGrid({
         muted: 'text-slate-600',
         focus: 'focus-visible:outline-slate-900',
         tag: 'bg-slate-200 text-slate-700',
-        award: 'text-amber-800',
       }
   return (
     <ul
@@ -44,12 +46,17 @@ export default function ProjectGrid({
           <article className="flex h-full flex-col">
             <Link
               href={project.href}
-              aria-label={`View ${project.name}`}
+              aria-label={`${copy.viewProject.replace('{name}', () => project.name)}${project.award?.trim() ? `. ${copy.prizeWinner}: ${project.award}` : ''}`}
               className={`group flex flex-1 flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 ${styles.focus}`}
             >
               <div
                 className={`flex h-full flex-col ${styles.surface} ${styles.muted}`}
               >
+                <ProjectAward
+                  award={project.award}
+                  locale={locale}
+                  tone={tone}
+                />
                 <ProjectPreview
                   key={project.image ?? project.key}
                   src={project.image}
@@ -78,21 +85,10 @@ export default function ProjectGrid({
                       {project.eventName}
                     </p>
                   )}
-                  {project.award && (
-                    <p
-                      className={`mt-3 flex items-center gap-2 text-sm font-semibold ${styles.award}`}
-                    >
-                      <TrophyIcon
-                        className="h-4 w-4 shrink-0"
-                        aria-hidden="true"
-                      />
-                      {project.award}
-                    </p>
-                  )}
                   {project.tags.length > 0 && (
                     <ul
                       className="mt-4 flex flex-wrap gap-1.5"
-                      aria-label="Project categories"
+                      aria-label="Project tags"
                     >
                       {project.tags.slice(0, 4).map((tag) => (
                         <li

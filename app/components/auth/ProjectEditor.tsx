@@ -13,6 +13,10 @@ import {
   accountField,
 } from './ProjectManagement'
 import type { projectEditor } from '@/lib/projects/edit-store'
+import { organiserCopy } from '@/data/organiser'
+import AdminProjectVisibility from './AdminProjectVisibility'
+import CreatorPrivacyControls from './CreatorPrivacyControls'
+import { privacyCopy } from '@/data/privacy-controls'
 
 export default function ProjectEditor({
   data,
@@ -25,6 +29,10 @@ export default function ProjectEditor({
     copy = projectManagementCopy(locale),
     media = accountMediaCopy(locale),
     router = useRouter()
+  const admin = organiserCopy(locale),
+    back = data.organiser
+      ? `/${locale}/account/admin`
+      : `/${locale}/account/projects`
   const [content, setContent] = useState(data.content),
     [revision, setRevision] = useState(data.revision),
     [busy, setBusy] = useState(false),
@@ -57,7 +65,7 @@ export default function ProjectEditor({
         )
       setRevision(result.revision)
       setSaved(content)
-      setMessage(ui.saved)
+      setMessage(data.organiser ? admin.saved : ui.saved)
       router.refresh()
     } catch (error) {
       setFailed(true)
@@ -69,25 +77,25 @@ export default function ProjectEditor({
   return (
     <>
       <Link
-        href={`/${locale}/account/projects`}
+        href={back}
         className="inline-flex min-h-11 items-center text-sm text-ink-dim underline underline-offset-4 hover:text-ink"
       >
-        {ui.back}
+        {data.organiser ? admin.back : ui.back}
       </Link>
       <header className="mb-8 mt-4">
         <p className="text-sm text-ink-dim">{data.project.eventName}</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight">{ui.edit}</h1>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-dim">
-          {ui.editHelp}
+          {data.organiser ? admin.projectHelp : ui.editHelp}
         </p>
       </header>
       <form onSubmit={save} className="max-w-2xl border-t border-ink/15 pt-7">
-        {data.status && (
+        {data.status && !data.organiser && (
           <p className="mb-5 text-sm font-medium text-accent">
             {ui[data.status]}
           </p>
         )}
-        {data.status === 'pending' && (
+        {data.status === 'pending' && !data.organiser && (
           <p className="mb-5 max-w-xl text-sm leading-relaxed text-ink-dim">
             {media.pendingHelp}
           </p>
@@ -178,30 +186,29 @@ export default function ProjectEditor({
             </div>
           </fieldset>
         </div>
-        <details className="mt-7 border-y border-ink/15 py-1">
-          <summary className="cursor-pointer py-3 text-sm font-medium text-ink-dim">
-            {media.reviewTitle}
-          </summary>
-          <div
-            id="review-help"
-            className="max-w-xl space-y-3 pb-4 text-sm leading-relaxed text-ink-dim"
-          >
-            <p>{media.reviewDetails}</p>
-            <p>{media.visibilityDetails}</p>
-          </div>
-        </details>
+        {!data.organiser && (
+          <details className="mt-7 border-y border-ink/15 py-1">
+            <summary className="cursor-pointer py-3 text-sm font-medium text-ink-dim">
+              {media.reviewTitle}
+            </summary>
+            <div
+              id="review-help"
+              className="max-w-xl space-y-3 pb-4 text-sm leading-relaxed text-ink-dim"
+            >
+              <p>{media.reviewDetails}</p>
+              <p>{media.visibilityDetails}</p>
+            </div>
+          </details>
+        )}
         <div className="mt-6 flex flex-wrap gap-3">
           <button
             type="submit"
             disabled={busy || uploading || !dirty}
             className={accountButton}
           >
-            {busy ? ui.saving : ui.save}
+            {busy ? ui.saving : data.organiser ? admin.save : ui.save}
           </button>
-          <Link
-            href={`/${locale}/account/projects`}
-            className={accountSecondary}
-          >
+          <Link href={back} className={accountSecondary}>
             {ui.cancel}
           </Link>
         </div>
@@ -213,6 +220,28 @@ export default function ProjectEditor({
           {message}
         </p>
       </form>
+      <AdminProjectVisibility data={data} locale={locale} />
+      <CreatorPrivacyControls
+        initial={data.privacyOptions.project}
+        locale={locale}
+      />
+      <details className="mt-8 max-w-2xl border-t border-ink/15 pt-5">
+        <summary className="min-h-11 cursor-pointer text-base font-semibold">
+          {privacyCopy(locale).individual} ({data.privacyOptions.credits.length}
+          )
+        </summary>
+        <p className="mt-2 text-sm leading-relaxed text-ink-dim">
+          {privacyCopy(locale).individualHelp}
+        </p>
+        {data.privacyOptions.credits.map((credit) => (
+          <CreatorPrivacyControls
+            key={credit.setting.subjectKey}
+            initial={credit.setting}
+            locale={locale}
+            name={credit.name}
+          />
+        ))}
+      </details>
     </>
   )
 }

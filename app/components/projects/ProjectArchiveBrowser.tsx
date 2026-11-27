@@ -12,7 +12,7 @@ import {
   searchProjectCards,
   type ProjectCard,
   type ProjectEventSummary,
-} from '@/lib/project-cards'
+} from '@/lib/project-browser'
 import { projectPrivacyNotice } from '@/data/project-privacy'
 import ProjectGrid from './ProjectGrid'
 
@@ -138,7 +138,7 @@ export default function ProjectArchiveBrowser({
           </div>
         </div>
         <p id="project-search-help" className="mt-3 text-sm text-ink-dim">
-          Search by project name, description, event or maker.
+          Search by project, description, event, maker, topic or tool.
         </p>
       </form>
 
@@ -231,7 +231,7 @@ export default function ProjectArchiveBrowser({
                 </p>
               )}
               {group.projects.length > 0 && (
-                <ProjectGrid projects={group.projects} />
+                <ProjectGrid projects={group.projects} locale={locale} />
               )}
             </div>
           </details>

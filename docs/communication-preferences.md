@@ -20,13 +20,13 @@ The canonical setting lives in HackBarna's private database, not in Resend. Rese
 
 ## Release configuration
 
-Apply `20261125224553_account_communications` through the normal Netlify migration/deployment workflow. It has been applied to the local development database only. Set these as production Functions values:
+Apply `20261125224553_account_communications` through the normal Netlify migration/deployment workflow. It is applied locally, on the stable preview and in production as of release #74 on November 26, 2026. Set these as production Functions values:
 
 - `HACKBARNA_RESEND_API_KEY`: secret API key with contact-property access.
 - `HACKBARNA_CONTACT_DISPATCH_TOKEN`: separate random 32-byte secret, encoded as 64 hex characters.
 - `HACKBARNA_CONTACT_SYNC_ENABLED=true`: enable only when releasing the feature.
 
-The credentials are stored in Netlify's production Functions context. The enable flag is currently false; preview and local environments have no live provider credentials. `netlify/functions/contact-preferences.mjs` runs every five minutes after a production deployment and calls the token-protected Next endpoint. The API also attempts the signed-in account's sync after a save. No campaign or reminder is scheduled by this feature.
+The credentials are stored in Netlify's production Functions context. The enable flag is true following the approved production release; preview and local environments have no live provider credentials. `netlify/functions/contact-preferences.mjs` runs every five minutes after a production deployment and calls the token-protected Next endpoint. The API also attempts the signed-in account's sync after a save. No campaign or reminder is scheduled by this feature.
 
 Verification: `node --test tests/profile-claim-email.test.mjs tests/communication-preferences.test.cjs`; run `tests/communication-preferences.integration.cjs` with `--conditions=react-server` against a disposable loopback PostgreSQL database named `hackbarna_test`. Provider calls in tests use doubles and send no mail.
 

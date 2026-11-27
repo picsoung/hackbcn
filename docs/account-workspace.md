@@ -1,12 +1,15 @@
 # Account workspace
 
-The personal workspace uses the existing HackBarna identity and brand, with a small navigation bar shared across three surfaces:
+The personal workspace uses the existing HackBarna identity and brand, with shared account navigation:
 
 - `/{locale}/account`: account-owned name, bio, LinkedIn, GitHub and photo. Sign-in and Digest preferences link to Digest.
 - `/{locale}/account/projects`: verified projects with Edit, Hide/Make public and View actions. Event-email matches appear separately. Manual claims open under “Missing a project?”. Verified requests no longer duplicate the project list.
+- `/{locale}/account/admin`: organiser-only searchable project and builder directories, including hidden real projects, with direct editing. The Organiser tools tab opens here. See [organiser management](organiser-management.md) for storage, audit and account boundaries.
 - `/{locale}/account/review`: organiser-only content review, ownership review and a collapsed event-match import. Non-organisers receive a 404 and never receive these records.
 
 The focused editor at `/{locale}/account/projects/edit?project=…` currently edits the name, short description, project picture, website/demo and video link. Teams, awards, source identifiers, event assignments and ownership are outside this form. Profile links cannot grant project access.
+
+The editor also provides immediate privacy controls to verified teammates and organisers: hide the entire project while retaining participation totals, hide all or individual creator credits, or hide selected links/photos/bios. Profile-wide visibility lives in `/account` for verified individual owners and in the builder editor for organisers. See the [privacy permission and precedence rules](organiser-management.md#creator-privacy). Hidden values are retained privately; changing profile data does not reset visibility choices.
 
 ## Verified public profiles
 
@@ -16,7 +19,7 @@ The builder directory groups the original reviewed source credits before applyin
 
 ## Edit publication
 
-This first editor uses **organiser review for every content revision**. The planned automated Jev conduct gate is still pending. The UI says “Send for review”. An expandable explanation describes the manual review, the retained approved version and the separate visibility controls. Only feedback on rejected revisions is returned to builders; approval notes stay private to organisers. Approval notes are optional, while requesting changes requires useful feedback.
+Member edits require **organiser review**. The planned automated Jev conduct gate is still pending. The member UI says “Send for review”. An expandable explanation describes the manual review, the retained approved version and the separate visibility controls. Only feedback on rejected revisions is returned to builders; approval notes stay private to organisers. Approval notes are optional, while requesting changes requires useful feedback. Verified organisers can also use this editor without claiming a project; their saves publish immediately and retain revision history. The organiser UI explains this distinction.
 
 `project_content` separates the latest submitted content from approved public content. `project_content_history` records immutable content and decision snapshots. Verified members share the editor; revision checks and conditional SQL updates reject concurrent stale writes. Organiser decisions also check the expected revision.
 
@@ -24,7 +27,9 @@ Public archive and submitted-project readers overlay only approved fields. Pendi
 
 ## Local validation and rollout
 
-Apply the new `20261124210831_project_editing` migration with `netlify db migrations apply`. The existing shared community-profile migration is also required for the profile page. Both are applied locally; this work does not deploy production.
+Apply the new `20261124210831_project_editing` migration with `netlify db migrations apply`. The existing shared community-profile migration is also required for the profile page. The workspace migrations are applied locally, on the stable preview and in production following the approved release #74 on November 26, 2026.
+
+Direct organiser builder editing additionally requires `20261127160000_organiser_builder_editing`. Its rollout is separate from release #74; see the current feature PR and [organiser management](organiser-management.md).
 
 Run the ownership integration against **PostgreSQL 17**, as CI does:
 
@@ -45,4 +50,4 @@ Uploads require a verified server session and same-origin request. Project uploa
 
 An opaque `/api/media/:id` route checks references and visibility on every read. A staged avatar stays private until saved to its owner’s profile. A project picture stays private until its revision is approved and the project is public. Verified teammates and organisers can inspect held project images. Hiding a project also denies anonymous image requests, with no-store responses. Uploaded media cannot be attached to another person’s profile or another project.
 
-Replacing or removing a staged upload discards its bytes. Referenced profile, project and revision-history images are protected from discard. Discard retains the upload reservation so it cannot reset the hourly limit. The `account_image_uploads` migration is applied locally; production deployment remains separate.
+Replacing or removing a staged upload discards its bytes. Referenced profile, project and revision-history images are protected from discard. Discard retains the upload reservation so it cannot reset the hourly limit. The `account_image_uploads` migration is applied locally and in the released preview/production databases.

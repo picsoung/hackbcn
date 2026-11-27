@@ -65,6 +65,12 @@ test('organiser authority comes only from a verified immutable account ID', () =
     false,
   )
   assert.equal(isProjectOrganiser({ ...user, id: 'other' }, 'owner'), false)
+  assert.equal(isProjectOrganiser(user, '', 'owner'), true)
+  assert.equal(
+    isProjectOrganiser({ ...user, emailVerified: false }, '', 'owner'),
+    false,
+  )
+  assert.equal(isProjectOrganiser({ ...user, id: 'other' }, '', 'owner'), false)
 })
 
 test('email lookup is keyed and exact without rewriting dots or aliases', () => {

@@ -4,9 +4,10 @@ import { reviewNotificationSettings, reviewText } from './review-notifications'
 import { and, desc, eq } from 'drizzle-orm'
 import { getDb } from '@/db'
 import {
-  projectClaims,
   projectContent,
   projectContentHistory,
+  projectVisibility,
+  creatorPrivacy,
 } from '@/db/schema'
 import type { IdentityUser } from '@/lib/auth/types'
 import { assertMediaReference } from '@/lib/media/store'
@@ -19,30 +20,9 @@ import {
   isProjectOrganiser,
 } from './ownership'
 import { validateProjectEdit, type ProjectEditContent } from './edit-content'
+import { assertProjectManager as membership } from './project-access'
+import { projectPrivacyOptions } from './privacy-store'
 
-function verified(user: IdentityUser) {
-  if (!user.emailVerified || !user.email)
-    throw new ProjectAccessError('forbidden', 403)
-}
-async function membership(
-  database: Pick<ReturnType<typeof getDb>, 'select'>,
-  user: IdentityUser,
-  key: string,
-) {
-  verified(user)
-  const [claim] = await database
-    .select({ id: projectClaims.id })
-    .from(projectClaims)
-    .where(
-      and(
-        eq(projectClaims.projectKey, key),
-        eq(projectClaims.accountId, user.id),
-        eq(projectClaims.status, 'verified'),
-      ),
-    )
-    .for('share')
-  if (!claim) throw new ProjectAccessError('forbidden', 403)
-}
 async function sourceContent(key: string): Promise<ProjectEditContent | null> {
   const ref = projectReference(key)
   const image = (await sourceProject(key, 'en'))?.card.image ?? ''
@@ -83,7 +63,28 @@ export async function projectEditor(
     .select()
     .from(projectContent)
     .where(eq(projectContent.projectKey, key))
+  const [visibility] = await getDb()
+    .select()
+    .from(projectVisibility)
+    .where(eq(projectVisibility.projectKey, key))
+  const [privacy] = await getDb()
+    .select()
+    .from(creatorPrivacy)
+    .where(eq(creatorPrivacy.subjectKey, `project:${key}`))
   return {
+    privacyOptions: await projectPrivacyOptions(user, key),
+    creatorPrivacy: {
+      subjectKey: `project:${key}`,
+      hidden: privacy?.hidden ?? false,
+      hiddenFields: privacy?.hiddenFields ?? [],
+      revision: privacy?.revision ?? 0,
+    },
+    organiser: isProjectOrganiser(user),
+    visibility:
+      source.reference.kind === 'submitted'
+        ? source.visibility
+        : (visibility?.visibility ?? source.visibility),
+    visibilityRevision: visibility?.revision ?? 0,
     project: source.card,
     content: {
       ...(state?.currentContent ?? state?.approvedContent ?? content),
@@ -125,11 +126,15 @@ export async function saveProjectEdit(
     if (state.revision !== revision)
       throw new ProjectAccessError('conflict', 409)
     const next = revision + 1
+    const status = isProjectOrganiser(user)
+      ? ('approved' as const)
+      : ('pending' as const)
     const [updated] = await tx
       .update(projectContent)
       .set({
         currentContent: content,
-        status: 'pending',
+        status,
+        ...(status === 'approved' ? { approvedContent: content } : {}),
         revision: next,
         updatedBy: user.id,
         updatedAt: new Date(),
@@ -147,10 +152,10 @@ export async function saveProjectEdit(
       projectKey: ref.key,
       revision: next,
       content,
-      status: 'pending',
+      status,
       actorId: user.id,
     })
-    if (reviewNotificationSettings().enabled) {
+    if (status === 'pending' && reviewNotificationSettings().enabled) {
       const baseline = state.approvedContent ?? (await sourceContent(ref.key))
       const labels = {
         name: 'Name',
@@ -180,7 +185,7 @@ export async function saveProjectEdit(
         },
       })
     }
-    return { revision: next, status: 'pending' as const }
+    return { revision: next, status }
   })
 }
 export async function projectEditsForReview(

@@ -1,6 +1,6 @@
 # Profile and project claim invitation — draft
 
-Status: individual participant messages are prepared privately for the organiser's requested **26 November 2026 at 09:02 Europe/Madrid** slot. No participant messages are queued or sent. See [campaign readiness](profile-claim-campaign.md) for the audience, remaining release requirements and opt-out flow. One organiser-only test was requested on November 25, 2026, and Resend confirmed delivery; delivery details remain outside the repository.
+Status: **89 individual participant messages are scheduled in Resend for 26 November 2026 at 09:02 Europe/Madrid**. Each provider ID and scheduled timestamp was verified. See the [campaign record](profile-claim-campaign.md) for the audience, production release and opt-out flow. One organiser-only test was requested on November 25, 2026, and Resend confirmed delivery; delivery details remain outside the repository.
 
 For this draft, the organiser has instructed us to assume that people with projects agreed to be contacted. This is a campaign planning assumption, not a recorded consent event. It must not create newsletter subscriptions or change existing opt-outs.
 

@@ -189,8 +189,8 @@ exact callback per environment. For Netlify Dev the callback is
 `codex/preview`, deployed at `https://codex-preview--hackbarna.netlify.app`.
 Register one separate preview client with the exact callback
 `https://codex-preview--hackbarna.netlify.app/auth/callback`; Netlify already has
-that callback configured specifically for this branch. Its client credentials
-and a separate session key still need configuring before sign-in is available.
+that callback configured specifically for this branch. Its separate client credentials
+and session key are configured; sign-in was verified during the November 26 release.
 Push reviewed commits to that branch to update the same URL. Other PR previews
 do not need individual OAuth clients. Do not use wildcard callbacks or expose
 production credentials to previews. Only trusted preview code should receive

@@ -1,0 +1,223 @@
+const en = {
+  creatorCredits: 'Creator credits',
+  profileVisibility: 'Builder visibility',
+  hideCredits: 'Hide creators on this project',
+  hideBuilder: 'Hide this builder across all projects',
+  creditsHelp:
+    'Keep this project public and counted, while removing its builder names, photos and profile links from project pages and lists.',
+  builderPrivacyHelp:
+    'Hide this builder’s public profile and their credits on every project. Other teammates and the projects stay visible.',
+  privacyScope:
+    'Original attribution remains available to organisers. Review project text and media separately for identifying details.',
+  privacyPrecedence:
+    'Credits stay hidden when either the project or builder is set to hidden.',
+  creatorsHidden: 'Creator credits hidden',
+  builderHidden: 'Builder hidden',
+  projectCount: 'projects',
+  projects: 'All projects',
+  builders: 'Builders',
+  review: 'Review requests',
+  intro: 'Manage project details, visibility and public builder profiles.',
+  search: 'Search by project, builder or event',
+  searchAction: 'Search',
+  event: 'Event',
+  allEvents: 'All events',
+  status: 'Status',
+  all: 'All statuses',
+  claimed: 'Claimed',
+  unclaimed: 'Unclaimed',
+  public: 'Public',
+  private: 'Hidden',
+  edit: 'Edit',
+  view: 'View public page',
+  noResults: 'No matches. Try another search or clear the filters.',
+  previous: 'Previous',
+  next: 'Next',
+  results: 'Results',
+  back: 'Back to organiser tools',
+  editBuilder: 'Edit builder',
+  profileHelp:
+    'Update this public profile. Social links do not change ownership or combine builders.',
+  claimedHelp:
+    'This builder has a verified account link. Saving also updates their shared HackBarna and Digest profile.',
+  unclaimedHelp:
+    'This historical profile has no verified account link. Corrections apply to public builder details.',
+  projectHelp:
+    'Organiser changes publish immediately. Saving a pending edit replaces the proposed version and keeps its history.',
+  save: 'Save changes',
+  saved: 'Changes published.',
+  visibility: 'Project visibility',
+  hide: 'Hide project',
+  show: 'Show project',
+  profileProjects: 'Projects by this builder',
+  pending: 'Edit awaiting review',
+}
+const copy: Record<string, typeof en> = {
+  en,
+  es: {
+    creatorCredits: 'Créditos de autoría',
+    profileVisibility: 'Visibilidad del creador',
+    hideCredits: 'Ocultar creadores en este proyecto',
+    hideBuilder: 'Ocultar este creador en todos sus proyectos',
+    creditsHelp:
+      'El proyecto sigue público y cuenta en los totales, sin nombres, fotos ni enlaces de sus creadores en páginas y listas.',
+    builderPrivacyHelp:
+      'Oculta el perfil público de este creador y sus créditos en todos los proyectos. Los proyectos y el resto del equipo siguen visibles.',
+    privacyScope:
+      'La organización conserva la autoría original. Revisa el texto y las imágenes del proyecto por si identifican a alguien.',
+    privacyPrecedence:
+      'Los créditos quedan ocultos si se ocultan en el proyecto o en el perfil del creador.',
+    creatorsHidden: 'Créditos de autoría ocultos',
+    builderHidden: 'Creador oculto',
+    projectCount: 'proyectos',
+    projects: 'Todos los proyectos',
+    builders: 'Creadores',
+    review: 'Solicitudes pendientes',
+    intro: 'Gestiona proyectos, visibilidad y perfiles públicos.',
+    search: 'Buscar por proyecto, creador o evento',
+    searchAction: 'Buscar',
+    event: 'Evento',
+    allEvents: 'Todos los eventos',
+    status: 'Estado',
+    all: 'Todos los estados',
+    claimed: 'Reclamado',
+    unclaimed: 'Sin reclamar',
+    public: 'Público',
+    private: 'Oculto',
+    edit: 'Editar',
+    view: 'Ver página pública',
+    noResults: 'Sin resultados. Prueba otra búsqueda o elimina los filtros.',
+    previous: 'Anterior',
+    next: 'Siguiente',
+    results: 'Resultados',
+    back: 'Volver a organización',
+    editBuilder: 'Editar creador',
+    profileHelp:
+      'Actualiza este perfil público. Los enlaces no cambian la autoría ni unen perfiles.',
+    claimedHelp:
+      'Este perfil tiene una cuenta verificada vinculada. Los cambios también se guardan en su perfil compartido de HackBarna y Digest.',
+    unclaimedHelp:
+      'Este perfil histórico no tiene una cuenta verificada vinculada. Las correcciones afectan a sus datos públicos.',
+    projectHelp:
+      'Los cambios de organización se publican al guardar. Si hay una edición pendiente, se sustituye la propuesta y se conserva el historial.',
+    save: 'Guardar cambios',
+    saved: 'Cambios publicados.',
+    visibility: 'Visibilidad del proyecto',
+    hide: 'Ocultar proyecto',
+    show: 'Mostrar proyecto',
+    profileProjects: 'Proyectos de este creador',
+    pending: 'Edición pendiente de revisión',
+  },
+  ca: {
+    creatorCredits: 'Crèdits d’autoria',
+    profileVisibility: 'Visibilitat del creador',
+    hideCredits: 'Amagar creadors en aquest projecte',
+    hideBuilder: 'Amagar aquest creador a tots els seus projectes',
+    creditsHelp:
+      'El projecte continua públic i compta als totals, sense noms, fotos ni enllaços dels creadors a pàgines i llistes.',
+    builderPrivacyHelp:
+      'Amaga el perfil públic d’aquest creador i els seus crèdits a tots els projectes. Els projectes i la resta de l’equip continuen visibles.',
+    privacyScope:
+      'L’organització conserva l’autoria original. Revisa el text i les imatges del projecte per si identifiquen algú.',
+    privacyPrecedence:
+      'Els crèdits queden amagats si s’amaguen al projecte o al perfil del creador.',
+    creatorsHidden: 'Crèdits d’autoria amagats',
+    builderHidden: 'Creador amagat',
+    projectCount: 'projectes',
+    projects: 'Tots els projectes',
+    builders: 'Creadors',
+    review: 'Sol·licituds pendents',
+    intro: 'Gestiona projectes, visibilitat i perfils públics.',
+    search: 'Cerca per projecte, creador o esdeveniment',
+    searchAction: 'Cercar',
+    event: 'Esdeveniment',
+    allEvents: 'Tots els esdeveniments',
+    status: 'Estat',
+    all: 'Tots els estats',
+    claimed: 'Reclamat',
+    unclaimed: 'Sense reclamar',
+    public: 'Públic',
+    private: 'Amagat',
+    edit: 'Editar',
+    view: 'Veure la pàgina pública',
+    noResults: 'Cap resultat. Prova una altra cerca o elimina els filtres.',
+    previous: 'Anterior',
+    next: 'Següent',
+    results: 'Resultats',
+    back: 'Tornar a organització',
+    editBuilder: 'Editar creador',
+    profileHelp:
+      'Actualitza aquest perfil públic. Els enllaços no canvien l’autoria ni uneixen perfils.',
+    claimedHelp:
+      'Aquest perfil té un compte verificat vinculat. Els canvis també es desen al perfil compartit de HackBarna i Digest.',
+    unclaimedHelp:
+      'Aquest perfil històric no té un compte verificat vinculat. Les correccions afecten les dades públiques.',
+    projectHelp:
+      'Els canvis d’organització es publiquen en desar. Si hi ha una edició pendent, se substitueix la proposta i es conserva l’historial.',
+    save: 'Desar canvis',
+    saved: 'Canvis publicats.',
+    visibility: 'Visibilitat del projecte',
+    hide: 'Amagar projecte',
+    show: 'Mostrar projecte',
+    profileProjects: 'Projectes d’aquest creador',
+    pending: 'Edició pendent de revisió',
+  },
+  fr: {
+    creatorCredits: 'Crédits des créateurs',
+    profileVisibility: 'Visibilité du créateur',
+    hideCredits: 'Masquer les créateurs de ce projet',
+    hideBuilder: 'Masquer ce créateur sur tous ses projets',
+    creditsHelp:
+      'Le projet reste public et comptabilisé, sans noms, photos ni liens vers ses créateurs dans les pages et les listes.',
+    builderPrivacyHelp:
+      'Masque le profil public de ce créateur et ses crédits sur tous ses projets. Les projets et les autres membres restent visibles.',
+    privacyScope:
+      'L’organisation conserve les crédits d’origine. Vérifiez séparément les textes et les images qui pourraient identifier une personne.',
+    privacyPrecedence:
+      'Les crédits restent masqués si le projet ou le créateur est masqué.',
+    creatorsHidden: 'Crédits des créateurs masqués',
+    builderHidden: 'Créateur masqué',
+    projectCount: 'projets',
+    projects: 'Tous les projets',
+    builders: 'Créateurs',
+    review: 'Demandes à examiner',
+    intro: 'Gérez les projets, leur visibilité et les profils publics.',
+    search: 'Rechercher par projet, créateur ou événement',
+    searchAction: 'Rechercher',
+    event: 'Événement',
+    allEvents: 'Tous les événements',
+    status: 'Statut',
+    all: 'Tous les statuts',
+    claimed: 'Revendiqué',
+    unclaimed: 'Non revendiqué',
+    public: 'Public',
+    private: 'Masqué',
+    edit: 'Modifier',
+    view: 'Voir la page publique',
+    noResults:
+      'Aucun résultat. Essayez une autre recherche ou retirez les filtres.',
+    previous: 'Précédent',
+    next: 'Suivant',
+    results: 'Résultats',
+    back: 'Retour aux outils d’organisation',
+    editBuilder: 'Modifier le créateur',
+    profileHelp:
+      'Actualisez ce profil public. Les liens ne changent pas les droits et ne fusionnent pas les créateurs.',
+    claimedHelp:
+      'Ce profil est lié à un compte vérifié. Les modifications actualisent aussi son profil partagé HackBarna et Digest.',
+    unclaimedHelp:
+      'Ce profil historique n’a pas de compte vérifié lié. Les corrections concernent ses informations publiques.',
+    projectHelp:
+      'Les modifications d’organisation sont publiées dès l’enregistrement. Toute proposition en attente est remplacée et son historique conservé.',
+    save: 'Enregistrer',
+    saved: 'Modifications publiées.',
+    visibility: 'Visibilité du projet',
+    hide: 'Masquer le projet',
+    show: 'Afficher le projet',
+    profileProjects: 'Projets de ce créateur',
+    pending: 'Modification à examiner',
+  },
+}
+export function organiserCopy(locale: string) {
+  return copy[locale] ?? en
+}
