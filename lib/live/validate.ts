@@ -1,4 +1,4 @@
-import { PRIVACY_FIELDS, type PrivacyField } from '../projects/privacy-model'
+import type { PrivacyField } from '../projects/privacy-model'
 // Reviewed public credits from legacy team submissions.
 // Apply only while a source still has its exact recorded name and primary profile.
 const projectTeamCredits = [
@@ -102,7 +102,13 @@ export function projectHackers(project: {
             ...(Array.isArray(value.hiddenFields)
               ? {
                   hiddenFields: value.hiddenFields.filter(
-                    (field: PrivacyField) => PRIVACY_FIELDS.includes(field),
+                    // Keep this validator usable by native Node TypeScript consumers.
+                    (field: unknown): field is PrivacyField =>
+                      field === 'linkedin' ||
+                      field === 'github' ||
+                      field === 'otherLinks' ||
+                      field === 'photo' ||
+                      field === 'bio',
                   ),
                 }
               : {}),

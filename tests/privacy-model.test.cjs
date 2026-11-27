@@ -16,6 +16,21 @@ const {
   visibleLinks,
   visibleTextLinks,
 } = require('../lib/projects/privacy-model.ts')
+test('the standalone team normalizer preserves every supported privacy field and strips unknown metadata', () => {
+  const { projectHackers } = require('../lib/live/validate.ts')
+  const team = projectHackers({
+    creatorName: '',
+    linkedinUrl: '',
+    hackers: [
+      {
+        name: 'Builder',
+        linkedinUrl: null,
+        hiddenFields: [...PRIVACY_FIELDS, 'email', 'role'],
+      },
+    ],
+  })
+  assert.deepEqual(team[0].hiddenFields, Array.from(PRIVACY_FIELDS))
+})
 test('all 32 combinations of link/photo/bio choices preserve the name and independently mask the selected fields', () => {
   const source = {
     name: 'A Builder',
