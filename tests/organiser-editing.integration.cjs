@@ -178,19 +178,17 @@ async function main() {
     )
     await changeProjectVisibility(admin, key, 'public', 1)
     const liveKey = 'submitted:hacknight-5-jevathon-2026:organiser-fixture'
-    await database
-      .insert(tables.liveProjects)
-      .values({
-        eventSlug: 'hacknight-5-jevathon-2026',
-        slug: 'organiser-fixture',
-        name: 'Live fixture',
-        tagline: 'A live submission.',
-        url: 'https://example.test',
-        creatorName: 'Fixture Builder',
-        creatorEmail: 'private-creator@example.test',
-        linkedinUrl: '',
-        visibility: 'private',
-      })
+    await database.insert(tables.liveProjects).values({
+      eventSlug: 'hacknight-5-jevathon-2026',
+      slug: 'organiser-fixture',
+      name: 'Live fixture',
+      tagline: 'A live submission.',
+      url: 'https://example.test',
+      creatorName: 'Fixture Builder',
+      creatorEmail: 'private-creator@example.test',
+      linkedinUrl: '',
+      visibility: 'private',
+    })
     const liveEditor = await projectEditor(admin, liveKey, 'en')
     assert.equal(liveEditor.visibility, 'private')
     await saveProjectEdit(admin, liveKey, 0, {
@@ -220,7 +218,7 @@ async function main() {
     assert.ok(builder)
     let editor = await organiserBuilderEditor(admin, builder.slug, 'en')
     const imageId = randomUUID(),
-      imageUrl = `http://localhost:8888/api/media/${imageId}`
+      imageUrl = `http://localhost:8888/api/media/${imageId.toUpperCase()}`
     await database.insert(tables.mediaAssets).values({
       id: imageId,
       ownerId: admin.id,

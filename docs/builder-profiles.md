@@ -28,6 +28,6 @@ node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/builder-profile
 npx tsc --noEmit --incremental false
 ```
 
-No database migration or attendee-file import is required for this feature.
+The original source-derived directory needs no attendee-file import. Claimed display updates use the shared community-profile tables. [Organiser editing](organiser-management.md) adds database-backed historical corrections and requires migration `20261127160000_organiser_builder_editing`; these corrections preserve grouping and URLs.
 
 Verified portraits and remaining identity/photo gaps are recorded in the [builder portrait audit](builder-portrait-audit.md).

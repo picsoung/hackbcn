@@ -135,7 +135,7 @@ export async function publicMedia(asset: typeof mediaAssets.$inferSelect) {
       .select({ url: communityProfiles.avatarUrl })
       .from(communityProfiles)
       .where(
-        sql`${communityProfiles.avatarUrl} LIKE ${'%/api/media/' + asset.id}`,
+        sql`${communityProfiles.avatarUrl} ILIKE ${'%/api/media/' + asset.id}`,
       )
     if (profiles.some((profile) => managedImageId(profile.url) === asset.id))
       return true
@@ -143,7 +143,7 @@ export async function publicMedia(asset: typeof mediaAssets.$inferSelect) {
       .select({ slug: builderProfiles.slug, content: builderProfiles.content })
       .from(builderProfiles)
       .where(
-        sql`${builderProfiles.content}->>'avatarUrl' LIKE ${'%/api/media/' + asset.id}`,
+        sql`${builderProfiles.content}->>'avatarUrl' ILIKE ${'%/api/media/' + asset.id}`,
       )
     if (!builders.length) return false
     const catalog = await getBuilderCatalog('en')
@@ -211,12 +211,12 @@ export async function discardMedia(user: IdentityUser, id: string) {
     const profiles = await tx
       .select({ image: communityProfiles.avatarUrl })
       .from(communityProfiles)
-      .where(sql`${communityProfiles.avatarUrl} LIKE ${'%/api/media/' + id}`)
+      .where(sql`${communityProfiles.avatarUrl} ILIKE ${'%/api/media/' + id}`)
     const overrides = await tx
       .select({ content: builderProfiles.content })
       .from(builderProfiles)
       .where(
-        sql`${builderProfiles.content}->>'avatarUrl' LIKE ${'%/api/media/' + id}`,
+        sql`${builderProfiles.content}->>'avatarUrl' ILIKE ${'%/api/media/' + id}`,
       )
     const profileHistory = await tx
       .select({
@@ -225,7 +225,7 @@ export async function discardMedia(user: IdentityUser, id: string) {
       })
       .from(builderProfileHistory)
       .where(
-        sql`${builderProfileHistory.content}->>'avatarUrl' LIKE ${'%/api/media/' + id} OR ${builderProfileHistory.previousContent}->>'avatarUrl' LIKE ${'%/api/media/' + id}`,
+        sql`${builderProfileHistory.content}->>'avatarUrl' ILIKE ${'%/api/media/' + id} OR ${builderProfileHistory.previousContent}->>'avatarUrl' ILIKE ${'%/api/media/' + id}`,
       )
     let referenced =
       profiles.some((profile) => managedImageId(profile.image) === id) ||
