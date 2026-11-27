@@ -129,6 +129,46 @@ test('the reviewed Push cube split leaves other identities and an owner-updated 
   assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
 })
 
+test('Skillars separates three explicitly named builders and gives Chloe’s profile only to Chloe', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'skillars',
+    creatorName: 'Chloe, Xénia & Majo',
+    linkedinUrl: linkedin('chloe-beck'),
+  }
+  const team = projectHackers(source)
+  assert.deepEqual(team, [
+    { name: 'Chloe', linkedinUrl: source.linkedinUrl },
+    { name: 'Xénia', linkedinUrl: null },
+    { name: 'Majo', linkedinUrl: null },
+  ])
+  const profiles = buildBuilderDirectory([
+    entry('skillars', ...team.map(projectBuilder)),
+  ])
+  assert.equal(profiles.length, 3)
+  assert.equal(
+    builderForCredit(profiles, 'skillars', 0).links.linkedin,
+    source.linkedinUrl,
+  )
+  for (const i of [1, 2]) {
+    const profile = builderForCredit(profiles, 'skillars', i)
+    assert.deepEqual(profile.links, {})
+    assert.equal(profile.image, undefined)
+  }
+  assert.equal(projectHackers({ ...source, slug: 'other-project' }).length, 1)
+  assert.equal(
+    projectHackers({ ...source, linkedinUrl: linkedin('another-person') })
+      .length,
+    1,
+  )
+  const updated = [
+    { name: 'Chloe', linkedinUrl: source.linkedinUrl },
+    { name: 'Xénia', linkedinUrl: linkedin('verified-xenia') },
+    { name: 'Majo', linkedinUrl: null },
+  ]
+  assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
+})
+
 test('verified identities join across display-name changes, locales and tracking, with stable URLs', () => {
   const first = entry(
     'a',

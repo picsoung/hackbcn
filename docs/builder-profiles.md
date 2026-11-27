@@ -21,6 +21,8 @@ The 2025 enrichment audit now suggests existing linked profiles for unresolved f
 
 The organiser confirmed that the legacy Push cube credit “Arnab Dey, Alex Garcia” represents two people. The reviewed correction in `lib/live/validate.ts` applies only to that event, project, exact combined name and Arnab’s supplied LinkedIn profile. Arnab retains his existing canonical builder URL, portrait and links; Alex receives a separate credit-scoped profile with a placeholder until his own links are verified. An owner-supplied updated roster takes precedence. The correction does not copy Arnab’s contact or profile details to Alex, grant ownership permissions, or split other comma-containing names automatically.
 
+The [team-credit audit](builder-team-audit.md) also found Skillars’s explicit “Chloe, Xénia & Majo” credit. It is split into three makers under the same guarded legacy correction mechanism. Only Chloe retains the supplied profile; Xénia and Majo have their own credit-scoped placeholders. Surname punctuation and intentional collective labels remain individual reviewed cases.
+
 ```sh
 node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs
 npx tsc --noEmit --incremental false

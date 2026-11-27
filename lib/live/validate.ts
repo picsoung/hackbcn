@@ -17,6 +17,14 @@ const projectTeamCredits = [
     primaryName: 'Arnab Dey',
     otherNames: ['Alex Garcia'],
   },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    projectSlug: 'skillars',
+    submittedName: 'Chloe, Xénia & Majo',
+    primaryProfilePath: '/in/chloe-beck',
+    primaryName: 'Chloe',
+    otherNames: ['Xénia', 'Majo'],
+  },
 ]
 
 export type ProjectHacker = { name: string; linkedinUrl: string | null }
