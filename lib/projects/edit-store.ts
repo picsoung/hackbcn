@@ -4,7 +4,6 @@ import { reviewNotificationSettings, reviewText } from './review-notifications'
 import { and, desc, eq } from 'drizzle-orm'
 import { getDb } from '@/db'
 import {
-  projectClaims,
   projectContent,
   projectContentHistory,
   projectVisibility,
@@ -21,31 +20,9 @@ import {
   isProjectOrganiser,
 } from './ownership'
 import { validateProjectEdit, type ProjectEditContent } from './edit-content'
+import { assertProjectManager as membership } from './project-access'
+import { projectPrivacyOptions } from './privacy-store'
 
-function verified(user: IdentityUser) {
-  if (!user.emailVerified || !user.email)
-    throw new ProjectAccessError('forbidden', 403)
-}
-async function membership(
-  database: Pick<ReturnType<typeof getDb>, 'select'>,
-  user: IdentityUser,
-  key: string,
-) {
-  verified(user)
-  if (isProjectOrganiser(user)) return
-  const [claim] = await database
-    .select({ id: projectClaims.id })
-    .from(projectClaims)
-    .where(
-      and(
-        eq(projectClaims.projectKey, key),
-        eq(projectClaims.accountId, user.id),
-        eq(projectClaims.status, 'verified'),
-      ),
-    )
-    .for('share')
-  if (!claim) throw new ProjectAccessError('forbidden', 403)
-}
 async function sourceContent(key: string): Promise<ProjectEditContent | null> {
   const ref = projectReference(key)
   const image = (await sourceProject(key, 'en'))?.card.image ?? ''
@@ -95,9 +72,11 @@ export async function projectEditor(
     .from(creatorPrivacy)
     .where(eq(creatorPrivacy.subjectKey, `project:${key}`))
   return {
+    privacyOptions: await projectPrivacyOptions(user, key),
     creatorPrivacy: {
       subjectKey: `project:${key}`,
       hidden: privacy?.hidden ?? false,
+      hiddenFields: privacy?.hiddenFields ?? [],
       revision: privacy?.revision ?? 0,
     },
     organiser: isProjectOrganiser(user),

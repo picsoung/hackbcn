@@ -1,3 +1,4 @@
+import { PRIVACY_FIELDS, type PrivacyField } from '../projects/privacy-model'
 // Reviewed public credits from legacy team submissions.
 // Apply only while a source still has its exact recorded name and primary profile.
 const projectTeamCredits = [
@@ -36,6 +37,7 @@ const projectTeamCredits = [
 ]
 
 export type ProjectHacker = {
+  hiddenFields?: PrivacyField[]
   name: string
   linkedinUrl: string | null
   creditIndex?: number
@@ -97,6 +99,13 @@ export function projectHackers(project: {
         return [
           {
             name: str(value.name),
+            ...(Array.isArray(value.hiddenFields)
+              ? {
+                  hiddenFields: value.hiddenFields.filter(
+                    (field: PrivacyField) => PRIVACY_FIELDS.includes(field),
+                  ),
+                }
+              : {}),
             ...(Number.isSafeInteger(value.creditIndex) &&
             value.creditIndex >= 0
               ? { creditIndex: value.creditIndex }

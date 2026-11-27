@@ -108,6 +108,7 @@ export function archivedProjectCard(
       hackers: project.data.hackers?.map((person) => ({
         name: person.name,
         linkedinUrl: person.links?.linkedin,
+        ...(person.hiddenFields ? { hiddenFields: person.hiddenFields } : {}),
         ...(person.creditIndex !== undefined
           ? { creditIndex: person.creditIndex }
           : {}),

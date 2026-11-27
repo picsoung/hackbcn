@@ -1,6 +1,6 @@
 # Organiser project and builder management
 
-Open `/en/account/admin` (also available under `/es`, `/ca` and `/fr`). The **Organiser tools** account tab links here. Access requires a verified account whose immutable ID is in `HACKBARNA_ORGANISER_IDS`. Being a project owner or changing a social link does not confer organiser access.
+Open `/en/account/admin` (also available under `/es`, `/ca` and `/fr`). The **Organiser tools** account tab links here. Access requires a verified account whose immutable ID is in `HACKBARNA_ORGANISER_IDS` or is the configured `HACKBARNA_OWNER_ID`. The primary owner is configured from the verified shared Digest identity, never from a browser-supplied email or role. Being a project owner or changing a social link does not confer organiser access.
 
 The **All projects** list includes real public and hidden projects from every supported event. Search project names, descriptions, builders or event names; filter by event, visibility or verified claims. Results are paginated in groups of 25. Excluded test submissions stay excluded. Original creator contact details are never sent to these screens.
 
@@ -16,11 +16,19 @@ Creator visibility is independent of project visibility:
 - In a builder editor, **Hide this builder across all projects** removes that public builder page and the person’s credits across projects. The projects and other teammates remain visible. The builder URL returns 404 and is removed from the sitemap.
 - Either hiding rule takes precedence. Restoring a builder does not expose credits on a project that still hides its creators, and restoring project credits does not expose a globally hidden builder.
 
+Verified project teammates now have these same project controls in `/account/projects/edit`; they can hide the whole project, hide all its credits, or expand **Individual creators** to hide one person on this project. Team membership grants access to that project, including hidden projects. It does not grant permission to change a teammate’s profile across unrelated projects.
+
+Each project, individual credit and global builder setting can independently hide **LinkedIn**, **GitHub**, **other external links**, **creator photos**, or **creator bios/roles** while keeping the name and project visible. Project-level link choices also filter project resource URLs and matching URLs in descriptions and body text; hiding other project links suppresses external demo videos. Individual-credit choices affect only that creator on that project. Global builder choices apply to the public profile and all matching project credits. Saved values remain available in the private editing forms, and re-enabling visibility restores them.
+
+Verified individual owners have global profile privacy in `/account`. Permission uses an unambiguous, enabled email-evidence claim against the original credit and roster, even if the person has not saved a community profile yet. A manual team claim, matching display name or editable LinkedIn/GitHub URL alone cannot grant that global permission. Revoked claims and stale evidence cannot change profile-wide privacy. Owners and admins use the same audited, revision-checked `/api/account/privacy` mutation; the legacy `/api/admin/creator-privacy` entry remains organiser-only.
+
 The organiser directory retains the original credits and hidden profiles, marks hidden credits, and offers a status filter to find them. Existing team ownership, shared profile data and organiser access remain intact. Names, portraits and social URLs are filtered before public page props, search, builder catalogues and live-project/export/leaderboard API responses. Original team positions and canonical builder URLs are preserved for the remaining teammates; verified individual profile bindings still use the original private roster digest.
 
 These controls hide HackBarna attribution, rather than deleting source records. Review project titles, descriptions, body text, images, videos and external links separately if they identify someone. Community posts are independent of project credits. Creator-privacy changes have revision checks and a private actor/history audit in `creator_privacy_history`.
 
 Apply migration `20261127170000_creator_privacy` before using the new controls. It introduces no hidden subjects by default.
+
+Migration `20261128090000_individual_privacy_fields` adds the selected fields to current settings and history, defaulting to an empty selection. Privacy choices take effect immediately without content review and do not change ownership or project totals. Existing hidden states are preserved.
 
 ## Storage and account boundaries
 

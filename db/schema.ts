@@ -18,11 +18,17 @@ import type { ProjectEditContent } from '../lib/projects/edit-content'
 import type { ReviewAlert } from '../lib/projects/review-notifications'
 import type { CommunicationLanguage } from '../lib/account/communications'
 import type { CommunityProfile } from '../lib/community/profile'
+import type { PrivacyField } from '../lib/projects/privacy-model'
 
 /** Creator credits can be hidden independently of project visibility and account permissions. */
 export const creatorPrivacy = pgTable('creator_privacy', {
   subjectKey: text('subject_key').primaryKey(),
   hidden: boolean().notNull().default(false),
+  hiddenFields: text('hidden_fields')
+    .$type<PrivacyField>()
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
   revision: integer().notNull().default(0),
   updatedBy: uuid('updated_by').references(() => identityAccounts.id, {
     onDelete: 'set null',
@@ -37,6 +43,11 @@ export const creatorPrivacyHistory = pgTable(
     id: uuid().primaryKey().defaultRandom(),
     subjectKey: text('subject_key').notNull(),
     hidden: boolean().notNull(),
+    hiddenFields: text('hidden_fields')
+      .$type<PrivacyField>()
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     revision: integer().notNull(),
     actorId: uuid('actor_id').references(() => identityAccounts.id, {
       onDelete: 'set null',

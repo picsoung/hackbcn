@@ -609,6 +609,386 @@ async function main() {
     console.log(
       'PASS per-project and global creator privacy, public exports, stable credit indices, claimed teammates, hidden builders, retained organiser attribution, unchanged totals, precedence, restoration, audit and CSRF',
     )
+    const {
+      projectPrivacyOptions,
+      accountPrivacyOptions,
+    } = require('../lib/projects/privacy-store.ts')
+    await database.insert(tables.projectClaims).values({
+      projectKey: teamKey,
+      accountId: member.id,
+      status: 'verified',
+      verificationMethod: 'organiser',
+    })
+    const teamOptions = await projectPrivacyOptions(member, teamKey)
+    const secondCredit = teamOptions.credits.find(
+      (item) => item.name === 'Remaining Builder',
+    )
+    assert.ok(secondCredit)
+    await saveCreatorPrivacy(
+      member,
+      secondCredit.setting.subjectKey,
+      true,
+      0,
+      [],
+    )
+    assert.deepEqual(
+      (
+        await getPublicProject(
+          'hacknight-5-jevathon-2026',
+          'privacy-team-fixture',
+        )
+      ).hackers.map((person) => person.name),
+      ['Colin Stark'],
+    )
+    await saveCreatorPrivacy(
+      member,
+      secondCredit.setting.subjectKey,
+      false,
+      1,
+      ['linkedin'],
+    )
+    let visibleTeam = await getPublicProject(
+      'hacknight-5-jevathon-2026',
+      'privacy-team-fixture',
+    )
+    assert.equal(visibleTeam.hackers.length, 2)
+    assert.equal(visibleTeam.hackers[1].linkedinUrl, null)
+    assert.ok(visibleTeam.hackers[0].linkedinUrl)
+    await database
+      .update(tables.liveProjects)
+      .set({
+        url: 'https://github.com/example/private-link-fixture',
+        videoUrl: 'https://youtu.be/privacytest',
+      })
+      .where(eq(tables.liveProjects.slug, 'privacy-team-fixture'))
+    await saveCreatorPrivacy(member, teamOptions.project.subjectKey, false, 0, [
+      'github',
+      'otherLinks',
+    ])
+    visibleTeam = await getPublicProject(
+      'hacknight-5-jevathon-2026',
+      'privacy-team-fixture',
+    )
+    assert.equal(visibleTeam.url, '')
+    assert.equal(visibleTeam.videoUrl, null)
+    const { getCommunityProfile } = require('../lib/community/profile-store.ts')
+    const beforeProfile = await getCommunityProfile(member)
+    const storedProfile = await saveCommunityProfile(member.id, {
+      ...beforeProfile,
+      linkedinUrl: 'https://www.linkedin.com/in/starklink/',
+      bio: 'A private retained biography.',
+    })
+    const ownGlobal = (await accountPrivacyOptions(member)).find(
+      (item) => item.setting.subjectKey === builderSubject,
+    )
+    assert.ok(ownGlobal)
+    await saveCreatorPrivacy(
+      member,
+      builderSubject,
+      false,
+      ownGlobal.setting.revision,
+      ['github', 'photo', 'bio'],
+    )
+    const maskedProfile = (await getBuilderCatalog('en')).profiles.find(
+      (profile) => profile.slug === builder.slug,
+    )
+    assert.ok(maskedProfile)
+    assert.ok(maskedProfile.links.linkedin)
+    assert.equal(maskedProfile.links.github, undefined)
+    assert.equal(maskedProfile.image, undefined)
+    assert.equal(maskedProfile.bio, undefined)
+    const maskedTeam = (await getProjectCatalog('en')).find(
+      (project) => project.key === teamKey,
+    )
+    const maskedContext = await getProjectPageContext(
+      maskedTeam,
+      maskedTeam.hackers.map(projectBuilder),
+      'en',
+    )
+    const maskedMaker = maskedContext.builders.find(
+      (person) => person.name === storedProfile.displayName,
+    )
+    assert.ok(maskedMaker)
+    assert.equal(maskedMaker.links.github, undefined)
+    assert.equal(maskedMaker.image, undefined)
+    assert.equal(
+      (await getCommunityProfile(member)).githubUrl,
+      storedProfile.githubUrl,
+    )
+    await saveCreatorPrivacy(
+      stranger,
+      teamOptions.project.subjectKey,
+      false,
+      1,
+      [],
+    )
+    assert.ok(
+      (
+        await getPublicProject(
+          'hacknight-5-jevathon-2026',
+          'privacy-team-fixture',
+        )
+      ).url,
+    )
+    assert.equal(
+      (await getBuilderCatalog('en')).profiles.find(
+        (profile) => profile.slug === builder.slug,
+      ).links.github,
+      undefined,
+      'A teammate cannot restore globally hidden profile details by changing project settings',
+    )
+    await assert.rejects(
+      () =>
+        saveCreatorPrivacy(
+          stranger,
+          builderSubject,
+          false,
+          ownGlobal.setting.revision + 1,
+          [],
+        ),
+      { status: 403 },
+    )
+    await saveCreatorPrivacy(
+      member,
+      builderSubject,
+      true,
+      ownGlobal.setting.revision + 1,
+      ['github'],
+    )
+    assert.ok(
+      !(await getBuilderCatalog('en')).profiles.some(
+        (profile) => profile.slug === builder.slug,
+      ),
+    )
+    assert.equal(
+      (
+        await getPublicProject(
+          'hacknight-5-jevathon-2026',
+          'privacy-team-fixture',
+        )
+      ).hackers.length,
+      1,
+    )
+    await saveCreatorPrivacy(
+      member,
+      builderSubject,
+      false,
+      ownGlobal.setting.revision + 2,
+      [],
+    )
+    assert.ok(
+      (await getBuilderCatalog('en')).profiles.find(
+        (profile) => profile.slug === builder.slug,
+      ).links.github,
+    )
+    const projectTotals = await listProjectCounts()
+    await changeProjectVisibility(member, teamKey, 'private', 0)
+    assert.equal(
+      await getPublicProject(
+        'hacknight-5-jevathon-2026',
+        'privacy-team-fixture',
+      ),
+      null,
+    )
+    assert.deepEqual(await listProjectCounts(), projectTotals)
+    await changeProjectVisibility(admin, teamKey, 'public', 1)
+    assert.equal(
+      (
+        await getPublicProject(
+          'hacknight-5-jevathon-2026',
+          'privacy-team-fixture',
+        )
+      ).hackers[1].linkedinUrl,
+      null,
+    )
+    await assert.rejects(
+      () =>
+        saveCreatorPrivacy(member, teamOptions.project.subjectKey, false, 2, [
+          'accountId',
+        ]),
+      { status: 422 },
+    )
+    await assert.rejects(
+      () =>
+        saveCreatorPrivacy(
+          member,
+          teamOptions.project.subjectKey,
+          false,
+          0,
+          [],
+        ),
+      { status: 409 },
+    )
+    const accountPrivacyRoute = require('../app/api/account/privacy/route.ts')
+    sessionUser = member
+    assert.equal(
+      (
+        await accountPrivacyRoute.PATCH(
+          request({
+            subjectKey: teamOptions.project.subjectKey,
+            hidden: false,
+            revision: 2,
+            hiddenFields: ['github'],
+          }),
+        )
+      ).status,
+      200,
+    )
+    assert.equal(
+      (
+        await privacyRoute.PATCH(
+          request({
+            subjectKey: teamOptions.project.subjectKey,
+            hidden: false,
+            revision: 3,
+            hiddenFields: [],
+          }),
+        )
+      ).status,
+      403,
+      'Admin route remains organiser-only',
+    )
+    assert.equal(
+      (
+        await accountPrivacyRoute.PATCH(
+          request({
+            subjectKey: 'project:archive:AQ-App',
+            hidden: true,
+            revision: 0,
+            role: 'admin',
+            accountId: admin.id,
+          }),
+        )
+      ).status,
+      403,
+    )
+    const noProfileUser = actor('no-public-profile')
+    await database
+      .insert(tables.identityAccounts)
+      .values({ ...noProfileUser, issuer: 'https://digest.hackbarna.com' })
+    await database.insert(tables.liveProjects).values({
+      eventSlug: 'hacknight-5-jevathon-2026',
+      slug: 'no-profile-privacy-fixture',
+      name: 'Profile-free fixture',
+      tagline: 'Verified ownership without publishing a profile.',
+      url: 'https://example.test',
+      creatorName: 'Profile-free Builder',
+      creatorEmail: 'private-no-profile@example.test',
+      linkedinUrl: 'https://www.linkedin.com/in/no-profile-privacy-fixture/',
+    })
+    const noProfileKey =
+      'submitted:hacknight-5-jevathon-2026:no-profile-privacy-fixture'
+    const noProfileSource = (await organiserCatalog(admin, 'en')).projects.find(
+      (row) => row.project.key === noProfileKey,
+    ).project
+    const [noProfileProof] = await database
+      .insert(tables.projectClaimEvidence)
+      .values({
+        projectKey: noProfileKey,
+        creditIndex: 0,
+        emailHash: 'f'.repeat(64),
+        keyId: 'b'.repeat(16),
+        rosterDigest: claimRosterDigest(noProfileSource.hackers),
+        sourceDigest: 'a'.repeat(64),
+      })
+      .returning()
+    const [noProfileClaim] = await database
+      .insert(tables.projectClaims)
+      .values({
+        projectKey: noProfileKey,
+        accountId: noProfileUser.id,
+        status: 'verified',
+        verificationMethod: 'email',
+        evidenceId: noProfileProof.id,
+      })
+      .returning()
+    const ownWithoutProfile = await accountPrivacyOptions(noProfileUser)
+    assert.equal(ownWithoutProfile.length, 1)
+    await saveCreatorPrivacy(
+      noProfileUser,
+      ownWithoutProfile[0].setting.subjectKey,
+      true,
+      0,
+      [],
+    )
+    await database
+      .update(tables.projectClaims)
+      .set({ status: 'revoked' })
+      .where(eq(tables.projectClaims.id, noProfileClaim.id))
+    await assert.rejects(
+      () =>
+        saveCreatorPrivacy(
+          noProfileUser,
+          ownWithoutProfile[0].setting.subjectKey,
+          false,
+          1,
+          [],
+        ),
+      { status: 403 },
+    )
+    console.log(
+      'PASS owner/admin independent project, individual-credit and global privacy, selective links/photos/bios, retained values, immediate publication, no team-to-global privilege escalation, no-profile claims, revocation, field validation and totals',
+    )
+    let matrixRevision = (await projectPrivacyOptions(member, teamKey)).project
+      .revision
+    let visibilityRevision = (await projectEditor(member, teamKey, 'en'))
+      .visibilityRevision
+    const matrixTotals = await listProjectCounts()
+    for (const hiddenProject of [false, true]) {
+      await changeProjectVisibility(
+        member,
+        teamKey,
+        hiddenProject ? 'private' : 'public',
+        visibilityRevision++,
+      )
+      for (const hiddenCreator of [false, true])
+        for (let bits = 0; bits < 8; bits++) {
+          const fields = ['linkedin', 'github', 'otherLinks'].filter(
+            (_, index) => bits & (1 << index),
+          )
+          await saveCreatorPrivacy(
+            member,
+            teamOptions.project.subjectKey,
+            hiddenCreator,
+            matrixRevision++,
+            fields,
+          )
+          const record = await getPublicProject(
+            'hacknight-5-jevathon-2026',
+            'privacy-team-fixture',
+          )
+          if (hiddenProject) {
+            assert.equal(record, null)
+            continue
+          }
+          assert.ok(record)
+          assert.equal(record.name, 'Privacy team fixture')
+          assert.equal(record.hackers.length, hiddenCreator ? 0 : 2)
+          assert.equal(
+            record.url,
+            fields.includes('github')
+              ? ''
+              : 'https://github.com/example/private-link-fixture',
+          )
+          assert.equal(
+            record.videoUrl,
+            fields.includes('otherLinks')
+              ? null
+              : 'https://youtu.be/privacytest',
+          )
+          if (!hiddenCreator)
+            assert.equal(
+              record.hackers[0].linkedinUrl,
+              fields.includes('linkedin')
+                ? null
+                : 'https://www.linkedin.com/in/starklink/',
+            )
+        }
+      assert.deepEqual(await listProjectCounts(), matrixTotals)
+    }
+    console.log(
+      'PASS all 32 project/creator/link visibility combinations with owner permissions and unchanged participation totals',
+    )
   } finally {
     if (pool) await pool.end()
     await client.query(`DROP SCHEMA "${schema}" CASCADE`)

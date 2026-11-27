@@ -11,7 +11,11 @@ import { claimedBuilderDisplays } from './community/claimed-profiles'
 import { applyClaimedDisplays } from './community/claimed-display'
 import { applyBuilderDisplays } from './community/builder-display'
 import { builderDisplayOverrides } from './community/builder-profiles'
-import { creatorPrivacyContext } from '@/lib/projects/creator-privacy'
+import {
+  creatorPrivacyContext,
+  globalBuilderFields,
+} from '@/lib/projects/creator-privacy'
+import { maskBuilderFields } from './projects/privacy-model'
 
 export function sourceBuilderProfiles(projects: ProjectCard[]) {
   return buildBuilderDirectory(
@@ -25,6 +29,7 @@ export function sourceBuilderProfiles(projects: ProjectCard[]) {
 export async function getBuilderCatalog(locale: string) {
   const projects = await getProjectCatalog(locale)
   const sourceProfiles = sourceBuilderProfiles(projects)
+  const privacy = await creatorPrivacyContext()
   const profiles = applyClaimedDisplays(
     applyBuilderDisplays(
       sourceProfiles,
@@ -32,10 +37,15 @@ export async function getBuilderCatalog(locale: string) {
         sourceProfiles.map((profile) => profile.slug),
       ),
     ),
-    (await creatorPrivacyContext()).rosters,
+    privacy.rosters,
     await claimedBuilderDisplays(projects.map((project) => project.key)),
   )
-  return { profiles, projects }
+  return {
+    profiles: profiles.map((profile) =>
+      maskBuilderFields(profile, globalBuilderFields(privacy, profile.credits)),
+    ),
+    projects,
+  }
 }
 
 export async function getProjectPageContext(
@@ -54,13 +64,22 @@ export async function getProjectPageContext(
       )
       if (!profile) return []
       return [
-        {
-          ...builder,
-          ...(profile?.claimed || profile?.edited
-            ? { name: profile.name, image: profile.image, links: profile.links }
-            : {}),
-          href: profile ? builderProfilePath(locale, profile.slug) : undefined,
-        },
+        maskBuilderFields(
+          {
+            ...builder,
+            ...(profile?.claimed || profile?.edited
+              ? {
+                  name: profile.name,
+                  image: profile.image,
+                  links: profile.links,
+                }
+              : {}),
+            href: profile
+              ? builderProfilePath(locale, profile.slug)
+              : undefined,
+          },
+          builder.hiddenFields ?? [],
+        ),
       ]
     }),
   }

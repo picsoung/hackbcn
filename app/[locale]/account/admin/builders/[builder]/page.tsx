@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import AccountWorkspace from '@/app/components/auth/AccountWorkspace'
 import CommunityProfileForm from '@/app/components/auth/CommunityProfileForm'
-import AdminCreatorPrivacy from '@/app/components/auth/AdminCreatorPrivacy'
+import CreatorPrivacyControls from '@/app/components/auth/CreatorPrivacyControls'
 import { getCurrentIdentity } from '@/lib/auth/identity-server'
 import { getAuthLocale } from '@/lib/auth/shared'
 import {
@@ -68,7 +68,7 @@ export default async function BuilderEditor({
         initial={data.profile}
         admin={{ builder: params.builder, version: data.version }}
       />
-      <AdminCreatorPrivacy
+      <CreatorPrivacyControls
         initial={data.builder.creatorPrivacy}
         locale={locale}
       />

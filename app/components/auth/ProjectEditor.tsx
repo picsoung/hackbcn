@@ -15,7 +15,8 @@ import {
 import type { projectEditor } from '@/lib/projects/edit-store'
 import { organiserCopy } from '@/data/organiser'
 import AdminProjectVisibility from './AdminProjectVisibility'
-import AdminCreatorPrivacy from './AdminCreatorPrivacy'
+import CreatorPrivacyControls from './CreatorPrivacyControls'
+import { privacyCopy } from '@/data/privacy-controls'
 
 export default function ProjectEditor({
   data,
@@ -219,10 +220,28 @@ export default function ProjectEditor({
           {message}
         </p>
       </form>
-      {data.organiser && <AdminProjectVisibility data={data} locale={locale} />}
-      {data.organiser && (
-        <AdminCreatorPrivacy initial={data.creatorPrivacy} locale={locale} />
-      )}
+      <AdminProjectVisibility data={data} locale={locale} />
+      <CreatorPrivacyControls
+        initial={data.privacyOptions.project}
+        locale={locale}
+      />
+      <details className="mt-8 max-w-2xl border-t border-ink/15 pt-5">
+        <summary className="min-h-11 cursor-pointer text-base font-semibold">
+          {privacyCopy(locale).individual} ({data.privacyOptions.credits.length}
+          )
+        </summary>
+        <p className="mt-2 text-sm leading-relaxed text-ink-dim">
+          {privacyCopy(locale).individualHelp}
+        </p>
+        {data.privacyOptions.credits.map((credit) => (
+          <CreatorPrivacyControls
+            key={credit.setting.subjectKey}
+            initial={credit.setting}
+            locale={locale}
+            name={credit.name}
+          />
+        ))}
+      </details>
     </>
   )
 }

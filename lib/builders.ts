@@ -87,6 +87,7 @@ export function buildBuilderDirectory(
         links: source.links,
         creditIndex: source.creditIndex,
         profileSlug: source.profileSlug,
+        hiddenFields: source.hiddenFields,
       })
       if (builder.image && !builder.image.startsWith('/'))
         builder.image = publicLink('image', builder.image)

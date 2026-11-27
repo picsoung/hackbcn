@@ -1,5 +1,6 @@
 import type { BuilderProfile } from '../builders'
 import { claimRosterDigest } from '../projects/email-proof'
+import type { BuilderBinding } from '../projects/privacy-model'
 
 export type ClaimedDisplay = {
   projectKey: string
@@ -16,7 +17,7 @@ export type ClaimedDisplay = {
 export function builderAccountId(
   profile: BuilderProfile,
   rosters: Map<string, { name: string; linkedinUrl?: string | null }[]>,
-  bindings: ClaimedDisplay[],
+  bindings: BuilderBinding[],
 ) {
   const ids = new Set(
     bindings

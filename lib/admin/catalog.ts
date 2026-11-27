@@ -102,6 +102,8 @@ export async function organiserCatalog(user: IdentityUser, locale: string) {
         subjectKey: `project:${row.project.key}`,
         hidden:
           privacyStates.get(`project:${row.project.key}`)?.hidden ?? false,
+        hiddenFields:
+          privacyStates.get(`project:${row.project.key}`)?.hiddenFields ?? [],
         revision:
           privacyStates.get(`project:${row.project.key}`)?.revision ?? 0,
       },
@@ -130,7 +132,9 @@ export async function organiserCatalog(user: IdentityUser, locale: string) {
         row.creatorPrivacy.hidden ||
         sourceProfiles.some(
           (profile) =>
-            privacyStates.get(`builder:${profile.slug}`)?.hidden &&
+            (privacyStates.get(`builder:${profile.slug}`)?.hidden ||
+              privacyStates.get(`credit:${row.project.key}:${profile.slug}`)
+                ?.hidden) &&
             profile.projectKeys.includes(row.project.key),
         ),
     })),
@@ -139,6 +143,8 @@ export async function organiserCatalog(user: IdentityUser, locale: string) {
       creatorPrivacy: {
         subjectKey: `builder:${profile.slug}`,
         hidden: privacyStates.get(`builder:${profile.slug}`)?.hidden ?? false,
+        hiddenFields:
+          privacyStates.get(`builder:${profile.slug}`)?.hiddenFields ?? [],
         revision: privacyStates.get(`builder:${profile.slug}`)?.revision ?? 0,
       },
     })),

@@ -61,7 +61,8 @@ async function main() {
   }
   Object.assign(process.env, {
     NETLIFY_DB_URL: url.href,
-    HACKBARNA_ORGANISER_IDS: admin.id,
+    HACKBARNA_ORGANISER_IDS: '',
+    HACKBARNA_OWNER_ID: admin.id,
     HACKBARNA_OIDC_CLIENT_ID: 'route-fixture',
     HACKBARNA_OIDC_CLIENT_SECRET: 'route-fixture-secret',
     HACKBARNA_OIDC_REDIRECT_URI: `${origin}/auth/callback`,
@@ -86,6 +87,10 @@ async function main() {
       creatorPrivacy,
       creatorPrivacyHistory,
       liveProjects,
+      projectClaimEvidence,
+      projectClaims,
+      projectVisibility,
+      projectVisibilityAudit,
     } = require('../db/schema.ts'),
     { inArray, eq } = require('drizzle-orm')
   const privacySubjects = [
@@ -95,6 +100,7 @@ async function main() {
   ]
   let server,
     logs = ''
+  let ownerProofId
   try {
     const tokens = await Promise.all(
       [admin, member].map((user) =>
@@ -293,6 +299,142 @@ async function main() {
       ).includes('project-builders-heading'),
       'Restoring a builder must not override project-level privacy',
     )
+    const { getBuiltProject } = require('../app/helpers/projects.ts')
+    const { archivedProjectCard } = require('../lib/project-cards.ts')
+    const { claimRosterDigest } = require('../lib/projects/email-proof.ts')
+    const ownerProject = 'archive:aisummit25/travel-tetris'
+    const source = archivedProjectCard(
+      getBuiltProject(['aisummit25', 'travel-tetris']),
+      'en',
+    )
+    const [proof] = await database
+      .insert(projectClaimEvidence)
+      .values({
+        projectKey: ownerProject,
+        creditIndex: 0,
+        emailHash: 'a'.repeat(64),
+        keyId: 'b'.repeat(16),
+        rosterDigest: claimRosterDigest(source.hackers),
+        sourceDigest: 'c'.repeat(64),
+      })
+      .returning()
+    ownerProofId = proof.id
+    await database.insert(projectClaims).values({
+      projectKey: ownerProject,
+      accountId: member.id,
+      status: 'verified',
+      verificationMethod: 'email',
+      evidenceId: proof.id,
+    })
+    const {
+      projectPrivacyOptions,
+    } = require('../lib/projects/privacy-store.ts')
+    const options = await projectPrivacyOptions(member, ownerProject)
+    const changeAsOwner = async (
+      subjectKey,
+      hidden,
+      revision,
+      hiddenFields = [],
+    ) => {
+      const response = await fetch(`${origin}/api/account/privacy`, {
+        method: 'PATCH',
+        headers: {
+          Cookie: `hb_session=${tokens[1]}`,
+          Origin: origin,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ subjectKey, hidden, revision, hiddenFields }),
+      })
+      assert.equal(response.status, 200, await response.clone().text())
+    }
+    await changeAsOwner(privacySubjects[0], false, 1, ['github'])
+    const teammate = options.credits.find((item) => item.name !== 'Colin Stark')
+    assert.ok(teammate)
+    privacySubjects.push(teammate.setting.subjectKey)
+    await changeAsOwner(teammate.setting.subjectKey, true, 0)
+    await changeAsOwner(privacySubjects[1], false, 2, [
+      'linkedin',
+      'github',
+      'otherLinks',
+      'photo',
+      'bio',
+    ])
+    for (const locale of ['en', 'es', 'ca', 'fr']) {
+      const edit = await read(
+          `/${locale}/account/projects/edit?project=${encodeURIComponent(ownerProject)}`,
+          1,
+        ),
+        html = await edit.text()
+      assert.equal(edit.status, 200)
+      for (const name of [
+        'hide-linkedin',
+        'hide-github',
+        'hide-otherLinks',
+        'hide-photo',
+        'hide-bio',
+      ])
+        assert.ok(html.includes(`name="${name}"`))
+      assert.ok(html.includes('data-creator-privacy="credit"'))
+      const account = await read(`/${locale}/account`, 1),
+        accountHtml = await account.text()
+      assert.equal(account.status, 200)
+      assert.ok(
+        accountHtml.includes('data-creator-privacy="builder"'),
+        'Verified claims allow global privacy before saving a public profile',
+      )
+      const page = await fetch(
+          `${origin}/${locale}/projects/aisummit25/travel-tetris`,
+        ),
+        htmlPublic = await page.text()
+      assert.equal(page.status, 200)
+      const work = [
+        ...htmlPublic.matchAll(
+          /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
+        ),
+      ]
+        .map((m) => JSON.parse(m[1]))
+        .find((item) => item['@type'] === 'CreativeWork')
+      assert.ok(!work.author.some((person) => person.name === teammate.name))
+      const colin = work.author.find((person) => person.name === 'Colin Stark')
+      assert.ok(colin)
+      assert.deepEqual(colin.sameAs, [])
+    }
+    await changeAsOwner(privacySubjects[1], true, 3)
+    assert.equal(
+      (await fetch(`${origin}/en/builders/starklink-255870758bcc`)).status,
+      404,
+    )
+    assert.equal(
+      (await fetch(`${origin}/en/projects/aisummit25/travel-tetris`)).status,
+      200,
+    )
+    const { getEventProjects } = require('../lib/project-catalog.ts')
+    const beforeTotal = (await getEventProjects('en', 'aisummit25')).total
+    const visibility = await fetch(
+      `${origin}/api/account/projects/visibility`,
+      {
+        method: 'PATCH',
+        headers: {
+          Cookie: `hb_session=${tokens[1]}`,
+          Origin: origin,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          project: ownerProject,
+          visibility: 'private',
+          revision: 0,
+        }),
+      },
+    )
+    assert.equal(visibility.status, 200)
+    assert.equal(
+      (await fetch(`${origin}/en/projects/aisummit25/travel-tetris`)).status,
+      404,
+    )
+    assert.equal(
+      (await getEventProjects('en', 'aisummit25')).total,
+      beforeTotal,
+    )
     console.log(
       'PASS production-rendered organiser lists, search, project/profile editors and access isolation in all four locales',
     )
@@ -318,6 +460,23 @@ async function main() {
     await database
       .delete(identityAccounts)
       .where(inArray(identityAccounts.id, [admin.id, member.id]))
+    if (ownerProofId)
+      await database
+        .delete(projectClaimEvidence)
+        .where(eq(projectClaimEvidence.id, ownerProofId))
+    await database
+      .delete(projectVisibilityAudit)
+      .where(
+        eq(
+          projectVisibilityAudit.projectKey,
+          'archive:aisummit25/travel-tetris',
+        ),
+      )
+    await database
+      .delete(projectVisibility)
+      .where(
+        eq(projectVisibility.projectKey, 'archive:aisummit25/travel-tetris'),
+      )
     await pool.end()
   }
 }

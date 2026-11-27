@@ -7,24 +7,30 @@ import { buildBuilderDirectory } from '@/lib/builders'
 import { projectBuilder } from '@/lib/project-detail'
 import { projectHackers, type ProjectHacker } from '@/lib/live/validate'
 import { getLiveEvent, isHiddenProject } from '@/lib/live/config'
+import {
+  type PrivacyField,
+  visibleLinks,
+  visibleProjectUrl,
+  visibleTextLinks,
+} from './privacy-model'
 
 /** Private matching context, always read fresh. Never serialize source rosters to public components. */
-export async function creatorPrivacyContext() {
+export async function creatorPrivacyContext(
+  database: Pick<ReturnType<typeof getDb>, 'select'> = getDb(),
+) {
   noStore()
-  const [states, submitted, visibility] = await Promise.all([
-    getDb().select().from(creatorPrivacy),
-    getDb()
-      .select({
-        eventSlug: liveProjects.eventSlug,
-        slug: liveProjects.slug,
-        creatorName: liveProjects.creatorName,
-        linkedinUrl: liveProjects.linkedinUrl,
-        hackers: liveProjects.hackers,
-        visibility: liveProjects.visibility,
-      })
-      .from(liveProjects),
-    getDb().select().from(projectVisibility),
-  ])
+  const states = await database.select().from(creatorPrivacy)
+  const submitted = await database
+    .select({
+      eventSlug: liveProjects.eventSlug,
+      slug: liveProjects.slug,
+      creatorName: liveProjects.creatorName,
+      linkedinUrl: liveProjects.linkedinUrl,
+      hackers: liveProjects.hackers,
+      visibility: liveProjects.visibility,
+    })
+    .from(liveProjects)
+  const visibility = await database.select().from(projectVisibility)
   const visibilityStates = new Map(
     visibility.map((row) => [row.projectKey, row.visibility]),
   )
@@ -51,6 +57,14 @@ export async function creatorPrivacyContext() {
       })),
   ]
   const profiles = buildBuilderDirectory(entries)
+  const managementIdentities = new Map(
+    profiles.flatMap((profile) =>
+      profile.credits.map(
+        (credit) =>
+          [`${credit.projectKey}:${credit.index}`, profile.slug] as const,
+      ),
+    ),
+  )
   // Private credits may identify the organiser's target, but cannot introduce a public identity/URL.
   const publicProfiles = buildBuilderDirectory(
     entries.filter((entry) => entry.visible),
@@ -82,23 +96,118 @@ export async function creatorPrivacyContext() {
       })),
     ]),
   )
-  return { states, identities, hiddenSubjects, hiddenCredits, rosters }
+  return {
+    states,
+    policies: new Map(states.map((row) => [row.subjectKey, row])),
+    profiles,
+    managementIdentities,
+    identities,
+    hiddenSubjects,
+    hiddenCredits,
+    rosters,
+  }
+}
+
+export function creditPrivacy(
+  context: Awaited<ReturnType<typeof creatorPrivacyContext>>,
+  key: string,
+  index: number,
+) {
+  const slug = context.managementIdentities.get(`${key}:${index}`)
+  const rows = [
+    `project:${key}`,
+    ...(slug ? [`credit:${key}:${slug}`, `builder:${slug}`] : []),
+  ].map((subject) => context.policies.get(subject))
+  return {
+    hidden: rows.some((row) => row?.hidden),
+    hiddenFields: Array.from(
+      new Set(rows.flatMap((row) => row?.hiddenFields ?? [])),
+    ),
+  }
+}
+export function globalBuilderFields(
+  context: Awaited<ReturnType<typeof creatorPrivacyContext>>,
+  credits: { projectKey: string; index: number }[],
+): PrivacyField[] {
+  return Array.from(
+    new Set(
+      credits.flatMap((credit) => {
+        const slug = context.managementIdentities.get(
+          `${credit.projectKey}:${credit.index}`,
+        )
+        return slug
+          ? (context.policies.get(`builder:${slug}`)?.hiddenFields ?? [])
+          : []
+      }),
+    ),
+  )
+}
+function publicBody(content: string, fields: PrivacyField[]) {
+  if (!fields.length) return content
+  return visibleTextLinks(content, fields)
+    .replace(/<YouTube\b[^>]*\/>/g, (component) =>
+      fields.includes('otherLinks') ? '' : component,
+    )
+    .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, (component) =>
+      fields.includes('otherLinks') ? '' : component,
+    )
 }
 
 export async function publicArchiveCreators(projects: Project[]) {
   const context = await creatorPrivacyContext()
   return projects.map((project) => {
     const key = `archive:${project.slug}`
+    const projectFields =
+      context.policies.get(`project:${key}`)?.hiddenFields ?? []
     const hackers = project.data.hackers.flatMap((person, index) => {
       const profileSlug = context.identities.get(`${key}:${index}`)
-      return context.hiddenSubjects.has(`project:${key}`) ||
-        context.hiddenCredits.has(`${key}:${index}`)
+      const policy = creditPrivacy(context, key, index)
+      return policy.hidden
         ? []
-        : [{ ...person, creditIndex: index, profileSlug }]
+        : [
+            {
+              ...person,
+              name: visibleTextLinks(person.name, policy.hiddenFields),
+              creditIndex: index,
+              profileSlug,
+              hiddenFields: policy.hiddenFields,
+              links: visibleLinks(
+                Object.fromEntries(
+                  Object.entries(person.links ?? {}).filter(
+                    (entry): entry is [string, string] =>
+                      typeof entry[1] === 'string',
+                  ),
+                ),
+                policy.hiddenFields,
+              ),
+              ...(policy.hiddenFields.includes('photo')
+                ? { image: { src: '' } }
+                : {}),
+              ...(policy.hiddenFields.includes('bio')
+                ? { description: '', job: '' }
+                : {}),
+            },
+          ]
     })
     return {
       ...project,
-      data: { ...project.data, hackers },
+      content: publicBody(project.content, projectFields),
+      data: {
+        ...project.data,
+        title: visibleTextLinks(project.data.title, projectFields),
+        description: visibleTextLinks(project.data.description, projectFields),
+        hackers,
+        links: visibleLinks(
+          Object.fromEntries(
+            Object.entries(project.data.links ?? {}).filter(
+              (entry): entry is [string, string] =>
+                typeof entry[1] === 'string',
+            ),
+          ),
+          projectFields,
+        ),
+        youtubeLink: visibleProjectUrl(project.data.youtubeLink, projectFields),
+      },
       builders: hackers.map(projectBuilder),
     }
   })
@@ -116,15 +225,51 @@ export async function publicSubmittedCreators<
   const context = await creatorPrivacyContext()
   return projects.map((project) => {
     const key = `submitted:${project.eventSlug}:${project.slug}`
+    const projectFields =
+      context.policies.get(`project:${key}`)?.hiddenFields ?? []
     const hackers = projectHackers(project).flatMap((person, index) => {
       const profileSlug = context.identities.get(`${key}:${index}`)
-      return context.hiddenSubjects.has(`project:${key}`) ||
-        context.hiddenCredits.has(`${key}:${index}`)
+      const policy = creditPrivacy(context, key, index)
+      return policy.hidden
         ? []
-        : [{ ...person, creditIndex: index, profileSlug }]
+        : [
+            {
+              ...person,
+              name: visibleTextLinks(person.name, policy.hiddenFields),
+              creditIndex: index,
+              profileSlug,
+              hiddenFields: policy.hiddenFields,
+              linkedinUrl: policy.hiddenFields.includes('linkedin')
+                ? null
+                : person.linkedinUrl,
+            },
+          ]
     })
     return {
       ...project,
+      ...('name' in project
+        ? { name: visibleTextLinks(project.name as string, projectFields) }
+        : {}),
+      ...('tagline' in project
+        ? {
+            tagline: visibleTextLinks(project.tagline as string, projectFields),
+          }
+        : {}),
+      ...('jevUsage' in project && typeof project.jevUsage === 'string'
+        ? { jevUsage: visibleTextLinks(project.jevUsage, projectFields) }
+        : {}),
+      ...('url' in project
+        ? { url: visibleProjectUrl(project.url as string, projectFields) }
+        : {}),
+      ...('videoUrl' in project
+        ? {
+            videoUrl:
+              visibleProjectUrl(
+                project.videoUrl as string | null,
+                projectFields,
+              ) || null,
+          }
+        : {}),
       hackers,
       creatorName: hackers.map((person) => person.name).join(', '),
       linkedinUrl: hackers[0]?.linkedinUrl ?? '',

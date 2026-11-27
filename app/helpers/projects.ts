@@ -3,6 +3,7 @@ import fs from 'fs'
 import { globSync } from 'glob'
 import matter from 'gray-matter'
 import type { ProjectBuilder } from '../../lib/project-detail'
+import type { PrivacyField } from '../../lib/projects/privacy-model'
 
 export type ProjectCategory =
   | 'Technology'
@@ -11,6 +12,7 @@ export type ProjectCategory =
   | 'Other'
 
 export interface Person {
+  hiddenFields?: PrivacyField[]
   creditIndex?: number
   profileSlug?: string
   name: string

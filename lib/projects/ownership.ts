@@ -61,11 +61,12 @@ export function projectReference(input: unknown): ProjectReference | null {
 export function isProjectOrganiser(
   user: { id: string; emailVerified: boolean; email?: string | null },
   ids = process.env.HACKBARNA_ORGANISER_IDS ?? '',
+  ownerId = process.env.HACKBARNA_OWNER_ID ?? '',
 ) {
   return (
     user.emailVerified &&
     !!user.email &&
-    ids
+    `${ids},${ownerId}`
       .split(',')
       .map((id) => id.trim())
       .filter(Boolean)

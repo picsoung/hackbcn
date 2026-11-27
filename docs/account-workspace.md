@@ -9,6 +9,8 @@ The personal workspace uses the existing HackBarna identity and brand, with shar
 
 The focused editor at `/{locale}/account/projects/edit?project=…` currently edits the name, short description, project picture, website/demo and video link. Teams, awards, source identifiers, event assignments and ownership are outside this form. Profile links cannot grant project access.
 
+The editor also provides immediate privacy controls to verified teammates and organisers: hide the entire project while retaining participation totals, hide all or individual creator credits, or hide selected links/photos/bios. Profile-wide visibility lives in `/account` for verified individual owners and in the builder editor for organisers. See the [privacy permission and precedence rules](organiser-management.md#creator-privacy). Hidden values are retained privately; changing profile data does not reset visibility choices.
+
 ## Verified public profiles
 
 A saved community profile updates the public builder page and project-detail credit only after an unambiguous email claim binds the account to that exact original credit. Pending/revoked claims, disabled or stale roster evidence and conflicting accounts never apply public profile changes. An organiser-approved project membership alone cannot identify which teammate's profile to change; that needs an explicit credit assignment in a later organiser flow.
