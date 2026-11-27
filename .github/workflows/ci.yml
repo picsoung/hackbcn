@@ -89,7 +89,7 @@ jobs:
         run: |
           node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/hackbarna-seo-server.log" 2>&1 &
           seo_server_pid=$!
-          trap 'kill "$seo_server_pid"' EXIT
+          trap 'status=$?; if [ "$status" -ne 0 ]; then cat "$RUNNER_TEMP/hackbarna-seo-server.log"; fi; kill "$seo_server_pid"' EXIT
           node tests/seo-routes.integration.mjs http://127.0.0.1:3100
           node tests/project-visibility-routes.integration.mjs http://127.0.0.1:3100
           node tests/aisummit25-routes.integration.mjs http://127.0.0.1:3100

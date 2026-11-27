@@ -11,6 +11,8 @@ Reviewed 27 November 2026 against the organiser-provided project workbook. The p
 
 Projects live in `projects/aisummit25/` with `event: aisummit25`. The existing event page at `/{locale}/aisummit25` automatically renders them in its final Projects disclosure. They also appear in the grouped global project archive, builder pages and sitemap. The standard project detail view is shared with the other editions, with server-rendered project descriptions and team credits in EN/ES/CA/FR routes.
 
+Legacy event pages explicitly render on each request, matching the newer event routes. Their project lists resolve current privacy and approved edits from the database. Leaving the route as a static fallback caused a production-only static-to-dynamic rendering error; the four-language route check covers this failure.
+
 ## Data handling
 
 Team fields mix names and email addresses using commas, newlines, brackets, colons and ampersands. The import extracts 97 names and removes contact strings before generating public files. It does not guess GitHub/LinkedIn identities from names or project repository owners. Existing avatar placeholders remain available until a builder supplies a photo or a public profile is verified.

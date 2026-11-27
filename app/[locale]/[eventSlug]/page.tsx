@@ -31,12 +31,10 @@ import { permanentRedirect, notFound } from 'next/navigation'
 // Anything else here (new MDX events, hack nights) gets a 308 to /events/<slug>.
 const PAST_LEGACY_SLUGS = new Set(['v1-2024', 'aisummit25'])
 
-// Allow dynamic rendering for unknown slugs so the redirect logic can fire.
+// Project privacy and reviewed edits must be resolved on every request.
+// A static fallback can otherwise fail when the catalogue opts out of caching.
+export const dynamic = 'force-dynamic'
 export const dynamicParams = true
-
-export async function generateStaticParams() {
-  return Array.from(PAST_LEGACY_SLUGS).map((slug) => ({ eventSlug: slug }))
-}
 
 export default async function EventPage({
   params,
