@@ -71,14 +71,16 @@ export default function ProjectDetail({
               : undefined,
             datePublished: validProjectDate(publishedDate)?.toISOString(),
             dateModified: validProjectDate(modifiedDate)?.toISOString(),
-            author: builders.map((builder) => ({
-              '@type': 'Person',
-              name: builder.name,
-              url: builder.href
-                ? `${siteOrigin()}${builder.href}`
-                : builder.links.linkedin,
-              sameAs: Object.values(builder.links),
-            })),
+            author: builders.length
+              ? builders.map((builder) => ({
+                  '@type': 'Person',
+                  name: builder.name,
+                  url: builder.href
+                    ? `${siteOrigin()}${builder.href}`
+                    : builder.links.linkedin,
+                  sameAs: Object.values(builder.links),
+                }))
+              : undefined,
             award: project.award,
             keywords:
               [...project.tags, ...(project.challenges ?? [])].join(', ') ||

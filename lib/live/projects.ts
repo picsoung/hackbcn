@@ -1,5 +1,6 @@
 import 'server-only'
 import { applySubmittedContent } from '@/lib/projects/approved-content'
+import { publicSubmittedCreators } from '@/lib/projects/creator-privacy'
 import {
   and,
   desc,
@@ -98,6 +99,7 @@ export type PublicProject = {
   videoUrl: string | null
   screenshotKey: string | null
   imageUrl?: string
+  creatorCreditsHidden?: boolean
   creatorName: string
   linkedinUrl: string
   hackers: ProjectHacker[]
@@ -142,6 +144,7 @@ export async function listProjects(
         rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
       ),
     )
+    .then(publicSubmittedCreators)
 }
 
 export async function listAllProjects(): Promise<PublicProject[]> {
@@ -157,6 +160,7 @@ export async function listAllProjects(): Promise<PublicProject[]> {
         rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
       ),
     )
+    .then(publicSubmittedCreators)
 }
 
 /** Private directory source; the organiser caller must authorize before calling. */
@@ -191,7 +195,10 @@ export async function listProjectSitemapEntries() {
     .orderBy(projects.eventSlug, projects.slug)
 }
 
-export async function getPublicProject(eventSlug: string, slug: string) {
+export async function getPublicProject(
+  eventSlug: string,
+  slug: string,
+): Promise<PublicProject | null> {
   if (isHiddenProject(eventSlug, slug)) return null
   const [project] = await getDb()
     .select(publicColumns)
@@ -206,9 +213,11 @@ export async function getPublicProject(eventSlug: string, slug: string) {
     .limit(1)
   return project
     ? (
-        await applySubmittedContent([
-          { ...project, hackers: projectHackers(project) },
-        ])
+        await publicSubmittedCreators(
+          await applySubmittedContent([
+            { ...project, hackers: projectHackers(project) },
+          ]),
+        )
       )[0]
     : null
 }
@@ -424,5 +433,6 @@ export async function exportShareable(eventSlug: string) {
         rows.map((row) => ({ ...row, hackers: projectHackers(row) })),
       ),
     )
+    .then(publicSubmittedCreators)
     .then((rows) => rows.map(({ eventSlug, ...row }) => row))
 }

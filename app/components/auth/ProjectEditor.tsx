@@ -15,6 +15,7 @@ import {
 import type { projectEditor } from '@/lib/projects/edit-store'
 import { organiserCopy } from '@/data/organiser'
 import AdminProjectVisibility from './AdminProjectVisibility'
+import AdminCreatorPrivacy from './AdminCreatorPrivacy'
 
 export default function ProjectEditor({
   data,
@@ -219,6 +220,9 @@ export default function ProjectEditor({
         </p>
       </form>
       {data.organiser && <AdminProjectVisibility data={data} locale={locale} />}
+      {data.organiser && (
+        <AdminCreatorPrivacy initial={data.creatorPrivacy} locale={locale} />
+      )}
     </>
   )
 }

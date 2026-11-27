@@ -8,6 +8,7 @@ import {
   projectContent,
   projectContentHistory,
   projectVisibility,
+  creatorPrivacy,
 } from '@/db/schema'
 import type { IdentityUser } from '@/lib/auth/types'
 import { assertMediaReference } from '@/lib/media/store'
@@ -89,7 +90,16 @@ export async function projectEditor(
     .select()
     .from(projectVisibility)
     .where(eq(projectVisibility.projectKey, key))
+  const [privacy] = await getDb()
+    .select()
+    .from(creatorPrivacy)
+    .where(eq(creatorPrivacy.subjectKey, `project:${key}`))
   return {
+    creatorPrivacy: {
+      subjectKey: `project:${key}`,
+      hidden: privacy?.hidden ?? false,
+      revision: privacy?.revision ?? 0,
+    },
     organiser: isProjectOrganiser(user),
     visibility:
       source.reference.kind === 'submitted'

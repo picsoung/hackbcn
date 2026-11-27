@@ -21,6 +21,27 @@ const maker = (name, links = {}, extra = {}) => ({ name, links, ...extra })
 const entry = (key, ...builders) => ({ projectKey: key, builders })
 const linkedin = (id) => `https://www.linkedin.com/in/${id}/`
 
+test('the organiser-confirmed Bicing Planner credit uses Eduard Blanco without overwriting later roster edits', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'bicing-planner',
+    creatorName: 'Eduard Blancode',
+    linkedinUrl: linkedin('eduardblanco'),
+  }
+  assert.equal(projectHackers(source)[0].name, 'Eduard Blanco')
+  assert.equal(
+    projectHackers({ ...source, slug: 'other-project' })[0].name,
+    'Eduard Blancode',
+  )
+  assert.equal(
+    projectHackers({ ...source, linkedinUrl: linkedin('another-person') })[0]
+      .name,
+    'Eduard Blancode',
+  )
+  const updated = [{ name: 'Eduard B.', linkedinUrl: source.linkedinUrl }]
+  assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
+})
+
 test('the reviewed Council-convention credit gives Tiam and Stepan separate identities without copying the photo owner’s profile', () => {
   const source = {
     eventSlug: 'hacknight-5-jevathon-2026',

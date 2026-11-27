@@ -11,18 +11,13 @@ import { claimedBuilderDisplays } from './community/claimed-profiles'
 import { applyClaimedDisplays } from './community/claimed-display'
 import { applyBuilderDisplays } from './community/builder-display'
 import { builderDisplayOverrides } from './community/builder-profiles'
-import { getBuiltProject } from '@/app/helpers/projects'
+import { creatorPrivacyContext } from '@/lib/projects/creator-privacy'
 
 export function sourceBuilderProfiles(projects: ProjectCard[]) {
   return buildBuilderDirectory(
     projects.map((project) => ({
       projectKey: project.key,
-      builders:
-        (project.key.startsWith('archive:')
-          ? getBuiltProject(project.key.slice(8).split('/'))?.data.hackers.map(
-              projectBuilder,
-            )
-          : undefined) ?? project.hackers.map(projectBuilder),
+      builders: project.builders ?? project.hackers.map(projectBuilder),
     })),
   )
 }
@@ -37,7 +32,7 @@ export async function getBuilderCatalog(locale: string) {
         sourceProfiles.map((profile) => profile.slug),
       ),
     ),
-    new Map(projects.map((project) => [project.key, project.hackers])),
+    (await creatorPrivacyContext()).rosters,
     await claimedBuilderDisplays(projects.map((project) => project.key)),
   )
   return { profiles, projects }
@@ -51,15 +46,22 @@ export async function getProjectPageContext(
   const { profiles, projects } = await getBuilderCatalog(locale)
   return {
     related: relatedProjectCards(current, projects),
-    builders: builders.map((builder, index) => {
-      const profile = builderForCredit(profiles, current.key, index)
-      return {
-        ...builder,
-        ...(profile?.claimed || profile?.edited
-          ? { name: profile.name, image: profile.image, links: profile.links }
-          : {}),
-        href: profile ? builderProfilePath(locale, profile.slug) : undefined,
-      }
+    builders: builders.flatMap((builder, index) => {
+      const profile = builderForCredit(
+        profiles,
+        current.key,
+        builder.creditIndex ?? index,
+      )
+      if (!profile) return []
+      return [
+        {
+          ...builder,
+          ...(profile?.claimed || profile?.edited
+            ? { name: profile.name, image: profile.image, links: profile.links }
+            : {}),
+          href: profile ? builderProfilePath(locale, profile.slug) : undefined,
+        },
+      ]
     }),
   }
 }

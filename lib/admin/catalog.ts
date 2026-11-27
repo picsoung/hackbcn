@@ -1,6 +1,11 @@
 import 'server-only'
 import { getDb } from '@/db'
-import { projectClaims, projectContent, projectVisibility } from '@/db/schema'
+import {
+  projectClaims,
+  projectContent,
+  projectVisibility,
+  creatorPrivacy,
+} from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { getBuiltProjects } from '@/app/helpers/projects'
 import { getEventDataBySlug } from '@/lib/events-server'
@@ -30,20 +35,28 @@ export function requireOrganiser(user: IdentityUser) {
 export async function organiserCatalog(user: IdentityUser, locale: string) {
   requireOrganiser(user)
   const sources = getBuiltProjects()
-  const [submitted, visibility, claims, content, approved] = await Promise.all([
-    listManagedProjects(),
-    getDb().select().from(projectVisibility),
-    getDb()
-      .select({ projectKey: projectClaims.projectKey })
-      .from(projectClaims)
-      .where(eq(projectClaims.status, 'verified')),
-    getDb()
-      .select({ key: projectContent.projectKey, status: projectContent.status })
-      .from(projectContent),
-    approvedProjectContent(sources.map((project) => `archive:${project.slug}`)),
-  ])
+  const [submitted, visibility, claims, content, approved, privacy] =
+    await Promise.all([
+      listManagedProjects(),
+      getDb().select().from(projectVisibility),
+      getDb()
+        .select({ projectKey: projectClaims.projectKey })
+        .from(projectClaims)
+        .where(eq(projectClaims.status, 'verified')),
+      getDb()
+        .select({
+          key: projectContent.projectKey,
+          status: projectContent.status,
+        })
+        .from(projectContent),
+      approvedProjectContent(
+        sources.map((project) => `archive:${project.slug}`),
+      ),
+      getDb().select().from(creatorPrivacy),
+    ])
   const settings = new Map(visibility.map((row) => [row.projectKey, row]))
   const edits = new Map(content.map((row) => [row.key, row.status]))
+  const privacyStates = new Map(privacy.map((row) => [row.subjectKey, row]))
   const projects = [
     ...sources.map((source) => ({
       project: archivedProjectCard(
@@ -78,6 +91,13 @@ export async function organiserCatalog(user: IdentityUser, locale: string) {
       claimCount: claims.filter((claim) => claim.projectKey === row.project.key)
         .length,
       editStatus: edits.get(row.project.key) ?? null,
+      creatorPrivacy: {
+        subjectKey: `project:${row.project.key}`,
+        hidden:
+          privacyStates.get(`project:${row.project.key}`)?.hidden ?? false,
+        revision:
+          privacyStates.get(`project:${row.project.key}`)?.revision ?? 0,
+      },
     }))
     .sort(
       (a, b) =>
@@ -96,5 +116,24 @@ export async function organiserCatalog(user: IdentityUser, locale: string) {
     new Map(cards.map((project) => [project.key, project.hackers])),
     await claimedBuilderDisplays(cards.map((project) => project.key)),
   )
-  return { projects, profiles }
+  return {
+    projects: projects.map((row) => ({
+      ...row,
+      hasHiddenCreators:
+        row.creatorPrivacy.hidden ||
+        sourceProfiles.some(
+          (profile) =>
+            privacyStates.get(`builder:${profile.slug}`)?.hidden &&
+            profile.projectKeys.includes(row.project.key),
+        ),
+    })),
+    profiles: profiles.map((profile) => ({
+      ...profile,
+      creatorPrivacy: {
+        subjectKey: `builder:${profile.slug}`,
+        hidden: privacyStates.get(`builder:${profile.slug}`)?.hidden ?? false,
+        revision: privacyStates.get(`builder:${profile.slug}`)?.revision ?? 0,
+      },
+    })),
+  }
 }

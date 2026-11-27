@@ -108,7 +108,7 @@ export default function Wall({
                 ) : (
                   <span className={chipDim}>Jev is sorting…</span>
                 )}
-                <span>by {p.creatorName}</span>
+                {p.creatorName && <span>by {p.creatorName}</span>}
                 {p.hasVideo && <span className="text-neon-pink">▶ video</span>}
                 {p.shareCount > 0 && (
                   <span>

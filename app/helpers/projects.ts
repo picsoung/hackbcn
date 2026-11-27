@@ -10,6 +10,8 @@ export type ProjectCategory =
   | 'Other'
 
 export interface Person {
+  creditIndex?: number
+  profileSlug?: string
   name: string
   description: string
   job?: string

@@ -8,6 +8,20 @@ Choose **Edit** to change the name, description, image, website or demo video us
 
 The **Builders** list includes historical credits as well as claimed profiles, including builders whose only projects are hidden. Edit a display name, bio, avatar, LinkedIn or GitHub. Builder details link back to their editable projects.
 
+## Creator privacy
+
+Creator visibility is independent of project visibility:
+
+- In a project editor, **Hide creators on this project** removes all builder credits from that project’s public data, lists, detail and author structured data. The project remains public, crawlable and counted. It no longer appears under its builders’ profiles.
+- In a builder editor, **Hide this builder across all projects** removes that public builder page and the person’s credits across projects. The projects and other teammates remain visible. The builder URL returns 404 and is removed from the sitemap.
+- Either hiding rule takes precedence. Restoring a builder does not expose credits on a project that still hides its creators, and restoring project credits does not expose a globally hidden builder.
+
+The organiser directory retains the original credits and hidden profiles, marks hidden credits, and offers a status filter to find them. Existing team ownership, shared profile data and organiser access remain intact. Names, portraits and social URLs are filtered before public page props, search, builder catalogues and live-project/export/leaderboard API responses. Original team positions and canonical builder URLs are preserved for the remaining teammates; verified individual profile bindings still use the original private roster digest.
+
+These controls hide HackBarna attribution, rather than deleting source records. Review project titles, descriptions, body text, images, videos and external links separately if they identify someone. Community posts are independent of project credits. Creator-privacy changes have revision checks and a private actor/history audit in `creator_privacy_history`.
+
+Apply migration `20261127170000_creator_privacy` before using the new controls. It introduces no hidden subjects by default.
+
 ## Storage and account boundaries
 
 - Older projects remain Markdown sources; approved database overrides are applied at read time. Submitted projects use `live_projects`. No source files are rewritten by the admin UI.

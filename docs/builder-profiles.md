@@ -31,3 +31,7 @@ npx tsc --noEmit --incremental false
 The original source-derived directory needs no attendee-file import. Claimed display updates use the shared community-profile tables. [Organiser editing](organiser-management.md) adds database-backed historical corrections and requires migration `20261127160000_organiser_builder_editing`; these corrections preserve grouping and URLs.
 
 Verified portraits and remaining identity/photo gaps are recorded in the [builder portrait audit](builder-portrait-audit.md).
+
+Organiser [creator-privacy controls](organiser-management.md#creator-privacy) can hide a project’s complete roster or one builder across all projects. Public grouping uses only visible credits and preserves source-derived identities and original team positions. Organiser tools keep the original attribution and do not use public visibility to grant or revoke team access.
+
+The organiser confirmed Bicing Planner’s creator as **Eduard Blanco**, rather than the legacy submitted name “Eduard Blancode”. The correction is limited to that event, project, exact submitted credit and supplied LinkedIn identity. The contact confirmation is retained privately outside the repository; no email address, claim proof or invitation is added to public records by this correction.

@@ -4,6 +4,8 @@ import { archivedProjectDemo, archivedProjectUrl } from './archived-project'
 import { makerAvatar } from './maker-avatar'
 
 export type ProjectBuilder = {
+  creditIndex?: number
+  profileSlug?: string
   name: string
   href?: string
   role?: string
@@ -29,6 +31,8 @@ const profileServices = [
 ]
 
 export function projectBuilder(source: {
+  creditIndex?: number
+  profileSlug?: string
   name: string
   description?: string
   job?: string
@@ -48,6 +52,10 @@ export function projectBuilder(source: {
   )
   const photo = source.image?.src
   return {
+    ...(source.creditIndex !== undefined
+      ? { creditIndex: source.creditIndex }
+      : {}),
+    ...(source.profileSlug ? { profileSlug: source.profileSlug } : {}),
     name: source.name.trim(),
     role: source.description || source.job || undefined,
     image:

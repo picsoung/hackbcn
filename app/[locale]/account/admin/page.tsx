@@ -71,7 +71,9 @@ export default async function OrganiserPage({
           ? row.claimCount > 0
           : status === 'unclaimed'
             ? row.claimCount === 0
-            : row.visibility === status)),
+            : status === 'creators-hidden'
+              ? row.hasHiddenCreators
+              : row.visibility === status)),
   )
   const builderRows = profiles.filter((builder) => {
     const credits = eventProjects.filter((row) =>
@@ -87,7 +89,9 @@ export default async function OrganiserPage({
           ? builder.claimed
           : status === 'unclaimed'
             ? !builder.claimed
-            : credits.some((row) => row.visibility === status)))
+            : status === 'creators-hidden'
+              ? builder.creatorPrivacy.hidden
+              : credits.some((row) => row.visibility === status)))
     )
   })
   const count = builders ? builderRows.length : projectRows.length
@@ -181,6 +185,9 @@ export default async function OrganiserPage({
           {copy.status}
           <select name="status" defaultValue={status} className={accountField}>
             <option value="">{copy.all}</option>
+            <option value="creators-hidden">
+              {builders ? copy.builderHidden : copy.creatorsHidden}
+            </option>
             {(['claimed', 'unclaimed', 'public', 'private'] as const).map(
               (key) => (
                 <option key={key} value={key}>
@@ -209,6 +216,9 @@ export default async function OrganiserPage({
                   <p className="mt-1 text-sm text-ink-dim">
                     {copy[builder.claimed ? 'claimed' : 'unclaimed']} ·{' '}
                     {builder.projectKeys.length} {copy.projectCount}
+                    {builder.creatorPrivacy.hidden && (
+                      <> · {copy.builderHidden}</>
+                    )}
                   </p>
                 </div>
                 <Link
@@ -244,6 +254,9 @@ export default async function OrganiserPage({
                 <p className="text-sm text-ink-dim">
                   {copy[row.visibility]} ·{' '}
                   {copy[row.claimCount ? 'claimed' : 'unclaimed']}
+                  {row.hasHiddenCreators && (
+                    <span className="mt-1 block">{copy.creatorsHidden}</span>
+                  )}
                 </p>
                 <Link
                   href={`/${locale}/account/projects/edit?project=${encodeURIComponent(row.project.key)}`}

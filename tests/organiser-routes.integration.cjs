@@ -64,8 +64,18 @@ async function main() {
   }
   const { createIdentitySession } = require('../lib/auth/session-store.ts')
   const { getIdentityConfig } = require('../lib/auth/identity-config.ts')
-  const { identityAccounts } = require('../db/schema.ts'),
-    { inArray } = require('drizzle-orm')
+  const {
+      identityAccounts,
+      creatorPrivacy,
+      creatorPrivacyHistory,
+      liveProjects,
+    } = require('../db/schema.ts'),
+    { inArray, eq } = require('drizzle-orm')
+  const privacySubjects = [
+    'project:archive:aisummit25/travel-tetris',
+    'builder:starklink-255870758bcc',
+    'project:submitted:hacknight-5-jevathon-2026:creator-privacy-route-fixture',
+  ]
   let server,
     logs = ''
   try {
@@ -143,6 +153,7 @@ async function main() {
       assert.ok(detail.includes('name="linkedinUrl"'))
       assert.ok(detail.includes('name="githubUrl"'))
       assert.ok(detail.includes(copy.save))
+      assert.ok(detail.includes('data-creator-privacy="builder"'))
       assert.ok(detail.includes('Travel Tetris'))
       assert.equal((await read(builderPath, 1)).status, 404)
       const edit = await read(
@@ -153,6 +164,7 @@ async function main() {
       assert.ok(editHtml.includes(copy.projectHelp))
       assert.ok(editHtml.includes(copy.visibility))
       assert.ok(editHtml.includes(copy.save))
+      assert.ok(editHtml.includes('data-creator-privacy="project"'))
       assert.equal(
         (
           await read(
@@ -167,6 +179,103 @@ async function main() {
       await read('/en/account/admin?q=fixture-with-no-matching-project')
     ).text()
     assert.ok(noMatches.includes('No matches.'))
+    const changePrivacy = async (subjectKey, hidden, revision) => {
+      const response = await fetch(`${origin}/api/admin/creator-privacy`, {
+        method: 'PATCH',
+        headers: {
+          Cookie: `hb_session=${tokens[0]}`,
+          Origin: origin,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ subjectKey, hidden, revision }),
+      })
+      assert.equal(response.status, 200, await response.clone().text())
+    }
+    const liveSlug = 'creator-privacy-route-fixture'
+    await database.insert(liveProjects).values({
+      eventSlug: 'hacknight-5-jevathon-2026',
+      slug: liveSlug,
+      name: 'Public project with private credits',
+      tagline:
+        'This project stays public while all creator credits are hidden.',
+      url: 'https://example.test/privacy-project',
+      creatorName: 'Private Route Creator',
+      creatorEmail: 'private-route-creator@example.test',
+      linkedinUrl: 'https://www.linkedin.com/in/private-route-creator/',
+      shareConsent: true,
+      category: 'tools',
+    })
+    await changePrivacy(privacySubjects[0], true, 0)
+    await changePrivacy(privacySubjects[1], true, 0)
+    await changePrivacy(privacySubjects[2], true, 0)
+    for (const locale of ['en', 'es', 'ca', 'fr']) {
+      assert.equal(
+        (await fetch(`${origin}/${locale}/builders/starklink-255870758bcc`))
+          .status,
+        404,
+      )
+      const archive = await fetch(
+          `${origin}/${locale}/projects/aisummit25/travel-tetris`,
+        ),
+        archiveHtml = await archive.text()
+      assert.equal(archive.status, 200)
+      assert.ok(!archiveHtml.includes('project-builders-heading'))
+      const archiveJson = [
+        ...archiveHtml.matchAll(
+          /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
+        ),
+      ].map((match) => JSON.parse(match[1]))
+      const work = archiveJson.find((item) => item['@type'] === 'CreativeWork')
+      assert.ok(work)
+      assert.equal(work.author, undefined)
+      const live = await fetch(
+          `${origin}/${locale}/events/hacknight-5-jevathon-2026/projects/${liveSlug}`,
+        ),
+        liveHtml = await live.text()
+      assert.equal(live.status, 200)
+      assert.ok(!liveHtml.includes('Private Route Creator'))
+      assert.ok(!liveHtml.includes('private-route-creator'))
+      assert.ok(!liveHtml.includes('project-builders-heading'))
+      const manage = await (
+        await read(`/${locale}/account/admin?tab=builders&q=Colin`)
+      ).text()
+      assert.ok(manage.includes('Colin Stark'))
+    }
+    for (const path of [
+      '/api/live/hacknight-5-jevathon-2026/projects',
+      '/api/live/hacknight-5-jevathon-2026/export',
+      '/api/live/hacknight-5-jevathon-2026/leaderboard',
+    ]) {
+      const response = await fetch(origin + path),
+        payload = await response.json()
+      assert.equal(response.status, 200)
+      const text = JSON.stringify(payload)
+      assert.ok(!text.includes('Private Route Creator'))
+      assert.ok(!text.includes('private-route-creator'))
+      const rows = Array.isArray(payload) ? payload : payload.projects
+      assert.ok(rows.some((row) => row.slug === liveSlug))
+    }
+    const sitemapResponse = await fetch(`${origin}/sitemap.xml`),
+      sitemap = await sitemapResponse.text()
+    assert.equal(sitemapResponse.status, 200)
+    assert.ok(!sitemap.includes('/builders/starklink-255870758bcc'))
+    assert.ok(sitemap.includes('/projects/aisummit25/travel-tetris'))
+    const page = await (await fetch(`${origin}/en/projects`)).text()
+    assert.ok(!page.includes('Colin Stark'))
+    assert.ok(page.includes('Travel Tetris'))
+    await changePrivacy(privacySubjects[1], false, 1)
+    assert.equal(
+      (await fetch(`${origin}/en/builders/starklink-255870758bcc`)).status,
+      200,
+    )
+    assert.ok(
+      !(
+        await (
+          await fetch(`${origin}/en/projects/aisummit25/travel-tetris`)
+        ).text()
+      ).includes('project-builders-heading'),
+      'Restoring a builder must not override project-level privacy',
+    )
     console.log(
       'PASS production-rendered organiser lists, search, project/profile editors and access isolation in all four locales',
     )
@@ -180,6 +289,15 @@ async function main() {
         server.exitCode !== null ? done() : server.once('exit', done),
       )
     }
+    await database
+      .delete(creatorPrivacyHistory)
+      .where(inArray(creatorPrivacyHistory.subjectKey, privacySubjects))
+    await database
+      .delete(creatorPrivacy)
+      .where(inArray(creatorPrivacy.subjectKey, privacySubjects))
+    await database
+      .delete(liveProjects)
+      .where(eq(liveProjects.slug, 'creator-privacy-route-fixture'))
     await database
       .delete(identityAccounts)
       .where(inArray(identityAccounts.id, [admin.id, member.id]))

@@ -1,6 +1,14 @@
 // Reviewed public credits from legacy team submissions.
-// Apply only while a source still has its exact combined name and primary profile.
+// Apply only while a source still has its exact recorded name and primary profile.
 const projectTeamCredits = [
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    projectSlug: 'bicing-planner',
+    submittedName: 'Eduard Blancode',
+    primaryProfilePath: '/in/eduardblanco',
+    primaryName: 'Eduard Blanco',
+    otherNames: [],
+  },
   {
     eventSlug: 'hacknight-5-jevathon-2026',
     projectSlug: 'council-convention',
@@ -27,7 +35,12 @@ const projectTeamCredits = [
   },
 ]
 
-export type ProjectHacker = { name: string; linkedinUrl: string | null }
+export type ProjectHacker = {
+  name: string
+  linkedinUrl: string | null
+  creditIndex?: number
+  profileSlug?: string
+}
 
 export interface ProjectInput {
   name: string
@@ -75,13 +88,23 @@ export function projectHackers(project: {
   hackers?: unknown
   creatorName: string
   linkedinUrl: string
+  creatorCreditsHidden?: boolean
 }): ProjectHacker[] {
+  if (project.creatorCreditsHidden) return []
   const hackers = Array.isArray(project.hackers)
     ? project.hackers.flatMap((value) => {
         if (!value || typeof value !== 'object' || !str(value.name)) return []
         return [
           {
             name: str(value.name),
+            ...(Number.isSafeInteger(value.creditIndex) &&
+            value.creditIndex >= 0
+              ? { creditIndex: value.creditIndex }
+              : {}),
+            ...(typeof value.profileSlug === 'string' &&
+            /^[a-z0-9-]{1,80}$/.test(value.profileSlug)
+              ? { profileSlug: value.profileSlug }
+              : {}),
             linkedinUrl: str(value.linkedinUrl)
               ? linkedinProfile(str(value.linkedinUrl))
               : null,

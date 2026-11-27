@@ -26,9 +26,10 @@ export async function generateMetadata({ params }: Params) {
   const event = getLiveEvent(params.slug)
   const project = event && (await getPublicProject(event.slug, params.project))
   if (!event || !project) return {}
-  const description = `${project.tagline} Built by ${projectHackers(project)
+  const makers = projectHackers(project)
     .map((hacker) => hacker.name)
-    .join(', ')} at ${event.name}.`
+    .join(', ')
+  const description = `${project.tagline}${makers ? ` Built by ${makers}` : ''} at ${event.name}.`
   return projectMetadata(
     projectListPath(params.locale, event.slug, project.slug),
     `${project.name} · ${event.name}`,

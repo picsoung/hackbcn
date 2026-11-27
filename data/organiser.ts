@@ -1,4 +1,18 @@
 const en = {
+  creatorCredits: 'Creator credits',
+  profileVisibility: 'Builder visibility',
+  hideCredits: 'Hide creators on this project',
+  hideBuilder: 'Hide this builder across all projects',
+  creditsHelp:
+    'Keep this project public and counted, while removing its builder names, photos and profile links from project pages and lists.',
+  builderPrivacyHelp:
+    'Hide this builder’s public profile and their credits on every project. Other teammates and the projects stay visible.',
+  privacyScope:
+    'Original attribution remains available to organisers. Review project text and media separately for identifying details.',
+  privacyPrecedence:
+    'Credits stay hidden when either the project or builder is set to hidden.',
+  creatorsHidden: 'Creator credits hidden',
+  builderHidden: 'Builder hidden',
   projectCount: 'projects',
   projects: 'All projects',
   builders: 'Builders',
@@ -41,6 +55,20 @@ const en = {
 const copy: Record<string, typeof en> = {
   en,
   es: {
+    creatorCredits: 'Créditos de autoría',
+    profileVisibility: 'Visibilidad del creador',
+    hideCredits: 'Ocultar creadores en este proyecto',
+    hideBuilder: 'Ocultar este creador en todos sus proyectos',
+    creditsHelp:
+      'El proyecto sigue público y cuenta en los totales, sin nombres, fotos ni enlaces de sus creadores en páginas y listas.',
+    builderPrivacyHelp:
+      'Oculta el perfil público de este creador y sus créditos en todos los proyectos. Los proyectos y el resto del equipo siguen visibles.',
+    privacyScope:
+      'La organización conserva la autoría original. Revisa el texto y las imágenes del proyecto por si identifican a alguien.',
+    privacyPrecedence:
+      'Los créditos quedan ocultos si se ocultan en el proyecto o en el perfil del creador.',
+    creatorsHidden: 'Créditos de autoría ocultos',
+    builderHidden: 'Creador oculto',
     projectCount: 'proyectos',
     projects: 'Todos los proyectos',
     builders: 'Creadores',
@@ -81,6 +109,20 @@ const copy: Record<string, typeof en> = {
     pending: 'Edición pendiente de revisión',
   },
   ca: {
+    creatorCredits: 'Crèdits d’autoria',
+    profileVisibility: 'Visibilitat del creador',
+    hideCredits: 'Amagar creadors en aquest projecte',
+    hideBuilder: 'Amagar aquest creador a tots els seus projectes',
+    creditsHelp:
+      'El projecte continua públic i compta als totals, sense noms, fotos ni enllaços dels creadors a pàgines i llistes.',
+    builderPrivacyHelp:
+      'Amaga el perfil públic d’aquest creador i els seus crèdits a tots els projectes. Els projectes i la resta de l’equip continuen visibles.',
+    privacyScope:
+      'L’organització conserva l’autoria original. Revisa el text i les imatges del projecte per si identifiquen algú.',
+    privacyPrecedence:
+      'Els crèdits queden amagats si s’amaguen al projecte o al perfil del creador.',
+    creatorsHidden: 'Crèdits d’autoria amagats',
+    builderHidden: 'Creador amagat',
     projectCount: 'projectes',
     projects: 'Tots els projectes',
     builders: 'Creadors',
@@ -121,6 +163,20 @@ const copy: Record<string, typeof en> = {
     pending: 'Edició pendent de revisió',
   },
   fr: {
+    creatorCredits: 'Crédits des créateurs',
+    profileVisibility: 'Visibilité du créateur',
+    hideCredits: 'Masquer les créateurs de ce projet',
+    hideBuilder: 'Masquer ce créateur sur tous ses projets',
+    creditsHelp:
+      'Le projet reste public et comptabilisé, sans noms, photos ni liens vers ses créateurs dans les pages et les listes.',
+    builderPrivacyHelp:
+      'Masque le profil public de ce créateur et ses crédits sur tous ses projets. Les projets et les autres membres restent visibles.',
+    privacyScope:
+      'L’organisation conserve les crédits d’origine. Vérifiez séparément les textes et les images qui pourraient identifier une personne.',
+    privacyPrecedence:
+      'Les crédits restent masqués si le projet ou le créateur est masqué.',
+    creatorsHidden: 'Crédits des créateurs masqués',
+    builderHidden: 'Créateur masqué',
     projectCount: 'projets',
     projects: 'Tous les projets',
     builders: 'Créateurs',

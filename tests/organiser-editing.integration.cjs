@@ -410,6 +410,205 @@ async function main() {
     console.log(
       'PASS organiser access, archive editing, hidden records, immediate publication, owner review, stable builder identity, claimed profile sync, media binding, audit history, concurrency and CSRF',
     )
+    const { saveCreatorPrivacy } = require('../lib/admin/creator-privacy.ts')
+    const { getProjectCatalog } = require('../lib/project-catalog.ts')
+    const {
+      listAllProjects,
+      listProjects,
+      exportShareable,
+      listProjectCounts,
+    } = require('../lib/live/projects.ts')
+    const { getProjectPageContext } = require('../lib/builder-catalog.ts')
+    const { projectBuilder } = require('../lib/project-detail.ts')
+    await database.insert(tables.liveProjects).values({
+      eventSlug: 'hacknight-5-jevathon-2026',
+      slug: 'privacy-team-fixture',
+      name: 'Privacy team fixture',
+      tagline: 'Project remains public while credit visibility changes.',
+      url: 'https://example.test/project',
+      creatorName: 'Colin Stark',
+      creatorEmail: 'private-team@example.test',
+      linkedinUrl: 'https://www.linkedin.com/in/starklink/',
+      hackers: [
+        {
+          name: 'Colin Stark',
+          linkedinUrl: 'https://www.linkedin.com/in/starklink/',
+        },
+        {
+          name: 'Remaining Builder',
+          linkedinUrl: 'https://www.linkedin.com/in/remaining-fixture/',
+        },
+      ],
+      shareConsent: true,
+    })
+    const projectSubject = `project:${key}`,
+      builderSubject = `builder:${builder.slug}`
+    const teamKey = 'submitted:hacknight-5-jevathon-2026:privacy-team-fixture'
+    const privateTeam = (await organiserCatalog(admin, 'en')).projects.find(
+      (row) => row.project.key === teamKey,
+    ).project
+    const [secondEvidence] = await database
+      .insert(tables.projectClaimEvidence)
+      .values({
+        projectKey: teamKey,
+        creditIndex: 1,
+        emailHash: 'd'.repeat(64),
+        keyId: 'b'.repeat(16),
+        rosterDigest: claimRosterDigest(privateTeam.hackers),
+        sourceDigest: 'e'.repeat(64),
+      })
+      .returning()
+    await database.insert(tables.projectClaims).values({
+      projectKey: teamKey,
+      accountId: stranger.id,
+      status: 'verified',
+      verificationMethod: 'email',
+      evidenceId: secondEvidence.id,
+    })
+    await database.insert(tables.communityProfiles).values({
+      accountId: stranger.id,
+      displayName: 'Verified Remaining Builder',
+    })
+    const totalsBefore = await listProjectCounts()
+    const originalCreatorCount = (
+      await getPublicArchivedProject(['aisummit25', 'travel-tetris'])
+    ).data.hackers.length
+    await assert.rejects(
+      () => saveCreatorPrivacy(stranger, projectSubject, true, 0),
+      { status: 403 },
+    )
+    await saveCreatorPrivacy(admin, projectSubject, true, 0)
+    await assert.rejects(
+      () => saveCreatorPrivacy(admin, projectSubject, false, 0),
+      { status: 409 },
+    )
+    const anonymousArchive = await getPublicArchivedProject([
+      'aisummit25',
+      'travel-tetris',
+    ])
+    assert.ok(anonymousArchive)
+    assert.deepEqual(anonymousArchive.data.hackers, [])
+    const anonymousCard = (await getProjectCatalog('en')).find(
+      (project) => project.key === key,
+    )
+    assert.equal(anonymousCard.creator, '')
+    assert.deepEqual(anonymousCard.hackers, [])
+    assert.deepEqual(anonymousCard.builders, [])
+    assert.ok(
+      !(await getBuilderCatalog('en')).profiles
+        .find((profile) => profile.slug === builder.slug)
+        .projectKeys.includes(key),
+    )
+    await saveCreatorPrivacy(admin, builderSubject, true, 0)
+    assert.ok(
+      !(await getBuilderCatalog('en')).profiles.some(
+        (profile) => profile.slug === builder.slug,
+      ),
+    )
+    for (const list of [
+      await listAllProjects(),
+      await listProjects('hacknight-5-jevathon-2026'),
+      await exportShareable('hacknight-5-jevathon-2026'),
+    ]) {
+      const team = list.find((row) => row.slug === 'privacy-team-fixture')
+      assert.equal(team.creatorName, 'Remaining Builder')
+      assert.equal(team.hackers.length, 1)
+      assert.equal(team.hackers[0].creditIndex, 1)
+      assert.doesNotMatch(JSON.stringify(team.hackers), /Colin|starklink/)
+    }
+    const safeTeam = (await getProjectCatalog('en')).find(
+      (project) => project.key === teamKey,
+    )
+    const teamContext = await getProjectPageContext(
+      safeTeam,
+      safeTeam.hackers.map(projectBuilder),
+      'en',
+    )
+    assert.equal(teamContext.builders.length, 1)
+    assert.equal(
+      teamContext.builders[0].name,
+      'Verified Remaining Builder',
+      'Filtering the first teammate preserves the second teammate’s original credit/claim binding',
+    )
+    assert.ok(teamContext.builders[0].href)
+    assert.deepEqual(await listProjectCounts(), totalsBefore)
+    const internalCatalog = await organiserCatalog(admin, 'en')
+    assert.equal(
+      internalCatalog.projects.find((row) => row.project.key === teamKey)
+        .project.hackers.length,
+      2,
+    )
+    assert.equal(
+      internalCatalog.profiles.find((profile) => profile.slug === builder.slug)
+        .creatorPrivacy.hidden,
+      true,
+    )
+    assert.equal(
+      internalCatalog.projects.find((row) => row.project.key === teamKey)
+        .hasHiddenCreators,
+      true,
+    )
+    assert.equal(
+      (await projectEditor(member, credit.projectKey, 'en')).organiser,
+      false,
+    )
+    await saveCreatorPrivacy(admin, projectSubject, false, 1)
+    const remainingCredits = (
+      await getPublicArchivedProject(['aisummit25', 'travel-tetris'])
+    ).data.hackers
+    assert.equal(remainingCredits.length, originalCreatorCount - 1)
+    assert.ok(
+      remainingCredits.every(
+        (person) => !person.links.linkedin?.includes('/starklink/'),
+      ),
+    )
+    await saveCreatorPrivacy(admin, projectSubject, true, 2)
+    await saveCreatorPrivacy(admin, builderSubject, false, 1)
+    assert.deepEqual(
+      (await getPublicArchivedProject(['aisummit25', 'travel-tetris'])).data
+        .hackers,
+      [],
+    )
+    await saveCreatorPrivacy(admin, projectSubject, false, 3)
+    assert.equal(
+      (await getPublicArchivedProject(['aisummit25', 'travel-tetris'])).data
+        .hackers.length,
+      originalCreatorCount,
+    )
+    assert.ok(
+      (await getBuilderCatalog('en')).profiles.some(
+        (profile) => profile.slug === builder.slug,
+      ),
+    )
+    assert.equal(
+      (await database.select().from(tables.creatorPrivacyHistory)).length,
+      6,
+    )
+    const privacyRoute = require('../app/api/admin/creator-privacy/route.ts')
+    sessionUser = stranger
+    assert.equal(
+      (
+        await privacyRoute.PATCH(
+          request({ subjectKey: projectSubject, hidden: true, revision: 4 }),
+        )
+      ).status,
+      403,
+    )
+    sessionUser = admin
+    assert.equal(
+      (
+        await privacyRoute.PATCH(
+          request(
+            { subjectKey: projectSubject, hidden: true, revision: 4 },
+            'https://attacker.example',
+          ),
+        )
+      ).status,
+      403,
+    )
+    console.log(
+      'PASS per-project and global creator privacy, public exports, stable credit indices, claimed teammates, hidden builders, retained organiser attribution, unchanged totals, precedence, restoration, audit and CSRF',
+    )
   } finally {
     if (pool) await pool.end()
     await client.query(`DROP SCHEMA "${schema}" CASCADE`)

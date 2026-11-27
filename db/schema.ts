@@ -19,6 +19,40 @@ import type { ReviewAlert } from '../lib/projects/review-notifications'
 import type { CommunicationLanguage } from '../lib/account/communications'
 import type { CommunityProfile } from '../lib/community/profile'
 
+/** Creator credits can be hidden independently of project visibility and account permissions. */
+export const creatorPrivacy = pgTable('creator_privacy', {
+  subjectKey: text('subject_key').primaryKey(),
+  hidden: boolean().notNull().default(false),
+  revision: integer().notNull().default(0),
+  updatedBy: uuid('updated_by').references(() => identityAccounts.id, {
+    onDelete: 'set null',
+  }),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
+export const creatorPrivacyHistory = pgTable(
+  'creator_privacy_history',
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    subjectKey: text('subject_key').notNull(),
+    hidden: boolean().notNull(),
+    revision: integer().notNull(),
+    actorId: uuid('actor_id').references(() => identityAccounts.id, {
+      onDelete: 'set null',
+    }),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('creator_privacy_history_revision_idx').on(
+      table.subjectKey,
+      table.revision,
+    ),
+  ],
+)
+
 /** Public corrections for historical, unclaimed builder credits. Identity grouping stays source-based. */
 export const builderProfiles = pgTable('builder_profiles', {
   slug: text().primaryKey(),

@@ -4,6 +4,7 @@ import { projectListPath } from './project-seo'
 import { projectHackers } from './live/validate'
 import type { ProjectHacker } from './live/validate'
 import { normalizeProjectTags, projectTagSearchTerms } from './project-tags'
+import { projectBuilder, type ProjectBuilder } from './project-detail'
 
 /** Explicit public fields shared by the event grid and the community archive. */
 export type ProjectCard = {
@@ -14,6 +15,7 @@ export type ProjectCard = {
   image?: string
   creator: string
   hackers: ProjectHacker[]
+  builders?: ProjectBuilder[]
   eventSlug?: string
   eventName: string
   eventImage?: string
@@ -69,6 +71,7 @@ export function submittedProjectCard(
       .map((hacker) => hacker.name)
       .join(', '),
     hackers: projectHackers(project),
+    builders: projectHackers(project).map(projectBuilder),
     eventSlug: project.eventSlug,
     eventName: event.name,
     eventImage: event.imageUrl,
@@ -106,10 +109,15 @@ export function archivedProjectCard(
       hackers: project.data.hackers?.map((person) => ({
         name: person.name,
         linkedinUrl: person.links?.linkedin,
+        ...(person.creditIndex !== undefined
+          ? { creditIndex: person.creditIndex }
+          : {}),
+        ...(person.profileSlug ? { profileSlug: person.profileSlug } : {}),
       })),
       creatorName: '',
       linkedinUrl: '',
     }).filter((person) => person.name),
+    builders: (project.data.hackers ?? []).map(projectBuilder),
     eventSlug: project.data.event,
     eventName: event?.name ?? 'Community projects',
     eventImage: event?.imageUrl,

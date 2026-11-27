@@ -122,7 +122,7 @@ export default function LiveBoard({
                   {p.categoryLabel && (
                     <span className={chip}>{p.categoryLabel}</span>
                   )}
-                  <span>by {p.creatorName}</span>
+                  {p.creatorName && <span>by {p.creatorName}</span>}
                   {p.hasVideo && (
                     <span className="text-neon-pink">▶ video</span>
                   )}
