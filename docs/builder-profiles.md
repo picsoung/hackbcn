@@ -19,6 +19,8 @@ Colin Stark is a useful cross-event check: his profile contains a11y ally, Desig
 
 The 2025 enrichment audit now suggests existing linked profiles for unresolved full-name matches. These candidates require review and never merge identities automatically. First-name-only matches and unlinked credit placeholders are not suggested. Reviewed exceptions remain scoped to the project and submitted maker name.
 
+The organiser confirmed that the legacy Push cube credit “Arnab Dey, Alex Garcia” represents two people. The reviewed correction in `lib/live/validate.ts` applies only to that event, project, exact combined name and Arnab’s supplied LinkedIn profile. Arnab retains his existing canonical builder URL, portrait and links; Alex receives a separate credit-scoped profile with a placeholder until his own links are verified. An owner-supplied updated roster takes precedence. The correction does not copy Arnab’s contact or profile details to Alex, grant ownership permissions, or split other comma-containing names automatically.
+
 ```sh
 node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs
 npx tsc --noEmit --incremental false

@@ -65,6 +65,70 @@ test('reviewed team corrections do not change other projects, different profile 
   assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
 })
 
+test('Push cube credits Arnab and Alex separately while preserving Arnab’s canonical profile and portrait', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'push-cube',
+    creatorName: 'Arnab Dey, Alex Garcia',
+    linkedinUrl: linkedin('arnabdey0503'),
+    hackers: [
+      { name: 'Arnab Dey, Alex Garcia', linkedinUrl: linkedin('arnabdey0503') },
+    ],
+  }
+  const team = projectHackers(source)
+  assert.deepEqual(team, [
+    { name: 'Arnab Dey', linkedinUrl: linkedin('arnabdey0503') },
+    { name: 'Alex Garcia', linkedinUrl: null },
+  ])
+  const key = 'submitted:hacknight-5-jevathon-2026:push-cube'
+  const profiles = buildBuilderDirectory([
+    entry(key, ...team.map(projectBuilder)),
+    entry(
+      'archive:aisummit25/relocation-buddy',
+      maker('Arnab Dey', { linkedin: linkedin('arnabdey0503') }),
+    ),
+  ])
+  const arnab = builderForCredit(profiles, key, 0)
+  const alex = builderForCredit(profiles, key, 1)
+  assert.equal(arnab.name, 'Arnab Dey')
+  assert.equal(arnab.slug, 'arnabdey0503-dabc6a0e64e5')
+  assert.ok(arnab.image)
+  assert.deepEqual(arnab.projectKeys, [
+    key,
+    'archive:aisummit25/relocation-buddy',
+  ])
+  assert.equal(alex.name, 'Alex Garcia')
+  assert.notEqual(alex.slug, arnab.slug)
+  assert.deepEqual(alex.links, {})
+  assert.equal(alex.image, undefined)
+  assert.deepEqual(alex.projectKeys, [key])
+  assert.ok(
+    profiles.every((profile) => profile.name !== 'Arnab Dey, Alex Garcia'),
+  )
+  assert.deepEqual(projectHackers({ ...source, hackers: [] }), team)
+})
+
+test('the reviewed Push cube split leaves other identities and an owner-updated team intact', () => {
+  const source = {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    slug: 'push-cube',
+    creatorName: 'Arnab Dey, Alex Garcia',
+    linkedinUrl: linkedin('arnabdey0503'),
+  }
+  for (const change of [
+    { eventSlug: 'other-event' },
+    { slug: 'other-project' },
+    { linkedinUrl: linkedin('alex-garcia') },
+    { creatorName: 'A different team' },
+  ])
+    assert.equal(projectHackers({ ...source, ...change }).length, 1)
+  const updated = [
+    { name: 'Arnab Dey', linkedinUrl: linkedin('arnabdey0503') },
+    { name: 'Alex Garcia', linkedinUrl: linkedin('verified-alex') },
+  ]
+  assert.deepEqual(projectHackers({ ...source, hackers: updated }), updated)
+})
+
 test('verified identities join across display-name changes, locales and tracking, with stable URLs', () => {
   const first = entry(
     'a',

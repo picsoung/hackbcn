@@ -1,5 +1,5 @@
-// Reviewed public credit from the original Council-convention submission.
-// Apply only while the source still has this exact combined name and profile.
+// Reviewed public credits from legacy team submissions.
+// Apply only while a source still has its exact combined name and primary profile.
 const projectTeamCredits = [
   {
     eventSlug: 'hacknight-5-jevathon-2026',
@@ -8,6 +8,14 @@ const projectTeamCredits = [
     primaryProfilePath: '/in/tiam-haghshenas-58a9063b7',
     primaryName: 'Tiam Haghshenas',
     otherNames: ['Stepan Gritsun'],
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    projectSlug: 'push-cube',
+    submittedName: 'Arnab Dey, Alex Garcia',
+    primaryProfilePath: '/in/arnabdey0503',
+    primaryName: 'Arnab Dey',
+    otherNames: ['Alex Garcia'],
   },
 ]
 
