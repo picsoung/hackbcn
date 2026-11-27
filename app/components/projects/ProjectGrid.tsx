@@ -92,7 +92,7 @@ export default function ProjectGrid({
                   {project.tags.length > 0 && (
                     <ul
                       className="mt-4 flex flex-wrap gap-1.5"
-                      aria-label="Project categories"
+                      aria-label="Project tags"
                     >
                       {project.tags.slice(0, 4).map((tag) => (
                         <li

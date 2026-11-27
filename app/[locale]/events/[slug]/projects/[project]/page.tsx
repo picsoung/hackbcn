@@ -74,7 +74,6 @@ export default async function ProjectPage({ params, searchParams }: Params) {
         builders={builders}
         links={links}
         media={media}
-        stack={project.usedLovable ? ['Lovable'] : []}
         related={related}
         locale={params.locale}
         publishedDate={project.createdAt}

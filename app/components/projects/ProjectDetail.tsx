@@ -23,7 +23,6 @@ export default function ProjectDetail({
   builders,
   links,
   media,
-  stack = [],
   children,
   related,
   locale,
@@ -35,7 +34,6 @@ export default function ProjectDetail({
   builders: ProjectBuilder[]
   links: ProjectLink[]
   media?: Media
-  stack?: string[]
   children?: ReactNode
   related: ReturnType<typeof relatedProjectCards>
   locale: string
@@ -82,6 +80,9 @@ export default function ProjectDetail({
               sameAs: Object.values(builder.links),
             })),
             award: project.award,
+            keywords:
+              [...project.tags, ...(project.challenges ?? [])].join(', ') ||
+              undefined,
             isPartOf: project.eventHref
               ? {
                   '@type': 'CollectionPage',
@@ -173,26 +174,39 @@ export default function ProjectDetail({
             >
               {projectManagementCopy(locale).manage}
             </Link>
-            {stack.length > 0 && (
-              <section aria-labelledby="project-stack-heading">
-                <h2
-                  id="project-stack-heading"
-                  className="mb-4 text-xl font-semibold"
+            {[
+              { id: 'topics', title: copy.topics, tags: project.topics ?? [] },
+              { id: 'stack', title: copy.stack, tags: project.tools ?? [] },
+              {
+                id: 'challenges',
+                title: copy.challenges,
+                tags: project.challenges ?? [],
+              },
+            ]
+              .filter((group) => group.tags.length)
+              .map((group) => (
+                <section
+                  key={group.id}
+                  aria-labelledby={`project-${group.id}-heading`}
                 >
-                  {copy.stack}
-                </h2>
-                <ul className="flex flex-wrap gap-2">
-                  {stack.map((tag) => (
-                    <li
-                      key={tag}
-                      className="hb-px hb-px-sm bg-band-2 px-3 py-1.5 text-sm text-ink-dim"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
+                  <h2
+                    id={`project-${group.id}-heading`}
+                    className="mb-4 text-xl font-semibold"
+                  >
+                    {group.title}
+                  </h2>
+                  <ul className="flex flex-wrap gap-2">
+                    {group.tags.map((tag) => (
+                      <li
+                        key={tag}
+                        className="hb-px hb-px-sm bg-band-2 px-3 py-1.5 text-sm text-ink-dim"
+                      >
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
           </aside>
           {children && (
             <section

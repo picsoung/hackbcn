@@ -138,7 +138,7 @@ export default function ProjectArchiveBrowser({
           </div>
         </div>
         <p id="project-search-help" className="mt-3 text-sm text-ink-dim">
-          Search by project name, description, event or maker.
+          Search by project, description, event, maker, topic or tool.
         </p>
       </form>
 

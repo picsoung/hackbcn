@@ -3,6 +3,7 @@ import type { PublicProject } from './live/projects'
 import { projectListPath } from './project-seo'
 import { projectHackers } from './live/validate'
 import type { ProjectHacker } from './live/validate'
+import { normalizeProjectTags, projectTagSearchTerms } from './project-tags'
 
 /** Explicit public fields shared by the event grid and the community archive. */
 export type ProjectCard = {
@@ -19,6 +20,9 @@ export type ProjectCard = {
   eventHref?: string
   eventDate: number
   tags: string[]
+  topics?: string[]
+  tools?: string[]
+  challenges?: string[]
   award?: string
 }
 
@@ -73,7 +77,11 @@ export function submittedProjectCard(
       Date.parse(event.startDate ?? '') ||
       new Date(project.createdAt).getTime() ||
       0,
-    tags: options.category ? [options.category] : [],
+    ...normalizeProjectTags({
+      event: project.eventSlug,
+      category: options.category ?? project.category,
+      tools: project.usedLovable ? ['lovable'] : [],
+    }),
     award: project.award ?? undefined,
   }
 }
@@ -112,7 +120,15 @@ export function archivedProjectCard(
       Date.parse(event?.startDate ?? '') ||
       project.data.publishedDate.getTime() ||
       0,
-    tags: project.data.techStack ?? [],
+    ...normalizeProjectTags({
+      event: project.data.event,
+      category: project.data.category,
+      topics: project.data.topics,
+      tools: project.data.tools,
+      challenges: project.data.challenges,
+      legacyTags: project.data.tags,
+      legacyTools: project.data.techStack,
+    }),
     award: project.data.winner ? project.data.winner.text : undefined,
   }
 }
@@ -180,6 +196,10 @@ export function searchProjectCards(projects: ProjectCard[], query: string) {
         project.eventSlug ?? '',
         project.creator,
         ...project.hackers.map((hacker) => hacker.name),
+        ...projectTagSearchTerms([
+          ...project.tags,
+          ...(project.challenges ?? []),
+        ]),
       ].join(' '),
     )
     return words.every((word) => text.includes(word))

@@ -33,6 +33,9 @@ export interface ProjectData {
   title: string
   description: string
   tags: string[]
+  topics?: string[]
+  tools?: string[]
+  challenges?: string[]
   thumbnailUrl: string
   projectImage?: string
   category: ProjectCategory
@@ -88,6 +91,9 @@ function readProject(slugOrFilePath: string[]): Project {
     title: data.title,
     description: data.description,
     tags: data.tags,
+    topics: data.topics,
+    tools: data.tools,
+    challenges: data.challenges,
     thumbnailUrl: data.thumbnailUrl,
     category: data.category ?? 'Other',
     status: data.status ?? 'published',
