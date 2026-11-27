@@ -29,9 +29,22 @@ for (const [locale, label] of Object.entries(labels)) {
     )?.[1]
     assert.ok(banner?.includes(label), `${path}: localized prize recognition`)
     assert.ok(banner.includes(award), `${path}: actual prize label`)
+    const sidebar = Array.from(
+      html.matchAll(/<aside\b[^>]*>([\s\S]*?)<\/aside>/g),
+      (match) => match[1],
+    ).find((content) => content.includes('id="project-builders-heading"'))
     assert.ok(
-      html.indexOf('data-project-award="detail"') < html.indexOf('<h1'),
-      `${path}: prize before project title`,
+      sidebar?.includes('data-project-award="detail"'),
+      `${path}: prize in the builder sidebar`,
+    )
+    assert.ok(
+      sidebar.indexOf('data-project-award="detail"') <
+        sidebar.indexOf('id="project-builders-heading"'),
+      `${path}: prize before Built by`,
+    )
+    assert.ok(
+      html.indexOf('data-project-award="detail"') > html.indexOf('<h1'),
+      `${path}: prize outside the title header`,
     )
     assert.ok(
       html.includes(`"award":"${award}"`),

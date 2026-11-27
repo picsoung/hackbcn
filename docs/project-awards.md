@@ -3,7 +3,7 @@
 Published prize winners use the same recognition component across the project archive, event grids, builder pages, recommendations and project details.
 
 - Cards lead with a high-contrast prize band before the project image. The band names the project as a prize winner and shows its recorded prize label.
-- Detail pages show a larger prize callout before the project title, with the original prize label and event name.
+- Detail pages show the prize callout in the right column before “Built by”, with the original prize label and event name. On small screens it stays directly before the builders in the stacked layout.
 - Winner labels and card accessible names are translated into EN/ES/CA/FR. Prize and event names stay as recorded.
 - Long prize names wrap on narrow screens. Award text is not truncated or conveyed by the trophy icon alone.
 

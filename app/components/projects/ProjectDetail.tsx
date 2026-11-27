@@ -125,16 +125,6 @@ export default function ProjectDetail({
           )}
         </nav>
         <header className="pb-8 pt-5 sm:pb-10 sm:pt-7">
-          {project.award?.trim() && (
-            <div className="mb-6 sm:mb-8">
-              <ProjectAward
-                award={project.award}
-                locale={locale}
-                variant="detail"
-                eventName={project.eventName}
-              />
-            </div>
-          )}
           <h1 className="max-w-4xl break-words text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight [overflow-wrap:anywhere]">
             {project.name}
           </h1>
@@ -171,6 +161,12 @@ export default function ProjectDetail({
           <aside
             className={`min-w-0 space-y-9 border-t border-band-2 pt-8 lg:col-start-2 lg:row-start-1 lg:border-t-0 lg:pt-0 ${children ? 'lg:row-span-2' : ''}`}
           >
+            <ProjectAward
+              award={project.award}
+              locale={locale}
+              variant="detail"
+              eventName={project.eventName}
+            />
             <ProjectBuilders builders={builders} locale={locale} />
             <Link
               href={`/${locale}/account/projects?project=${encodeURIComponent(project.key)}`}
