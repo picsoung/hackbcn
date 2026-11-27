@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
-import { TrophyIcon } from '@heroicons/react/24/outline'
 import type { ProjectCard, relatedProjectCards } from '@/lib/project-cards'
 import type {
   ProjectBuilder,
@@ -17,6 +16,7 @@ import { projectManagementCopy } from '@/data/project-management'
 import ProjectBuilders from './ProjectBuilders'
 import ProjectMedia from './ProjectMedia'
 import ProjectRecommendations from './ProjectRecommendations'
+import ProjectAward from './ProjectAward'
 
 export default function ProjectDetail({
   project,
@@ -125,11 +125,15 @@ export default function ProjectDetail({
           )}
         </nav>
         <header className="pb-8 pt-5 sm:pb-10 sm:pt-7">
-          {project.award && (
-            <p className="mb-4 flex items-center gap-2 font-semibold text-accent">
-              <TrophyIcon className="h-5 w-5 shrink-0" aria-hidden="true" />
-              {project.award}
-            </p>
+          {project.award?.trim() && (
+            <div className="mb-6 sm:mb-8">
+              <ProjectAward
+                award={project.award}
+                locale={locale}
+                variant="detail"
+                eventName={project.eventName}
+              />
+            </div>
           )}
           <h1 className="max-w-4xl break-words text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight [overflow-wrap:anywhere]">
             {project.name}

@@ -231,7 +231,7 @@ export default function ProjectArchiveBrowser({
                 </p>
               )}
               {group.projects.length > 0 && (
-                <ProjectGrid projects={group.projects} />
+                <ProjectGrid projects={group.projects} locale={locale} />
               )}
             </div>
           </details>
