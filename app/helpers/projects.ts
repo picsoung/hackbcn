@@ -2,6 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import { globSync } from 'glob'
 import matter from 'gray-matter'
+import type { ProjectBuilder } from '../../lib/project-detail'
 
 export type ProjectCategory =
   | 'Technology'
@@ -57,6 +58,7 @@ export interface ProjectData {
 }
 
 export interface Project {
+  builders?: ProjectBuilder[]
   data: ProjectData
   slug: string
   content: string

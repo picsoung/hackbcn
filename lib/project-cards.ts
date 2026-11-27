@@ -3,8 +3,8 @@ import type { PublicProject } from './live/projects'
 import { projectListPath } from './project-seo'
 import { projectHackers } from './live/validate'
 import type { ProjectHacker } from './live/validate'
-import { normalizeProjectTags, projectTagSearchTerms } from './project-tags'
-import { projectBuilder, type ProjectBuilder } from './project-detail'
+import { normalizeProjectTags } from './project-tags'
+import type { ProjectBuilder } from './project-detail'
 
 /** Explicit public fields shared by the event grid and the community archive. */
 export type ProjectCard = {
@@ -71,7 +71,6 @@ export function submittedProjectCard(
       .map((hacker) => hacker.name)
       .join(', '),
     hackers: projectHackers(project),
-    builders: projectHackers(project).map(projectBuilder),
     eventSlug: project.eventSlug,
     eventName: event.name,
     eventImage: event.imageUrl,
@@ -117,7 +116,7 @@ export function archivedProjectCard(
       creatorName: '',
       linkedinUrl: '',
     }).filter((person) => person.name),
-    builders: (project.data.hackers ?? []).map(projectBuilder),
+    ...(project.builders ? { builders: project.builders } : {}),
     eventSlug: project.data.event,
     eventName: event?.name ?? 'Community projects',
     eventImage: event?.imageUrl,
@@ -151,68 +150,7 @@ export type ProjectEventSummary = {
   total: number
 }
 
-export function groupProjectCards(
-  projects: ProjectCard[],
-  summaries: ProjectEventSummary[] = [],
-) {
-  const groups = new Map<
-    string,
-    ProjectEventSummary & { projects: ProjectCard[] }
-  >()
-  for (const summary of summaries) {
-    if (summary.total > 0) groups.set(summary.key, { ...summary, projects: [] })
-  }
-  for (const project of projects) {
-    const key = project.eventSlug ?? 'community'
-    const group = groups.get(key) ?? {
-      key,
-      name: project.eventName,
-      image: project.eventImage,
-      href: project.eventHref,
-      date: project.eventDate,
-      total: 0,
-      projects: [],
-    }
-    group.projects.push(project)
-    group.total = Math.max(group.total, group.projects.length)
-    group.image ??= project.eventImage
-    group.date = Math.max(group.date, project.eventDate)
-    groups.set(key, group)
-  }
-  return Array.from(groups.values()).sort(
-    (a, b) => b.date - a.date || a.name.localeCompare(b.name),
-  )
-}
-
-function searchText(value: string) {
-  return value
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-}
-
-/** Every query word can match a different public field or team member. */
-export function searchProjectCards(projects: ProjectCard[], query: string) {
-  const words = searchText(query).trim().split(/\s+/).filter(Boolean)
-  if (!words.length) return projects
-  return projects.filter((project) => {
-    const text = searchText(
-      [
-        project.name,
-        project.description,
-        project.eventName,
-        project.eventSlug ?? '',
-        project.creator,
-        ...project.hackers.map((hacker) => hacker.name),
-        ...projectTagSearchTerms([
-          ...project.tags,
-          ...(project.challenges ?? []),
-        ]),
-      ].join(' '),
-    )
-    return words.every((word) => text.includes(word))
-  })
-}
+export { groupProjectCards, searchProjectCards } from './project-browser'
 
 /** Profile identity ignores tracking parameters, host variants and a trailing slash. */
 function builderProfile(url: string | null) {

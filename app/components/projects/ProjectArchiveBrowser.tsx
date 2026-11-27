@@ -12,7 +12,7 @@ import {
   searchProjectCards,
   type ProjectCard,
   type ProjectEventSummary,
-} from '@/lib/project-cards'
+} from '@/lib/project-browser'
 import { projectPrivacyNotice } from '@/data/project-privacy'
 import ProjectGrid from './ProjectGrid'
 

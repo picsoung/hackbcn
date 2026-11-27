@@ -96,7 +96,11 @@ export async function publicArchiveCreators(projects: Project[]) {
         ? []
         : [{ ...person, creditIndex: index, profileSlug }]
     })
-    return { ...project, data: { ...project.data, hackers } }
+    return {
+      ...project,
+      data: { ...project.data, hackers },
+      builders: hackers.map(projectBuilder),
+    }
   })
 }
 

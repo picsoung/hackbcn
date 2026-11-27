@@ -24,6 +24,23 @@ require('ts-node').register({
 })
 
 async function main() {
+  // The client search module must not pull historical creator corrections into downloadable JS.
+  const { globSync } = require('glob'),
+    { readFileSync } = require('node:fs')
+  const bundles = globSync('.next/static/**/*.js')
+  assert.ok(bundles.length > 0)
+  for (const file of bundles) {
+    const source = readFileSync(file, 'utf8')
+    for (const credit of [
+      'Eduard Blancode',
+      'Arnab Dey, Alex Garcia',
+      'Chloe, Xénia & Majo',
+    ])
+      assert.ok(
+        !source.includes(credit),
+        `Historical creator mapping shipped in ${file}`,
+      )
+  }
   const url = new URL(process.env.TEST_DATABASE_URL || '')
   assert.ok(['127.0.0.1', 'localhost'].includes(url.hostname))
   assert.equal(url.pathname, '/hackbarna_test')

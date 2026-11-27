@@ -26,6 +26,7 @@ import { builderDisplayOverrides } from '@/lib/community/builder-profiles'
 import { applyBuilderDisplays } from '@/lib/community/builder-display'
 import { claimedBuilderDisplays } from '@/lib/community/claimed-profiles'
 import { applyClaimedDisplays } from '@/lib/community/claimed-display'
+import { projectBuilder } from '@/lib/project-detail'
 
 export function requireOrganiser(user: IdentityUser) {
   if (!isProjectOrganiser(user)) throw new ProjectAccessError('forbidden', 403)
@@ -60,7 +61,13 @@ export async function organiserCatalog(user: IdentityUser, locale: string) {
   const projects = [
     ...sources.map((source) => ({
       project: archivedProjectCard(
-        applyArchiveContent(source, approved.get(`archive:${source.slug}`)),
+        {
+          ...applyArchiveContent(
+            source,
+            approved.get(`archive:${source.slug}`),
+          ),
+          builders: source.data.hackers.map(projectBuilder),
+        },
         locale,
         source.data.event
           ? getEventDataBySlug(source.data.event)?.event
