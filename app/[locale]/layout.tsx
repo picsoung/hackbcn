@@ -1,8 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './../globals.css'
 import { IntlProvider } from '@/app/components/Intl'
-import { ThemeProvider } from '@/app/contexts/ThemeContext'
 import { AuthProvider } from '@/app/components/auth/AuthProvider'
 import { getFeaturedUpcomingEvent } from '@/lib/events-server'
 import { buildOgImagePath, formatOgDate } from '@/lib/og'
@@ -10,8 +7,6 @@ import { siteOrigin } from '@/lib/project-seo'
 import { siteLocales } from '@/lib/page-seo'
 import { notFound } from 'next/navigation'
 import i18nConfig from '../../i18n.json'
-
-const inter = Inter({ subsets: ['latin'] })
 
 function getMetadataBase() {
   return new URL(siteOrigin())
@@ -97,13 +92,7 @@ export default async function HomeLayout({
 
   return (
     <IntlProvider locale={params.locale} data={localeData} locales={allLocales}>
-      {/* <ThemeProvider eventSlug="aisummit25"> */}
-        <html lang={params.locale}>
-          <body className={inter.className}>
-            <AuthProvider>{children}</AuthProvider>
-          </body>
-        </html>
-      {/* </ThemeProvider> */}
+      <AuthProvider>{children}</AuthProvider>
     </IntlProvider>
   )
 }

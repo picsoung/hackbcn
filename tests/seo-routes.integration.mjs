@@ -47,6 +47,9 @@ async function verifyPage(path, content, translated = false) {
   const response = await request(path)
   assert.equal(response.status, 200, path)
   const html = await response.text()
+  assert.equal(tags(html, 'html').length, 1, `${path}: one document element`)
+  assert.equal(tags(html, 'body').length, 1, `${path}: one document body`)
+  assert.equal(tags(html, 'html')[0].lang, path.split('/')[1])
   const links = tags(html, 'link')
   assert.deepEqual(
     links.filter((link) => link.rel === 'canonical').map((link) => link.href),

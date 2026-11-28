@@ -86,6 +86,8 @@ jobs:
         run: npx tsc --noEmit
       - name: Build production assets
         run: npm run build
+      - name: Install browser for editor hydration checks
+        run: npx playwright install --with-deps chromium
       - name: Verify rendered SEO routes
         run: |
           node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/hackbarna-seo-server.log" 2>&1 &

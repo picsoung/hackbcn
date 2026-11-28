@@ -23,6 +23,75 @@ require('ts-node').register({
   },
 })
 
+async function verifyEditorBrowser(origin, tokens) {
+  const { chromium } = require('playwright')
+  const browser = await chromium.launch()
+  try {
+    const context = await browser.newContext()
+    await context.addCookies([
+      { name: 'hb_session', value: tokens[1], url: origin },
+    ])
+    const page = await context.newPage(),
+      errors = []
+    page.on('pageerror', (error) => errors.push(error.message))
+    page.on('console', (message) => {
+      if (
+        message.type() === 'error' &&
+        /HierarchyRequestError|NotFoundError|Hydration failed|hydrating|Only one element on document/.test(
+          message.text(),
+        )
+      )
+        errors.push(message.text())
+    })
+    for (const locale of ['en', 'es', 'ca', 'fr']) {
+      for (const path of [
+        `/${locale}/account/projects/edit?project=archive%3Aaisummit25%2Ftravel-tetris`,
+        `/${locale}/projects/does-not-exist-document-fixture`,
+      ]) {
+        const response = await page.goto(origin + path, {
+          waitUntil: 'domcontentloaded',
+        })
+        assert.equal(response.status(), 404, path)
+        // Next 14's initial 404 response can be a document shell. Wait for the
+        // actual fallback to hydrate: inspecting HTTP status alone missed the
+        // appendChild/removeChild crash on a direct editor visit.
+        await page.getByRole('heading', { name: '404', exact: true }).waitFor()
+        assert.equal(await page.locator('html').count(), 1)
+        assert.equal(await page.locator('body').count(), 1)
+        assert.equal(await page.locator('html').getAttribute('lang'), locale)
+        assert.deepEqual(errors, [], `${path}: client rendering errors`)
+      }
+    }
+    await context.clearCookies()
+    const path =
+      '/fr/account/projects/edit?project=submitted%3Ahacknight-5-jevathon-2026%3Abicing-planner'
+    await page.goto(origin + path, { waitUntil: 'domcontentloaded' })
+    const signIn = new URL(page.url())
+    assert.equal(signIn.pathname, '/fr/auth')
+    assert.equal(signIn.searchParams.get('next'), path)
+    await page.locator('main').waitFor()
+    assert.equal(await page.locator('html').getAttribute('lang'), 'fr')
+    await context.addCookies([
+      { name: 'hb_session', value: tokens[0], url: origin },
+    ])
+    await page.goto(
+      `${origin}/en/account/projects/edit?project=archive%3Aaisummit25%2Ftravel-tetris`,
+      { waitUntil: 'domcontentloaded' },
+    )
+    await page.locator('[data-creator-privacy="project"]').waitFor()
+    // The root document must remain mounted during normal client navigation.
+    await page.locator('a[href="/en/account/admin"]').first().click()
+    await page.waitForURL(`${origin}/en/account/admin`)
+    await page.locator('input[name="q"]').waitFor()
+    assert.deepEqual(errors, [], 'Account navigation: client rendering errors')
+    console.log(
+      'PASS hydrated editor access, 404s, languages and account navigation',
+    )
+  } finally {
+    await browser.close()
+  }
+}
+
 async function main() {
   // The client search module must not pull historical creator corrections into downloadable JS.
   const { globSync } = require('glob'),
@@ -156,6 +225,7 @@ async function main() {
       const response = await read(`/${locale}/account/admin`),
         html = await response.text()
       assert.equal(response.status, 200)
+      assert.match(html, new RegExp(`<html lang="${locale}">`))
       assert.match(html, /noindex/)
       assert.ok(html.includes(copy.projects))
       assert.ok(html.includes(copy.builders))
@@ -198,6 +268,7 @@ async function main() {
         404,
       )
     }
+    await verifyEditorBrowser(origin, tokens)
     const noMatches = await (
       await read('/en/account/admin?q=fixture-with-no-matching-project')
     ).text()
