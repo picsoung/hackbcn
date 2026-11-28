@@ -455,6 +455,16 @@ async function main() {
             'd'.repeat(64),
           ),
         )
+        const token = new URL(result.optOutUrl).searchParams.get('token')
+        const landing = await fetch(
+          `${origin}/en/invitations/unsubscribe?token=${token}`,
+        )
+        assert.ok((await landing.text()).includes('name="token"'))
+        const tampered = token.slice(0, -1) + (token.endsWith('A') ? 'B' : 'A')
+        const invalidLanding = await fetch(
+          `${origin}/en/invitations/unsubscribe?token=${tampered}`,
+        )
+        assert.ok(!(await invalidLanding.text()).includes('name="token"'))
       }
       const rows = await database
         .select()
