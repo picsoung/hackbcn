@@ -2,7 +2,9 @@
 
 Requested delivery: **Thursday 26 November 2026 at 09:02 Europe/Madrid**, equivalent to `2026-11-26T08:02:00Z`. This replaces the earlier proposed 10:00 slot. Never substitute an immediate send if the requested time has passed.
 
-Status: **prepared, not queued**. Production still lacks the project-management routes, profile API, email logo and ownership tables. The website must go through preview and production before the campaign is queued. These are individual emails, not a newsletter subscription or an automation.
+Status: **89 individual emails scheduled and verified in Resend** for the requested time. Verification completed at `2026-11-26T00:04:32Z`: 89 distinct provider email IDs, one recipient per message and matching scheduled timestamps. The private ledger is the source of truth for provider IDs and later delivery checks. No reminders are scheduled.
+
+The website passed preview checks and was released through [feature PR #78](https://github.com/picsoung/hackbcn/pull/78) and [production release #74](https://github.com/picsoung/hackbcn/pull/74), commit `70ac740b32917fea19da354b05db42ed0fff8f9b`. Production contains 95 reviewed individual ownership matches across 69 projects. Claiming, editing, hide/restore and invitation opt-outs were checked before queueing. A concurrent preview migration collision was resolved by retrying the stable deployment after the other preview completed.
 
 ## Prepared audience
 
@@ -13,9 +15,9 @@ Status: **prepared, not queued**. Production still lacks the project-management 
 - June Netlify and the original project submission CSV contain no individual email field; do not infer addresses from names, social profiles or repository owners.
 - Resend contact and account-wide suppression checks found no opted-out or suppressed addresses among the 89 candidates. Recheck immediately before queueing, alongside production claims and invitation-specific opt-outs.
 
-The private audience, uncertain-match report and individual HTML/text/API payloads are stored outside the repository with owner-only permissions. Nothing has been uploaded to a campaign or sent to participants. The recipient list must not be committed or exposed by the website.
+The private audience, uncertain-match report and individual HTML/text/API payloads are stored outside the repository with owner-only permissions. The 89 messages were queued individually through the email API; no newsletter subscriptions or contact imports were created. Provider IDs and scheduling receipts also remain private. The recipient list must not be committed or exposed by the website.
 
-All candidates currently have no saved communication-language choice, so each prepared email contains English, Castellano and Catalan. Use the saved preference for later messages. The organiser confirmed Reply-To `nico@hackbarna.com` and the footer `HackBarna · Barcelona, Spain`.
+All 89 recipients had no saved communication-language choice when queued, so each email contains English, Castellano and Catalan. Use the saved preference for later messages. The organiser confirmed Reply-To `nico@hackbarna.com` and the footer `HackBarna · Barcelona, Spain`.
 
 ## Invitation-specific opt-out
 

@@ -73,7 +73,7 @@ jobs:
       - name: Verify authentication
         run: npm run test:auth
       - name: Verify project and homepage behavior
-        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs tests/project-ownership.test.cjs tests/community-profile.test.cjs tests/review-notifications.test.cjs tests/profile-claim-email.test.mjs tests/communication-preferences.test.cjs tests/invitation-opt-out.test.cjs tests/claimed-profile-display.test.cjs
+        run: node --test tests/builder-profiles.test.cjs tests/project-archive.test.cjs tests/live-wall.test.mjs tests/homepage.test.cjs tests/seo-metadata.test.cjs tests/project-visibility.test.cjs tests/aisummit26-content.test.cjs tests/project-ownership.test.cjs tests/community-profile.test.cjs tests/review-notifications.test.cjs tests/profile-claim-email.test.mjs tests/communication-preferences.test.cjs tests/invitation-opt-out.test.cjs tests/claimed-profile-display.test.cjs tests/aisummit25-import.test.cjs tests/aisummit25-makers.test.cjs tests/project-tags.test.cjs tests/project-awards.test.cjs tests/privacy-model.test.cjs
       - name: Verify image decoding and upload limits
         run: node --conditions=react-server --test tests/media-images.test.cjs
       - name: Verify project ownership and visibility in Postgres
@@ -81,14 +81,21 @@ jobs:
           node --conditions=react-server tests/project-ownership.integration.cjs
           node --conditions=react-server tests/project-visibility.integration.cjs
           node --conditions=react-server tests/communication-preferences.integration.cjs
+          node --conditions=react-server tests/organiser-editing.integration.cjs
       - name: Check types
         run: npx tsc --noEmit
       - name: Build production assets
         run: npm run build
+      - name: Install browser for editor hydration checks
+        run: npx playwright install --with-deps chromium
       - name: Verify rendered SEO routes
         run: |
           node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100 > "$RUNNER_TEMP/hackbarna-seo-server.log" 2>&1 &
           seo_server_pid=$!
-          trap 'kill "$seo_server_pid"' EXIT
+          trap 'status=$?; if [ "$status" -ne 0 ]; then cat "$RUNNER_TEMP/hackbarna-seo-server.log"; fi; kill "$seo_server_pid"' EXIT
           node tests/seo-routes.integration.mjs http://127.0.0.1:3100
           node tests/project-visibility-routes.integration.mjs http://127.0.0.1:3100
+          node tests/aisummit25-routes.integration.mjs http://127.0.0.1:3100
+          node tests/project-tags-routes.integration.mjs http://127.0.0.1:3100
+          node tests/project-awards-routes.integration.mjs http://127.0.0.1:3100
+          node --conditions=react-server tests/organiser-routes.integration.cjs

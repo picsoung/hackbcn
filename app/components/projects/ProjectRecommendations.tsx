@@ -35,7 +35,12 @@ export default function ProjectRecommendations({
               ? copy.moreBy.replace('{name}', () => current.hackers[0].name)
               : copy.moreBuilders}
           </h2>
-          <ProjectGrid projects={related.byBuilder} tone={tone} showEvent />
+          <ProjectGrid
+            projects={related.byBuilder}
+            tone={tone}
+            showEvent
+            locale={locale}
+          />
         </section>
       )}
       {related.byEvent.length > 0 && (
@@ -62,7 +67,7 @@ export default function ProjectRecommendations({
               </Link>
             )}
           </div>
-          <ProjectGrid projects={related.byEvent} tone={tone} />
+          <ProjectGrid projects={related.byEvent} tone={tone} locale={locale} />
         </section>
       )}
     </div>

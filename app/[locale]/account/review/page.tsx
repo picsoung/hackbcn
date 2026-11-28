@@ -8,6 +8,8 @@ import { isProjectOrganiser, projectReference } from '@/lib/projects/ownership'
 import { organiserProjectClaims } from '@/lib/projects/ownership-store'
 import { projectEditsForReview } from '@/lib/projects/edit-store'
 import { accountWorkspaceCopy } from '@/data/account-workspace'
+import Link from 'next/link'
+import { organiserCopy } from '@/data/organiser'
 
 export const dynamic = 'force-dynamic'
 export function generateMetadata({ params }: { params: { locale: string } }) {
@@ -50,8 +52,17 @@ export default async function ReviewPage({
     )
   return (
     <AccountWorkspace locale={locale} active="organiser" organiser>
+      <Link
+        href={`/${locale}/account/admin`}
+        className="mb-5 inline-flex min-h-11 items-center text-sm text-ink-dim underline underline-offset-4"
+      >
+        {organiserCopy(locale).back}
+      </Link>
       <h1 className="mb-8 text-3xl font-bold tracking-tight">
-        {accountWorkspaceCopy(locale).organiser}
+        {organiserCopy(locale).review} (
+        {edits.length +
+          claims.filter((claim) => claim.status === 'pending').length}
+        )
       </h1>
       <ProjectEditReview
         edits={edits}

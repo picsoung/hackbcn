@@ -10,6 +10,9 @@ import { accountUnavailableCopy } from '@/data/account-page'
 import { getCommunityProfile } from '@/lib/community/profile-store'
 import { getCommunicationPreferences } from '@/lib/account/communication-store'
 import { accountWorkspaceCopy } from '@/data/account-workspace'
+import { accountPrivacyOptions } from '@/lib/projects/privacy-store'
+import CreatorPrivacyControls from '@/app/components/auth/CreatorPrivacyControls'
+import { privacyCopy } from '@/data/privacy-controls'
 
 export function generateMetadata({ params }: { params: { locale: string } }) {
   return {
@@ -28,12 +31,14 @@ export default async function AccountPage({
   let user
   let profile
   let communications
+  let privacy: Awaited<ReturnType<typeof accountPrivacyOptions>> = []
   try {
     user = await getCurrentIdentity()
     if (user)
-      [profile, communications] = await Promise.all([
+      [profile, communications, privacy] = await Promise.all([
         getCommunityProfile(user),
         getCommunicationPreferences(user.id),
+        accountPrivacyOptions(user),
       ])
   } catch {
     const copy = accountUnavailableCopy(locale)
@@ -66,6 +71,31 @@ export default async function AccountPage({
         profile={profile}
         communications={communications}
       />
+      <section className="mt-12">
+        <h2 className="text-xl font-semibold">{privacyCopy(locale).account}</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-dim">
+          {privacyCopy(locale).accountHelp}
+        </p>
+        {privacy.map((item) => (
+          <CreatorPrivacyControls
+            key={item.setting.subjectKey}
+            initial={item.setting}
+            locale={locale}
+            name={item.name}
+          />
+        ))}
+        {privacy.length === 0 && (
+          <div className="mt-5 max-w-2xl text-sm leading-relaxed text-ink-dim">
+            <p>{privacyCopy(locale).accountEmpty}</p>
+            <Link
+              href={`/${locale}/account/projects`}
+              className="mt-3 inline-flex min-h-11 items-center font-semibold text-accent underline underline-offset-4"
+            >
+              {accountWorkspaceCopy(locale).claimAction}
+            </Link>
+          </div>
+        )}
+      </section>
     </AccountWorkspace>
   )
 }

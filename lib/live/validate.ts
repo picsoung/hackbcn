@@ -1,6 +1,15 @@
-// Reviewed public credit from the original Council-convention submission.
-// Apply only while the source still has this exact combined name and profile.
+import type { PrivacyField } from '../projects/privacy-model'
+// Reviewed public credits from legacy team submissions.
+// Apply only while a source still has its exact recorded name and primary profile.
 const projectTeamCredits = [
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    projectSlug: 'bicing-planner',
+    submittedName: 'Eduard Blancode',
+    primaryProfilePath: '/in/eduardblanco',
+    primaryName: 'Eduard Blanco',
+    otherNames: [],
+  },
   {
     eventSlug: 'hacknight-5-jevathon-2026',
     projectSlug: 'council-convention',
@@ -9,9 +18,31 @@ const projectTeamCredits = [
     primaryName: 'Tiam Haghshenas',
     otherNames: ['Stepan Gritsun'],
   },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    projectSlug: 'push-cube',
+    submittedName: 'Arnab Dey, Alex Garcia',
+    primaryProfilePath: '/in/arnabdey0503',
+    primaryName: 'Arnab Dey',
+    otherNames: ['Alex Garcia'],
+  },
+  {
+    eventSlug: 'hacknight-5-jevathon-2026',
+    projectSlug: 'skillars',
+    submittedName: 'Chloe, Xénia & Majo',
+    primaryProfilePath: '/in/chloe-beck',
+    primaryName: 'Chloe',
+    otherNames: ['Xénia', 'Majo'],
+  },
 ]
 
-export type ProjectHacker = { name: string; linkedinUrl: string | null }
+export type ProjectHacker = {
+  hiddenFields?: PrivacyField[]
+  name: string
+  linkedinUrl: string | null
+  creditIndex?: number
+  profileSlug?: string
+}
 
 export interface ProjectInput {
   name: string
@@ -59,13 +90,36 @@ export function projectHackers(project: {
   hackers?: unknown
   creatorName: string
   linkedinUrl: string
+  creatorCreditsHidden?: boolean
 }): ProjectHacker[] {
+  if (project.creatorCreditsHidden) return []
   const hackers = Array.isArray(project.hackers)
     ? project.hackers.flatMap((value) => {
         if (!value || typeof value !== 'object' || !str(value.name)) return []
         return [
           {
             name: str(value.name),
+            ...(Array.isArray(value.hiddenFields)
+              ? {
+                  hiddenFields: value.hiddenFields.filter(
+                    // Keep this validator usable by native Node TypeScript consumers.
+                    (field: unknown): field is PrivacyField =>
+                      field === 'linkedin' ||
+                      field === 'github' ||
+                      field === 'otherLinks' ||
+                      field === 'photo' ||
+                      field === 'bio',
+                  ),
+                }
+              : {}),
+            ...(Number.isSafeInteger(value.creditIndex) &&
+            value.creditIndex >= 0
+              ? { creditIndex: value.creditIndex }
+              : {}),
+            ...(typeof value.profileSlug === 'string' &&
+            /^[a-z0-9-]{1,80}$/.test(value.profileSlug)
+              ? { profileSlug: value.profileSlug }
+              : {}),
             linkedinUrl: str(value.linkedinUrl)
               ? linkedinProfile(str(value.linkedinUrl))
               : null,

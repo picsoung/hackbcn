@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import AuthShell from '@/app/components/auth/AuthShell'
 import { getAuthLocale } from '@/lib/auth/shared'
-import { validInvitationTokenShape } from '@/lib/email/invitation-opt-out'
+import {
+  validInvitationTokenShape,
+  verifyInvitationOptOutToken,
+} from '@/lib/email/invitation-opt-out'
 import { invitationOptOutCopy } from '@/data/invitation-opt-out'
 
 export const dynamic = 'force-dynamic'
@@ -23,9 +26,13 @@ export default function InvitationUnsubscribe({
 }) {
   const locale = getAuthLocale(params.locale),
     copy = invitationOptOutCopy(locale)
-  const token = validInvitationTokenShape(searchParams.token)
-    ? searchParams.token
-    : ''
+  let token = ''
+  if (validInvitationTokenShape(searchParams.token)) {
+    try {
+      if (verifyInvitationOptOutToken(searchParams.token))
+        token = searchParams.token
+    } catch {}
+  }
   const done = searchParams.done === '1'
   return (
     <AuthShell>

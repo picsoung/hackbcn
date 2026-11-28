@@ -36,13 +36,20 @@ export async function saveCommunityProfile(
   profile: CommunityProfile,
 ) {
   return getDb().transaction(async (tx) => {
-    await assertMediaReference(
-      profile.avatarUrl,
-      accountId,
-      'avatar',
-      undefined,
-      tx,
-    )
+    const [current] = await tx
+      .select()
+      .from(communityProfiles)
+      .where(eq(communityProfiles.accountId, accountId))
+      .for('update')
+    // Members can retain a photo attached by an organiser while editing other fields.
+    if (profile.avatarUrl !== current?.avatarUrl)
+      await assertMediaReference(
+        profile.avatarUrl,
+        accountId,
+        'avatar',
+        undefined,
+        tx,
+      )
     const { revision, ...values } = profile
     if (revision === 0) {
       const [row] = await tx

@@ -1,5 +1,6 @@
 import type { BuilderProfile } from '../builders'
 import { claimRosterDigest } from '../projects/email-proof'
+import type { BuilderBinding } from '../projects/privacy-model'
 
 export type ClaimedDisplay = {
   projectKey: string
@@ -13,6 +14,32 @@ export type ClaimedDisplay = {
   githubUrl: string
 }
 
+export function builderAccountId(
+  profile: BuilderProfile,
+  rosters: Map<string, { name: string; linkedinUrl?: string | null }[]>,
+  bindings: BuilderBinding[],
+) {
+  const ids = new Set(
+    bindings
+      .filter((binding) => {
+        const roster = rosters.get(binding.projectKey)
+        return (
+          roster &&
+          binding.creditIndex >= 0 &&
+          binding.creditIndex < roster.length &&
+          binding.rosterDigest === claimRosterDigest(roster) &&
+          profile.credits.some(
+            (credit) =>
+              credit.projectKey === binding.projectKey &&
+              credit.index === binding.creditIndex,
+          )
+        )
+      })
+      .map((binding) => binding.accountId),
+  )
+  return ids.size === 1 ? Array.from(ids)[0] : null
+}
+
 /** Presentation changes happen after source-based grouping, so editable links cannot merge identities. */
 export function applyClaimedDisplays(
   profiles: BuilderProfile[],
@@ -20,27 +47,9 @@ export function applyClaimedDisplays(
   bindings: ClaimedDisplay[],
 ): BuilderProfile[] {
   return profiles.map((profile) => {
-    const candidates = bindings.filter((binding) => {
-      const roster = rosters.get(binding.projectKey)
-      return (
-        roster &&
-        binding.creditIndex >= 0 &&
-        binding.creditIndex < roster.length &&
-        binding.rosterDigest === claimRosterDigest(roster) &&
-        profile.credits.some(
-          (credit) =>
-            credit.projectKey === binding.projectKey &&
-            credit.index === binding.creditIndex,
-        )
-      )
-    })
-    // Conflicting accounts cannot overwrite a shared historical identity.
-    if (
-      !candidates.length ||
-      new Set(candidates.map((row) => row.accountId)).size !== 1
-    )
-      return profile
-    const current = candidates[0]
+    const accountId = builderAccountId(profile, rosters, bindings)
+    if (!accountId) return profile
+    const current = bindings.find((binding) => binding.accountId === accountId)!
     const { linkedin, github, ...otherLinks } = profile.links
     return {
       ...profile,

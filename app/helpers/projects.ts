@@ -2,6 +2,8 @@ import path from 'path'
 import fs from 'fs'
 import { globSync } from 'glob'
 import matter from 'gray-matter'
+import type { ProjectBuilder } from '../../lib/project-detail'
+import type { PrivacyField } from '../../lib/projects/privacy-model'
 
 export type ProjectCategory =
   | 'Technology'
@@ -10,6 +12,9 @@ export type ProjectCategory =
   | 'Other'
 
 export interface Person {
+  hiddenFields?: PrivacyField[]
+  creditIndex?: number
+  profileSlug?: string
   name: string
   description: string
   job?: string
@@ -33,6 +38,9 @@ export interface ProjectData {
   title: string
   description: string
   tags: string[]
+  topics?: string[]
+  tools?: string[]
+  challenges?: string[]
   thumbnailUrl: string
   projectImage?: string
   category: ProjectCategory
@@ -52,6 +60,7 @@ export interface ProjectData {
 }
 
 export interface Project {
+  builders?: ProjectBuilder[]
   data: ProjectData
   slug: string
   content: string
@@ -88,6 +97,9 @@ function readProject(slugOrFilePath: string[]): Project {
     title: data.title,
     description: data.description,
     tags: data.tags,
+    topics: data.topics,
+    tools: data.tools,
+    challenges: data.challenges,
     thumbnailUrl: data.thumbnailUrl,
     category: data.category ?? 'Other',
     status: data.status ?? 'published',

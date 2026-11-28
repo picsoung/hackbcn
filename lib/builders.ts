@@ -9,6 +9,7 @@ export type BuilderProfile = {
   image?: string
   bio?: string
   claimed?: boolean
+  edited?: boolean
   links: Record<string, string>
   credits: BuilderCredit[]
   projectKeys: string[]
@@ -84,13 +85,16 @@ export function buildBuilderDirectory(
         description: source.role,
         image: { src: source.image },
         links: source.links,
+        creditIndex: source.creditIndex,
+        profileSlug: source.profileSlug,
+        hiddenFields: source.hiddenFields,
       })
       if (builder.image && !builder.image.startsWith('/'))
         builder.image = publicLink('image', builder.image)
       return [
         {
           projectKey,
-          index,
+          index: source.creditIndex ?? index,
           builder,
           linkedin: profileKey(builder.links.linkedin, 'linkedin'),
           github: profileKey(builder.links.github, 'github'),
@@ -109,6 +113,9 @@ export function buildBuilderDirectory(
   for (const credit of credits) {
     const owners = credit.github ? githubOwners.get(credit.github) : undefined
     const identity =
+      (credit.builder.profileSlug
+        ? `builder:${credit.builder.profileSlug}`
+        : undefined) ||
       credit.linkedin ||
       (credit.github && (!owners || owners.size <= 1)
         ? owners?.values().next().value || credit.github
@@ -133,7 +140,9 @@ export function buildBuilderDirectory(
       }
     }
     return {
-      slug: identitySlug(identity),
+      slug: identity.startsWith('builder:')
+        ? identity.slice(8)
+        : identitySlug(identity),
       name: names[0],
       image: group.find(({ builder }) => builder.image)?.builder.image,
       links: Object.fromEntries(

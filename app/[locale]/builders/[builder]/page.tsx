@@ -141,6 +141,7 @@ export default async function BuilderPage({ params }: Params) {
           <ProjectGrid
             projects={groups.flatMap((group) => group.projects)}
             showEvent
+            locale={params.locale}
           />
         </section>
       </div>

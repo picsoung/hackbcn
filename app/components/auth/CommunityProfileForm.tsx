@@ -6,6 +6,7 @@ import { useIntl } from '../Intl'
 import ImageUpload from './ImageUpload'
 import { accountMediaCopy } from '@/data/account-media'
 import { accountWorkspaceCopy } from '@/data/account-workspace'
+import { organiserCopy } from '@/data/organiser'
 import { accountButton, accountField } from './ProjectManagement'
 import {
   personalProfileLink,
@@ -14,14 +15,17 @@ import {
 
 export default function CommunityProfileForm({
   initial,
+  admin,
 }: {
   initial: CommunityProfile
+  admin?: { builder: string; version: string }
 }) {
   const [profile, setProfile] = useState(initial)
   const [busy, setBusy] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [message, setMessage] = useState('')
   const [failed, setFailed] = useState(false)
+  const [version, setVersion] = useState(admin?.version)
   const intl = useIntl(),
     router = useRouter()
   async function save(event: React.FormEvent<HTMLFormElement>) {
@@ -29,11 +33,16 @@ export default function CommunityProfileForm({
     setBusy(true)
     setMessage('')
     try {
-      const response = await fetch('/api/account/profile', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile),
-      })
+      const response = await fetch(
+        admin ? '/api/admin/builders' : '/api/account/profile',
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(
+            admin ? { builder: admin.builder, version, profile } : profile,
+          ),
+        },
+      )
       const result = await response.json()
       if (!response.ok) {
         setFailed(true)
@@ -45,8 +54,11 @@ export default function CommunityProfileForm({
         return
       }
       setProfile(result.profile)
+      if (admin) setVersion(result.version)
       setFailed(false)
-      setMessage(intl.t('profile.saved'))
+      setMessage(
+        admin ? organiserCopy(intl.locale).saved : intl.t('profile.saved'),
+      )
       router.refresh()
     } catch {
       setFailed(true)
@@ -89,7 +101,9 @@ export default function CommunityProfileForm({
   return (
     <form onSubmit={save} className="mt-7 max-w-2xl">
       <fieldset>
-        <legend className="mb-5 text-base font-semibold">{ui.basics}</legend>
+        <legend className="mb-5 text-base font-semibold">
+          {admin ? ui.publicProfile : ui.basics}
+        </legend>
         <div className="space-y-5">
           {field('displayName')}
           <label className="block text-sm font-medium">
@@ -156,7 +170,11 @@ export default function CommunityProfileForm({
           disabled={busy || uploading}
           className={accountButton}
         >
-          {intl.t(busy ? 'profile.saving' : 'profile.save')}
+          {busy
+            ? intl.t('profile.saving')
+            : admin
+              ? organiserCopy(intl.locale).save
+              : intl.t('profile.save')}
         </button>
         <p
           role={failed ? 'alert' : 'status'}

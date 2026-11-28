@@ -54,7 +54,6 @@ export default async function ProjectBySlug({ params }: Params) {
       builders={builders}
       links={links}
       media={media}
-      stack={data.techStack}
       related={related}
       locale={params.locale}
       publishedDate={data.publishedDate}

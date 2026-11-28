@@ -30,6 +30,7 @@ import {
   claimLookupKey,
   claimRosterDigest,
 } from './email-proof'
+import { assertProjectManager } from './project-access'
 
 function verifiedAccount(user: IdentityUser) {
   if (!user.emailVerified || !user.email)
@@ -461,18 +462,7 @@ export async function changeProjectVisibility(
   )
     throw new ProjectAccessError('invalid', 422)
   return getDb().transaction(async (tx) => {
-    const [membership] = await tx
-      .select({ id: projectClaims.id })
-      .from(projectClaims)
-      .where(
-        and(
-          eq(projectClaims.accountId, user.id),
-          eq(projectClaims.projectKey, reference.key),
-          eq(projectClaims.status, 'verified'),
-        ),
-      )
-      .for('share')
-    if (!membership) throw new ProjectAccessError('forbidden', 403)
+    await assertProjectManager(tx, user, reference.key)
     const source = await sourceProject(reference.key, 'en', tx)
     if (!source) throw new ProjectAccessError('not_found', 404)
     await tx

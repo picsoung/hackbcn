@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/restore-deployment-privacy.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -45,6 +46,7 @@
     "next": "14.1.0",
     "next-mdx-remote": "^6.0.0",
     "openid-client": "^6.9.0",
+    "pg": "^8.23.1",
     "posthog-js": "^1.136.1",
     "prettier": "^3.3.2",
     "react": "^18",
@@ -69,6 +71,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "file-loader": "^6.2.0",
+    "playwright": "^1.65.1",
     "postcss": "^8",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^3.3.0",
