@@ -250,6 +250,12 @@ async function main() {
     HACKBARNA_OIDC_CLIENT_SECRET: 'route-fixture-secret',
     HACKBARNA_OIDC_REDIRECT_URI: `${origin}/auth/callback`,
     HACKBARNA_SESSION_KEY: 'f'.repeat(64),
+    HACKBARNA_PROJECT_CLAIM_KEY: 'e'.repeat(64),
+    HACKBARNA_INVITATION_KEY: 'd'.repeat(64),
+    HACKBARNA_INVITATION_PREPARE_TOKEN: 'c'.repeat(64),
+    HACKBARNA_INVITATION_PREPARE_UNTIL: new Date(
+      Date.now() + 3600000,
+    ).toISOString(),
   })
   const { Pool } = require('pg'),
     pool = new Pool({ connectionString: url.href })
@@ -385,6 +391,166 @@ async function main() {
       )
     }
     await verifyEditorBrowser(origin, tokens)
+    const preparationPath = `${origin}/api/internal/profile-invitations/prepare`
+    assert.equal(
+      (await fetch(preparationPath, { method: 'POST', body: '{}' })).status,
+      401,
+    )
+    const {
+      archivedProjectCard: invitationCard,
+    } = require('../lib/project-cards.ts')
+    const {
+      getBuiltProject: invitationProject,
+    } = require('../app/helpers/projects.ts')
+    const {
+      claimRosterDigest: invitationRoster,
+      claimEmailHash: invitationHash,
+    } = require('../lib/projects/email-proof.ts')
+    const {
+      verifyInvitationOptOutToken,
+    } = require('../lib/email/invitation-opt-out.ts')
+    const invitationKey = 'archive:aisummit25/travel-tetris'
+    const invitationEmail = 'invite-route@example.test'
+    const invitationCredit = {
+      projectKey: invitationKey,
+      creditIndex: 0,
+      rosterDigest: invitationRoster(
+        invitationCard(invitationProject(['aisummit25', 'travel-tetris']), 'en')
+          .hackers,
+      ),
+    }
+    const postPreparation = (recipients) =>
+      fetch(preparationPath, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${'c'.repeat(64)}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ recipients }),
+      })
+    // This operator endpoint is disabled in preview builds. Production-context
+    // CI exercises signing and conservative proof imports against the test DB.
+    if (!['branch-deploy', 'deploy-preview'].includes(process.env.CONTEXT)) {
+      const recipient = {
+        id: 'a'.repeat(24),
+        email: invitationEmail,
+        credits: [
+          {
+            ...invitationCredit,
+            individualEmail: invitationEmail,
+            registrationEmail: invitationEmail,
+            sourceDigest: 'f'.repeat(64),
+          },
+        ],
+      }
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const response = await postPreparation([recipient])
+        assert.equal(response.status, 200)
+        const result = (await response.json()).recipients[0]
+        assert.equal(result.eligible, true)
+        assert.equal(result.imported.length, 1)
+        assert.ok(
+          verifyInvitationOptOutToken(
+            new URL(result.optOutUrl).searchParams.get('token'),
+            'd'.repeat(64),
+          ),
+        )
+        const token = new URL(result.optOutUrl).searchParams.get('token')
+        const landing = await fetch(
+          `${origin}/en/invitations/unsubscribe?token=${token}`,
+        )
+        assert.ok((await landing.text()).includes('name="token"'))
+        const tampered = token.slice(0, -1) + (token.endsWith('A') ? 'B' : 'A')
+        const invalidLanding = await fetch(
+          `${origin}/en/invitations/unsubscribe?token=${tampered}`,
+        )
+        assert.ok(!(await invalidLanding.text()).includes('name="token"'))
+      }
+      const rows = await database
+        .select()
+        .from(projectClaimEvidence)
+        .where(eq(projectClaimEvidence.projectKey, invitationKey))
+      assert.equal(rows.length, 1)
+      assert.equal(
+        rows[0].emailHash,
+        invitationHash(invitationEmail, 'e'.repeat(64)),
+      )
+      const conflict = {
+        ...recipient,
+        email: 'conflicting-invite@example.test',
+        credits: [
+          {
+            ...recipient.credits[0],
+            individualEmail: 'conflicting-invite@example.test',
+            registrationEmail: 'conflicting-invite@example.test',
+          },
+        ],
+      }
+      assert.equal((await postPreparation([conflict])).status, 422)
+      const manual = await postPreparation([
+        {
+          id: 'b'.repeat(24),
+          email: 'manual-invite@example.test',
+          credits: [invitationCredit],
+        },
+      ])
+      assert.equal(manual.status, 200)
+      assert.deepEqual((await manual.json()).recipients[0].imported, [])
+      await database
+        .delete(projectClaimEvidence)
+        .where(eq(projectClaimEvidence.projectKey, invitationKey))
+      const { privacyRestorePlan, restorePrivacy } = await import(
+        '../scripts/restore-deployment-privacy.mjs'
+      )
+      const plan = privacyRestorePlan(
+        JSON.stringify({
+          version: 1,
+          settings: [
+            {
+              subjectKey: 'project:' + invitationKey,
+              hidden: true,
+              hiddenFields: ['github'],
+            },
+          ],
+        }),
+      )
+      assert.throws(() =>
+        privacyRestorePlan(
+          JSON.stringify({
+            version: 1,
+            settings: [{ subjectKey: 'bad', hidden: false, hiddenFields: [] }],
+          }),
+        ),
+      )
+      const client = await pool.connect()
+      try {
+        assert.equal(await restorePrivacy(client, plan, admin.id), 1)
+        assert.equal(await restorePrivacy(client, plan, admin.id), 0)
+        await database
+          .update(creatorPrivacy)
+          .set({ hidden: false, hiddenFields: [] })
+          .where(eq(creatorPrivacy.subjectKey, 'project:' + invitationKey))
+        assert.equal(
+          await restorePrivacy(client, plan, admin.id),
+          0,
+          'A completed restore never reverses later privacy changes',
+        )
+        await client.query('DELETE FROM deployment_operations WHERE id=$1', [
+          plan.id,
+        ])
+      } finally {
+        client.release()
+      }
+      await database
+        .delete(creatorPrivacyHistory)
+        .where(eq(creatorPrivacyHistory.subjectKey, 'project:' + invitationKey))
+      await database
+        .delete(creatorPrivacy)
+        .where(eq(creatorPrivacy.subjectKey, 'project:' + invitationKey))
+      console.log(
+        'PASS production invitation signing, manual ownership, conservative proof imports and one-time privacy restore',
+      )
+    }
     const pendingProject = 'archive:aisummit25/travel-tetris'
     await database.insert(projectContent).values({
       projectKey: pendingProject,
