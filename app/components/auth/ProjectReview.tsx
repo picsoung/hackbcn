@@ -77,7 +77,8 @@ export default function ProjectReview({
           aria-labelledby="review-title"
         >
           <h2 id="review-title" className="text-2xl font-semibold">
-            {copy.reviewTitle}
+            {copy.reviewTitle} (
+            {review.filter((item) => item.status === 'pending').length})
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-ink-dim">
             {copy.reviewHelp}

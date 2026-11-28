@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import AuthShell from './AuthShell'
 import { accountWorkspaceCopy } from '@/data/account-workspace'
+import { organiserCopy } from '@/data/organiser'
 
 export default function AccountWorkspace({
   locale,
@@ -15,6 +16,15 @@ export default function AccountWorkspace({
   children: ReactNode
 }) {
   const copy = accountWorkspaceCopy(locale)
+  const organiserUi = organiserCopy(locale)
+  // Netlify's build context is unavailable in SSR functions. SITE_ORIGIN is
+  // inlined at build time and stays a preview origin even if a preview is promoted.
+  const environment =
+    process.env.NODE_ENV === 'development'
+      ? 'development'
+      : process.env.SITE_ORIGIN?.includes('.netlify.app')
+        ? 'preview'
+        : null
   const items = [
     ['profile', `/${locale}/account`],
     ['projects', `/${locale}/account/projects`],
@@ -23,6 +33,21 @@ export default function AccountWorkspace({
   return (
     <AuthShell wide>
       <p className="mb-5 text-sm font-medium text-ink-dim">{copy.account}</p>
+      {organiser && environment && (
+        <p
+          data-admin-environment={environment}
+          className="mb-6 rounded-pixel border border-ink/20 bg-ground-raised px-4 py-3 text-sm text-ink-dim"
+        >
+          <strong className="font-semibold text-ink">
+            {environment === 'preview'
+              ? organiserUi.previewWorkspace
+              : organiserUi.localWorkspace}
+          </strong>{' '}
+          {environment === 'preview'
+            ? organiserUi.previewWorkspaceHelp
+            : organiserUi.localWorkspaceHelp}
+        </p>
+      )}
       <nav
         aria-label={copy.account}
         className="mb-9 flex gap-6 overflow-x-auto border-b border-ink/15 sm:mb-12 sm:gap-8"

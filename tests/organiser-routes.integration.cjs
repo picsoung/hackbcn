@@ -92,6 +92,120 @@ async function verifyEditorBrowser(origin, tokens) {
   }
 }
 
+async function verifyPendingReviews(origin, token) {
+  const { chromium } = require('playwright')
+  const browser = await chromium.launch()
+  try {
+    const context = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+    })
+    await context.addCookies([
+      { name: 'hb_session', value: token, url: origin },
+    ])
+    const page = await context.newPage(),
+      errors = []
+    page.on('pageerror', (error) => errors.push(error.message))
+    for (const locale of ['en', 'es', 'ca', 'fr']) {
+      const { organiserCopy } = require('../data/organiser.ts'),
+        copy = organiserCopy(locale)
+      await page.goto(`${origin}/${locale}/account/admin?page=2`)
+      if (['branch-deploy', 'deploy-preview'].includes(process.env.CONTEXT)) {
+        const workspace = page.locator('[data-admin-environment="preview"]')
+        await workspace.waitFor()
+        assert.ok(
+          (await workspace.textContent()).includes(copy.previewWorkspace),
+        )
+      }
+      const queue = page.locator('[data-pending-reviews]')
+      await queue.waitFor()
+      assert.equal(
+        await queue.locator('h2').textContent(),
+        `${copy.pendingReviews} (2)`,
+      )
+      assert.ok((await queue.textContent()).includes(`${copy.projectEdits}: 1`))
+      assert.ok(
+        (await queue.textContent()).includes(`${copy.ownershipRequests}: 1`),
+      )
+      assert.equal(
+        await queue.getByRole('link').count(),
+        2,
+        'Only pending requests appear, including outside the current result page',
+      )
+      await page.locator('select[name="status"]').selectOption('pending')
+      await page
+        .getByRole('button', { name: copy.searchAction, exact: true })
+        .click()
+      await page.waitForURL(
+        (url) =>
+          url.searchParams.get('status') === 'pending' &&
+          !url.searchParams.has('page'),
+      )
+      const rows = page
+        .getByRole('list', { name: copy.results })
+        .getByRole('listitem')
+      assert.equal(await rows.count(), 1)
+      assert.ok((await rows.first().textContent()).includes('Travel Tetris'))
+      assert.ok(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth,
+        ),
+        `${locale}: mobile admin page fits the viewport`,
+      )
+      await queue.locator('a[href*="?project="]').click()
+      await page.waitForURL(
+        (url) =>
+          url.pathname.endsWith('/account/review') &&
+          url.hash === '#project-review',
+      )
+      await page.locator('#project-review details[open]').waitFor()
+      assert.ok(
+        (await page.locator('#project-review').textContent()).includes(
+          'Pending title for organiser review',
+        ),
+      )
+    }
+    await page.goto(
+      `${origin}/en/account/review?project=archive%3Aaisummit25%2Ftravel-tetris#project-review`,
+    )
+    await page
+      .locator('#project-review')
+      .getByRole('button', { name: 'Approve changes', exact: true })
+      .click()
+    await page
+      .getByText('No project edits waiting for review.', { exact: true })
+      .waitFor()
+    await page.goto(`${origin}/en/account/admin?status=pending`)
+    const queue = page.locator('[data-pending-reviews]')
+    await queue.waitFor()
+    assert.equal(await queue.locator('h2').textContent(), 'Awaiting review (1)')
+    assert.equal(
+      await page
+        .getByRole('list', { name: 'Results' })
+        .getByRole('listitem')
+        .count(),
+      0,
+    )
+    await queue.locator('a[href*="?claim="]').click()
+    const claim = page.locator('#ownership-review details[open]')
+    await claim
+      .locator('textarea[name="note"]')
+      .fill('Disposable organiser review fixture.')
+    await claim.getByRole('button', { name: 'Reject', exact: true }).click()
+    await claim.waitFor({ state: 'detached' })
+    await page.goto(`${origin}/en/account/admin`)
+    await page
+      .getByRole('link', { name: 'Review requests (0)', exact: true })
+      .waitFor()
+    assert.equal(await page.locator('[data-pending-reviews]').count(), 0)
+    assert.deepEqual(errors, [])
+    console.log(
+      'PASS pending review counts, mobile filters, deep links and approval updates in four locales',
+    )
+  } finally {
+    await browser.close()
+  }
+}
+
 async function main() {
   // The client search module must not pull historical creator corrections into downloadable JS.
   const { globSync } = require('glob'),
@@ -158,6 +272,8 @@ async function main() {
       liveProjects,
       projectClaimEvidence,
       projectClaims,
+      projectContent,
+      projectContentHistory,
       projectVisibility,
       projectVisibilityAudit,
     } = require('../db/schema.ts'),
@@ -269,6 +385,44 @@ async function main() {
       )
     }
     await verifyEditorBrowser(origin, tokens)
+    const pendingProject = 'archive:aisummit25/travel-tetris'
+    await database.insert(projectContent).values({
+      projectKey: pendingProject,
+      revision: 1,
+      status: 'pending',
+      updatedBy: member.id,
+      currentContent: {
+        name: 'Pending title for organiser review',
+        description: 'A proposed description awaiting organiser approval.',
+        website: 'https://example.test/pending-project',
+        video: '',
+        image: '',
+      },
+    })
+    await database.insert(projectClaims).values([
+      {
+        projectKey: pendingProject,
+        accountId: member.id,
+        status: 'pending',
+        message: 'Please review this fixture claim.',
+      },
+      {
+        projectKey: pendingProject,
+        accountId: admin.id,
+        status: 'verified',
+        verificationMethod: 'organiser',
+      },
+    ])
+    await verifyPendingReviews(origin, tokens[0])
+    await database
+      .delete(projectContentHistory)
+      .where(eq(projectContentHistory.projectKey, pendingProject))
+    await database
+      .delete(projectContent)
+      .where(eq(projectContent.projectKey, pendingProject))
+    await database
+      .delete(projectClaims)
+      .where(eq(projectClaims.projectKey, pendingProject))
     const noMatches = await (
       await read('/en/account/admin?q=fixture-with-no-matching-project')
     ).text()
@@ -519,6 +673,17 @@ async function main() {
         server.exitCode !== null ? done() : server.once('exit', done),
       )
     }
+    await database
+      .delete(projectContentHistory)
+      .where(
+        eq(
+          projectContentHistory.projectKey,
+          'archive:aisummit25/travel-tetris',
+        ),
+      )
+    await database
+      .delete(projectContent)
+      .where(eq(projectContent.projectKey, 'archive:aisummit25/travel-tetris'))
     await database
       .delete(creatorPrivacyHistory)
       .where(inArray(creatorPrivacyHistory.subjectKey, privacySubjects))
