@@ -78,7 +78,7 @@ export default function ProjectEditReview({
       className="scroll-mt-24"
     >
       <h2 id="edit-review-title" className="text-2xl font-semibold">
-        {ui.reviewEdits}
+        {ui.reviewEdits} ({edits.length})
       </h2>
       <p
         role={failed ? 'alert' : 'status'}

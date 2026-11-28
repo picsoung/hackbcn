@@ -13,6 +13,9 @@ import { organiserCatalog } from '@/lib/admin/catalog'
 import { organiserCopy } from '@/data/organiser'
 import { accountWorkspaceCopy } from '@/data/account-workspace'
 import ProjectBuilderAvatar from '@/app/components/projects/ProjectBuilderAvatar'
+import PendingReviews, {
+  type PendingReviewItem,
+} from '@/app/components/auth/PendingReviews'
 
 export const dynamic = 'force-dynamic'
 export function generateMetadata({ params }: { params: { locale: string } }) {
@@ -41,7 +44,31 @@ export default async function OrganiserPage({
       `/${locale}/auth?next=${encodeURIComponent(`/${locale}/account/admin`)}`,
     )
   if (!isProjectOrganiser(user)) notFound()
-  const { projects, profiles } = await organiserCatalog(user, locale)
+  const { projects, profiles, pendingClaims } = await organiserCatalog(
+    user,
+    locale,
+  )
+  const projectByKey = new Map(
+    projects.map((row) => [row.project.key, row.project]),
+  )
+  const pendingItems: PendingReviewItem[] = [
+    ...projects
+      .filter((row) => row.editStatus === 'pending')
+      .map(({ project }) => ({
+        id: project.key,
+        name: project.name,
+        eventName: project.eventName,
+        href: `/${locale}/account/review?project=${encodeURIComponent(project.key)}#project-review`,
+        kind: 'projectEdit' as const,
+      })),
+    ...pendingClaims.map((claim) => ({
+      id: claim.id,
+      name: projectByKey.get(claim.projectKey)?.name ?? claim.projectKey,
+      eventName: projectByKey.get(claim.projectKey)?.eventName ?? '',
+      href: `/${locale}/account/review?claim=${claim.id}#ownership-review`,
+      kind: 'ownershipRequest' as const,
+    })),
+  ]
   const copy = organiserCopy(locale),
     builders = searchParams.tab === 'builders',
     q = (searchParams.q ?? '').slice(0, 200),
@@ -67,13 +94,15 @@ export default async function OrganiserPage({
         `${row.project.name} ${row.project.description} ${row.project.creator} ${row.project.eventName}`,
       ) &&
       (!status ||
-        (status === 'claimed'
-          ? row.claimCount > 0
-          : status === 'unclaimed'
-            ? row.claimCount === 0
-            : status === 'creators-hidden'
-              ? row.hasHiddenCreators
-              : row.visibility === status)),
+        (status === 'pending'
+          ? row.editStatus === 'pending'
+          : status === 'claimed'
+            ? row.claimCount > 0
+            : status === 'unclaimed'
+              ? row.claimCount === 0
+              : status === 'creators-hidden'
+                ? row.hasHiddenCreators
+                : row.visibility === status)),
   )
   const builderRows = profiles.filter((builder) => {
     const credits = eventProjects.filter((row) =>
@@ -85,13 +114,15 @@ export default async function OrganiserPage({
         `${builder.name} ${builder.bio ?? ''} ${Object.values(builder.links).join(' ')} ${credits.map(({ project }) => `${project.name} ${project.description} ${project.eventName}`).join(' ')}`,
       ) &&
       (!status ||
-        (status === 'claimed'
-          ? builder.claimed
-          : status === 'unclaimed'
-            ? !builder.claimed
-            : status === 'creators-hidden'
-              ? builder.creatorPrivacy.hidden
-              : credits.some((row) => row.visibility === status)))
+        (status === 'pending'
+          ? credits.some((row) => row.editStatus === 'pending')
+          : status === 'claimed'
+            ? builder.claimed
+            : status === 'unclaimed'
+              ? !builder.claimed
+              : status === 'creators-hidden'
+                ? builder.creatorPrivacy.hidden
+                : credits.some((row) => row.visibility === status)))
     )
   })
   const count = builders ? builderRows.length : projectRows.length
@@ -125,9 +156,10 @@ export default async function OrganiserPage({
           </p>
         </div>
         <Link href={`/${locale}/account/review`} className={accountSecondary}>
-          {copy.review}
+          {copy.review} ({pendingItems.length})
         </Link>
       </header>
+      <PendingReviews locale={locale} items={pendingItems} />
       <nav
         aria-label={accountWorkspaceCopy(locale).organiser}
         className="mb-6 flex flex-wrap gap-2"
@@ -185,6 +217,7 @@ export default async function OrganiserPage({
           {copy.status}
           <select name="status" defaultValue={status} className={accountField}>
             <option value="">{copy.all}</option>
+            <option value="pending">{copy.pendingEdits}</option>
             <option value="creators-hidden">
               {builders ? copy.builderHidden : copy.creatorsHidden}
             </option>
@@ -203,7 +236,7 @@ export default async function OrganiserPage({
         {copy.results}: {count}
       </p>
       {count === 0 && <p className="py-10 text-ink-dim">{copy.noResults}</p>}
-      <ul className="divide-y divide-ink/15">
+      <ul aria-label={copy.results} className="divide-y divide-ink/15">
         {builders
           ? builderRows.slice(offset, offset + 25).map((builder) => (
               <li

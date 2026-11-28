@@ -59,7 +59,10 @@ export default async function ReviewPage({
         {organiserCopy(locale).back}
       </Link>
       <h1 className="mb-8 text-3xl font-bold tracking-tight">
-        {accountWorkspaceCopy(locale).organiser}
+        {organiserCopy(locale).review} (
+        {edits.length +
+          claims.filter((claim) => claim.status === 'pending').length}
+        )
       </h1>
       <ProjectEditReview
         edits={edits}

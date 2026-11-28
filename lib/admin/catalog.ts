@@ -36,25 +36,37 @@ export function requireOrganiser(user: IdentityUser) {
 export async function organiserCatalog(user: IdentityUser, locale: string) {
   requireOrganiser(user)
   const sources = getBuiltProjects()
-  const [submitted, visibility, claims, content, approved, privacy] =
-    await Promise.all([
-      listManagedProjects(),
-      getDb().select().from(projectVisibility),
-      getDb()
-        .select({ projectKey: projectClaims.projectKey })
-        .from(projectClaims)
-        .where(eq(projectClaims.status, 'verified')),
-      getDb()
-        .select({
-          key: projectContent.projectKey,
-          status: projectContent.status,
-        })
-        .from(projectContent),
-      approvedProjectContent(
-        sources.map((project) => `archive:${project.slug}`),
-      ),
-      getDb().select().from(creatorPrivacy),
-    ])
+  const [
+    submitted,
+    visibility,
+    claims,
+    content,
+    approved,
+    privacy,
+    pendingClaims,
+  ] = await Promise.all([
+    listManagedProjects(),
+    getDb().select().from(projectVisibility),
+    getDb()
+      .select({ projectKey: projectClaims.projectKey })
+      .from(projectClaims)
+      .where(eq(projectClaims.status, 'verified')),
+    getDb()
+      .select({
+        key: projectContent.projectKey,
+        status: projectContent.status,
+      })
+      .from(projectContent),
+    approvedProjectContent(sources.map((project) => `archive:${project.slug}`)),
+    getDb().select().from(creatorPrivacy),
+    getDb()
+      .select({
+        id: projectClaims.id,
+        projectKey: projectClaims.projectKey,
+      })
+      .from(projectClaims)
+      .where(eq(projectClaims.status, 'pending')),
+  ])
   const settings = new Map(visibility.map((row) => [row.projectKey, row]))
   const edits = new Map(content.map((row) => [row.key, row.status]))
   const privacyStates = new Map(privacy.map((row) => [row.subjectKey, row]))
@@ -126,6 +138,7 @@ export async function organiserCatalog(user: IdentityUser, locale: string) {
     await claimedBuilderDisplays(cards.map((project) => project.key)),
   )
   return {
+    pendingClaims,
     projects: projects.map((row) => ({
       ...row,
       hasHiddenCreators:
